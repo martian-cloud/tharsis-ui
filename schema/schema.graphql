@@ -1,0 +1,1359 @@
+type _Service {
+  sdl: String!
+}
+
+input AddUserToTeamInput {
+  clientMutationId: String
+  username: String!
+  teamName: String!
+  isMaintainer: Boolean!
+}
+
+type AddUserToTeamPayload {
+  clientMutationId: String
+  teamMember: TeamMember
+  problems: [Problem!]!
+}
+
+type Apply implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  status: ApplyStatus!
+  currentJob: Job
+  triggeredBy: String
+  comment: String!
+}
+
+input ApplyRunInput {
+  clientMutationId: String
+  runId: String!
+  comment: String
+}
+
+enum ApplyStatus {
+  canceled
+  created
+  errored
+  finished
+  pending
+  queued
+  running
+}
+
+input AssignManagedIdentityInput {
+  clientMutationId: String
+  managedIdentityId: String
+  managedIdentityPath: String
+  workspacePath: String!
+}
+
+type AssignManagedIdentityPayload {
+  clientMutationId: String
+  workspace: Workspace
+  problems: [Problem!]!
+}
+
+input CancelRunInput {
+  clientMutationId: String
+  runId: String!
+  comment: String
+  force: Boolean
+}
+
+type ConfigurationVersion implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  status: String!
+  speculative: Boolean!
+  workspaceId: String!
+  createdBy: String!
+}
+
+type ConfigurationVersionMutationPayload {
+  clientMutationId: String
+  configurationVersion: ConfigurationVersion
+  problems: [Problem!]!
+}
+
+input CreateConfigurationVersionInput {
+  clientMutationId: String
+  workspacePath: String!
+  speculative: Boolean
+}
+
+input CreateGPGKeyInput {
+  clientMutationId: String
+  asciiArmor: String!
+  groupPath: String!
+}
+
+type CreateGPGKeyPayload {
+  clientMutationId: String
+  gpgKey: GPGKey
+  problems: [Problem!]!
+}
+
+input CreateGroupInput {
+  clientMutationId: String
+  name: String!
+  parentPath: String
+  description: String!
+}
+
+type CreateGroupPayload {
+  clientMutationId: String
+  group: Group
+  problems: [Problem!]!
+}
+
+input CreateManagedIdentityAccessRuleInput {
+  clientMutationId: String
+  managedIdentityId: String!
+  runStage: JobType!
+  allowedServiceAccounts: [String!]!
+  allowedUsers: [String!]!
+  allowedTeams: [String!]!
+}
+
+input CreateManagedIdentityCredentialsInput {
+  clientMutationId: String
+  id: ID!
+}
+
+type CreateManagedIdentityCredentialsPayload {
+  clientMutationId: String
+  managedIdentityCredentials: ManagedIdentityCredentials
+  problems: [Problem!]!
+}
+
+input CreateManagedIdentityInput {
+  clientMutationId: String
+  type: String!
+  name: String!
+  description: String!
+  groupPath: String!
+  data: String!
+  accessRules: [ManagedIdentityAccessRuleInput!]
+}
+
+type CreateManagedIdentityPayload {
+  clientMutationId: String
+  managedIdentity: ManagedIdentity
+  problems: [Problem!]!
+}
+
+input CreateNamespaceMembershipInput {
+  clientMutationId: String
+  namespacePath: String!
+  username: String
+  serviceAccountId: String
+  teamName: String
+  role: String!
+}
+
+input CreateNamespaceVariableInput {
+  clientMutationId: String
+  namespacePath: String!
+  category: VariableCategory!
+  hcl: Boolean!
+  key: String!
+  value: String!
+}
+
+input CreateRunInput {
+  clientMutationId: String
+  workspacePath: String!
+  configurationVersionId: String
+  isDestroy: Boolean
+  moduleSource: String
+  moduleVersion: String
+  comment: String
+  terraformVersion: String
+  variables: [RunVariableInput!]
+}
+
+input CreateServiceAccountInput {
+  clientMutationId: String
+  name: String!
+  description: String!
+  groupPath: String!
+  oidcTrustPolicies: [OIDCTrustPolicyInput!]!
+}
+
+type CreateServiceAccountPayload {
+  clientMutationId: String
+  serviceAccount: ServiceAccount
+  problems: [Problem!]!
+}
+
+input CreateStateVersionInput {
+  clientMutationId: String
+  metadata: ResourceMetadataInput
+  state: String!
+  runId: String!
+}
+
+type CreateStateVersionPayload {
+  clientMutationId: String
+  stateVersion: StateVersion
+  problems: [Problem!]!
+}
+
+input CreateTeamInput {
+  clientMutationId: String
+  name: String!
+  description: String!
+}
+
+type CreateTeamPayload {
+  clientMutationId: String
+  team: Team
+  problems: [Problem!]!
+}
+
+input CreateTerraformCLIDownloadURLInput {
+  version: String!
+  os: String!
+  architecture: String!
+}
+
+input CreateTerraformProviderInput {
+  clientMutationId: String
+  groupPath: String!
+  name: String!
+  private: Boolean
+  repositoryUrl: String
+}
+
+type CreateTerraformProviderPayload {
+  clientMutationId: String
+  provider: TerraformProvider
+  problems: [Problem!]!
+}
+
+input CreateTerraformProviderPlatformInput {
+  clientMutationId: String
+  providerVersionId: String!
+  os: String!
+  arch: String!
+  shaSum: String!
+  filename: String!
+}
+
+type CreateTerraformProviderPlatformPayload {
+  clientMutationId: String
+  providerPlatform: TerraformProviderPlatform
+  problems: [Problem!]!
+}
+
+input CreateTerraformProviderVersionInput {
+  clientMutationId: String
+  providerPath: String!
+  version: String!
+  protocols: [String!]!
+}
+
+type CreateTerraformProviderVersionPayload {
+  clientMutationId: String
+  providerVersion: TerraformProviderVersion
+  problems: [Problem!]!
+}
+
+input CreateWorkspaceInput {
+  clientMutationId: String
+  name: String!
+  description: String!
+  groupPath: String!
+  maxJobDuration: Int
+  terraformVersion: String
+}
+
+type CreateWorkspacePayload {
+  clientMutationId: String
+  workspace: Workspace
+  problems: [Problem!]!
+}
+
+input DeleteGPGKeyInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+}
+
+type DeleteGPGKeyPayload {
+  clientMutationId: String
+  gpgKey: GPGKey
+  problems: [Problem!]!
+}
+
+input DeleteGroupInput {
+  clientMutationId: String
+  groupPath: String!
+  force: Boolean
+  metadata: ResourceMetadataInput
+}
+
+type DeleteGroupPayload {
+  clientMutationId: String
+  group: Group
+  problems: [Problem!]!
+}
+
+input DeleteManagedIdentityAccessRuleInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteManagedIdentityInput {
+  clientMutationId: String
+  id: ID!
+  force: Boolean
+  metadata: ResourceMetadataInput
+}
+
+type DeleteManagedIdentityPayload {
+  clientMutationId: String
+  managedIdentity: ManagedIdentity
+  problems: [Problem!]!
+}
+
+input DeleteNamespaceMembershipInput {
+  clientMutationId: String
+  id: String!
+  metadata: ResourceMetadataInput
+}
+
+input DeleteNamespaceVariableInput {
+  clientMutationId: String
+  id: String!
+}
+
+input DeleteServiceAccountInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+}
+
+type DeleteServiceAccountPayload {
+  clientMutationId: String
+  serviceAccount: ServiceAccount
+  problems: [Problem!]!
+}
+
+input DeleteTeamInput {
+  clientMutationId: String
+  name: String!
+  metadata: ResourceMetadataInput
+}
+
+type DeleteTeamPayload {
+  clientMutationId: String
+  team: Team
+  problems: [Problem!]!
+}
+
+input DeleteTerraformProviderInput {
+  clientMutationId: String
+  id: String!
+}
+
+type DeleteTerraformProviderPayload {
+  clientMutationId: String
+  provider: TerraformProvider
+  problems: [Problem!]!
+}
+
+input DeleteTerraformProviderPlatformInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+}
+
+type DeleteTerraformProviderPlatformPayload {
+  clientMutationId: String
+  providerPlatform: TerraformProviderPlatform
+  problems: [Problem!]!
+}
+
+input DeleteTerraformProviderVersionInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+}
+
+type DeleteTerraformProviderVersionPayload {
+  clientMutationId: String
+  providerVersion: TerraformProviderVersion
+  problems: [Problem!]!
+}
+
+input DeleteWorkspaceInput {
+  clientMutationId: String
+  workspacePath: String!
+  force: Boolean
+  metadata: ResourceMetadataInput
+}
+
+type DeleteWorkspacePayload {
+  clientMutationId: String
+  workspace: Workspace
+  problems: [Problem!]!
+}
+
+type GPGKey implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  gpgKeyId: String!
+  fingerprint: String!
+  asciiArmor: String!
+  group: Group!
+  createdBy: String!
+}
+
+type GPGKeyConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [GPGKeyEdge]
+}
+
+type GPGKeyEdge {
+  cursor: String!
+  node: GPGKey
+}
+
+enum GPGKeySort {
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+type Group implements Node & Namespace {
+  id: ID!
+  metadata: ResourceMetadata!
+  name: String!
+  description: String!
+  fullPath: String!
+  createdBy: String!
+  parent: Group
+  gpgKeys(after: String, before: String, first: Int, last: Int, includeInherited: Boolean): GPGKeyConnection!
+  descendentGroups(after: String, before: String, first: Int, last: Int, sort: GroupSort): GroupConnection!
+  workspaces(after: String, before: String, first: Int, last: Int, sort: WorkspaceSort): WorkspaceConnection!
+  serviceAccounts(after: String, before: String, first: Int, last: Int, includeInherited: Boolean, search: String): ServiceAccountConnection!
+  managedIdentities(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort, includeInherited: Boolean, search: String): ManagedIdentityConnection!
+  terraformProviders(after: String, before: String, first: Int, last: Int, search: String): TerraformProviderConnection!
+  memberships: [NamespaceMembership!]!
+  variables: [NamespaceVariable!]!
+}
+
+type GroupConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [GroupEdge]
+}
+
+type GroupEdge {
+  cursor: String!
+  node: Group
+}
+
+enum GroupSort {
+  FULL_PATH_ASC
+  FULL_PATH_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+type Job implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  status: String!
+  type: JobType!
+  run: Run!
+  workspace: Workspace!
+  timestamps: JobTimestamps!
+  cancelRequested: Boolean!
+  logLastUpdatedAt: Time
+  maxJobDuration: Int!
+  logSize: Int!
+  logs(startOffset: Int!, limit: Int!): String!
+}
+
+type JobCancellationEvent {
+  job: Job!
+}
+
+input JobCancellationEventSubscriptionInput {
+  jobId: String!
+}
+
+type JobLogEvent {
+  action: String!
+  size: Int!
+}
+
+input JobLogSubscriptionInput {
+  jobId: String!
+  lastSeenLogSize: Int
+}
+
+type JobTimestamps {
+  queuedAt: Time
+  pendingAt: Time
+  runningAt: Time
+  finishedAt: Time
+}
+
+enum JobType {
+  plan
+  apply
+}
+
+type JWTClaim {
+  name: String!
+  value: String!
+}
+
+input JWTClaimInput {
+  name: String!
+  value: String!
+}
+
+type ManagedIdentity implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  type: String!
+  resourcePath: String!
+  name: String!
+  description: String!
+  group: Group!
+  data: String!
+  createdBy: String!
+  accessRules: [ManagedIdentityAccessRule!]!
+}
+
+type ManagedIdentityAccessRule implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  runStage: JobType!
+  allowedUsers: [User!]!
+  allowedServiceAccounts: [ServiceAccount!]!
+  allowedTeams: [Team!]!
+}
+
+input ManagedIdentityAccessRuleInput {
+  runStage: JobType!
+  allowedServiceAccounts: [String!]!
+  allowedUsers: [String!]!
+  allowedTeams: [String!]!
+}
+
+type ManagedIdentityAccessRuleMutationPayload {
+  clientMutationId: String
+  accessRule: ManagedIdentityAccessRule
+  problems: [Problem!]!
+}
+
+type ManagedIdentityConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [ManagedIdentityEdge]
+}
+
+type ManagedIdentityCredentials {
+  data: String!
+}
+
+type ManagedIdentityEdge {
+  cursor: String!
+  node: ManagedIdentity
+}
+
+enum ManagedIdentitySort {
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+union Member = User | ServiceAccount | Team
+
+union MeResponse = User | ServiceAccount
+
+"""The Mutation type represents all of the entry points into the API."""
+type Mutation {
+  createWorkspace(input: CreateWorkspaceInput!): CreateWorkspacePayload!
+  updateWorkspace(input: UpdateWorkspaceInput!): UpdateWorkspacePayload!
+  deleteWorkspace(input: DeleteWorkspaceInput!): DeleteWorkspacePayload!
+  createGroup(input: CreateGroupInput!): CreateGroupPayload!
+  updateGroup(input: UpdateGroupInput!): UpdateGroupPayload!
+  deleteGroup(input: DeleteGroupInput!): DeleteGroupPayload!
+  createManagedIdentity(input: CreateManagedIdentityInput!): CreateManagedIdentityPayload!
+  updateManagedIdentity(input: UpdateManagedIdentityInput!): UpdateManagedIdentityPayload!
+  deleteManagedIdentity(input: DeleteManagedIdentityInput!): DeleteManagedIdentityPayload!
+  assignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
+  unassignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
+  createManagedIdentityAccessRule(input: CreateManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
+  updateManagedIdentityAccessRule(input: UpdateManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
+  deleteManagedIdentityAccessRule(input: DeleteManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
+  createManagedIdentityCredentials(input: CreateManagedIdentityCredentialsInput!): CreateManagedIdentityCredentialsPayload!
+  createServiceAccount(input: CreateServiceAccountInput!): CreateServiceAccountPayload!
+  updateServiceAccount(input: UpdateServiceAccountInput!): UpdateServiceAccountPayload!
+  deleteServiceAccount(input: DeleteServiceAccountInput!): DeleteServiceAccountPayload!
+  createNamespaceMembership(input: CreateNamespaceMembershipInput!): NamespaceMembershipMutationPayload!
+  updateNamespaceMembership(input: UpdateNamespaceMembershipInput!): NamespaceMembershipMutationPayload!
+  deleteNamespaceMembership(input: DeleteNamespaceMembershipInput!): NamespaceMembershipMutationPayload!
+  createRun(input: CreateRunInput!): RunMutationPayload!
+  applyRun(input: ApplyRunInput!): RunMutationPayload!
+  cancelRun(input: CancelRunInput!): RunMutationPayload!
+  updatePlan(input: UpdatePlanInput!): UpdatePlanPayload!
+  updateApply(input: UpdateApplyInput!): UpdateApplyPayload!
+  createConfigurationVersion(input: CreateConfigurationVersionInput!): ConfigurationVersionMutationPayload!
+  createStateVersion(input: CreateStateVersionInput!): CreateStateVersionPayload!
+  createNamespaceVariable(input: CreateNamespaceVariableInput!): NamespaceVariableMutationPayload!
+  updateNamespaceVariable(input: UpdateNamespaceVariableInput!): NamespaceVariableMutationPayload!
+  deleteNamespaceVariable(input: DeleteNamespaceVariableInput!): NamespaceVariableMutationPayload!
+  setNamespaceVariables(input: SetNamespaceVariablesInput!): NamespaceVariableMutationPayload!
+  saveJobLogs(input: SaveJobLogsInput!): SaveJobLogsPayload!
+  createTeam(input: CreateTeamInput): CreateTeamPayload!
+  updateTeam(input: UpdateTeamInput): UpdateTeamPayload!
+  deleteTeam(input: DeleteTeamInput): DeleteTeamPayload!
+  addUserToTeam(input: AddUserToTeamInput): AddUserToTeamPayload!
+  updateTeamMember(input: UpdateTeamMemberInput): UpdateTeamMemberPayload!
+  removeUserFromTeam(input: RemoveUserFromTeamInput): RemoveUserFromTeamPayload!
+  createTerraformProvider(input: CreateTerraformProviderInput): CreateTerraformProviderPayload!
+  updateTerraformProvider(input: UpdateTerraformProviderInput): UpdateTerraformProviderPayload!
+  deleteTerraformProvider(input: DeleteTerraformProviderInput): DeleteTerraformProviderPayload!
+  createTerraformProviderVersion(input: CreateTerraformProviderVersionInput): CreateTerraformProviderVersionPayload!
+  deleteTerraformProviderVersion(input: DeleteTerraformProviderVersionInput): DeleteTerraformProviderVersionPayload!
+  createTerraformProviderPlatform(input: CreateTerraformProviderPlatformInput): CreateTerraformProviderPlatformPayload!
+  deleteTerraformProviderPlatform(input: DeleteTerraformProviderPlatformInput): DeleteTerraformProviderPlatformPayload!
+  createGPGKey(input: CreateGPGKeyInput!): CreateGPGKeyPayload!
+  deleteGPGKey(input: DeleteGPGKeyInput!): DeleteGPGKeyPayload!
+  createTerraformCLIDownloadURL(input: CreateTerraformCLIDownloadURLInput!): TerraformCLIMutationPayload!
+}
+
+interface Namespace {
+  id: ID!
+  metadata: ResourceMetadata!
+  name: String!
+  description: String!
+  fullPath: String!
+  memberships: [NamespaceMembership!]!
+  variables: [NamespaceVariable!]!
+  serviceAccounts(after: String, before: String, first: Int, last: Int, includeInherited: Boolean, search: String): ServiceAccountConnection!
+  managedIdentities(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort, includeInherited: Boolean, search: String): ManagedIdentityConnection!
+}
+
+type NamespaceMembership implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  resourcePath: String!
+  member: Member
+  namespace: Namespace
+  role: String!
+}
+
+type NamespaceMembershipConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [NamespaceMembershipEdge]
+}
+
+type NamespaceMembershipEdge {
+  cursor: String!
+  node: NamespaceMembership
+}
+
+type NamespaceMembershipMutationPayload {
+  clientMutationId: String
+  namespace: Namespace
+  problems: [Problem!]!
+}
+
+enum NamespaceMembershipSort {
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+type NamespaceVariable implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  namespacePath: String!
+  category: VariableCategory!
+  hcl: Boolean!
+  key: String!
+  value: String
+}
+
+input NamespaceVariableInput {
+  hcl: Boolean!
+  key: String!
+  value: String!
+}
+
+type NamespaceVariableMutationPayload {
+  clientMutationId: String
+  namespace: Namespace
+  problems: [Problem!]!
+}
+
+interface Node {
+  id: ID!
+}
+
+type OIDCTrustPolicy {
+  issuer: String!
+  boundClaims: [JWTClaim!]!
+}
+
+input OIDCTrustPolicyInput {
+  issuer: String!
+  boundClaims: [JWTClaimInput!]!
+}
+
+type PageInfo {
+  endCursor: String
+  startCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type Plan implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  status: PlanStatus!
+  hasChanges: Boolean!
+  resourceAdditions: Int!
+  resourceChanges: Int!
+  resourceDestructions: Int!
+  currentJob: Job
+}
+
+enum PlanStatus {
+  canceled
+  queued
+  errored
+  finished
+  pending
+  running
+}
+
+type Problem {
+  message: String!
+  field: [String!]
+  type: ProblemType!
+}
+
+enum ProblemType {
+  CONFLICT
+  BAD_REQUEST
+  NOT_FOUND
+  FORBIDDEN
+}
+
+"""The Query type represents all of the entry points into the API."""
+type Query {
+  me: MeResponse
+  node(id: String!): Node
+  namespace(fullPath: String!): Namespace
+  group(fullPath: String!): Group
+  groups(after: String, before: String, first: Int, last: Int, parentPath: String, sort: GroupSort): GroupConnection!
+  workspace(fullPath: String!): Workspace
+  workspaces(after: String, before: String, first: Int, last: Int, groupPath: String, search: String, sort: WorkspaceSort): WorkspaceConnection!
+  terraformProviders(after: String, before: String, first: Int, last: Int, search: String, sort: TerraformProviderSort): TerraformProviderConnection!
+  terraformProvider(registryNamespace: String!, providerName: String!): TerraformProvider
+  terraformProviderVersion(registryNamespace: String!, providerName: String!, version: String): TerraformProviderVersion
+  run(id: String!): Run
+  runs(after: String, before: String, first: Int, last: Int, workspacePath: String, workspaceId: String, sort: RunSort): RunConnection!
+  job(id: String!): Job
+  managedIdentity(id: String!): ManagedIdentity
+  serviceAccount(id: String!): ServiceAccount
+  users(after: String, before: String, first: Int, last: Int, search: String, sort: UserSort): UserConnection!
+  configurationVersion(id: String!): ConfigurationVersion
+  team(name: String!): Team
+  teams(after: String, before: String, first: Int, last: Int, search: String): TeamConnection!
+  terraformCLIVersions: TerraformCLIVersions
+}
+
+input RemoveUserFromTeamInput {
+  clientMutationId: String
+  username: String!
+  teamName: String!
+  metadata: ResourceMetadataInput
+}
+
+type RemoveUserFromTeamPayload {
+  clientMutationId: String
+  teamMember: TeamMember
+  problems: [Problem!]!
+}
+
+type ResourceMetadata {
+  version: String!
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+input ResourceMetadataInput {
+  version: String!
+}
+
+type Run implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  createdBy: String!
+  status: RunStatus!
+  isDestroy: Boolean!
+  workspace: Workspace!
+  configurationVersion: ConfigurationVersion
+  plan: Plan!
+  apply: Apply
+  variables: [RunVariable!]!
+  moduleSource: String
+  moduleVersion: String
+  forceCanceledBy: String
+  forceCanceled: Boolean!
+  forceCancelAvailableAt: Time
+  comment: String!
+  terraformVersion: String!
+}
+
+type RunConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [RunEdge]
+}
+
+type RunEdge {
+  cursor: String!
+  node: Run
+}
+
+type RunEvent {
+  action: String!
+  run: Run!
+}
+
+type RunMutationPayload {
+  clientMutationId: String
+  run: Run
+  problems: [Problem!]!
+}
+
+enum RunSort {
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+enum RunStatus {
+  applied
+  apply_queued
+  applying
+  canceled
+  errored
+  pending
+  plan_queued
+  planned
+  planned_and_finished
+  planning
+}
+
+input RunSubscriptionInput {
+  workspacePath: String!
+  runId: String
+}
+
+type RunVariable {
+  namespacePath: String
+  category: VariableCategory!
+  hcl: Boolean!
+  key: String!
+  value: String
+}
+
+input RunVariableInput {
+  category: VariableCategory!
+  hcl: Boolean!
+  key: String!
+  value: String!
+}
+
+input SaveJobLogsInput {
+  clientMutationId: String
+  logs: String!
+  jobId: String!
+  startOffset: Int!
+}
+
+type SaveJobLogsPayload {
+  clientMutationId: String
+  problems: [Problem!]!
+}
+
+type ServiceAccount implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  resourcePath: String!
+  name: String!
+  description: String!
+  group: Group!
+  createdBy: String!
+  oidcTrustPolicies: [OIDCTrustPolicy!]!
+  namespaceMemberships(after: String, before: String, first: Int, last: Int): NamespaceMembershipConnection!
+}
+
+type ServiceAccountConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [ServiceAccountEdge]
+}
+
+type ServiceAccountEdge {
+  cursor: String!
+  node: ServiceAccount
+}
+
+enum ServiceAccountSort {
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+input SetNamespaceVariablesInput {
+  clientMutationId: String
+  namespacePath: String!
+  category: VariableCategory!
+  variables: [NamespaceVariableInput!]!
+}
+
+type StateVersion implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  run: Run
+  outputs: [StateVersionOutput!]!
+  resources: [StateVersionResource!]!
+  dependencies: [StateVersionDependency!]!
+  data: String!
+  createdBy: String!
+}
+
+type StateVersionConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [StateVersionEdge]
+}
+
+type StateVersionDependency {
+  workspacePath: String!
+  workspace: Workspace
+  stateVersion: StateVersion
+}
+
+type StateVersionEdge {
+  cursor: String!
+  node: StateVersion
+}
+
+type StateVersionOutput implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  name: String!
+  value: String!
+  type: String!
+  sensitive: Boolean!
+}
+
+type StateVersionResource {
+  module: String!
+  mode: String!
+  type: String!
+  name: String!
+  provider: String!
+}
+
+enum StateVersionSort {
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+type Subscription {
+  workspaceRunEvents(input: RunSubscriptionInput!): RunEvent!
+  workspaceEvents(input: WorkspaceSubscriptionInput!): WorkspaceEvent!
+  jobLogEvents(input: JobLogSubscriptionInput!): JobLogEvent!
+  jobCancellationEvent(input: JobCancellationEventSubscriptionInput!): JobCancellationEvent!
+}
+
+type Team {
+  id: ID!
+  metadata: ResourceMetadata!
+  name: String!
+  description: String!
+  members(after: String, before: String, first: Int, last: Int, sort: TeamMemberSort): TeamMemberConnection!
+}
+
+type TeamConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [TeamEdge]
+}
+
+type TeamEdge {
+  cursor: String!
+  node: Team
+}
+
+"""TeamMember and friends:"""
+type TeamMember {
+  id: ID!
+  metadata: ResourceMetadata!
+  user: User!
+  team: Team!
+  isMaintainer: Boolean!
+}
+
+type TeamMemberConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [TeamMemberEdge]
+}
+
+type TeamMemberEdge {
+  cursor: String!
+  node: TeamMember
+}
+
+enum TeamMemberSort {
+  USERNAME_ASC
+  USERNAME_DESC
+}
+
+"""Team and friends:"""
+enum TeamSort {
+  NAME_ASC
+  NAME_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+type TerraformCLIMutationPayload {
+  downloadUrl: String!
+  problems: [Problem!]!
+}
+
+type TerraformCLIVersions {
+  versions: [String!]!
+}
+
+type TerraformProvider implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  createdBy: String!
+  name: String!
+  group: Group!
+  private: Boolean!
+  repositoryUrl: String!
+  registryNamespace: String!
+  resourcePath: String!
+  latestVersion: TerraformProviderVersion
+  versions(after: String, before: String, first: Int, last: Int, sort: TerraformProviderVersionSort): TerraformProviderVersionConnection!
+}
+
+type TerraformProviderConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [TerraformProviderEdge]
+}
+
+type TerraformProviderEdge {
+  cursor: String!
+  node: TerraformProvider
+}
+
+type TerraformProviderPlatform implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  providerVersion: TerraformProviderVersion!
+  os: String!
+  arch: String!
+  shaSum: String!
+  filename: String!
+  binaryUploaded: Boolean!
+}
+
+"""The End."""
+enum TerraformProviderSort {
+  NAME_ASC
+  NAME_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+type TerraformProviderVersion implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  provider: TerraformProvider!
+  version: String!
+  gpgKeyId: String
+  gpgAsciiArmor: String
+  protocols: [String!]!
+  shaSumsUploaded: Boolean!
+  shaSumsSigUploaded: Boolean!
+  readmeUploaded: Boolean!
+  readme: String!
+  platforms: [TerraformProviderPlatform!]!
+  latest: Boolean!
+  createdBy: String!
+}
+
+type TerraformProviderVersionConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [TerraformProviderVersionEdge]
+}
+
+type TerraformProviderVersionEdge {
+  cursor: String!
+  node: TerraformProviderVersion
+}
+
+enum TerraformProviderVersionSort {
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  VERSION_ASC
+  VERSION_DESC
+}
+
+"""Time represented in ISO 8601"""
+scalar Time
+
+input UpdateApplyInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+  status: ApplyStatus!
+}
+
+type UpdateApplyPayload {
+  clientMutationId: String
+  apply: Apply
+  problems: [Problem!]!
+}
+
+input UpdateGroupInput {
+  clientMutationId: String
+  groupPath: String!
+  description: String!
+  metadata: ResourceMetadataInput
+}
+
+type UpdateGroupPayload {
+  clientMutationId: String
+  group: Group
+  problems: [Problem!]!
+}
+
+input UpdateManagedIdentityAccessRuleInput {
+  clientMutationId: String
+  id: ID!
+  runStage: JobType!
+  allowedServiceAccounts: [String!]!
+  allowedUsers: [String!]!
+  allowedTeams: [String!]!
+}
+
+input UpdateManagedIdentityInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+  description: String!
+  data: String!
+}
+
+type UpdateManagedIdentityPayload {
+  clientMutationId: String
+  managedIdentity: ManagedIdentity
+  problems: [Problem!]!
+}
+
+input UpdateNamespaceMembershipInput {
+  clientMutationId: String
+  id: String!
+  role: String!
+  metadata: ResourceMetadataInput
+}
+
+input UpdateNamespaceVariableInput {
+  clientMutationId: String
+  id: String!
+  hcl: Boolean!
+  key: String!
+  value: String!
+}
+
+input UpdatePlanInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+  status: PlanStatus!
+  hasChanges: Boolean!
+  resourceAdditions: Int!
+  resourceChanges: Int!
+  resourceDestructions: Int!
+}
+
+type UpdatePlanPayload {
+  clientMutationId: String
+  plan: Plan
+  problems: [Problem!]!
+}
+
+input UpdateServiceAccountInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+  description: String!
+  oidcTrustPolicies: [OIDCTrustPolicyInput!]!
+}
+
+type UpdateServiceAccountPayload {
+  clientMutationId: String
+  serviceAccount: ServiceAccount
+  problems: [Problem!]!
+}
+
+input UpdateTeamInput {
+  clientMutationId: String
+  name: String!
+  description: String!
+  metadata: ResourceMetadataInput
+}
+
+input UpdateTeamMemberInput {
+  clientMutationId: String
+  username: String!
+  teamName: String!
+  isMaintainer: Boolean!
+  metadata: ResourceMetadataInput
+}
+
+type UpdateTeamMemberPayload {
+  clientMutationId: String
+  teamMember: TeamMember
+  problems: [Problem!]!
+}
+
+type UpdateTeamPayload {
+  clientMutationId: String
+  team: Team
+  problems: [Problem!]!
+}
+
+input UpdateTerraformProviderInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+  name: String
+  private: Boolean
+  repositoryUrl: String
+}
+
+type UpdateTerraformProviderPayload {
+  clientMutationId: String
+  provider: TerraformProvider
+  problems: [Problem!]!
+}
+
+input UpdateWorkspaceInput {
+  clientMutationId: String
+  workspacePath: String!
+  metadata: ResourceMetadataInput
+  description: String!
+  maxJobDuration: Int
+  terraformVersion: String
+}
+
+type UpdateWorkspacePayload {
+  clientMutationId: String
+  workspace: Workspace
+  problems: [Problem!]!
+}
+
+type User implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  username: String!
+  email: String!
+  namespaceMemberships(after: String, before: String, first: Int, last: Int): NamespaceMembershipConnection!
+  admin: Boolean!
+}
+
+type UserConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [UserEdge]
+}
+
+type UserEdge {
+  cursor: String!
+  node: User
+}
+
+enum UserSort {
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+enum VariableCategory {
+  terraform
+  environment
+}
+
+type Workspace implements Node & Namespace {
+  id: ID!
+  metadata: ResourceMetadata!
+  name: String!
+  description: String!
+  fullPath: String!
+  group: Group!
+  dirtyState: Boolean!
+  locked: Boolean!
+  assignedManagedIdentities: [ManagedIdentity!]!
+  managedIdentities(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort, includeInherited: Boolean, search: String): ManagedIdentityConnection!
+  serviceAccounts(after: String, before: String, first: Int, last: Int, includeInherited: Boolean, search: String): ServiceAccountConnection!
+  stateVersions(after: String, before: String, first: Int, last: Int, sort: StateVersionSort): StateVersionConnection!
+  memberships: [NamespaceMembership!]!
+  variables: [NamespaceVariable!]!
+  currentStateVersion: StateVersion
+  currentJob: Job
+  maxJobDuration: Int!
+  createdBy: String!
+  terraformVersion: String!
+}
+
+type WorkspaceConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [WorkspaceEdge]
+}
+
+type WorkspaceEdge {
+  cursor: String!
+  node: Workspace
+}
+
+type WorkspaceEvent {
+  action: String!
+  workspace: Workspace!
+}
+
+enum WorkspaceSort {
+  FULL_PATH_ASC
+  FULL_PATH_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+input WorkspaceSubscriptionInput {
+  workspacePath: String!
+}
+

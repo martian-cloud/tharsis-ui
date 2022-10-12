@@ -1,0 +1,211 @@
+import DeleteIcon from '@mui/icons-material/CloseOutlined';
+import EditIcon from '@mui/icons-material/EditOutlined';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Autocomplete, Avatar, Box, Button, Stack, TextField } from '@mui/material';
+import teal from '@mui/material/colors/teal';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import graphql from 'babel-plugin-relay/macro';
+import moment from 'moment';
+import { useSnackbar } from 'notistack';
+import React, { useState } from 'react';
+import { useFragment, useMutation } from "react-relay/hooks";
+import Gravatar from '../../common/Gravatar';
+import Link from '../../routes/Link';
+import NamespaceMembershipRoleLabels from './NamespaceMembershipRoleLabels';
+import { NamespaceMembershipListItemFragment_membership$key } from './__generated__/NamespaceMembershipListItemFragment_membership.graphql';
+import { NamespaceMembershipListItemUpdateNamespaceMembershipMutation } from './__generated__/NamespaceMembershipListItemUpdateNamespaceMembershipMutation.graphql';
+
+interface Props {
+    fragmentRef: NamespaceMembershipListItemFragment_membership$key
+    namespacePath: string
+    onDelete: (membership: any) => void
+}
+
+function NamespaceMembershipListItem(props: Props) {
+    const { fragmentRef, namespacePath, onDelete } = props;
+    const { enqueueSnackbar } = useSnackbar();
+
+    const data = useFragment<NamespaceMembershipListItemFragment_membership$key>(graphql`
+        fragment NamespaceMembershipListItemFragment_membership on NamespaceMembership {
+            metadata {
+                createdAt
+                updatedAt
+            }
+            id
+            role
+            resourcePath
+            member {
+                __typename
+                ...on User {
+                    id
+                    username
+                    email
+                }
+                ...on Team {
+                    id
+                    name
+                }
+                ...on ServiceAccount {
+                    id
+                    name
+                    resourcePath
+                }
+            }
+        }
+    `, fragmentRef);
+
+    const [commitUpdateNamespaceMembership, updateInFlight] = useMutation<NamespaceMembershipListItemUpdateNamespaceMembershipMutation>(graphql`
+        mutation NamespaceMembershipListItemUpdateNamespaceMembershipMutation($input: UpdateNamespaceMembershipInput!) {
+            updateNamespaceMembership(input: $input) {
+                namespace {
+                    memberships {
+                        ...NamespaceMembershipListItemFragment_membership
+                    }
+                }
+                problems {
+                    message
+                    field
+                    type
+                }
+            }
+        }
+    `);
+
+    const [editMode, setEditMode] = useState(false);
+    const [role, setRole] = useState(data.role);
+
+    const onRoleChange = (event: React.ChangeEvent<unknown>, value: any) => {
+        setRole(value);
+    };
+
+    const onSave = () => {
+        commitUpdateNamespaceMembership({
+            variables: {
+                input: {
+                    id: data.id,
+                    role
+                },
+            },
+            onCompleted: data => {
+                if (data.updateNamespaceMembership.problems.length) {
+                    enqueueSnackbar(data.updateNamespaceMembership.problems.map(problem => problem.message).join('; '), { variant: 'warning' });
+                } else {
+                    setEditMode(false);
+                }
+            },
+            onError: error => {
+                enqueueSnackbar(`Unexpected error occurred: ${error.message}`, { variant: 'error' });
+            }
+        });
+    };
+
+    const type = data.member?.__typename;
+    const membershipNamespacePath = data.resourcePath.split("/").slice(0, -1).join("/");
+
+    return (
+        <TableRow>
+            <TableCell sx={{ fontWeight: 'bold' }}>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                    {type === 'User' && <React.Fragment>
+                        <Gravatar width={24} height={24} sx={{ marginRight: 1 }} email={data.member?.email ?? ''} />
+                        <Box>{data.member?.username}</Box>
+                    </React.Fragment>}
+                    {type === 'Team' && <React.Fragment>
+                        <Avatar variant="rounded" sx={{ width: 24, height: 24, bgcolor: teal[200], fontSize: 14, marginRight: 1 }}>
+                            {(data.member?.name ?? '')[0].toUpperCase()}
+                        </Avatar>
+                        <Box>{data.member?.name}</Box>
+                    </React.Fragment>}
+                    {type === 'ServiceAccount' && <React.Fragment>
+                        <Avatar variant="rounded" sx={{ width: 24, height: 24, bgcolor: teal[200], fontSize: 14, marginRight: 1 }}>
+                            {data.member?.name[0].toUpperCase()}
+                        </Avatar>
+                        <Box>
+                            <Link color="inherit" to={`/groups/${data.member?.resourcePath.split("/").slice(0, -1).join("/")}/-/service_accounts/${data.member?.id}`}>
+                                {data.member?.resourcePath}
+                            </Link>
+                        </Box>
+                    </React.Fragment>}
+                </Stack>
+            </TableCell>
+            <TableCell>
+                {data.member?.__typename}
+            </TableCell>
+            <TableCell>
+                {editMode && <Autocomplete
+                    size={'small'}
+                    sx={{ minWidth: 100 }}
+                    options={['viewer', 'deployer', 'owner']}
+                    value={role}
+                    onChange={onRoleChange}
+                    disableClearable
+                    getOptionLabel={(option: string) => NamespaceMembershipRoleLabels[option]}
+                    renderInput={(params) => <TextField
+                        {...params}
+                        placeholder="Role"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true
+                        }} />}
+                />}
+                {!editMode && <React.Fragment>
+                    {NamespaceMembershipRoleLabels[data.role]}
+                </React.Fragment>}
+            </TableCell>
+            <TableCell>
+                {moment(data.metadata.updatedAt as moment.MomentInput).fromNow()}
+            </TableCell>
+            <TableCell>
+                {membershipNamespacePath === namespacePath ? 'Direct Member' : <Link
+                    to={`/groups/${membershipNamespacePath}/-/members`}
+                    color="inherit"
+                    variant="body1"
+                >
+                    {membershipNamespacePath}
+                </Link>}
+            </TableCell>
+            <TableCell>
+                {editMode && <Stack direction="row" spacing={1}>
+                    <LoadingButton
+                        loading={updateInFlight}
+                        onClick={onSave}
+                        sx={{ minWidth: 40, padding: '2px' }}
+                        size="small"
+                        color="secondary"
+                        variant="outlined">
+                        Save
+                    </LoadingButton>
+                    <Button
+                        onClick={() => setEditMode(false)}
+                        sx={{ minWidth: 40, padding: '2px' }}
+                        size="small"
+                        color="info"
+                        variant="outlined">
+                        Cancel
+                    </Button>
+                </Stack>}
+                {!editMode && namespacePath === membershipNamespacePath && <Stack direction="row" spacing={1}>
+                    <Button
+                        onClick={() => setEditMode(true)}
+                        sx={{ minWidth: 40, padding: '2px' }}
+                        size="small"
+                        color="info"
+                        variant="outlined">
+                        <EditIcon />
+                    </Button>
+                    <Button
+                        onClick={() => onDelete(data)}
+                        sx={{ minWidth: 40, padding: '2px' }}
+                        size="small"
+                        color="info"
+                        variant="outlined">
+                        <DeleteIcon />
+                    </Button>
+                </Stack>}
+            </TableCell>
+        </TableRow>
+    );
+}
+
+export default NamespaceMembershipListItem

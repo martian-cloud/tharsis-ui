@@ -1,0 +1,118 @@
+include:
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
+stages:
+  - pre-build
+  - test
+
+# Only start pipelines on Merge Requests or the default branch
+workflow:
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: always
+    - if: $CI_MERGE_REQUEST_IID
+      when: always
+    - when: never
+
+# Use SHA of .gitlab-ci.yml and package-lock.json for cache key
+.cache-template: &cache-template
+  paths:
+    - node_modules/
+  key:
+    files:
+      - .gitlab-ci.yml
+      - package-lock.json
+    prefix: node_modules
+
+.node:
+  image: node:16-alpine
+  before_script:
+    - npm install --legacy-peer-deps
+  cache:
+    <<: *cache-template
+    policy: pull
+
+default:
+  image: public.ecr.aws/amazonlinux/amazonlinux:latest
+  services: []
+  tags:
+    - oss
+  retry:
+    max: 2
+    when:
+      - unknown_failure
+      - api_failure
+      - stuck_or_timeout_failure
+      - runner_system_failure
+
+populate_npm_cache:
+  extends: .node
+  stage: pre-build
+  script:
+    - echo "successfully installed dependencies"
+  cache:
+    <<: *cache-template
+    policy: push
+  rules:
+    - changes:
+        - .gitlab-ci.yml
+        - package-lock.json
+      when: always
+    - when: never
+
+lint:
+  extends: .node
+  stage: test
+  script:
+    - npm run lint
+
+package:
+  extends: .node
+  stage: test
+  variables:
+    KUBERNETES_MEMORY_REQUEST: 2Gi
+    KUBERNETES_MEMORY_LIMIT: 4Gi
+  script:
+    - npm run build
+
+code_quality:
+  artifacts:
+    paths:
+      - gl-code-quality-report.json
+  tags:
+    - oss
+    - docker
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_success
+    - if: $CI_MERGE_REQUEST_EVENT_TYPE == "merge_train"
+  interruptible: true
+
+secret_detection:
+  interruptible: true
+
+gemnasium-dependency_scanning:
+  script:
+    - /analyzer run
+    - cat gl-dependency-scanning-report.json
+  artifacts:
+    reports:
+      dependency_scanning: gl-dependency-scanning-report.json
+    paths:
+      - gl-dependency-scanning-report.json
+      - gl-sbom-*.cdx.json
+  rules:
+    - exists:
+        - "{Gemfile.lock,*/Gemfile.lock,*/*/Gemfile.lock}"
+        - "{composer.lock,*/composer.lock,*/*/composer.lock}"
+        - "{gems.locked,*/gems.locked,*/*/gems.locked}"
+        - "{go.sum,*/go.sum,*/*/go.sum}"
+        - "{npm-shrinkwrap.json,*/npm-shrinkwrap.json,*/*/npm-shrinkwrap.json}"
+        - "{package-lock.json,*/package-lock.json,*/*/package-lock.json}"
+        - "{yarn.lock,*/yarn.lock,*/*/yarn.lock}"
+        - "{packages.lock.json,*/packages.lock.json,*/*/packages.lock.json}"
+        - "{conan.lock,*/conan.lock,*/*/conan.lock}"
+  interruptible: true
