@@ -15,7 +15,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
 import { GetConnections } from './ManagedIdentityList';
-import ManagedIdentityPolicyDetails from './ManagedIdentityPolicyDetails';
+import ManagedIdentityPolicyRules from './rules/ManagedIdentityPolicyRules';
 import ManagedIdentityTypeChip from './ManagedIdentityTypeChip';
 import { ManagedIdentityDetailsDeleteMutation } from './__generated__/ManagedIdentityDetailsDeleteMutation.graphql';
 import { ManagedIdentityDetailsFragment_group$key } from './__generated__/ManagedIdentityDetailsFragment_group.graphql';
@@ -116,10 +116,28 @@ function ManagedIdentityDetails(props: Props) {
                 description
                 type
                 data
-                ...ManagedIdentityPolicyDetailsFragment_managedIdentity
+                accessRules {
+                    id
+                    runStage
+                    allowedUsers {
+                        id
+                        username
+                        email
+                    }
+                    allowedTeams {
+                        id
+                        name
+                    }
+                    allowedServiceAccounts {
+                        id
+                        name
+                        resourcePath
+                    }
+                }
+                ...ManagedIdentityPolicyRulesFragment_managedIdentity
             }
         }
-    `, { id: managedIdentityId });
+    `, { id: managedIdentityId }, { fetchPolicy: 'store-and-network' });
 
     const [commit, commitInFlight] = useMutation<ManagedIdentityDetailsDeleteMutation>(graphql`
         mutation ManagedIdentityDetailsDeleteMutation($input: DeleteManagedIdentityInput!, $connections: [ID!]!) {
@@ -182,7 +200,6 @@ function ManagedIdentityDetails(props: Props) {
         actionCallback();
     };
 
-
     if (data.managedIdentity && id) {
         const payload = JSON.parse(atob(data.managedIdentity.data));
         return (
@@ -200,7 +217,6 @@ function ManagedIdentityDetails(props: Props) {
                             <Typography variant="h5" sx={{ marginRight: 1 }}>{data.managedIdentity.name}</Typography>
                             <ManagedIdentityTypeChip type={data.managedIdentity.type} />
                         </Box>
-
                         <Typography color="textSecondary">{data.managedIdentity.description}</Typography>
                     </Box>
                     <Box>
@@ -236,7 +252,7 @@ function ManagedIdentityDetails(props: Props) {
                         </Menu>
                     </Box>
                 </Box>
-                <Box sx={{ border: 1, borderTopLeftRadius: 4, borderTopRightRadius: 4, borderColor: 'divider' }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between", border: 1, borderTopLeftRadius: 4, borderTopRightRadius: 4, borderColor: 'divider' }}>
                     <Tabs value={tab} onChange={onTabChange}>
                         <Tab label="Details" value="details" />
                         <Tab label="Rules" value="rules" />
@@ -267,8 +283,11 @@ function ManagedIdentityDetails(props: Props) {
                         </Box>}
                     </Box>}
                     {tab === 'rules' && <Box>
-                        <Typography sx={{ marginBottom: 2 }}>Policy rules determine which principals are allowed to use this managed identity</Typography>
-                        <ManagedIdentityPolicyDetails fragmentRef={data.managedIdentity} />
+
+                        <ManagedIdentityPolicyRules
+                            fragmentRef={data.managedIdentity}
+                            groupPath={group.fullPath}
+                        />
                     </Box>}
                 </Box>
                 <DeleteConfirmationDialog

@@ -25,7 +25,8 @@ function NewManagedIdentity(props: Props) {
         type: '',
         name: '',
         description: '',
-        payload: {}
+        payload: {},
+        rules: []
     });
 
     const group = useFragment<NewManagedIdentityFragment_group$key>(
@@ -62,6 +63,12 @@ function NewManagedIdentity(props: Props) {
                     name: formData.name,
                     description: formData.description,
                     data: btoa(JSON.stringify(formData.payload)),
+                    accessRules: formData.rules.map(rule => ({
+                        runStage: rule.runStage,
+                        allowedServiceAccounts: rule.allowedServiceAccounts.map((sa: any) => (sa.resourcePath)) || [],
+                        allowedUsers: rule.allowedUsers.map((user: any) => (user.username)) || [],
+                        allowedTeams: rule.allowedTeams.map((team: any) => (team.name)) || []
+                    })),
                     groupPath: group.fullPath
                 },
                 connections: GetConnections(group.id)
@@ -101,11 +108,12 @@ function NewManagedIdentity(props: Props) {
             />
             <Typography variant="h5">New Managed Identity</Typography>
             <ManagedIdentityForm
+                groupPath={group.fullPath}
                 data={formData}
                 onChange={(data: FormData) => setFormData(data)}
                 error={error}
             />
-            <Divider light />
+            <Divider light sx={{ marginTop: 4 }} />
             <Box marginTop={2}>
                 <LoadingButton
                     loading={isInFlight}

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7747376055f414d65bc8c718775473f3>>
+ * @generated SignedSource<<ecedef9ecbd631283a4b34a3c4a25005>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type JobType = "apply" | "plan" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type ManagedIdentityPolicyDetailsFragment_managedIdentity$data = {
+export type ManagedIdentityDetailsPolicyDetailsFragment_managedIdentity$data = {
   readonly accessRules: ReadonlyArray<{
     readonly allowedServiceAccounts: ReadonlyArray<{
       readonly id: string;
@@ -29,11 +29,11 @@ export type ManagedIdentityPolicyDetailsFragment_managedIdentity$data = {
     readonly id: string;
     readonly runStage: JobType;
   }>;
-  readonly " $fragmentType": "ManagedIdentityPolicyDetailsFragment_managedIdentity";
+  readonly " $fragmentType": "ManagedIdentityDetailsPolicyDetailsFragment_managedIdentity";
 };
-export type ManagedIdentityPolicyDetailsFragment_managedIdentity$key = {
-  readonly " $data"?: ManagedIdentityPolicyDetailsFragment_managedIdentity$data;
-  readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityPolicyDetailsFragment_managedIdentity">;
+export type ManagedIdentityDetailsPolicyDetailsFragment_managedIdentity$key = {
+  readonly " $data"?: ManagedIdentityDetailsPolicyDetailsFragment_managedIdentity$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityDetailsPolicyDetailsFragment_managedIdentity">;
 };
 
 const node: ReaderFragment = (function(){
@@ -48,7 +48,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "ManagedIdentityPolicyDetailsFragment_managedIdentity",
+  "name": "ManagedIdentityDetailsPolicyDetailsFragment_managedIdentity",
   "selections": [
     {
       "alias": null,
@@ -139,6 +139,6 @@ return {
 };
 })();
 
-(node as any).hash = "31c7baaa98800d13df145a9574d0564a";
+(node as any).hash = "c06d8dcef4050d5ac9d8fffc0a4e02ef";
 
 export default node;
