@@ -3,10 +3,8 @@ import { Avatar, Box, Paper, Stack, Typography } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import { useTheme } from '@mui/material/styles';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
 import React, { Suspense, useState } from 'react';
 import { useFragment } from "react-relay/hooks";
-import MiddleDot from '../../common/MiddleDot';
 import Link from '../../routes/Link';
 import ListSkeleton from '../../skeletons/ListSkeleton';
 import NestableTreeItem from './NestableTreeItem';
@@ -81,13 +79,10 @@ function GroupTreeListItem(props: Props) {
                             <Stack direction="row" spacing={1} marginRight={data.descendentGroups.totalCount === 0 ? 5 : 0}>
                                 {data.descendentGroups.totalCount > 0 && <React.Fragment>
                                     <Typography variant="body2" color="textSecondary">{data.descendentGroups.totalCount} subgroup{data.descendentGroups.totalCount !== 1 ? 's' : ''}</Typography>
-                                    <MiddleDot />
                                 </React.Fragment>}
                                 {data.workspaces.totalCount > 0 && <React.Fragment>
                                     <Typography variant="body2" color="textSecondary">{data.workspaces.totalCount} workspace{data.workspaces.totalCount !== 1 ? 's' : ''}</Typography>
-                                    <MiddleDot />
                                 </React.Fragment>}
-                                <Typography variant="body2" color="textSecondary">{moment(data.metadata.updatedAt as moment.MomentInput).fromNow()}</Typography>
                             </Stack>
                         </Box>
                         {data.descendentGroups.totalCount > 0 && <ExpandIcon color="action" sx={{ marginLeft: 1 }} transform={showNested ? 'rotate(180)' : ''} />}

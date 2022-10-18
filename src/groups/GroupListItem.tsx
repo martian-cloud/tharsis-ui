@@ -4,11 +4,9 @@ import Link from '@mui/material/Link';
 import ListItem from '@mui/material/ListItem';
 import { useTheme } from '@mui/material/styles';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
 import React from 'react';
 import { useFragment } from "react-relay/hooks";
 import { Link as LinkRouter } from 'react-router-dom';
-import MiddleDot from '../common/MiddleDot';
 import { GroupListItemFragment_group$key } from './__generated__/GroupListItemFragment_group.graphql';
 
 interface Props {
@@ -72,13 +70,10 @@ function GroupListItem(props: Props) {
                     <Stack direction="row" spacing={1}>
                         {data.descendentGroups.totalCount > 0 && <React.Fragment>
                             <Typography variant="body2" color="textSecondary">{data.descendentGroups.totalCount} subgroup{data.descendentGroups.totalCount !== 1 ? 's' : ''}</Typography>
-                            <MiddleDot />
                         </React.Fragment>}
                         {data.workspaces.totalCount > 0 && <React.Fragment>
                             <Typography variant="body2" color="textSecondary">{data.workspaces.totalCount} workspace{data.workspaces.totalCount !== 1 ? 's' : ''}</Typography>
-                            <MiddleDot />
                         </React.Fragment>}
-                        <Typography variant="body2" color="textSecondary">{moment(data.metadata.updatedAt as moment.MomentInput).fromNow()}</Typography>
                     </Stack>
                 </Box>
             </Box>
