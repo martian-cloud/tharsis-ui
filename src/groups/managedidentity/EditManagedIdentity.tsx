@@ -72,7 +72,8 @@ function EditManagedIdentity(props: Props) {
         type: queryData.managedIdentity.type,
         name: queryData.managedIdentity.name,
         description: queryData.managedIdentity.description,
-        payload: parsePayloadData(queryData.managedIdentity.data)
+        payload: parsePayloadData(queryData.managedIdentity.data),
+        rules: []
     } : null);
 
     const onUpdate = () => {
@@ -122,12 +123,13 @@ function EditManagedIdentity(props: Props) {
             />
             <Typography variant="h5">Edit Managed Identity</Typography>
             <ManagedIdentityForm
+                groupPath={group.fullPath}
                 editMode
                 data={formData}
                 onChange={(data: FormData) => setFormData(data)}
                 error={error}
             />
-            <Divider light />
+            <Divider light sx={{ marginTop: 4 }} />
             <Box marginTop={2}>
                 <LoadingButton
                     loading={isInFlight}

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5fc368917fc98b1fcae7872e3efa9e6c>>
+ * @generated SignedSource<<9977d5d0f0fc3699c4b364b86fc78090>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,36 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type JobType = "apply" | "plan" | "%future added value";
 export type ManagedIdentityDetailsQuery$variables = {
   id: string;
 };
 export type ManagedIdentityDetailsQuery$data = {
   readonly managedIdentity: {
+    readonly accessRules: ReadonlyArray<{
+      readonly allowedServiceAccounts: ReadonlyArray<{
+        readonly id: string;
+        readonly name: string;
+        readonly resourcePath: string;
+      }>;
+      readonly allowedTeams: ReadonlyArray<{
+        readonly id: string;
+        readonly name: string;
+      }>;
+      readonly allowedUsers: ReadonlyArray<{
+        readonly email: string;
+        readonly id: string;
+        readonly username: string;
+      }>;
+      readonly id: string;
+      readonly runStage: JobType;
+    }>;
     readonly data: string;
     readonly description: string;
     readonly id: string;
     readonly name: string;
     readonly type: string;
-    readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityPolicyDetailsFragment_managedIdentity">;
+    readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityPolicyRulesFragment_managedIdentity">;
   } | null;
 };
 export type ManagedIdentityDetailsQuery = {
@@ -77,6 +96,84 @@ v6 = {
   "kind": "ScalarField",
   "name": "data",
   "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ManagedIdentityAccessRule",
+  "kind": "LinkedField",
+  "name": "accessRules",
+  "plural": true,
+  "selections": [
+    (v2/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "runStage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "allowedUsers",
+      "plural": true,
+      "selections": [
+        (v2/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "username",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "email",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Team",
+      "kind": "LinkedField",
+      "name": "allowedTeams",
+      "plural": true,
+      "selections": [
+        (v2/*: any*/),
+        (v3/*: any*/)
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ServiceAccount",
+      "kind": "LinkedField",
+      "name": "allowedServiceAccounts",
+      "plural": true,
+      "selections": [
+        (v2/*: any*/),
+        (v3/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "resourcePath",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -98,10 +195,11 @@ return {
           (v4/*: any*/),
           (v5/*: any*/),
           (v6/*: any*/),
+          (v7/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ManagedIdentityPolicyDetailsFragment_managedIdentity"
+            "name": "ManagedIdentityPolicyRulesFragment_managedIdentity"
           }
         ],
         "storageKey": null
@@ -129,99 +227,23 @@ return {
           (v4/*: any*/),
           (v5/*: any*/),
           (v6/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "ManagedIdentityAccessRule",
-            "kind": "LinkedField",
-            "name": "accessRules",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "runStage",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "User",
-                "kind": "LinkedField",
-                "name": "allowedUsers",
-                "plural": true,
-                "selections": [
-                  (v2/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "username",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "email",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Team",
-                "kind": "LinkedField",
-                "name": "allowedTeams",
-                "plural": true,
-                "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ServiceAccount",
-                "kind": "LinkedField",
-                "name": "allowedServiceAccounts",
-                "plural": true,
-                "selections": [
-                  (v2/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "resourcePath",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ebb14eff781c6187a68273d819037059",
+    "cacheID": "d8587083f2d7683295074ee45f9b2ce8",
     "id": null,
     "metadata": {},
     "name": "ManagedIdentityDetailsQuery",
     "operationKind": "query",
-    "text": "query ManagedIdentityDetailsQuery(\n  $id: String!\n) {\n  managedIdentity(id: $id) {\n    id\n    name\n    description\n    type\n    data\n    ...ManagedIdentityPolicyDetailsFragment_managedIdentity\n  }\n}\n\nfragment ManagedIdentityPolicyDetailsFragment_managedIdentity on ManagedIdentity {\n  accessRules {\n    id\n    runStage\n    allowedUsers {\n      id\n      username\n      email\n    }\n    allowedTeams {\n      id\n      name\n    }\n    allowedServiceAccounts {\n      id\n      resourcePath\n    }\n  }\n}\n"
+    "text": "query ManagedIdentityDetailsQuery(\n  $id: String!\n) {\n  managedIdentity(id: $id) {\n    id\n    name\n    description\n    type\n    data\n    accessRules {\n      id\n      runStage\n      allowedUsers {\n        id\n        username\n        email\n      }\n      allowedTeams {\n        id\n        name\n      }\n      allowedServiceAccounts {\n        id\n        name\n        resourcePath\n      }\n    }\n    ...ManagedIdentityPolicyRulesFragment_managedIdentity\n  }\n}\n\nfragment ManagedIdentityPolicyRulesFragment_managedIdentity on ManagedIdentity {\n  id\n  accessRules {\n    id\n    runStage\n    allowedUsers {\n      id\n      username\n      email\n    }\n    allowedTeams {\n      id\n      name\n    }\n    allowedServiceAccounts {\n      id\n      name\n      resourcePath\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9ab1c3db0e6c03e04e9a0cf8b5007853";
+(node as any).hash = "b2dd239065a793f284ad308334b68632";
 
 export default node;
