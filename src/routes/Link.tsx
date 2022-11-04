@@ -2,7 +2,9 @@ import React from 'react'
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { Link as MaterialLink, LinkProps as MaterialLinkProps } from '@mui/material';
 
-function Link(props: RouterLinkProps & MaterialLinkProps) {
+export type LinkProps = RouterLinkProps & MaterialLinkProps;
+
+function Link(props: LinkProps) {
     const { underline, ...extraProps } = props;
     return (
         <MaterialLink

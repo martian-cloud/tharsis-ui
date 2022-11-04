@@ -1,8 +1,8 @@
+import StateIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import MembersIcon from '@mui/icons-material/PeopleOutline';
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
-import StateIcon from '@mui/icons-material/InsertDriveFileOutlined'
+import ActivityIcon from '@mui/icons-material/TimelineOutlined';
 import VariablesIcon from '@mui/icons-material/WindowOutlined';
-import { RocketLaunchOutline as RunIcon, AccountLockOutline as ManagedIdentityIcon } from 'mdi-material-ui';
 import { Avatar, List, styled, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import teal from '@mui/material/colors/teal';
@@ -11,7 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import React from 'react';
+import { AccountLockOutline as ManagedIdentityIcon, RocketLaunchOutline as RunIcon } from 'mdi-material-ui';
 import { Link as LinkRouter } from 'react-router-dom';
 
 interface Props {
@@ -40,9 +40,10 @@ const Drawer = styled(MuiDrawer)<DrawerProps>(({ theme }) => ({
 }));
 
 const LIST_ITEMS = [
+  { route: 'activity', label: 'Activity', icon: <ActivityIcon /> },
   { route: 'runs', label: 'Runs', icon: <RunIcon /> },
   { route: 'variables', label: 'Variables', icon: <VariablesIcon /> },
-  { route: 'state_versions', label: 'State Versions', icon: <StateIcon />},
+  { route: 'state_versions', label: 'State Versions', icon: <StateIcon /> },
   { route: 'managed_identities', label: 'Managed Identities', icon: <ManagedIdentityIcon /> },
   { route: 'members', label: 'Members', icon: <MembersIcon /> },
   { route: 'settings', label: 'Settings', icon: <SettingsIcon /> }

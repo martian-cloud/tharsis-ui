@@ -1,3 +1,4 @@
+import ActivityIcon from '@mui/icons-material/TimelineOutlined';
 import MembersIcon from '@mui/icons-material/PeopleOutline';
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
 import VariablesIcon from '@mui/icons-material/WindowOutlined';
@@ -39,6 +40,7 @@ const Drawer = styled(MuiDrawer)<DrawerProps>(({ theme }) => ({
 }));
 
 const LIST_ITEMS = [
+  { route: 'activity', label: 'Activity', icon: <ActivityIcon /> },
   { route: 'variables', label: 'Variables', icon: <VariablesIcon /> },
   { route: 'managed_identities', label: 'Managed Identities', icon: <ManagedIdentityIcon /> },
   { route: 'service_accounts', label: 'Service Accounts', icon: <ServiceAccountIcon /> },
