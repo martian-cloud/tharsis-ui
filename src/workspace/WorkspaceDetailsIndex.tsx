@@ -1,15 +1,12 @@
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import StateIcon from '@mui/icons-material/InsertDriveFileOutlined';
-import { LoadingButton } from '@mui/lab';
-import { Avatar, Box, Button, ButtonGroup, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Menu, MenuItem, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Chip, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
 import { CubeOutline as ModuleIcon } from 'mdi-material-ui';
 import moment from 'moment';
-import { useSnackbar } from 'notistack';
-import React, { useState } from 'react';
-import { useFragment, useMutation } from 'react-relay/hooks';
+import React from 'react';
+import { useFragment } from 'react-relay/hooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
 import Link from '../routes/Link';
@@ -22,47 +19,13 @@ import WorkspaceDetailsCurrentJob from './WorkspaceDetailsCurrentJob';
 import WorkspaceDetailsEmpty from './WorkspaceDetailsEmpty';
 import WorkspaceDetailsStateFile from './WorkspaceDetailsStateFile';
 import { WorkspaceDetailsIndexFragment_workspace$key } from './__generated__/WorkspaceDetailsIndexFragment_workspace.graphql';
-import { WorkspaceDetailsIndexMutation } from './__generated__/WorkspaceDetailsIndexMutation.graphql'
 
 interface Props {
     fragmentRef: WorkspaceDetailsIndexFragment_workspace$key
 }
 
-interface ConfirmationDialogProps {
-    workspaceName: string
-    deleteInProgress: boolean;
-    keepMounted: boolean;
-    open: boolean;
-    onClose: (confirm?: boolean) => void
-}
-
-function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
-    const { workspaceName, deleteInProgress, onClose, open, ...other } = props;
-    return (
-        <Dialog
-            maxWidth="xs"
-            open={open}
-            {...other}
-        >
-            <DialogTitle>Delete Workspace</DialogTitle>
-            <DialogContent dividers>
-                Are you sure you want to delete workspace <strong>{workspaceName}</strong>?
-            </DialogContent>
-            <DialogActions>
-                <Button color="inherit" onClick={() => onClose()}>
-                    Cancel
-                </Button>
-                <LoadingButton color="error" loading={deleteInProgress} onClick={() => onClose(true)}>Delete</LoadingButton>
-            </DialogActions>
-        </Dialog>
-    );
-}
-
 function WorkspaceDetailsIndex(props: Props) {
     const { fragmentRef } = props;
-    const { enqueueSnackbar } = useSnackbar();
-    const [menuAnchorEl, setMenuAnchorEl] = useState<Element | null>(null);
-    const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = useState<boolean>(false);
 
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -79,7 +42,6 @@ function WorkspaceDetailsIndex(props: Props) {
         fullPath
         ...WorkspaceDetailsEmptyFragment_workspace
         ...WorkspaceDetailsCurrentJobFragment_workspace
-        ...EditWorkspaceFragment_group
         currentJob {
             id
         }
@@ -125,65 +87,12 @@ function WorkspaceDetailsIndex(props: Props) {
       }
     `, fragmentRef);
 
-    const [commit, commitInFlight] = useMutation<WorkspaceDetailsIndexMutation>(
-        graphql`
-        mutation WorkspaceDetailsIndexMutation($input: DeleteWorkspaceInput!) {
-            deleteWorkspace(input: $input){
-                problems {
-                    message
-                    field
-                    type
-                }
-            }
-        }
-    `)
-
-    const onDeleteConfirmationDialogClosed = (confirm?: boolean) => {
-        if (confirm) {
-            commit({
-                variables: {
-                    input: {
-                        workspacePath: data.fullPath
-                    }
-                },
-                onCompleted: deleteData => {
-                    setShowDeleteConfirmationDialog(false);
-
-                    if (deleteData.deleteWorkspace.problems.length) {
-                        enqueueSnackbar(deleteData.deleteWorkspace.problems.map(problem => problem.message).join('; '), { variant: 'warning' });
-                    } else {
-                        navigate(`../${data.fullPath.slice(0, -data.name.length - 1)}`);
-                    }
-                },
-                onError: error => {
-                    setShowDeleteConfirmationDialog(false);
-                    enqueueSnackbar(`Unexpected error occurred: ${error.message}`, { variant: 'error' });
-                }
-            });
-        } else {
-            setShowDeleteConfirmationDialog(false);
-        }
-    };
-
     const onTabChange = (event: React.SyntheticEvent, newValue: string) => {
         navigate({
             search: `?tab=${newValue}`
         }, {
             replace: true
         });
-    };
-
-    const onOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setMenuAnchorEl(event.currentTarget);
-    };
-
-    const onMenuClose = () => {
-        setMenuAnchorEl(null);
-    };
-
-    const onMenuAction = (actionCallback: () => void) => {
-        setMenuAnchorEl(null);
-        actionCallback();
     };
 
     return (
@@ -197,38 +106,6 @@ function WorkspaceDetailsIndex(props: Props) {
                         <Typography variant="h5" sx={{ fontWeight: "bold" }}>{data.name}</Typography>
                         <Typography color="textSecondary" variant="subtitle2">{data.description}</Typography>
                     </Stack>
-                </Box>
-                <Box>
-                    <ButtonGroup variant="outlined" color="primary" >
-                        <Button onClick={() => (navigate("-/edit"))}>Edit</Button>
-                        <Button
-                            color="primary"
-                            size="small"
-                            aria-label="more options menu"
-                            aria-haspopup="menu"
-                            onClick={onOpenMenu}
-                        >
-                            <ArrowDropDownIcon fontSize="small" />
-                        </Button>
-                        <Menu sx={{ marginRight: 6 }}
-                            id="workspace-details-more-options-menu"
-                            anchorEl={menuAnchorEl}
-                            open={Boolean(menuAnchorEl)}
-                            onClose={onMenuClose}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                        >
-                            <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
-                                Delete Workspace
-                            </MenuItem>
-                        </Menu>
-                    </ButtonGroup>
                 </Box>
             </Box>
 
@@ -328,14 +205,6 @@ function WorkspaceDetailsIndex(props: Props) {
                 {tab === 'dependencies' && <StateVersionDependencies fragmentRef={data.currentStateVersion} />}
                 {tab === 'stateFile' && <WorkspaceDetailsStateFile fragmentRef={data.currentStateVersion} />}
             </React.Fragment>}
-
-            <DeleteConfirmationDialog
-                workspaceName={data.name}
-                keepMounted
-                deleteInProgress={commitInFlight}
-                open={showDeleteConfirmationDialog}
-                onClose={onDeleteConfirmationDialogClosed}
-            />
         </Box>
     );
 }
