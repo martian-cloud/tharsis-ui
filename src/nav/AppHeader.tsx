@@ -32,19 +32,19 @@ function AppHeader(props: Props) {
           <Stack direction="row" spacing={1} alignItems="center" marginRight={3}>
             <Button
               color="inherit"
-              sx={{ textTransform: "none" }}
+              sx={{ textTransform: "none", fontWeight: 600 }}
               component={RouterLink} to="/groups">
                 Groups
             </Button>
             <Button
               color="inherit"
-              sx={{ textTransform: "none" }}
+              sx={{ textTransform: "none", fontWeight: 600 }}
               component={RouterLink} to="/workspaces">
               Workspaces
             </Button>
             <Button
               color="inherit"
-              sx={{ textTransform: "none" }}
+              sx={{ textTransform: "none", fontWeight: 600 }}
               component={RouterLink} to="/provider-registry">
               Registry
             </Button>

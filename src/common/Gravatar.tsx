@@ -19,7 +19,11 @@ function TimelineEventAvatar(props: Props) {
     }, [email]);
 
     return (
-        <Avatar sx={{...sx, width: props.width, height: props.height }} alt = { email } src = {`https://secure.gravatar.com/avatar/${emailHash}?s=80&d=identicon`} />
+        <Avatar
+            sx={{ ...sx, width: props.width, height: props.height }}
+            alt={email}
+            src={`https://secure.gravatar.com/avatar/${emailHash}?s=80&d=identicon`}
+        />
     );
 }
 

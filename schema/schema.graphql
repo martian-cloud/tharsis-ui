@@ -2,6 +2,110 @@ type _Service {
   sdl: String!
 }
 
+type ActivityEvent implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  initiator: Initiator!
+  namespacePath: String
+  action: ActivityEventAction!
+  target: Node!
+  targetType: ActivityEventTargetType!
+  targetId: String!
+  payload: ActivityEventPayload
+}
+
+enum ActivityEventAction {
+  ADD
+  APPLY
+  CANCEL
+  CREATE
+  DELETE
+  LOCK
+  REMOVE
+  SET_VARIABLES
+  UNLOCK
+  UPDATE
+  ADD_MEMBER
+  REMOVE_MEMBER
+  UPDATE_MEMBER
+  CREATE_MEMBERSHIP
+  REMOVE_MEMBERSHIP
+  DELETE_CHILD_RESOURCE
+}
+
+type ActivityEventAddTeamMemberPayload {
+  user: User
+  maintainer: Boolean!
+}
+
+type ActivityEventConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [ActivityEventEdge]
+}
+
+type ActivityEventCreateNamespaceMembershipPayload {
+  member: Member
+  role: String!
+}
+
+type ActivityEventDeleteChildResourcePayload {
+  name: String!
+  id: String!
+  type: String!
+}
+
+type ActivityEventEdge {
+  cursor: String!
+  node: ActivityEvent
+}
+
+union ActivityEventPayload = ActivityEventCreateNamespaceMembershipPayload | ActivityEventUpdateNamespaceMembershipPayload | ActivityEventRemoveNamespaceMembershipPayload | ActivityEventDeleteChildResourcePayload | ActivityEventAddTeamMemberPayload | ActivityEventRemoveTeamMemberPayload | ActivityEventUpdateTeamMemberPayload
+
+type ActivityEventRemoveNamespaceMembershipPayload {
+  member: Member
+}
+
+type ActivityEventRemoveTeamMemberPayload {
+  user: User
+}
+
+enum ActivityEventSort {
+  CREATED_ASC
+  CREATED_DESC
+  NAMESPACE_PATH_ASC
+  NAMESPACE_PATH_DESC
+  ACTION_ASC
+  ACTION_DESC
+}
+
+enum ActivityEventTargetType {
+  GPG_KEY
+  GROUP
+  MANAGED_IDENTITY
+  MANAGED_IDENTITY_ACCESS_RULE
+  NAMESPACE_MEMBERSHIP
+  RUN
+  SERVICE_ACCOUNT
+  STATE_VERSION
+  TEAM
+  TEAM_MEMBER
+  TERRAFORM_PROVIDER
+  TERRAFORM_PROVIDER_VERSION
+  VARIABLE
+  WORKSPACE
+}
+
+type ActivityEventUpdateNamespaceMembershipPayload {
+  prevRole: String!
+  newRole: String!
+}
+
+type ActivityEventUpdateTeamMemberPayload {
+  user: User
+  maintainer: Boolean!
+}
+
 input AddUserToTeamInput {
   clientMutationId: String
   username: String!
@@ -442,6 +546,7 @@ type Group implements Node & Namespace {
   terraformProviders(after: String, before: String, first: Int, last: Int, search: String): TerraformProviderConnection!
   memberships: [NamespaceMembership!]!
   variables: [NamespaceVariable!]!
+  activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
 }
 
 type GroupConnection {
@@ -461,6 +566,8 @@ enum GroupSort {
   UPDATED_AT_ASC
   UPDATED_AT_DESC
 }
+
+union Initiator = ServiceAccount | User
 
 type Job implements Node {
   id: ID!
@@ -537,6 +644,7 @@ type ManagedIdentityAccessRule implements Node {
   allowedUsers: [User!]!
   allowedServiceAccounts: [ServiceAccount!]!
   allowedTeams: [Team!]!
+  managedIdentity: ManagedIdentity!
 }
 
 input ManagedIdentityAccessRuleInput {
@@ -627,6 +735,7 @@ type Mutation {
   createGPGKey(input: CreateGPGKeyInput!): CreateGPGKeyPayload!
   deleteGPGKey(input: DeleteGPGKeyInput!): DeleteGPGKeyPayload!
   createTerraformCLIDownloadURL(input: CreateTerraformCLIDownloadURLInput!): TerraformCLIMutationPayload!
+  createSCIMToken: SCIMTokenPayload!
 }
 
 interface Namespace {
@@ -639,6 +748,7 @@ interface Namespace {
   variables: [NamespaceVariable!]!
   serviceAccounts(after: String, before: String, first: Int, last: Int, includeInherited: Boolean, search: String): ServiceAccountConnection!
   managedIdentities(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort, includeInherited: Boolean, search: String): ManagedIdentityConnection!
+  activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
 }
 
 type NamespaceMembership implements Node {
@@ -768,8 +878,11 @@ type Query {
   users(after: String, before: String, first: Int, last: Int, search: String, sort: UserSort): UserConnection!
   configurationVersion(id: String!): ConfigurationVersion
   team(name: String!): Team
-  teams(after: String, before: String, first: Int, last: Int, search: String): TeamConnection!
+  teams(after: String, before: String, first: Int, last: Int, search: String, sort: TeamSort): TeamConnection!
   terraformCLIVersions: TerraformCLIVersions
+
+  """There is no query for an activity event by ID."""
+  activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, namespacePath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
 }
 
 input RemoveUserFromTeamInput {
@@ -889,6 +1002,12 @@ type SaveJobLogsPayload {
   problems: [Problem!]!
 }
 
+type SCIMTokenPayload {
+  clientMutationId: String
+  token: String
+  problems: [Problem!]!
+}
+
 type ServiceAccount implements Node {
   id: ID!
   metadata: ResourceMetadata!
@@ -899,6 +1018,7 @@ type ServiceAccount implements Node {
   createdBy: String!
   oidcTrustPolicies: [OIDCTrustPolicy!]!
   namespaceMemberships(after: String, before: String, first: Int, last: Int): NamespaceMembershipConnection!
+  activityEvents(after: String, before: String, first: Int, last: Int, namespacePath: String, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
 }
 
 type ServiceAccountConnection {
@@ -981,11 +1101,12 @@ type Subscription {
   jobCancellationEvent(input: JobCancellationEventSubscriptionInput!): JobCancellationEvent!
 }
 
-type Team {
+type Team implements Node {
   id: ID!
   metadata: ResourceMetadata!
   name: String!
   description: String!
+  scimExternalId: String
   members(after: String, before: String, first: Int, last: Int, sort: TeamMemberSort): TeamMemberConnection!
 }
 
@@ -1034,6 +1155,7 @@ enum TeamSort {
 }
 
 type TerraformCLIMutationPayload {
+  clientMutationId: String
   downloadUrl: String!
   problems: [Problem!]!
 }
@@ -1285,6 +1407,9 @@ type User implements Node {
   email: String!
   namespaceMemberships(after: String, before: String, first: Int, last: Int): NamespaceMembershipConnection!
   admin: Boolean!
+  active: Boolean!
+  scimExternalId: String
+  activityEvents(after: String, before: String, first: Int, last: Int, namespacePath: String, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
 }
 
 type UserConnection {
@@ -1328,6 +1453,7 @@ type Workspace implements Node & Namespace {
   maxJobDuration: Int!
   createdBy: String!
   terraformVersion: String!
+  activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
 }
 
 type WorkspaceConnection {

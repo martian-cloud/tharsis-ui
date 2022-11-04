@@ -5,6 +5,7 @@ import { Suspense, useMemo } from 'react';
 import { useFragment, useSubscription } from 'react-relay/hooks';
 import { Route, Routes } from 'react-router-dom';
 import { ConnectionHandler, ConnectionInterface, GraphQLSubscriptionConfig, RecordSourceProxy } from 'relay-runtime';
+import NamespaceActivity from '../namespace/activity/NamespaceActivity';
 import NamespaceMemberships from '../namespace/members/NamespaceMemberships';
 import Variables from '../namespace/variables/Variables';
 import EditWorkspace from './EditWorkspace';
@@ -64,6 +65,7 @@ function WorkspaceDetails(props: Props) {
       ...VariablesFragment_variables
       ...NamespaceMembershipsFragment_memberships
       ...EditWorkspaceFragment_group
+      ...NamespaceActivityFragment_activity
     }
 `, fragmentRef);
 
@@ -140,6 +142,7 @@ function WorkspaceDetails(props: Props) {
           <Box maxWidth={1200} margin="auto" padding={2}>
             <Routes>
               <Route path={`${workspacePath}/*`} element={<WorkspaceDetailsIndex fragmentRef={data} />} />
+              <Route path={`${workspacePath}/-/activity/*`} element={<NamespaceActivity fragmentRef={data} />} />
               <Route path={`${workspacePath}/-/runs/*`} element={<Runs fragmentRef={data} />} />
               <Route path={`${workspacePath}/-/state_versions/*`} element={<StateVersions fragmentRef={data} />} />
               <Route path={`${workspacePath}/-/managed_identities/*`} element={<AssignedManagedIdentityList fragmentRef={data} />} />

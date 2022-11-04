@@ -1,9 +1,9 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import {TabContext, TabList} from '@mui/lab';
+import { TabContext, TabList } from '@mui/lab';
 import MuiTabPanel, { TabPanelProps } from '@mui/lab/TabPanel';
 import { LoadingButton } from '@mui/lab';
 import { Avatar, Button, ButtonGroup, CircularProgress, Menu, MenuItem, Stack, styled, Typography } from '@mui/material';
-import {Box, Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
+import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import { TabProps } from '@mui/material/Tab';
 import graphql from 'babel-plugin-relay/macro';
@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import ServiceAccounts from './serviceaccount/ServiceAccounts';
 import GPGKeys from './keys/GPGKeys';
+import NamespaceActivity from '../namespace/activity/NamespaceActivity';
 
 const TABS = ['workspaces', 'subgroups'];
 
@@ -90,6 +91,7 @@ function GroupDetails(props: Props) {
 			...NamespaceMembershipsFragment_memberships
 			...EditGroupFragment_group
 			...GPGKeysFragment_group
+			...NamespaceActivityFragment_activity
 		}
 	`, props.fragmentRef)
 
@@ -102,18 +104,19 @@ function GroupDetails(props: Props) {
 				<Suspense fallback={
 					<Box
 						sx={{
-						width: '100%',
-						height: `calc(100vh - 64px)`,
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center'
-					}}
+							width: '100%',
+							height: `calc(100vh - 64px)`,
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center'
+						}}
 					>
-					<CircularProgress />
+						<CircularProgress />
 					</Box>}>
 					<Box maxWidth={1200} margin="auto" padding={2}>
 						<Routes>
 							<Route path={`${groupPath}/*`} element={<GroupDetailsIndex route={route} fragmentRef={data} />} />
+							<Route path={`${groupPath}/-/activity/*`} element={<NamespaceActivity fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/managed_identities/*`} element={<ManagedIdentities fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/service_accounts/*`} element={<ServiceAccounts fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/variables/*`} element={<Variables fragmentRef={data} />} />
@@ -202,7 +205,8 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
 						enqueueSnackbar(deleteData.deleteGroup.problems.map(problem => problem.message).join('; '), { variant: 'warning' });
 					} else {
 						data.fullPath.includes("/") ?
-							navigate(`../${data.fullPath.slice(0, -data.name.length - 1 )}`) : navigate("..")}
+							navigate(`../${data.fullPath.slice(0, -data.name.length - 1)}`) : navigate("..")
+					}
 				},
 				onError: error => {
 					setShowDeleteConfirmationDialog(false);
@@ -229,7 +233,7 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
 
 	return (
 		<Box>
-			<NamespaceBreadcrumbs namespacePath={data.fullPath}/>
+			<NamespaceBreadcrumbs namespacePath={data.fullPath} />
 			{(!route || TABS.includes(route)) && <React.Fragment>
 				<Box sx={{
 					display: 'flex',
@@ -250,7 +254,7 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
 					</Box>
 					<Box>
 						<ButtonGroup variant="outlined" color="primary">
-							<Button onClick={()=> (navigate(`/workspaces/-/new?parent=${data.fullPath}`))} variant="outlined" color="primary">New Workspace</Button>
+							<Button onClick={() => (navigate(`/workspaces/-/new?parent=${data.fullPath}`))} variant="outlined" color="primary">New Workspace</Button>
 							<Button
 								color="primary"
 								size="small"
@@ -274,8 +278,8 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
 									horizontal: 'right',
 								}}
 							>
-								<MenuItem onClick={()=> (navigate(`/groups/-/new?parent=${data.fullPath}`))} color="primary">New Subgroup</MenuItem>
-								<MenuItem onClick={()=> (navigate("-/edit"))}>Edit Group</MenuItem>
+								<MenuItem onClick={() => (navigate(`/groups/-/new?parent=${data.fullPath}`))} color="primary">New Subgroup</MenuItem>
+								<MenuItem onClick={() => (navigate("-/edit"))}>Edit Group</MenuItem>
 								<MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
 									Delete Group
 								</MenuItem>

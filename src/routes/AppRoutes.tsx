@@ -1,10 +1,11 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import AuthenticationService from '../auth/AuthenticationService';
 import GraphiQLEditor from '../graphiql/GraphiQLEditor';
 import NewGroup from '../groups/NewGroup';
 import NewWorkspace from '../workspace/NewWorkspace';
 import ExploreGroupsEntryPoint from './ExploreGroupsEntryPoint';
 import GroupOrWorkspaceDetailsEntryPoint from './GroupOrWorkspaceDetailsEntryPoint';
+import HomeEntryPoint from './HomeEntryPoint';
 import ScrollRestoration from './ScrollRestoration';
 import TerraformProviderSearchEntryPoint from './TerraformProviderSearchEntryPoint';
 import TerraformProviderVersionDetailsEntryPoint from './TerraformProviderVersionDetailsEntryPoint';
@@ -27,7 +28,7 @@ function AppRoutes(props: Props) {
         <Route path="/provider-registry/:registryNamespace/:providerName/:version" element={<TerraformProviderVersionDetailsEntryPoint />} />
         <Route path="/provider-registry/:registryNamespace/:providerName" element={<TerraformProviderVersionDetailsEntryPoint />} />
         <Route path="/provider-registry/*" element={<TerraformProviderSearchEntryPoint />} />
-        <Route path="/" element={<Navigate to="/groups" />} />
+        <Route path="/" element={<HomeEntryPoint />} />
       </Routes>
     </ScrollRestoration>
   );
