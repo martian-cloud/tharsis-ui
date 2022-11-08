@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<57a2d714af24f28c43786efe5e5b5c6a>>
+ * @generated SignedSource<<85265563aa7170dba0ff798af1786e0c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -57,7 +57,7 @@ export type WorkspaceDetailsIndexFragment_workspace$data = {
   readonly fullPath: string;
   readonly id: string;
   readonly name: string;
-  readonly " $fragmentSpreads": FragmentRefs<"EditWorkspaceFragment_group" | "WorkspaceDetailsCurrentJobFragment_workspace" | "WorkspaceDetailsEmptyFragment_workspace">;
+  readonly " $fragmentSpreads": FragmentRefs<"WorkspaceDetailsCurrentJobFragment_workspace" | "WorkspaceDetailsEmptyFragment_workspace">;
   readonly " $fragmentType": "WorkspaceDetailsIndexFragment_workspace";
 };
 export type WorkspaceDetailsIndexFragment_workspace$key = {
@@ -139,11 +139,6 @@ return {
       "args": null,
       "kind": "FragmentSpread",
       "name": "WorkspaceDetailsCurrentJobFragment_workspace"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "EditWorkspaceFragment_group"
     },
     {
       "alias": null,
@@ -302,6 +297,6 @@ return {
 };
 })();
 
-(node as any).hash = "7a0550f21da157e3a79a6784ae77bae0";
+(node as any).hash = "d2931d46f4ef9d1a459a48da666c6eba";
 
 export default node;

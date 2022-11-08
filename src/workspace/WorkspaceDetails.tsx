@@ -1,4 +1,4 @@
-import { CircularProgress, Typography } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import Box from '@mui/material/Box';
 import graphql from 'babel-plugin-relay/macro';
 import { Suspense, useMemo } from 'react';
@@ -8,7 +8,7 @@ import { ConnectionHandler, ConnectionInterface, GraphQLSubscriptionConfig, Reco
 import NamespaceActivity from '../namespace/activity/NamespaceActivity';
 import NamespaceMemberships from '../namespace/members/NamespaceMemberships';
 import Variables from '../namespace/variables/Variables';
-import EditWorkspace from './EditWorkspace';
+import WorkspaceSettings from './settings/WorkspaceSettings';
 import AssignedManagedIdentityList from './managedidentity/AssignedManagedIdentityList';
 import { GetConnections } from './runs/RunList';
 import Runs from './runs/Runs';
@@ -64,7 +64,7 @@ function WorkspaceDetails(props: Props) {
       ...StateVersionsFragment_stateVersions
       ...VariablesFragment_variables
       ...NamespaceMembershipsFragment_memberships
-      ...EditWorkspaceFragment_group
+      ...WorkspaceSettingsFragment_workspace
       ...NamespaceActivityFragment_activity
     }
 `, fragmentRef);
@@ -148,20 +148,11 @@ function WorkspaceDetails(props: Props) {
               <Route path={`${workspacePath}/-/managed_identities/*`} element={<AssignedManagedIdentityList fragmentRef={data} />} />
               <Route path={`${workspacePath}/-/variables/*`} element={<Variables fragmentRef={data} />} />
               <Route path={`${workspacePath}/-/members/*`} element={<NamespaceMemberships fragmentRef={data} />} />
-              <Route path={`${workspacePath}/-/settings/*`} element={<PageComingSoon route={route} />} />
-              <Route path={`${workspacePath}/-/edit/*`} element={<EditWorkspace fragmentRef={data} />} />
+              <Route path={`${workspacePath}/-/settings/*`} element={<WorkspaceSettings fragmentRef={data} />} />
             </Routes>
           </Box>
         </Suspense>
       </Box>
-    </Box>
-  );
-}
-
-function PageComingSoon(props: { route: string }) {
-  return (
-    <Box padding={4} display="flex" justifyContent="center" alignItems="center" height="400px">
-      <Typography variant="h6" color="textSecondary">{props.route} page coming soon!</Typography>
     </Box>
   );
 }

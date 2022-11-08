@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a891a0a5e68a8da812719bc882440f9e>>
+ * @generated SignedSource<<d183216e173e3e3a01e886ebe86cf6c2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
 export type UpdateGroupInput = {
   clientMutationId?: string | null;
-  description: string;
+  description?: string | null;
   groupPath: string;
   metadata?: ResourceMetadataInput | null;
 };

@@ -33,7 +33,7 @@ function NewWorkspace(){
                     field
                     type
                 }
-            } 
+            }
         }`
     );
 
@@ -73,8 +73,8 @@ function NewWorkspace(){
 
     return(
         <Box maxWidth={1200} margin="auto" padding={2}>
-            <NamespaceBreadcrumbs 
-                namespacePath={parentGroupPath} 
+            <NamespaceBreadcrumbs
+                namespacePath={parentGroupPath}
                 childRoutes={[{
                     title: 'new', path: `/workspaces/-/new?parent=${parentGroupPath}`
                 }]}/>
@@ -82,7 +82,7 @@ function NewWorkspace(){
             <WorkspaceForm data={formData}
                 onChange={(data: FormData) => setFormData(data)}
                 error={error}/>
-            
+
             <Divider light />
             <Box marginTop={2}>
                 <LoadingButton

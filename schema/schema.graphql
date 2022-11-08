@@ -1264,7 +1264,7 @@ type UpdateApplyPayload {
 input UpdateGroupInput {
   clientMutationId: String
   groupPath: String!
-  description: String!
+  description: String
   metadata: ResourceMetadataInput
 }
 
@@ -1389,7 +1389,7 @@ input UpdateWorkspaceInput {
   clientMutationId: String
   workspacePath: String!
   metadata: ResourceMetadataInput
-  description: String!
+  description: String
   maxJobDuration: Int
   terraformVersion: String
 }

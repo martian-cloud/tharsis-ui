@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<34c0ae4725b5bd85f328f7d2d955a5b6>>
+ * @generated SignedSource<<5b92c5e58a9fa869866b55af4dd2b5d2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
 export type UpdateWorkspaceInput = {
   clientMutationId?: string | null;
-  description: string;
+  description?: string | null;
   maxJobDuration?: number | null;
   metadata?: ResourceMetadataInput | null;
   terraformVersion?: string | null;
@@ -21,10 +21,10 @@ export type UpdateWorkspaceInput = {
 export type ResourceMetadataInput = {
   version: string;
 };
-export type EditWorkspaceMutation$variables = {
+export type TerraformCLIVersionSettingUpdateMutation$variables = {
   input: UpdateWorkspaceInput;
 };
-export type EditWorkspaceMutation$data = {
+export type TerraformCLIVersionSettingUpdateMutation$data = {
   readonly updateWorkspace: {
     readonly problems: ReadonlyArray<{
       readonly field: ReadonlyArray<string> | null;
@@ -32,14 +32,13 @@ export type EditWorkspaceMutation$data = {
       readonly type: ProblemType;
     }>;
     readonly workspace: {
-      readonly fullPath: string;
-      readonly name: string;
+      readonly terraformVersion: string;
     } | null;
   };
 };
-export type EditWorkspaceMutation = {
-  response: EditWorkspaceMutation$data;
-  variables: EditWorkspaceMutation$variables;
+export type TerraformCLIVersionSettingUpdateMutation = {
+  response: TerraformCLIVersionSettingUpdateMutation$data;
+  variables: TerraformCLIVersionSettingUpdateMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -61,17 +60,10 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "terraformVersion",
   "storageKey": null
 },
 v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "fullPath",
-  "storageKey": null
-},
-v4 = {
   "alias": null,
   "args": null,
   "concreteType": "Problem",
@@ -108,7 +100,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "EditWorkspaceMutation",
+    "name": "TerraformCLIVersionSettingUpdateMutation",
     "selections": [
       {
         "alias": null,
@@ -126,12 +118,11 @@ return {
             "name": "workspace",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
@@ -143,7 +134,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "EditWorkspaceMutation",
+    "name": "TerraformCLIVersionSettingUpdateMutation",
     "selections": [
       {
         "alias": null,
@@ -162,7 +153,6 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
-              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -173,23 +163,23 @@ return {
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "7a363b60c20487742e57d6745b435fc0",
+    "cacheID": "d6ddda1281cb7e5520d34ac0f9f7f8ec",
     "id": null,
     "metadata": {},
-    "name": "EditWorkspaceMutation",
+    "name": "TerraformCLIVersionSettingUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation EditWorkspaceMutation(\n  $input: UpdateWorkspaceInput!\n) {\n  updateWorkspace(input: $input) {\n    workspace {\n      name\n      fullPath\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
+    "text": "mutation TerraformCLIVersionSettingUpdateMutation(\n  $input: UpdateWorkspaceInput!\n) {\n  updateWorkspace(input: $input) {\n    workspace {\n      terraformVersion\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1ca63471a493f2d9014eeaba3c74563c";
+(node as any).hash = "30de2773164edd20908e942330506718";
 
 export default node;
