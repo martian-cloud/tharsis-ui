@@ -1,9 +1,10 @@
- import React, { useState } from 'react'
+import React, { useState } from 'react'
 import { Alert, Box, TextField, Typography } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton';
 import { MutationError } from '../../common/error';
 import { useFragment, useMutation } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro'
+import { useSnackbar } from 'notistack';
 import { WorkspaceGeneralSettingsFragment_workspace$key } from './__generated__/WorkspaceGeneralSettingsFragment_workspace.graphql'
 import { WorkspaceGeneralSettingsUpdateMutation } from './__generated__/WorkspaceGeneralSettingsUpdateMutation.graphql'
 
@@ -12,6 +13,7 @@ interface Props {
 }
 
 function WorkspaceGeneralSettings(props: Props) {
+    const { enqueueSnackbar } = useSnackbar();
 
     const data = useFragment(
         graphql`
@@ -66,6 +68,8 @@ const onUpdate = () => {
                     severity: 'error',
                     message: "Unexpected error occurred"
                 });
+            } else {
+                enqueueSnackbar('Settings updated', { variant: 'success' });
             }
         },
         onError: error => {
@@ -82,7 +86,7 @@ const onUpdate = () => {
             {error && <Alert sx={{ mb: 2 }} severity={error.severity}>
                 {error.message}
             </Alert>}
-            <Typography marginBottom={2} variant="subtitle1" gutterBottom>General Settings</Typography>
+            <Typography marginBottom={2} variant="h6" gutterBottom>General Settings</Typography>
             <Box>
                 <TextField disabled={true} size="small" fullWidth label="Name" value={data.name}
                 onChange={event => setInputForm({ ...data, name: event.target.value })}

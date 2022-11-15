@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3a6f5b2bff8009664dee76289ad2b225>>
+ * @generated SignedSource<<cd16eaa2449ce782b8744830c8fc4e36>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type CreateWorkspaceInput = {
   groupPath: string;
   maxJobDuration?: number | null;
   name: string;
+  preventDestroyPlan?: boolean | null;
   terraformVersion?: string | null;
 };
 export type NewWorkspaceMutation$variables = {

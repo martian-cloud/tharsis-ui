@@ -60,7 +60,14 @@ type ActivityEventEdge {
   node: ActivityEvent
 }
 
-union ActivityEventPayload = ActivityEventCreateNamespaceMembershipPayload | ActivityEventUpdateNamespaceMembershipPayload | ActivityEventRemoveNamespaceMembershipPayload | ActivityEventDeleteChildResourcePayload | ActivityEventAddTeamMemberPayload | ActivityEventRemoveTeamMemberPayload | ActivityEventUpdateTeamMemberPayload
+union ActivityEventPayload =
+    ActivityEventCreateNamespaceMembershipPayload
+  | ActivityEventUpdateNamespaceMembershipPayload
+  | ActivityEventRemoveNamespaceMembershipPayload
+  | ActivityEventDeleteChildResourcePayload
+  | ActivityEventAddTeamMemberPayload
+  | ActivityEventRemoveTeamMemberPayload
+  | ActivityEventUpdateTeamMemberPayload
 
 type ActivityEventRemoveNamespaceMembershipPayload {
   member: Member
@@ -370,6 +377,7 @@ input CreateWorkspaceInput {
   groupPath: String!
   maxJobDuration: Int
   terraformVersion: String
+  preventDestroyPlan: Boolean
 }
 
 type CreateWorkspacePayload {
@@ -538,15 +546,67 @@ type Group implements Node & Namespace {
   fullPath: String!
   createdBy: String!
   parent: Group
-  gpgKeys(after: String, before: String, first: Int, last: Int, includeInherited: Boolean): GPGKeyConnection!
-  descendentGroups(after: String, before: String, first: Int, last: Int, sort: GroupSort): GroupConnection!
-  workspaces(after: String, before: String, first: Int, last: Int, sort: WorkspaceSort): WorkspaceConnection!
-  serviceAccounts(after: String, before: String, first: Int, last: Int, includeInherited: Boolean, search: String): ServiceAccountConnection!
-  managedIdentities(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort, includeInherited: Boolean, search: String): ManagedIdentityConnection!
-  terraformProviders(after: String, before: String, first: Int, last: Int, search: String): TerraformProviderConnection!
+  gpgKeys(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    includeInherited: Boolean
+  ): GPGKeyConnection!
+  descendentGroups(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    sort: GroupSort
+  ): GroupConnection!
+  workspaces(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    sort: WorkspaceSort
+  ): WorkspaceConnection!
+  serviceAccounts(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    includeInherited: Boolean
+    search: String
+  ): ServiceAccountConnection!
+  managedIdentities(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    sort: ManagedIdentitySort
+    includeInherited: Boolean
+    search: String
+  ): ManagedIdentityConnection!
+  terraformProviders(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    search: String
+  ): TerraformProviderConnection!
   memberships: [NamespaceMembership!]!
   variables: [NamespaceVariable!]!
-  activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
+  activityEvents(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    username: String
+    serviceAccountPath: String
+    includeNested: Boolean
+    timeRangeStart: Time
+    timeRangeEnd: Time
+    actions: [ActivityEventAction!]
+    targetTypes: [ActivityEventTargetType!]
+    sort: ActivityEventSort
+  ): ActivityEventConnection!
 }
 
 type GroupConnection {
@@ -684,7 +744,9 @@ union Member = User | ServiceAccount | Team
 
 union MeResponse = User | ServiceAccount
 
-"""The Mutation type represents all of the entry points into the API."""
+"""
+The Mutation type represents all of the entry points into the API.
+"""
 type Mutation {
   createWorkspace(input: CreateWorkspaceInput!): CreateWorkspacePayload!
   updateWorkspace(input: UpdateWorkspaceInput!): UpdateWorkspacePayload!
@@ -692,32 +754,74 @@ type Mutation {
   createGroup(input: CreateGroupInput!): CreateGroupPayload!
   updateGroup(input: UpdateGroupInput!): UpdateGroupPayload!
   deleteGroup(input: DeleteGroupInput!): DeleteGroupPayload!
-  createManagedIdentity(input: CreateManagedIdentityInput!): CreateManagedIdentityPayload!
-  updateManagedIdentity(input: UpdateManagedIdentityInput!): UpdateManagedIdentityPayload!
-  deleteManagedIdentity(input: DeleteManagedIdentityInput!): DeleteManagedIdentityPayload!
-  assignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
-  unassignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
-  createManagedIdentityAccessRule(input: CreateManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
-  updateManagedIdentityAccessRule(input: UpdateManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
-  deleteManagedIdentityAccessRule(input: DeleteManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
-  createManagedIdentityCredentials(input: CreateManagedIdentityCredentialsInput!): CreateManagedIdentityCredentialsPayload!
-  createServiceAccount(input: CreateServiceAccountInput!): CreateServiceAccountPayload!
-  updateServiceAccount(input: UpdateServiceAccountInput!): UpdateServiceAccountPayload!
-  deleteServiceAccount(input: DeleteServiceAccountInput!): DeleteServiceAccountPayload!
-  createNamespaceMembership(input: CreateNamespaceMembershipInput!): NamespaceMembershipMutationPayload!
-  updateNamespaceMembership(input: UpdateNamespaceMembershipInput!): NamespaceMembershipMutationPayload!
-  deleteNamespaceMembership(input: DeleteNamespaceMembershipInput!): NamespaceMembershipMutationPayload!
+  createManagedIdentity(
+    input: CreateManagedIdentityInput!
+  ): CreateManagedIdentityPayload!
+  updateManagedIdentity(
+    input: UpdateManagedIdentityInput!
+  ): UpdateManagedIdentityPayload!
+  deleteManagedIdentity(
+    input: DeleteManagedIdentityInput!
+  ): DeleteManagedIdentityPayload!
+  assignManagedIdentity(
+    input: AssignManagedIdentityInput!
+  ): AssignManagedIdentityPayload!
+  unassignManagedIdentity(
+    input: AssignManagedIdentityInput!
+  ): AssignManagedIdentityPayload!
+  createManagedIdentityAccessRule(
+    input: CreateManagedIdentityAccessRuleInput!
+  ): ManagedIdentityAccessRuleMutationPayload!
+  updateManagedIdentityAccessRule(
+    input: UpdateManagedIdentityAccessRuleInput!
+  ): ManagedIdentityAccessRuleMutationPayload!
+  deleteManagedIdentityAccessRule(
+    input: DeleteManagedIdentityAccessRuleInput!
+  ): ManagedIdentityAccessRuleMutationPayload!
+  createManagedIdentityCredentials(
+    input: CreateManagedIdentityCredentialsInput!
+  ): CreateManagedIdentityCredentialsPayload!
+  createServiceAccount(
+    input: CreateServiceAccountInput!
+  ): CreateServiceAccountPayload!
+  updateServiceAccount(
+    input: UpdateServiceAccountInput!
+  ): UpdateServiceAccountPayload!
+  deleteServiceAccount(
+    input: DeleteServiceAccountInput!
+  ): DeleteServiceAccountPayload!
+  createNamespaceMembership(
+    input: CreateNamespaceMembershipInput!
+  ): NamespaceMembershipMutationPayload!
+  updateNamespaceMembership(
+    input: UpdateNamespaceMembershipInput!
+  ): NamespaceMembershipMutationPayload!
+  deleteNamespaceMembership(
+    input: DeleteNamespaceMembershipInput!
+  ): NamespaceMembershipMutationPayload!
   createRun(input: CreateRunInput!): RunMutationPayload!
   applyRun(input: ApplyRunInput!): RunMutationPayload!
   cancelRun(input: CancelRunInput!): RunMutationPayload!
   updatePlan(input: UpdatePlanInput!): UpdatePlanPayload!
   updateApply(input: UpdateApplyInput!): UpdateApplyPayload!
-  createConfigurationVersion(input: CreateConfigurationVersionInput!): ConfigurationVersionMutationPayload!
-  createStateVersion(input: CreateStateVersionInput!): CreateStateVersionPayload!
-  createNamespaceVariable(input: CreateNamespaceVariableInput!): NamespaceVariableMutationPayload!
-  updateNamespaceVariable(input: UpdateNamespaceVariableInput!): NamespaceVariableMutationPayload!
-  deleteNamespaceVariable(input: DeleteNamespaceVariableInput!): NamespaceVariableMutationPayload!
-  setNamespaceVariables(input: SetNamespaceVariablesInput!): NamespaceVariableMutationPayload!
+  createConfigurationVersion(
+    input: CreateConfigurationVersionInput!
+  ): ConfigurationVersionMutationPayload!
+  createStateVersion(
+    input: CreateStateVersionInput!
+  ): CreateStateVersionPayload!
+  createNamespaceVariable(
+    input: CreateNamespaceVariableInput!
+  ): NamespaceVariableMutationPayload!
+  updateNamespaceVariable(
+    input: UpdateNamespaceVariableInput!
+  ): NamespaceVariableMutationPayload!
+  deleteNamespaceVariable(
+    input: DeleteNamespaceVariableInput!
+  ): NamespaceVariableMutationPayload!
+  setNamespaceVariables(
+    input: SetNamespaceVariablesInput!
+  ): NamespaceVariableMutationPayload!
   saveJobLogs(input: SaveJobLogsInput!): SaveJobLogsPayload!
   createTeam(input: CreateTeamInput): CreateTeamPayload!
   updateTeam(input: UpdateTeamInput): UpdateTeamPayload!
@@ -725,16 +829,32 @@ type Mutation {
   addUserToTeam(input: AddUserToTeamInput): AddUserToTeamPayload!
   updateTeamMember(input: UpdateTeamMemberInput): UpdateTeamMemberPayload!
   removeUserFromTeam(input: RemoveUserFromTeamInput): RemoveUserFromTeamPayload!
-  createTerraformProvider(input: CreateTerraformProviderInput): CreateTerraformProviderPayload!
-  updateTerraformProvider(input: UpdateTerraformProviderInput): UpdateTerraformProviderPayload!
-  deleteTerraformProvider(input: DeleteTerraformProviderInput): DeleteTerraformProviderPayload!
-  createTerraformProviderVersion(input: CreateTerraformProviderVersionInput): CreateTerraformProviderVersionPayload!
-  deleteTerraformProviderVersion(input: DeleteTerraformProviderVersionInput): DeleteTerraformProviderVersionPayload!
-  createTerraformProviderPlatform(input: CreateTerraformProviderPlatformInput): CreateTerraformProviderPlatformPayload!
-  deleteTerraformProviderPlatform(input: DeleteTerraformProviderPlatformInput): DeleteTerraformProviderPlatformPayload!
+  createTerraformProvider(
+    input: CreateTerraformProviderInput
+  ): CreateTerraformProviderPayload!
+  updateTerraformProvider(
+    input: UpdateTerraformProviderInput
+  ): UpdateTerraformProviderPayload!
+  deleteTerraformProvider(
+    input: DeleteTerraformProviderInput
+  ): DeleteTerraformProviderPayload!
+  createTerraformProviderVersion(
+    input: CreateTerraformProviderVersionInput
+  ): CreateTerraformProviderVersionPayload!
+  deleteTerraformProviderVersion(
+    input: DeleteTerraformProviderVersionInput
+  ): DeleteTerraformProviderVersionPayload!
+  createTerraformProviderPlatform(
+    input: CreateTerraformProviderPlatformInput
+  ): CreateTerraformProviderPlatformPayload!
+  deleteTerraformProviderPlatform(
+    input: DeleteTerraformProviderPlatformInput
+  ): DeleteTerraformProviderPlatformPayload!
   createGPGKey(input: CreateGPGKeyInput!): CreateGPGKeyPayload!
   deleteGPGKey(input: DeleteGPGKeyInput!): DeleteGPGKeyPayload!
-  createTerraformCLIDownloadURL(input: CreateTerraformCLIDownloadURLInput!): TerraformCLIMutationPayload!
+  createTerraformCLIDownloadURL(
+    input: CreateTerraformCLIDownloadURLInput!
+  ): TerraformCLIMutationPayload!
   createSCIMToken: SCIMTokenPayload!
 }
 
@@ -746,9 +866,37 @@ interface Namespace {
   fullPath: String!
   memberships: [NamespaceMembership!]!
   variables: [NamespaceVariable!]!
-  serviceAccounts(after: String, before: String, first: Int, last: Int, includeInherited: Boolean, search: String): ServiceAccountConnection!
-  managedIdentities(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort, includeInherited: Boolean, search: String): ManagedIdentityConnection!
-  activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
+  serviceAccounts(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    includeInherited: Boolean
+    search: String
+  ): ServiceAccountConnection!
+  managedIdentities(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    sort: ManagedIdentitySort
+    includeInherited: Boolean
+    search: String
+  ): ManagedIdentityConnection!
+  activityEvents(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    username: String
+    serviceAccountPath: String
+    includeNested: Boolean
+    timeRangeStart: Time
+    timeRangeEnd: Time
+    actions: [ActivityEventAction!]
+    targetTypes: [ActivityEventTargetType!]
+    sort: ActivityEventSort
+  ): ActivityEventConnection!
 }
 
 type NamespaceMembership implements Node {
@@ -858,31 +1006,100 @@ enum ProblemType {
   FORBIDDEN
 }
 
-"""The Query type represents all of the entry points into the API."""
+"""
+The Query type represents all of the entry points into the API.
+"""
 type Query {
   me: MeResponse
   node(id: String!): Node
   namespace(fullPath: String!): Namespace
   group(fullPath: String!): Group
-  groups(after: String, before: String, first: Int, last: Int, parentPath: String, sort: GroupSort): GroupConnection!
+  groups(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    parentPath: String
+    sort: GroupSort
+  ): GroupConnection!
   workspace(fullPath: String!): Workspace
-  workspaces(after: String, before: String, first: Int, last: Int, groupPath: String, search: String, sort: WorkspaceSort): WorkspaceConnection!
-  terraformProviders(after: String, before: String, first: Int, last: Int, search: String, sort: TerraformProviderSort): TerraformProviderConnection!
-  terraformProvider(registryNamespace: String!, providerName: String!): TerraformProvider
-  terraformProviderVersion(registryNamespace: String!, providerName: String!, version: String): TerraformProviderVersion
+  workspaces(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    groupPath: String
+    search: String
+    sort: WorkspaceSort
+  ): WorkspaceConnection!
+  terraformProviders(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    search: String
+    sort: TerraformProviderSort
+  ): TerraformProviderConnection!
+  terraformProvider(
+    registryNamespace: String!
+    providerName: String!
+  ): TerraformProvider
+  terraformProviderVersion(
+    registryNamespace: String!
+    providerName: String!
+    version: String
+  ): TerraformProviderVersion
   run(id: String!): Run
-  runs(after: String, before: String, first: Int, last: Int, workspacePath: String, workspaceId: String, sort: RunSort): RunConnection!
+  runs(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    workspacePath: String
+    workspaceId: String
+    sort: RunSort
+  ): RunConnection!
   job(id: String!): Job
   managedIdentity(id: String!): ManagedIdentity
   serviceAccount(id: String!): ServiceAccount
-  users(after: String, before: String, first: Int, last: Int, search: String, sort: UserSort): UserConnection!
+  users(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    search: String
+    sort: UserSort
+  ): UserConnection!
   configurationVersion(id: String!): ConfigurationVersion
   team(name: String!): Team
-  teams(after: String, before: String, first: Int, last: Int, search: String, sort: TeamSort): TeamConnection!
+  teams(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    search: String
+    sort: TeamSort
+  ): TeamConnection!
   terraformCLIVersions: TerraformCLIVersions
 
-  """There is no query for an activity event by ID."""
-  activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, namespacePath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
+  """
+  There is no query for an activity event by ID.
+  """
+  activityEvents(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    username: String
+    serviceAccountPath: String
+    namespacePath: String
+    includeNested: Boolean
+    timeRangeStart: Time
+    timeRangeEnd: Time
+    actions: [ActivityEventAction!]
+    targetTypes: [ActivityEventTargetType!]
+    sort: ActivityEventSort
+  ): ActivityEventConnection!
 }
 
 input RemoveUserFromTeamInput {
@@ -1017,8 +1234,24 @@ type ServiceAccount implements Node {
   group: Group!
   createdBy: String!
   oidcTrustPolicies: [OIDCTrustPolicy!]!
-  namespaceMemberships(after: String, before: String, first: Int, last: Int): NamespaceMembershipConnection!
-  activityEvents(after: String, before: String, first: Int, last: Int, namespacePath: String, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
+  namespaceMemberships(
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): NamespaceMembershipConnection!
+  activityEvents(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    namespacePath: String
+    timeRangeStart: Time
+    timeRangeEnd: Time
+    actions: [ActivityEventAction!]
+    targetTypes: [ActivityEventTargetType!]
+    sort: ActivityEventSort
+  ): ActivityEventConnection!
 }
 
 type ServiceAccountConnection {
@@ -1098,7 +1331,9 @@ type Subscription {
   workspaceRunEvents(input: RunSubscriptionInput!): RunEvent!
   workspaceEvents(input: WorkspaceSubscriptionInput!): WorkspaceEvent!
   jobLogEvents(input: JobLogSubscriptionInput!): JobLogEvent!
-  jobCancellationEvent(input: JobCancellationEventSubscriptionInput!): JobCancellationEvent!
+  jobCancellationEvent(
+    input: JobCancellationEventSubscriptionInput!
+  ): JobCancellationEvent!
 }
 
 type Team implements Node {
@@ -1107,7 +1342,13 @@ type Team implements Node {
   name: String!
   description: String!
   scimExternalId: String
-  members(after: String, before: String, first: Int, last: Int, sort: TeamMemberSort): TeamMemberConnection!
+  members(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    sort: TeamMemberSort
+  ): TeamMemberConnection!
 }
 
 type TeamConnection {
@@ -1121,7 +1362,9 @@ type TeamEdge {
   node: Team
 }
 
-"""TeamMember and friends:"""
+"""
+TeamMember and friends:
+"""
 type TeamMember {
   id: ID!
   metadata: ResourceMetadata!
@@ -1146,7 +1389,9 @@ enum TeamMemberSort {
   USERNAME_DESC
 }
 
-"""Team and friends:"""
+"""
+Team and friends:
+"""
 enum TeamSort {
   NAME_ASC
   NAME_DESC
@@ -1175,7 +1420,13 @@ type TerraformProvider implements Node {
   registryNamespace: String!
   resourcePath: String!
   latestVersion: TerraformProviderVersion
-  versions(after: String, before: String, first: Int, last: Int, sort: TerraformProviderVersionSort): TerraformProviderVersionConnection!
+  versions(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    sort: TerraformProviderVersionSort
+  ): TerraformProviderVersionConnection!
 }
 
 type TerraformProviderConnection {
@@ -1200,7 +1451,9 @@ type TerraformProviderPlatform implements Node {
   binaryUploaded: Boolean!
 }
 
-"""The End."""
+"""
+The End.
+"""
 enum TerraformProviderSort {
   NAME_ASC
   NAME_DESC
@@ -1245,7 +1498,9 @@ enum TerraformProviderVersionSort {
   VERSION_DESC
 }
 
-"""Time represented in ISO 8601"""
+"""
+Time represented in ISO 8601
+"""
 scalar Time
 
 input UpdateApplyInput {
@@ -1392,6 +1647,7 @@ input UpdateWorkspaceInput {
   description: String
   maxJobDuration: Int
   terraformVersion: String
+  preventDestroyPlan: Boolean
 }
 
 type UpdateWorkspacePayload {
@@ -1405,11 +1661,27 @@ type User implements Node {
   metadata: ResourceMetadata!
   username: String!
   email: String!
-  namespaceMemberships(after: String, before: String, first: Int, last: Int): NamespaceMembershipConnection!
+  namespaceMemberships(
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): NamespaceMembershipConnection!
   admin: Boolean!
   active: Boolean!
   scimExternalId: String
-  activityEvents(after: String, before: String, first: Int, last: Int, namespacePath: String, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
+  activityEvents(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    namespacePath: String
+    timeRangeStart: Time
+    timeRangeEnd: Time
+    actions: [ActivityEventAction!]
+    targetTypes: [ActivityEventTargetType!]
+    sort: ActivityEventSort
+  ): ActivityEventConnection!
 }
 
 type UserConnection {
@@ -1443,9 +1715,30 @@ type Workspace implements Node & Namespace {
   dirtyState: Boolean!
   locked: Boolean!
   assignedManagedIdentities: [ManagedIdentity!]!
-  managedIdentities(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort, includeInherited: Boolean, search: String): ManagedIdentityConnection!
-  serviceAccounts(after: String, before: String, first: Int, last: Int, includeInherited: Boolean, search: String): ServiceAccountConnection!
-  stateVersions(after: String, before: String, first: Int, last: Int, sort: StateVersionSort): StateVersionConnection!
+  managedIdentities(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    sort: ManagedIdentitySort
+    includeInherited: Boolean
+    search: String
+  ): ManagedIdentityConnection!
+  serviceAccounts(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    includeInherited: Boolean
+    search: String
+  ): ServiceAccountConnection!
+  stateVersions(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    sort: StateVersionSort
+  ): StateVersionConnection!
   memberships: [NamespaceMembership!]!
   variables: [NamespaceVariable!]!
   currentStateVersion: StateVersion
@@ -1453,7 +1746,21 @@ type Workspace implements Node & Namespace {
   maxJobDuration: Int!
   createdBy: String!
   terraformVersion: String!
-  activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
+  activityEvents(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    username: String
+    serviceAccountPath: String
+    includeNested: Boolean
+    timeRangeStart: Time
+    timeRangeEnd: Time
+    actions: [ActivityEventAction!]
+    targetTypes: [ActivityEventTargetType!]
+    sort: ActivityEventSort
+  ): ActivityEventConnection!
+  preventDestroyPlan: Boolean!
 }
 
 type WorkspaceConnection {
@@ -1482,4 +1789,3 @@ enum WorkspaceSort {
 input WorkspaceSubscriptionInput {
   workspacePath: String!
 }
-

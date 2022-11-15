@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b23ff53ae6c2b14527a1049dedb95a55>>
+ * @generated SignedSource<<05e3985d5b2ce518d6a4daf68d50f42a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type UpdateWorkspaceInput = {
   description?: string | null;
   maxJobDuration?: number | null;
   metadata?: ResourceMetadataInput | null;
+  preventDestroyPlan?: boolean | null;
   terraformVersion?: string | null;
   workspacePath: string;
 };
