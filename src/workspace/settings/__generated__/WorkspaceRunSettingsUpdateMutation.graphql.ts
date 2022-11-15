@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<399fd6092ef58c1f83dc227de8003ce0>>
+ * @generated SignedSource<<9664ef15c6ee013704a4d9242bf00e12>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,62 +10,85 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
-export type DeleteWorkspaceInput = {
+export type UpdateWorkspaceInput = {
   clientMutationId?: string | null;
-  force?: boolean | null;
+  description?: string | null;
+  maxJobDuration?: number | null;
   metadata?: ResourceMetadataInput | null;
+  preventDestroyPlan?: boolean | null;
+  terraformVersion?: string | null;
   workspacePath: string;
 };
 export type ResourceMetadataInput = {
   version: string;
 };
-export type WorkspaceSettingsDeleteMutation$variables = {
-  connections: ReadonlyArray<string>;
-  input: DeleteWorkspaceInput;
+export type WorkspaceRunSettingsUpdateMutation$variables = {
+  input: UpdateWorkspaceInput;
 };
-export type WorkspaceSettingsDeleteMutation$data = {
-  readonly deleteWorkspace: {
+export type WorkspaceRunSettingsUpdateMutation$data = {
+  readonly updateWorkspace: {
     readonly problems: ReadonlyArray<{
       readonly field: ReadonlyArray<string> | null;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly workspace: {
-      readonly id: string;
+      readonly fullPath: string;
+      readonly maxJobDuration: number;
+      readonly preventDestroyPlan: boolean;
+      readonly terraformVersion: string;
     } | null;
   };
 };
-export type WorkspaceSettingsDeleteMutation = {
-  response: WorkspaceSettingsDeleteMutation$data;
-  variables: WorkspaceSettingsDeleteMutation$variables;
+export type WorkspaceRunSettingsUpdateMutation = {
+  response: WorkspaceRunSettingsUpdateMutation$data;
+  variables: WorkspaceRunSettingsUpdateMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "connections"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "input"
-},
-v2 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "input"
+  }
+],
+v1 = [
   {
     "kind": "Variable",
     "name": "input",
     "variableName": "input"
   }
 ],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "fullPath",
+  "storageKey": null
+},
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "maxJobDuration",
   "storageKey": null
 },
 v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "terraformVersion",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "preventDestroyPlan",
+  "storageKey": null
+},
+v6 = {
   "alias": null,
   "args": null,
   "concreteType": "Problem",
@@ -99,20 +122,17 @@ v4 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "WorkspaceSettingsDeleteMutation",
+    "name": "WorkspaceRunSettingsUpdateMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
-        "concreteType": "DeleteWorkspacePayload",
+        "args": (v1/*: any*/),
+        "concreteType": "UpdateWorkspacePayload",
         "kind": "LinkedField",
-        "name": "deleteWorkspace",
+        "name": "updateWorkspace",
         "plural": false,
         "selections": [
           {
@@ -123,11 +143,14 @@ return {
             "name": "workspace",
             "plural": false,
             "selections": [
-              (v3/*: any*/)
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/)
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
@@ -137,19 +160,16 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "WorkspaceSettingsDeleteMutation",
+    "name": "WorkspaceRunSettingsUpdateMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
-        "concreteType": "DeleteWorkspacePayload",
+        "args": (v1/*: any*/),
+        "concreteType": "UpdateWorkspacePayload",
         "kind": "LinkedField",
-        "name": "deleteWorkspace",
+        "name": "updateWorkspace",
         "plural": false,
         "selections": [
           {
@@ -160,43 +180,37 @@ return {
             "name": "workspace",
             "plural": false,
             "selections": [
+              (v2/*: any*/),
               (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "filters": null,
-                "handle": "deleteEdge",
-                "key": "",
-                "kind": "ScalarHandle",
+                "kind": "ScalarField",
                 "name": "id",
-                "handleArgs": [
-                  {
-                    "kind": "Variable",
-                    "name": "connections",
-                    "variableName": "connections"
-                  }
-                ]
+                "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "2e5cb86eb6702498d16862fbd369bbf6",
+    "cacheID": "eb8b32157a4e82bb2c8963ec1c888cff",
     "id": null,
     "metadata": {},
-    "name": "WorkspaceSettingsDeleteMutation",
+    "name": "WorkspaceRunSettingsUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation WorkspaceSettingsDeleteMutation(\n  $input: DeleteWorkspaceInput!\n) {\n  deleteWorkspace(input: $input) {\n    workspace {\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
+    "text": "mutation WorkspaceRunSettingsUpdateMutation(\n  $input: UpdateWorkspaceInput!\n) {\n  updateWorkspace(input: $input) {\n    workspace {\n      fullPath\n      maxJobDuration\n      terraformVersion\n      preventDestroyPlan\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ef635385553ab8b059c1f13193c1159e";
+(node as any).hash = "cc707e1576fb4c638158da024851a016";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e5debd9b3652c134f2804fa9ba408099>>
+ * @generated SignedSource<<8e40ff9f462d1d3d1de2b462e527ecbd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type WorkspaceSettingsFragment_workspace$data = {
   readonly description: string;
   readonly fullPath: string;
   readonly name: string;
-  readonly " $fragmentSpreads": FragmentRefs<"MaxJobDurationSettingFragment_workspace" | "TerraformCLIVersionSettingFragment_workspace" | "WorkspaceGeneralSettingsFragment_workspace">;
+  readonly " $fragmentSpreads": FragmentRefs<"WorkspaceAdvancedSettingsFragment_workspace" | "WorkspaceGeneralSettingsFragment_workspace" | "WorkspaceRunSettingsFragment_workspace">;
   readonly " $fragmentType": "WorkspaceSettingsFragment_workspace";
 };
 export type WorkspaceSettingsFragment_workspace$key = {
@@ -52,23 +52,23 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "MaxJobDurationSettingFragment_workspace"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "TerraformCLIVersionSettingFragment_workspace"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
       "name": "WorkspaceGeneralSettingsFragment_workspace"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "WorkspaceRunSettingsFragment_workspace"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "WorkspaceAdvancedSettingsFragment_workspace"
     }
   ],
   "type": "Workspace",
   "abstractKey": null
 };
 
-(node as any).hash = "f6f468598a6037f8b7763e05efd4f63f";
+(node as any).hash = "1fcaad17ccfb4a313f4660d903944994";
 
 export default node;

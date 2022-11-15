@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5b92c5e58a9fa869866b55af4dd2b5d2>>
+ * @generated SignedSource<<70ab3cf6902c17e1daa7015434204529>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,60 +10,62 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
-export type UpdateWorkspaceInput = {
+export type DeleteWorkspaceInput = {
   clientMutationId?: string | null;
-  description?: string | null;
-  maxJobDuration?: number | null;
+  force?: boolean | null;
   metadata?: ResourceMetadataInput | null;
-  terraformVersion?: string | null;
   workspacePath: string;
 };
 export type ResourceMetadataInput = {
   version: string;
 };
-export type TerraformCLIVersionSettingUpdateMutation$variables = {
-  input: UpdateWorkspaceInput;
+export type WorkspaceAdvancedSettingsDeleteMutation$variables = {
+  connections: ReadonlyArray<string>;
+  input: DeleteWorkspaceInput;
 };
-export type TerraformCLIVersionSettingUpdateMutation$data = {
-  readonly updateWorkspace: {
+export type WorkspaceAdvancedSettingsDeleteMutation$data = {
+  readonly deleteWorkspace: {
     readonly problems: ReadonlyArray<{
       readonly field: ReadonlyArray<string> | null;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly workspace: {
-      readonly terraformVersion: string;
+      readonly id: string;
     } | null;
   };
 };
-export type TerraformCLIVersionSettingUpdateMutation = {
-  response: TerraformCLIVersionSettingUpdateMutation$data;
-  variables: TerraformCLIVersionSettingUpdateMutation$variables;
+export type WorkspaceAdvancedSettingsDeleteMutation = {
+  response: WorkspaceAdvancedSettingsDeleteMutation$data;
+  variables: WorkspaceAdvancedSettingsDeleteMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "input"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "connections"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "input"
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "input",
     "variableName": "input"
   }
 ],
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "terraformVersion",
+  "name": "id",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "concreteType": "Problem",
@@ -97,17 +99,20 @@ v3 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "TerraformCLIVersionSettingUpdateMutation",
+    "name": "WorkspaceAdvancedSettingsDeleteMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "UpdateWorkspacePayload",
+        "args": (v2/*: any*/),
+        "concreteType": "DeleteWorkspacePayload",
         "kind": "LinkedField",
-        "name": "updateWorkspace",
+        "name": "deleteWorkspace",
         "plural": false,
         "selections": [
           {
@@ -118,11 +123,11 @@ return {
             "name": "workspace",
             "plural": false,
             "selections": [
-              (v2/*: any*/)
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
@@ -132,16 +137,19 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
-    "name": "TerraformCLIVersionSettingUpdateMutation",
+    "name": "WorkspaceAdvancedSettingsDeleteMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "UpdateWorkspacePayload",
+        "args": (v2/*: any*/),
+        "concreteType": "DeleteWorkspacePayload",
         "kind": "LinkedField",
-        "name": "updateWorkspace",
+        "name": "deleteWorkspace",
         "plural": false,
         "selections": [
           {
@@ -152,34 +160,43 @@ return {
             "name": "workspace",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
+                "filters": null,
+                "handle": "deleteEdge",
+                "key": "",
+                "kind": "ScalarHandle",
                 "name": "id",
-                "storageKey": null
+                "handleArgs": [
+                  {
+                    "kind": "Variable",
+                    "name": "connections",
+                    "variableName": "connections"
+                  }
+                ]
               }
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "d6ddda1281cb7e5520d34ac0f9f7f8ec",
+    "cacheID": "716f6336d5d3076e46fc93710feb00c2",
     "id": null,
     "metadata": {},
-    "name": "TerraformCLIVersionSettingUpdateMutation",
+    "name": "WorkspaceAdvancedSettingsDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation TerraformCLIVersionSettingUpdateMutation(\n  $input: UpdateWorkspaceInput!\n) {\n  updateWorkspace(input: $input) {\n    workspace {\n      terraformVersion\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
+    "text": "mutation WorkspaceAdvancedSettingsDeleteMutation(\n  $input: DeleteWorkspaceInput!\n) {\n  deleteWorkspace(input: $input) {\n    workspace {\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "30de2773164edd20908e942330506718";
+(node as any).hash = "c6ed157ff307ee2477d144ab9a986fa0";
 
 export default node;

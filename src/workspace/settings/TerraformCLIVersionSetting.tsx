@@ -1,27 +1,16 @@
-import { Alert, Box, MenuItem, Select, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { Box, MenuItem, Select, Typography } from '@mui/material'
+import React from 'react'
 import graphql from 'babel-plugin-relay/macro'
-import { MutationError } from '../../common/error';
-import {  useLazyLoadQuery, useMutation, useFragment } from 'react-relay/hooks';
+import {  useLazyLoadQuery } from 'react-relay/hooks';
 import { TerraformCLIVersionSettingQuery } from './__generated__/TerraformCLIVersionSettingQuery.graphql'
-import { TerraformCLIVersionSettingUpdateMutation } from './__generated__/TerraformCLIVersionSettingUpdateMutation.graphql'
-import { TerraformCLIVersionSettingFragment_workspace$key } from './__generated__/TerraformCLIVersionSettingFragment_workspace.graphql'
 
 interface Props {
-    fragmentRef: TerraformCLIVersionSettingFragment_workspace$key
+    data: string
+    onChange: (event: any) => void
 }
 
 function TerraformCLIVersionSetting(props: Props) {
-
-    const data = useFragment(
-        graphql`
-        fragment TerraformCLIVersionSettingFragment_workspace on Workspace
-        {
-            fullPath
-            terraformVersion
-        }
-    `, props.fragmentRef
-    )
+    const { data, onChange } = props
 
     const versionsData = useLazyLoadQuery<TerraformCLIVersionSettingQuery>(graphql`
         query TerraformCLIVersionSettingQuery {
@@ -30,59 +19,8 @@ function TerraformCLIVersionSetting(props: Props) {
             }
         }`, { fetchPolicy: 'store-or-network' })
 
-    const [error, setError] = useState<MutationError>()
-
-    const [commit] = useMutation<TerraformCLIVersionSettingUpdateMutation>(
-        graphql`
-        mutation TerraformCLIVersionSettingUpdateMutation($input: UpdateWorkspaceInput!) {
-            updateWorkspace(input: $input) {
-                workspace {
-                    terraformVersion
-                }
-                problems {
-                    message
-                    field
-                    type
-                }
-            }
-        }
-    `)
-
-const onUpdate = (event: any) => {
-    commit({
-        variables: {
-            input: {
-                workspacePath: data.fullPath,
-                terraformVersion: event.target.value
-            }
-        },
-        onCompleted: data => {
-            if (data.updateWorkspace.problems.length) {
-                setError({
-                    severity: 'warning',
-                    message: data.updateWorkspace.problems.map(problem => problem.message).join('; ')
-                });
-            } else if (!data.updateWorkspace.workspace) {
-                setError({
-                    severity: 'error',
-                    message: "Unexpected error occurred"
-                });
-            }
-        },
-        onError: error => {
-            setError({
-                severity: 'error',
-                message: `Unexpected error occurred: ${error.message}`
-            });
-        }
-    });
-};
-
     return (
-        <Box>
-            {error && <Alert sx={{ mb: 2 }} severity={error.severity}>
-                {error.message}
-            </Alert>}
+        <Box sx={{ mb: 4 }}>
             <Typography variant="subtitle1" gutterBottom>Terraform CLI Version</Typography>
             <Box>
                 <Select
@@ -90,8 +28,8 @@ const onUpdate = (event: any) => {
                     size="small"
                     labelId="terraform-cli-versions-select-label"
                     id="terraform-cli-versions-select"
-                    value={data.terraformVersion}
-                    onChange={(event: any) => onUpdate(event)}
+                    value={data}
+                    onChange={event => onChange(event)}
                 >
                     {versionsData.terraformCLIVersions ? [...versionsData.terraformCLIVersions.versions].reverse().map((opt: string) => <MenuItem key={opt} value={opt}>{opt}</MenuItem>) : null}
                 </Select>
