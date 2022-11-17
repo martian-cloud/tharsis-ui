@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<560ce6de91a4516047e44e1221759de5>>
+ * @generated SignedSource<<2810f3f737f668cbb2872ed6fefeb37a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type WorkspaceAdvancedSettingsFragment_workspace$data = {
   readonly fullPath: string;
   readonly name: string;
+  readonly " $fragmentSpreads": FragmentRefs<"WorkspaceAdvancedSettingsDeleteDialogFragment_workspace">;
   readonly " $fragmentType": "WorkspaceAdvancedSettingsFragment_workspace";
 };
 export type WorkspaceAdvancedSettingsFragment_workspace$key = {
@@ -39,12 +40,17 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "fullPath",
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "WorkspaceAdvancedSettingsDeleteDialogFragment_workspace"
     }
   ],
   "type": "Workspace",
   "abstractKey": null
 };
 
-(node as any).hash = "b85a4663d597f4a9141f5325856203bb";
+(node as any).hash = "c2d38e4b27ed72aaf41749861a4bd110";
 
 export default node;
