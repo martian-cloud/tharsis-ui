@@ -5,12 +5,13 @@ import TableRow from '@mui/material/TableRow';
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { useFragment } from 'react-relay/hooks';
+import DataTableCell from '../../common/DataTableCell';
 import Link from '../../routes/Link';
 import { StateVersionInputVariableListItemFragment_variable$key } from './__generated__/StateVersionInputVariableListItemFragment_variable.graphql';
 
 interface Props {
-    fragmentRef: StateVersionInputVariableListItemFragment_variable$key
-    showValues: boolean
+    fragmentRef: StateVersionInputVariableListItemFragment_variable$key;
+    showValues: boolean;
 }
 
 function StateVersionInputVariableListItem(props: Props) {
@@ -28,14 +29,14 @@ function StateVersionInputVariableListItem(props: Props) {
 
     return (
         <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 }}}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
-            <TableCell sx={{ wordBreak: 'break-all' }}>
+            <DataTableCell sx={{ wordBreak: 'break-all' }}>
                 {data.key}
-            </TableCell>
-            <TableCell sx={{ wordBreak: 'break-all' }}>
-                {showValues ? (data.value !== null ? data.value : <LockIcon color="disabled" />) : '************'}
-            </TableCell>
+            </DataTableCell>
+            <DataTableCell sx={{ wordBreak: 'break-all' }} mask={!showValues} >
+                {data.value !== null ? data.value : <LockIcon color="disabled" />}
+            </DataTableCell>
             <TableCell>
                 <Chip size="small" label={data.hcl ? 'HCL' : 'String'} />
             </TableCell>
