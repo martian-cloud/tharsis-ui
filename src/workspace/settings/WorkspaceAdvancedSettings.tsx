@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
-import { Box, Button, Dialog, DialogActions, DialogTitle, DialogContent, Typography, Alert } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogTitle, DialogContent, Typography, Alert, TextField, AlertTitle } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton';
 import { GetConnections } from '../../groups/WorkspaceList'
 import { useFragment, useMutation } from 'react-relay';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import graphql from 'babel-plugin-relay/macro'
 import { WorkspaceAdvancedSettingsFragment_workspace$key } from './__generated__/WorkspaceAdvancedSettingsFragment_workspace.graphql'
 import { WorkspaceAdvancedSettingsDeleteMutation } from './__generated__/WorkspaceAdvancedSettingsDeleteMutation.graphql'
+import { WorkspaceAdvancedSettingsDeleteDialogFragment_workspace$key } from './__generated__/WorkspaceAdvancedSettingsDeleteDialogFragment_workspace.graphql'
 
 interface ConfirmationDialogProps {
     deleteInProgress: boolean;
     onClose: (confirm?: boolean) => void
-    name: string
     closeDialog: () => void
     open: boolean
+    fragmentRef: WorkspaceAdvancedSettingsDeleteDialogFragment_workspace$key
 }
 
 interface Props {
@@ -22,23 +25,59 @@ interface Props {
 }
 
 function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
-    const { deleteInProgress, onClose, name, closeDialog, open } = props;
+    const { deleteInProgress, onClose, closeDialog, open, fragmentRef } = props;
+    const [deleteInput, setDeleteInput] = useState<string>('')
+
+    const data = useFragment(
+        graphql`
+        fragment WorkspaceAdvancedSettingsDeleteDialogFragment_workspace on Workspace
+        {
+            name
+            fullPath
+        }
+    `, fragmentRef
+    )
+
     return (
         <Dialog
             keepMounted
-            maxWidth="xs"
+            maxWidth="sm"
             open={open}
         >
-            <DialogTitle>Delete Workspace</DialogTitle>
-            <DialogContent dividers>
-                Are you sure you want to delete workspace <strong>{name}</strong>?
+            <DialogTitle>Delete <strong>{data.name}</strong></DialogTitle>
+            <DialogContent>
+                <Alert sx={{ mb: 2 }} severity="warning">
+                    <AlertTitle>Warning</AlertTitle>
+                    Deleting a workspace is an <strong><ins>irreversible</ins></strong> operation. All state files, resources, and data associated with this workspace will be deleted and <strong><ins>cannot be recovered</ins></strong>.</Alert>
+                <Typography variant="subtitle2">Enter the following to confirm deletion:</Typography>
+                <Typography marginBottom={2}>
+                    <SyntaxHighlighter style={prismTheme} customStyle={{ fontSize: 14 }} children={data.fullPath} />
+                </Typography>
+                <TextField
+                    autoComplete="off"
+                    fullWidth
+                    size="small"
+                    placeholder={data.fullPath}
+                    value={deleteInput}
+                    onChange={(event: any) => setDeleteInput(event.target.value)}
+                ></TextField>
             </DialogContent>
             <DialogActions>
                 <Button color="inherit"
-                    onClick={closeDialog}>
-                    Cancel
+                    onClick={() => {
+                        closeDialog()
+                        setDeleteInput('')
+                    }}>Cancel
                 </Button>
-                <LoadingButton color="error" loading={deleteInProgress} onClick={() => onClose(true)}>Delete</LoadingButton>
+                <LoadingButton
+                    color="error"
+                    variant="outlined"
+                    loading={deleteInProgress}
+                    disabled={data.fullPath !== deleteInput}
+                    onClick={() => {
+                        onClose(true)
+                        setDeleteInput('')
+                    }}>Delete</LoadingButton>
             </DialogActions>
         </Dialog>
     );
@@ -56,6 +95,7 @@ function WorkspaceAdvancedSettings(props: Props) {
         {
             name
             fullPath
+            ...WorkspaceAdvancedSettingsDeleteDialogFragment_workspace
         }
     `, props.fragmentRef
     )
@@ -81,7 +121,8 @@ function WorkspaceAdvancedSettings(props: Props) {
             commitDelete({
                 variables: {
                     input: {
-                        workspacePath: data.fullPath
+                        workspacePath: data.fullPath,
+                        force: true
                     },
                     connections: GetConnections(data.fullPath.substring(0, ((data.fullPath.length - data.name.length - 1))))
                 },
@@ -110,7 +151,7 @@ function WorkspaceAdvancedSettings(props: Props) {
                 <Button variant="outlined" color="error" onClick={() => setShowDeleteConfirmationDialog(true)}>Delete Workspace</Button>
             </Box>
             <DeleteConfirmationDialog
-                name={data.name}
+                fragmentRef={data}
                 deleteInProgress={commitDeleteInFlight}
                 onClose={onDeleteConfirmationDialogClosed}
                 closeDialog={() => setShowDeleteConfirmationDialog(false)}
