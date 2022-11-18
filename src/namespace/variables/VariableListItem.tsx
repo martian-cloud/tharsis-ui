@@ -7,16 +7,17 @@ import TableRow from '@mui/material/TableRow';
 import graphql from 'babel-plugin-relay/macro';
 import DeleteIcon from '@mui/icons-material/CloseOutlined';
 import React from 'react';
+import DataTableCell from '../../common/DataTableCell';
 import Link from '../../routes/Link';
 import { useFragment } from 'react-relay/hooks';
 import { VariableListItemFragment_variable$key } from './__generated__/VariableListItemFragment_variable.graphql';
 
 interface Props {
-    fragmentRef: VariableListItemFragment_variable$key
-    namespacePath: string
-    showValues: boolean
-    onEdit: (variable: any) => void
-    onDelete: (variable: any) => void
+    fragmentRef: VariableListItemFragment_variable$key;
+    namespacePath: string;
+    showValues: boolean;
+    onEdit: (variable: any) => void;
+    onDelete: (variable: any) => void;
 }
 
 function VariableListItem(props: Props) {
@@ -41,12 +42,12 @@ function VariableListItem(props: Props) {
         <TableRow
             sx={{ '&:last-child td, &:last-child th': { border: 0 }, height: 64 }}
         >
-            <TableCell sx={{ fontWeight: 'bold', wordBreak: 'break-all' }}>
+            <DataTableCell sx={{ fontWeight: 'bold', wordBreak: 'break-all' }}>
                 {data.key}
-            </TableCell>
-            <TableCell sx={{ wordBreak: 'break-all' }}>
-                {showValues ? (data.value !== null ? data.value : <LockIcon color="disabled" />) : '************'}
-            </TableCell>
+            </DataTableCell>
+            <DataTableCell sx={{ wordBreak: 'break-all' }} mask={!showValues} >
+                {data.value !== null ? data.value : <LockIcon color="disabled" />}
+            </DataTableCell>
             {data.category === 'terraform' && <TableCell>
                 <Chip size="small" label={data.hcl ? 'HCL' : 'String'} />
             </TableCell>}
