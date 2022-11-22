@@ -5,19 +5,19 @@ import { MutationError } from '../../common/error';
 import { useFragment, useMutation } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro'
 import { useSnackbar } from 'notistack';
-import { WorkspaceGeneralSettingsFragment_workspace$key } from './__generated__/WorkspaceGeneralSettingsFragment_workspace.graphql'
-import { WorkspaceGeneralSettingsUpdateMutation } from './__generated__/WorkspaceGeneralSettingsUpdateMutation.graphql'
+import { GroupGeneralSettingsFragment_group$key } from './__generated__/GroupGeneralSettingsFragment_group.graphql'
+import { GroupGeneralSettingsUpdateMutation } from './__generated__/GroupGeneralSettingsUpdateMutation.graphql'
 
 interface Props {
-    fragmentRef: WorkspaceGeneralSettingsFragment_workspace$key
+    fragmentRef: GroupGeneralSettingsFragment_group$key
 }
 
-function WorkspaceGeneralSettings(props: Props) {
-    const { enqueueSnackbar } = useSnackbar();
+function GroupGeneralSettings(props: Props) {
+     const { enqueueSnackbar } = useSnackbar();
 
     const data = useFragment(
         graphql`
-        fragment WorkspaceGeneralSettingsFragment_workspace on Workspace
+        fragment GroupGeneralSettingsFragment_group on Group
         {
             name
             description
@@ -32,13 +32,13 @@ function WorkspaceGeneralSettings(props: Props) {
         description: data.description
     })
 
-    const [commit, isInFlight] = useMutation<WorkspaceGeneralSettingsUpdateMutation>(
+    const [commit, isInFlight] = useMutation<GroupGeneralSettingsUpdateMutation>(
         graphql`
-        mutation WorkspaceGeneralSettingsUpdateMutation($input: UpdateWorkspaceInput!) {
-            updateWorkspace(input: $input) {
-                workspace {
-                    name
-                    fullPath
+        mutation GroupGeneralSettingsUpdateMutation($input: UpdateGroupInput!) {
+            updateGroup(input: $input) {
+                group {
+                    id
+                    ...GroupListItemFragment_group
                 }
                 problems {
                     message
@@ -53,17 +53,17 @@ const onUpdate = () => {
     commit({
         variables: {
             input: {
-                workspacePath: data.fullPath,
+                groupPath: data.fullPath,
                 description: inputForm.description,
             }
         },
         onCompleted: data => {
-            if (data.updateWorkspace.problems.length) {
+            if (data.updateGroup.problems.length) {
                 setError({
                     severity: 'warning',
-                    message: data.updateWorkspace.problems.map(problem => problem.message).join('; ')
+                    message: data.updateGroup.problems.map(problem => problem.message).join('; ')
                 });
-            } else if (!data.updateWorkspace.workspace) {
+            } else if (!data.updateGroup.group) {
                 setError({
                     severity: 'error',
                     message: "Unexpected error occurred"
@@ -88,7 +88,7 @@ const onUpdate = () => {
             </Alert>}
             <Typography marginBottom={2} variant="h6" gutterBottom>General Settings</Typography>
             <Box>
-                <TextField disabled={true} size="small" fullWidth label="Name" value={data.name} onChange={event => setInputForm({ ...data, name: event.target.value })}
+                <TextField disabled={true} size="small" fullWidth label="Name" value={data.name} onChange={event => setInputForm({ ...inputForm, name: event.target.value })}
                 />
                 <TextField size="small" margin='normal' fullWidth label="Description" value={inputForm.description} onChange={event => setInputForm({ ...inputForm, description: event.target.value })}
                 />
@@ -110,4 +110,4 @@ const onUpdate = () => {
     )
 }
 
-export default WorkspaceGeneralSettings
+export default GroupGeneralSettings

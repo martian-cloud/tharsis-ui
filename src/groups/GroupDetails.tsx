@@ -1,8 +1,7 @@
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { TabContext, TabList } from '@mui/lab';
 import MuiTabPanel, { TabPanelProps } from '@mui/lab/TabPanel';
 import { LoadingButton } from '@mui/lab';
-import { Avatar, Button, ButtonGroup, CircularProgress, Menu, MenuItem, Stack, styled, Typography } from '@mui/material';
+import { Avatar, Button, CircularProgress, Stack, styled, Typography } from '@mui/material';
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import { TabProps } from '@mui/material/Tab';
@@ -17,6 +16,7 @@ import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
 import TabLink from '../routes/TabLink';
 import ListSkeleton from '../skeletons/ListSkeleton';
 import EditGroup from './EditGroup';
+import GroupSettings from './settings/GroupSettings'
 import GroupDetailsDrawer from './GroupDetailsDrawer';
 import GroupsList from './GroupList';
 import ManagedIdentities from './managedidentity/ManagedIdentities';
@@ -92,6 +92,7 @@ function GroupDetails(props: Props) {
 			...EditGroupFragment_group
 			...GPGKeysFragment_group
 			...NamespaceActivityFragment_activity
+			...GroupSettingsFragment_group
 		}
 	`, props.fragmentRef)
 
@@ -122,7 +123,7 @@ function GroupDetails(props: Props) {
 							<Route path={`${groupPath}/-/variables/*`} element={<Variables fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/members/*`} element={<NamespaceMemberships fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/keys/*`} element={<GPGKeys fragmentRef={data} />} />
-							<Route path={`${groupPath}/-/settings/*`} element={<PageComingSoon route={route} />} />
+                            <Route path={`${groupPath}/-/settings/*`} element={<GroupSettings fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/edit`} element={<EditGroup fragmentRef={data} />} />
 						</Routes>
 					</Box>
@@ -141,7 +142,6 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
 	const { route } = props;
 	const theme = useTheme();
 	const [tab, setTab] = useState('');
-	const [menuAnchorEl, setMenuAnchorEl] = useState<Element | null>(null);
 	const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = useState<boolean>(false);
 	const { enqueueSnackbar } = useSnackbar();
 	const navigate = useNavigate();
@@ -218,19 +218,6 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
 		}
 	};
 
-	const onOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-		setMenuAnchorEl(event.currentTarget);
-	};
-
-	const onMenuClose = () => {
-		setMenuAnchorEl(null);
-	};
-
-	const onMenuAction = (actionCallback: () => void) => {
-		setMenuAnchorEl(null);
-		actionCallback();
-	};
-
 	return (
 		<Box>
 			<NamespaceBreadcrumbs namespacePath={data.fullPath} />
@@ -239,7 +226,7 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
 					display: 'flex',
 					flexDirection: 'row',
 					justifyContent: 'space-between',
-					[theme.breakpoints.down('sm')]: {
+					[theme.breakpoints.down('lg')]: {
 						flexDirection: 'column',
 						alignItems: 'flex-start',
 						'& > *': { marginBottom: 2 },
@@ -248,43 +235,15 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
 					<Box display="flex" marginBottom={4} alignItems="center">
 						<Avatar sx={{ width: 56, height: 56, marginRight: 2, bgcolor: teal[200] }} variant="rounded">{data.name[0].toUpperCase()}</Avatar>
 						<Stack>
-							<Typography variant="h5" sx={{ fontWeight: "bold" }}>{data.name}</Typography>
+							<Typography noWrap variant="h5" sx={{ maxWidth: 400, fontWeight: "bold" }}>{data.name}</Typography>
 							<Typography color="textSecondary" variant="subtitle2">{data.description}</Typography>
 						</Stack>
 					</Box>
-					<Box>
-						<ButtonGroup variant="outlined" color="primary">
-							<Button onClick={() => (navigate(`/workspaces/-/new?parent=${data.fullPath}`))} variant="outlined" color="primary">New Workspace</Button>
-							<Button
-								color="primary"
-								size="small"
-								aria-label="more options menu"
-								aria-haspopup="menu"
-								onClick={onOpenMenu}
-							>
-								<ArrowDropDownIcon fontSize="small" />
-							</Button>
-							<Menu sx={{ marginRight: 6 }}
-								id="group-details-more-options-menu"
-								anchorEl={menuAnchorEl}
-								open={Boolean(menuAnchorEl)}
-								onClose={onMenuClose}
-								anchorOrigin={{
-									vertical: 'bottom',
-									horizontal: 'right',
-								}}
-								transformOrigin={{
-									vertical: 'top',
-									horizontal: 'right',
-								}}
-							>
-								<MenuItem onClick={() => (navigate(`/groups/-/new?parent=${data.fullPath}`))} color="primary">New Subgroup</MenuItem>
-								<MenuItem onClick={() => (navigate("-/edit"))}>Edit Group</MenuItem>
-								<MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
-									Delete Group
-								</MenuItem>
-							</Menu>
-						</ButtonGroup>
+                    <Box>
+                        <Stack direction="row" spacing={1}>
+                            <Button size="small" variant="outlined" color="info" onClick={() => (navigate(`/workspaces/-/new?parent=${data.fullPath}`))}>New Workspace</Button>
+                            <Button size="small" variant="outlined" color="info" onClick={() => (navigate(`/groups/-/new?parent=${data.fullPath}`))}>New Subgroup</Button>
+                        </Stack>
 					</Box>
 				</Box>
 				{tab && <TabContext value={tab}>
@@ -333,14 +292,6 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
 				open={showDeleteConfirmationDialog}
 				onClose={onDeleteConfirmationDialogClosed}
 			/>
-		</Box>
-	);
-}
-
-function PageComingSoon(props: { route: string }) {
-	return (
-		<Box padding={4} display="flex" justifyContent="center" alignItems="center" height="400px">
-			<Typography variant="h6" color="textSecondary">{props.route} page coming soon!</Typography>
 		</Box>
 	);
 }

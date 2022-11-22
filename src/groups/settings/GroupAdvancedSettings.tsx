@@ -1,27 +1,26 @@
 import React, { useState } from 'react'
-import { Box, Button, Dialog, DialogActions, DialogTitle, DialogContent, Typography, Alert, TextField, AlertTitle } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogTitle, DialogContent, Typography, Alert, AlertTitle, TextField } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton';
-import { GetConnections } from '../../groups/WorkspaceList'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useFragment, useMutation } from 'react-relay';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import graphql from 'babel-plugin-relay/macro'
-import { WorkspaceAdvancedSettingsFragment_workspace$key } from './__generated__/WorkspaceAdvancedSettingsFragment_workspace.graphql'
-import { WorkspaceAdvancedSettingsDeleteMutation } from './__generated__/WorkspaceAdvancedSettingsDeleteMutation.graphql'
-import { WorkspaceAdvancedSettingsDeleteDialogFragment_workspace$key } from './__generated__/WorkspaceAdvancedSettingsDeleteDialogFragment_workspace.graphql'
+import { GroupAdvancedSettingsFragment_group$key } from './__generated__/GroupAdvancedSettingsFragment_group.graphql'
+import { GroupAdvancedSettingsDeleteDialogFragment_group$key } from './__generated__/GroupAdvancedSettingsDeleteDialogFragment_group.graphql'
+import { GroupAdvancedSettingsDeleteMutation } from './__generated__/GroupAdvancedSettingsDeleteMutation.graphql'
 
 interface ConfirmationDialogProps {
     deleteInProgress: boolean;
     onClose: (confirm?: boolean) => void
     closeDialog: () => void
     open: boolean
-    fragmentRef: WorkspaceAdvancedSettingsDeleteDialogFragment_workspace$key
+    fragmentRef: GroupAdvancedSettingsDeleteDialogFragment_group$key
 }
 
 interface Props {
-    fragmentRef: WorkspaceAdvancedSettingsFragment_workspace$key
+    fragmentRef: GroupAdvancedSettingsFragment_group$key
 }
 
 function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
@@ -30,7 +29,7 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
 
     const data = useFragment(
         graphql`
-        fragment WorkspaceAdvancedSettingsDeleteDialogFragment_workspace on Workspace
+        fragment GroupAdvancedSettingsDeleteDialogFragment_group on Group
         {
             name
             fullPath
@@ -44,11 +43,12 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
             maxWidth="sm"
             open={open}
         >
-            <DialogTitle noWrap>Delete Workspace</DialogTitle>
-            <DialogContent>
+            <DialogTitle noWrap>Delete Group</DialogTitle>
+            <DialogContent >
                 <Alert sx={{ mb: 2 }} severity="warning">
                     <AlertTitle>Warning</AlertTitle>
-                    Deleting a workspace is an <strong><ins>irreversible</ins></strong> operation. All state files, resources, and data associated with this workspace will be deleted and <strong><ins>cannot be recovered</ins></strong>.</Alert>
+                    Deleting a group is an <strong><ins>irreversible</ins></strong> operation. All nested groups and/or workspaces with their associated deployment states will be deleted and <strong><ins>cannot be recovered</ins></strong>.
+                </Alert>
                 <Typography variant="subtitle2">Enter the following to confirm deletion:</Typography>
                 <SyntaxHighlighter style={prismTheme} customStyle={{ fontSize: 14, marginBottom: 14 }} children={data.fullPath} />
                 <TextField
@@ -58,7 +58,8 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
                     placeholder={data.fullPath}
                     value={deleteInput}
                     onChange={(event: any) => setDeleteInput(event.target.value)}
-                ></TextField>
+                    >
+                </TextField>
             </DialogContent>
             <DialogActions>
                 <Button color="inherit"
@@ -81,29 +82,26 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
     );
 }
 
-function WorkspaceAdvancedSettings(props: Props) {
+function GroupAdvancedSettings(props: Props) {
     const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = useState<boolean>(false);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
     const data = useFragment(
         graphql`
-        fragment WorkspaceAdvancedSettingsFragment_workspace on Workspace
+        fragment GroupAdvancedSettingsFragment_group on Group
         {
             name
             fullPath
-            ...WorkspaceAdvancedSettingsDeleteDialogFragment_workspace
+            ...GroupAdvancedSettingsDeleteDialogFragment_group
         }
     `, props.fragmentRef
     )
 
-    const [commitDelete, commitDeleteInFlight] = useMutation<WorkspaceAdvancedSettingsDeleteMutation>(
+    const [commitDelete, commitDeleteInFlight] = useMutation<GroupAdvancedSettingsDeleteMutation>(
         graphql`
-        mutation WorkspaceAdvancedSettingsDeleteMutation($input: DeleteWorkspaceInput!, $connections: [ID!]!) {
-            deleteWorkspace(input: $input){
-                workspace {
-                    id @deleteEdge(connections: $connections)
-                }
+        mutation GroupAdvancedSettingsDeleteMutation($input: DeleteGroupInput! ) {
+            deleteGroup(input: $input){
                 problems {
                     message
                     field
@@ -118,16 +116,15 @@ function WorkspaceAdvancedSettings(props: Props) {
             commitDelete({
                 variables: {
                     input: {
-                        workspacePath: data.fullPath,
+                        groupPath: data.fullPath,
                         force: true
-                    },
-                    connections: GetConnections(data.fullPath.substring(0, ((data.fullPath.length - data.name.length - 1))))
+                    }
                 },
                 onCompleted: deleteData => {
                     setShowDeleteConfirmationDialog(false);
 
-                    if (deleteData.deleteWorkspace.problems.length) {
-                        enqueueSnackbar(deleteData.deleteWorkspace.problems.map(problem => problem.message).join('; '), { variant: 'warning' });
+                    if (deleteData.deleteGroup.problems.length) {
+                        enqueueSnackbar(deleteData.deleteGroup.problems.map(problem => problem.message).join('; '), { variant: 'warning' });
                     } else navigate(`../${data.fullPath.slice(0, -data.name.length - 1)}`);
                 },
                 onError: error => {
@@ -143,9 +140,13 @@ function WorkspaceAdvancedSettings(props: Props) {
     return (
         <Box>
             <Typography marginBottom={2} variant="h6" gutterBottom>Advanced Settings</Typography>
-            <Alert sx={{ mb: 2 }} severity="error">Deleting a workspace is a permanent action that cannot be undone.</Alert>
+            <Alert sx={{ mb: 2 }} severity="error">Deleting a group is a permanent action that cannot be undone.</Alert>
             <Box>
-                <Button variant="outlined" color="error" onClick={() => setShowDeleteConfirmationDialog(true)}>Delete Workspace</Button>
+                <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => setShowDeleteConfirmationDialog(true)}
+                >Delete Group</Button>
             </Box>
             <DeleteConfirmationDialog
                 fragmentRef={data}
@@ -158,4 +159,4 @@ function WorkspaceAdvancedSettings(props: Props) {
     )
 }
 
-export default WorkspaceAdvancedSettings
+export default GroupAdvancedSettings
