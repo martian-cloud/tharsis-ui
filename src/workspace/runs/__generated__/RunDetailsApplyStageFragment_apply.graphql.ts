@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6aa1c29c2f2582d2fb4bf635eed8501b>>
+ * @generated SignedSource<<a7ed0ab5cb56bd3252cb33ccb848e0ea>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -41,7 +41,7 @@ export type RunDetailsApplyStageFragment_apply$data = {
     readonly status: PlanStatus;
   };
   readonly status: RunStatus;
-  readonly " $fragmentSpreads": FragmentRefs<"RunVariablesFragment_variables">;
+  readonly " $fragmentSpreads": FragmentRefs<"ForceCancelRunAlertFragment_run" | "RunVariablesFragment_variables">;
   readonly " $fragmentType": "RunDetailsApplyStageFragment_apply";
 };
 export type RunDetailsApplyStageFragment_apply$key = {
@@ -210,6 +210,11 @@ return {
       "args": null,
       "kind": "FragmentSpread",
       "name": "RunVariablesFragment_variables"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ForceCancelRunAlertFragment_run"
     }
   ],
   "type": "Run",
@@ -217,6 +222,6 @@ return {
 };
 })();
 
-(node as any).hash = "df93f0f1d240f9463d1e8bcfe46224bb";
+(node as any).hash = "19351a633fbcbd68e358b7cd991a0483";
 
 export default node;

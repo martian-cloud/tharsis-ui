@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Alert, Chip, Paper, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Chip, Paper, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { blue, green, red } from '@mui/material/colors';
 import Tab from '@mui/material/Tab';
@@ -18,6 +18,7 @@ import RunStageStatusChip from './RunStageStatusChip';
 import RunVariables from './RunVariables';
 import { RunDetailsApplyStageApplyRunMutation } from './__generated__/RunDetailsApplyStageApplyRunMutation.graphql';
 import { RunDetailsApplyStageFragment_apply$key } from './__generated__/RunDetailsApplyStageFragment_apply.graphql';
+import ForceCancelRunAlert from './ForceCancelRunAlert';
 
 interface Props {
     fragmentRef: RunDetailsApplyStageFragment_apply$key
@@ -59,6 +60,7 @@ function RunDetailsApplyStage(props: Props) {
                 }
             }
             ...RunVariablesFragment_variables
+            ...ForceCancelRunAlertFragment_run
         }
       `, props.fragmentRef)
 
@@ -114,9 +116,7 @@ function RunDetailsApplyStage(props: Props) {
 
     return (
         <Box>
-            {data.apply?.currentJob?.cancelRequested && data.apply?.status !== 'canceled' && <Alert severity="warning" sx={{ marginBottom: 2 }}>
-                Cancellation is in progress
-            </Alert>}
+            {data.apply?.currentJob?.cancelRequested && data.apply?.status !== 'canceled' && <ForceCancelRunAlert fragmentRef={data}/>}
             {data.apply && data.apply.status !== 'created' && data.apply.triggeredBy && <Box>
                 {data.apply.status !== 'pending' && <Box
                     sx={{
