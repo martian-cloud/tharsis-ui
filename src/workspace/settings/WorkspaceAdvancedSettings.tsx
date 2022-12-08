@@ -44,7 +44,7 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
             maxWidth="sm"
             open={open}
         >
-            <DialogTitle noWrap>Delete Workspace</DialogTitle>
+            <DialogTitle>Delete Workspace</DialogTitle>
             <DialogContent>
                 <Alert sx={{ mb: 2 }} severity="warning">
                     <AlertTitle>Warning</AlertTitle>

@@ -43,7 +43,7 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
             maxWidth="sm"
             open={open}
         >
-            <DialogTitle noWrap>Delete Group</DialogTitle>
+            <DialogTitle>Delete Group</DialogTitle>
             <DialogContent >
                 <Alert sx={{ mb: 2 }} severity="warning">
                     <AlertTitle>Warning</AlertTitle>

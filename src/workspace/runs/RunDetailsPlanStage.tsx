@@ -1,4 +1,4 @@
-import { Alert, Chip, Paper, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Chip, Paper, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { blue, green, red } from '@mui/material/colors';
 import graphql from 'babel-plugin-relay/macro';
@@ -15,6 +15,7 @@ import { RunDetailsPlanStageFragment_plan$key } from './__generated__/RunDetails
 import RunVariables from './RunVariables';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import ForceCancelRunAlert from './ForceCancelRunAlert';
 
 interface Props {
     fragmentRef: RunDetailsPlanStageFragment_plan$key
@@ -50,6 +51,7 @@ function RunDetailsPlanStage(props: Props) {
                 }
             }
             ...RunVariablesFragment_variables
+            ...ForceCancelRunAlertFragment_run
         }
       `, props.fragmentRef);
 
@@ -65,9 +67,7 @@ function RunDetailsPlanStage(props: Props) {
 
     return (
         <Box>
-            {data.plan.currentJob?.cancelRequested && data.plan.status !== 'canceled' && <Alert severity="warning" sx={{ marginBottom: 2 }}>
-                Cancellation is in progress
-            </Alert>}
+            {data.plan.currentJob?.cancelRequested && data.plan.status !== 'canceled' && <ForceCancelRunAlert fragmentRef={data} />}
             {data.plan.status !== 'pending' && <Box
                 sx={{
                     paddingTop: 1,
