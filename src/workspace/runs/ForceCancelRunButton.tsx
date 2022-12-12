@@ -110,17 +110,17 @@ function ForceCancelRunButton(props: Props) {
         if (confirm) {
             commitForceCancelRun({
                 variables: {
-                  input: {
-                    runId: data.id,
-                    force: true
-                  },
+                    input: {
+                        runId: data.id,
+                        force: true
+                    },
                 },
                 onCompleted: data => {
                     setOpenDialog(false)
 
-                  if (data.cancelRun.problems.length) {
-                    enqueueSnackbar(data.cancelRun.problems.map(problem => problem.message).join('; '), { variant: 'warning' });
-                  }
+                    if (data.cancelRun.problems.length) {
+                        enqueueSnackbar(data.cancelRun.problems.map(problem => problem.message).join('; '), { variant: 'warning' });
+                    }
                 },
                 onError: error => {
                     setOpenDialog(false)
@@ -131,7 +131,7 @@ function ForceCancelRunButton(props: Props) {
         else {
             setOpenDialog(false)
         }
-  }
+    }
 
     return (
         <Stack direction="row" spacing={2}>
@@ -139,9 +139,10 @@ function ForceCancelRunButton(props: Props) {
                 loading={commitForceCancelRunInFlight}
                 size="small"
                 variant="outlined"
-                color="error"
-                onClick={()=> setOpenDialog(true)}
-            >Force Cancel
+                color="warning"
+                onClick={() => setOpenDialog(true)}
+            >
+                Force Cancel
             </LoadingButton>
             <ForceCancelConfirmationDialog
                 fragmentRef={data}

@@ -24,6 +24,8 @@ const RESOURCE_TYPES = {
     GPG_KEY: 'GPG key',
     TERRAFORM_PROVIDER: 'Terraform provider',
     VARIABLE: 'Variable',
+    VCS_PROVIDER: 'VCS Provider',
+    MODULE: 'Module'
 } as any;
 
 const MEMBER_TYPES = {

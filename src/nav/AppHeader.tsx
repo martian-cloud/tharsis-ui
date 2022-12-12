@@ -1,12 +1,13 @@
 import AppBar, { AppBarProps } from '@mui/material/AppBar';
-import {Box, Button, Stack} from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import { styled } from "@mui/material/styles";
 import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 import AccountMenu from '../nav/AccountMenu';
 import Link from '../routes/Link';
-import {Link as RouterLink} from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import AuthenticationService from '../auth/AuthenticationService';
+import RegistryMenu from './RegistryMenu';
 
 interface Props {
   authService: AuthenticationService
@@ -34,7 +35,7 @@ function AppHeader(props: Props) {
               color="inherit"
               sx={{ textTransform: "none", fontWeight: 600 }}
               component={RouterLink} to="/groups">
-                Groups
+              Groups
             </Button>
             <Button
               color="inherit"
@@ -42,14 +43,9 @@ function AppHeader(props: Props) {
               component={RouterLink} to="/workspaces">
               Workspaces
             </Button>
-            <Button
-              color="inherit"
-              sx={{ textTransform: "none", fontWeight: 600 }}
-              component={RouterLink} to="/provider-registry">
-              Registry
-            </Button>
+            <RegistryMenu />
           </Stack>
-          <AccountMenu authService={props.authService}/>
+          <AccountMenu authService={props.authService} />
         </Box>
       </Toolbar>
     </StyledAppBar>

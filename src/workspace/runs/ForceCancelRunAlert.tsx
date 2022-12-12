@@ -20,12 +20,16 @@ function ForceCancelRunAlert(props: Props) {
             ...ForceCancelRunButtonFragment_run
         }
         `, props.fragmentRef
-    )
+    );
+
+    const forceCancelAvailable = moment(data.forceCancelAvailableAt as moment.MomentInput).isSameOrBefore();
 
     return (
         <Alert severity='warning' sx={{ mb: 2 }}>
-            <Stack direction="row" spacing={1}>
-                <Typography>Cancellation is in progress.</Typography>{moment(data.forceCancelAvailableAt as moment.MomentInput).isSameOrAfter() ? <Typography>Force cancellation is available {moment(data.forceCancelAvailableAt as moment.MomentInput).fromNow()}.</Typography> : <ForceCancelRunButton fragmentRef={data}/>}
+            <Stack direction="column" spacing={1}>
+                <Typography>Cancellation is in progress...</Typography>
+                {!forceCancelAvailable && <Typography variant="caption">If the graceful cancellation fails, this run can be force cancelled in {moment(data.forceCancelAvailableAt as moment.MomentInput).fromNow(true)}.</Typography>}
+                {forceCancelAvailable && <ForceCancelRunButton fragmentRef={data}/>}
             </Stack>
         </Alert>
     )
