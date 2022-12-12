@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<70ab3cf6902c17e1daa7015434204529>>
+ * @generated SignedSource<<487039d5e28bff97fe63f9effe0a1b88>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,8 +13,9 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type DeleteWorkspaceInput = {
   clientMutationId?: string | null;
   force?: boolean | null;
+  id?: string | null;
   metadata?: ResourceMetadataInput | null;
-  workspacePath: string;
+  workspacePath?: string | null;
 };
 export type ResourceMetadataInput = {
   version: string;

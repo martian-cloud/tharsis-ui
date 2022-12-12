@@ -156,7 +156,7 @@ function ManagedIdentityDetails(props: Props) {
 
     const onTabChange = (event: React.SyntheticEvent, newValue: string) => {
         searchParams.set('tab', newValue);
-        setSearchParams(searchParams);
+        setSearchParams(searchParams, { replace: true });
     };
 
     const onDeleteConfirmationDialogClosed = (confirm?: boolean) => {

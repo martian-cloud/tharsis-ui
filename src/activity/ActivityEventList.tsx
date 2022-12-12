@@ -12,8 +12,10 @@ import ActivityEventRunTarget from './targets/ActivityEventRunTarget';
 import ActivityEventServiceAccountTarget from './targets/ActivityEventServiceAccountTarget';
 import ActivityEventStateVersionTarget from './targets/ActivityEventStateVersionTarget';
 import ActivityEventTeamTarget from './targets/ActivityEventTeamTarget';
+import ActivityEventTerraformModuleTarget from './targets/ActivityEventTerraformModuleTarget';
 import ActivityEventTerraformProviderTarget from './targets/ActivityEventTerraformProviderTarget';
 import ActivityEventVariableTarget from './targets/ActivityEventVariableTarget';
+import ActivityEventVCSProviderTarget from './targets/ActivityEventVCSProviderTarget';
 import ActivityEventWorkspaceTarget from './targets/ActivityEventWorkspaceTarget';
 import { ActivityEventListFragment_connection$key } from './__generated__/ActivityEventListFragment_connection.graphql';
 
@@ -29,7 +31,9 @@ const TARGET_COMPONENT_MAP = {
     Run: ActivityEventRunTarget,
     StateVersion: ActivityEventStateVersionTarget,
     Team: ActivityEventTeamTarget,
-    TerraformProvider: ActivityEventTerraformProviderTarget
+    TerraformProvider: ActivityEventTerraformProviderTarget,
+    TerraformModule: ActivityEventTerraformModuleTarget,
+    VCSProvider: ActivityEventVCSProviderTarget
 } as any;
 
 interface Props {
@@ -59,6 +63,8 @@ function ActivityEventList({ fragmentRef, loadNext, hasNext }: Props) {
                     ...ActivityEventStateVersionTargetFragment_event
                     ...ActivityEventTeamTargetFragment_event
                     ...ActivityEventTerraformProviderTargetFragment_event
+                    ...ActivityEventTerraformModuleTargetFragment_event
+                    ...ActivityEventVCSProviderTargetFragment_event
                 }
             }
         }

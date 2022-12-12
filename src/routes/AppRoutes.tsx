@@ -7,6 +7,8 @@ import ExploreGroupsEntryPoint from './ExploreGroupsEntryPoint';
 import GroupOrWorkspaceDetailsEntryPoint from './GroupOrWorkspaceDetailsEntryPoint';
 import HomeEntryPoint from './HomeEntryPoint';
 import ScrollRestoration from './ScrollRestoration';
+import TerraformModuleSearchEntryPoint from './TerraformModuleSearchEntryPoint';
+import TerraformModuleVersionDetailsEntryPoint from './TerraformModuleVersionDetailsEntryPoint';
 import TerraformProviderSearchEntryPoint from './TerraformProviderSearchEntryPoint';
 import TerraformProviderVersionDetailsEntryPoint from './TerraformProviderVersionDetailsEntryPoint';
 import WorkspaceSearchEntryPoint from './WorkspaceSearchEntryPoint';
@@ -28,6 +30,9 @@ function AppRoutes(props: Props) {
         <Route path="/provider-registry/:registryNamespace/:providerName/:version" element={<TerraformProviderVersionDetailsEntryPoint />} />
         <Route path="/provider-registry/:registryNamespace/:providerName" element={<TerraformProviderVersionDetailsEntryPoint />} />
         <Route path="/provider-registry/*" element={<TerraformProviderSearchEntryPoint />} />
+        <Route path="/module-registry/:registryNamespace/:moduleName/:system/:version" element={<TerraformModuleVersionDetailsEntryPoint />} />
+        <Route path="/module-registry/:registryNamespace/:moduleName/:system" element={<TerraformModuleVersionDetailsEntryPoint />} />
+        <Route path="/module-registry/*" element={<TerraformModuleSearchEntryPoint />} />
         <Route path="/" element={<HomeEntryPoint />} />
       </Routes>
     </ScrollRestoration>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<80f93fde898e95532754403aceffe48c>>
+ * @generated SignedSource<<5d380900cb304a2ac5e7118936211488>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,8 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type UpdateGroupInput = {
   clientMutationId?: string | null;
   description?: string | null;
-  groupPath: string;
+  groupPath?: string | null;
+  id?: string | null;
   metadata?: ResourceMetadataInput | null;
 };
 export type ResourceMetadataInput = {

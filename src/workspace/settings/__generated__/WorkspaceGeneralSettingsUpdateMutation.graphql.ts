@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<05e3985d5b2ce518d6a4daf68d50f42a>>
+ * @generated SignedSource<<b4fa53c7b6d1b4c65953aab5a9b5eefd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,11 +13,12 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type UpdateWorkspaceInput = {
   clientMutationId?: string | null;
   description?: string | null;
+  id?: string | null;
   maxJobDuration?: number | null;
   metadata?: ResourceMetadataInput | null;
   preventDestroyPlan?: boolean | null;
   terraformVersion?: string | null;
-  workspacePath: string;
+  workspacePath?: string | null;
 };
 export type ResourceMetadataInput = {
   version: string;

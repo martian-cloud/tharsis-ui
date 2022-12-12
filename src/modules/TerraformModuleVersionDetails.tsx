@@ -9,49 +9,39 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import graphql from 'babel-plugin-relay/macro';
 import React, { Suspense, useState } from 'react';
 import { PreloadedQuery, useFragment, usePreloadedQuery } from 'react-relay/hooks';
-import { useSearchParams, useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import remarkGfm from 'remark-gfm';
-import MuiMarkdown from '../common/Markdown';
 import ListSkeleton from '../skeletons/ListSkeleton';
-import TerraformProviderVersionDetailsSidebar, { SidebarWidth } from './TerraformProviderVersionDetailsSidebar';
-import TerraformProviderVersionList from './TerraformProviderVersionList';
-import { TerraformProviderVersionDetailsIndexFragment_details$key } from './__generated__/TerraformProviderVersionDetailsIndexFragment_details.graphql';
-import { TerraformProviderVersionDetailsQuery } from './__generated__/TerraformProviderVersionDetailsQuery.graphql';
+import TerraformModuleVersionDetailsSidebar, { SidebarWidth } from './TerraformModuleVersionDetailsSidebar';
+import TerraformModuleVersionList from './TerraformModuleVersionList';
+import { TerraformModuleVersionDetailsIndexFragment_details$key } from './__generated__/TerraformModuleVersionDetailsIndexFragment_details.graphql';
+import { TerraformModuleVersionDetailsQuery } from './__generated__/TerraformModuleVersionDetailsQuery.graphql';
 
 const query = graphql`
-    query TerraformProviderVersionDetailsQuery($registryNamespace: String!, $providerName: String!, $version: String) {
-      terraformProviderVersion(registryNamespace: $registryNamespace, providerName: $providerName, version: $version) {
+    query TerraformModuleVersionDetailsQuery($registryNamespace: String!, $moduleName: String!, $system: String!, $version: String) {
+      terraformModuleVersion(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system, version: $version) {
         id
-        ...TerraformProviderVersionDetailsIndexFragment_details
+        ...TerraformModuleVersionDetailsIndexFragment_details
       }
     }
 `;
 
-function buildUsageInfo(registryNamespace: string, providerName: string, version: string) {
-  return `terraform {
- required_providers {
-    ${providerName} = {
-       source  = "${window.location.host}/${registryNamespace}/${providerName}"
-       version = "${version}"
-    }
- }
-}
-
-provider "${providerName}" {
- # Configuration options
-}`;
+function buildUsageInfo(moduleName: string, version: string, source: string) {
+  return `module "${moduleName}" {
+    source  = "${source}"
+    version = "${version}"
+}`
 }
 
 interface Props {
-  queryRef: PreloadedQuery<TerraformProviderVersionDetailsQuery>
+  queryRef: PreloadedQuery<TerraformModuleVersionDetailsQuery>
 }
 
-function TerraformProviderVersionDetails(props: Props) {
+function TerraformModuleVersionDetails(props: Props) {
   const { queryRef } = props;
-  const { registryNamespace, providerName, version } = useParams();
-  const queryData = usePreloadedQuery<TerraformProviderVersionDetailsQuery>(query, queryRef);
+  const { registryNamespace, moduleName, system, version } = useParams();
+  const queryData = usePreloadedQuery<TerraformModuleVersionDetailsQuery>(query, queryRef);
 
   return (
     <Box display="flex">
@@ -68,10 +58,10 @@ function TerraformProviderVersionDetails(props: Props) {
           <CircularProgress />
         </Box>}>
           <Box maxWidth={1400} margin="auto" padding={2}>
-            {queryData.terraformProviderVersion && <TerraformProviderVersionDetailsIndex fragmentRef={queryData.terraformProviderVersion} />}
-            {!queryData.terraformProviderVersion && <Box display="flex" justifyContent="center" marginTop={4}>
+            {queryData.terraformModuleVersion && <TerraformModuleVersionDetailsIndex fragmentRef={queryData.terraformModuleVersion} />}
+            {!queryData.terraformModuleVersion && <Box display="flex" justifyContent="center" marginTop={4}>
               <Typography variant="h6" color="textSecondary">
-                version <strong>{version || 'latest'}</strong> not found for provider <strong>{registryNamespace}/{providerName}</strong>
+                version <strong>{version || 'latest'}</strong> not found for module <strong>{registryNamespace}/{moduleName}/{system}</strong>
               </Typography>
             </Box>}
           </Box>
@@ -82,10 +72,10 @@ function TerraformProviderVersionDetails(props: Props) {
 }
 
 interface IndexProps {
-  fragmentRef: TerraformProviderVersionDetailsIndexFragment_details$key
+  fragmentRef: TerraformModuleVersionDetailsIndexFragment_details$key
 }
 
-function TerraformProviderVersionDetailsIndex(props: IndexProps) {
+function TerraformModuleVersionDetailsIndex(props: IndexProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const theme = useTheme();
@@ -93,30 +83,27 @@ function TerraformProviderVersionDetailsIndex(props: IndexProps) {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const data = useFragment<TerraformProviderVersionDetailsIndexFragment_details$key>(
+  const data = useFragment<TerraformModuleVersionDetailsIndexFragment_details$key>(
     graphql`
-          fragment TerraformProviderVersionDetailsIndexFragment_details on TerraformProviderVersion
+          fragment TerraformModuleVersionDetailsIndexFragment_details on TerraformModuleVersion
           {
               id
               version
-              readme
-              shaSumsUploaded
-              shaSumsSigUploaded
-              provider {
+              status
+              module {
                   id
                   name
+                  source
+                  system
                   registryNamespace
                   private
-                  ...TerraformProviderVersionListFragment_provider
+                  ...TerraformModuleVersionListFragment_module
               }
-              ...TerraformProviderVersionDetailsSidebarFragment_details
+              ...TerraformModuleVersionDetailsSidebarFragment_details
           }
         `, props.fragmentRef);
 
-  let tab = searchParams.get('tab') || 'readme';
-  if (data.readme === '' && tab === 'readme') {
-    tab = 'usage'
-  }
+  const tab = searchParams.get('tab') || 'usage';
 
   const onToggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -127,11 +114,11 @@ function TerraformProviderVersionDetailsIndex(props: IndexProps) {
     setSearchParams(searchParams, { replace: true });
   };
 
-  const usageInfo = buildUsageInfo(data.provider.registryNamespace, data.provider.name, data.version);
+  const usageInfo = buildUsageInfo(data.module.name, data.version, data.module.source);
 
   return (
     <Box>
-      <TerraformProviderVersionDetailsSidebar
+      <TerraformModuleVersionDetailsSidebar
         fragmentRef={data}
         open={sidebarOpen}
         temporary={mobile}
@@ -139,13 +126,13 @@ function TerraformProviderVersionDetailsIndex(props: IndexProps) {
       />
       <Box>
         <Box paddingRight={!mobile ? `${SidebarWidth}px` : 0}>
-          {(!data.shaSumsUploaded || !data.shaSumsSigUploaded) && <Alert sx={{ marginBottom: 2 }} severity="warning">
-            This provider version is missing the required checksum files
+          {data.status === 'pending' && <Alert sx={{ marginBottom: 2 }} severity="warning">
+            Upload is still in progress
           </Alert>}
           <Box display="flex" alignItems="center" marginBottom={2} justifyContent="space-between">
             <Box display="flex" alignItems="center">
-              <Typography variant="h6">{data.provider.registryNamespace} / {data.provider.name}</Typography>
-              {data.provider.private && <Chip sx={{ marginLeft: 2 }} variant="outlined" color="warning" size="small" label="private" />}
+              <Typography variant="h6">{data.module.registryNamespace} / {data.module.name} / {data.module.system}</Typography>
+              {data.module.private && <Chip sx={{ marginLeft: 2 }} variant="outlined" color="warning" size="small" label="private" />}
             </Box>
             {mobile && <Box display="flex" justifyContent="space-between">
               <IconButton onClick={onToggleSidebar}><DoubleArrowIcon sx={{ transform: 'rotate(180deg)' }} /></IconButton>
@@ -153,16 +140,11 @@ function TerraformProviderVersionDetailsIndex(props: IndexProps) {
           </Box>
           <Box sx={{ border: 1, borderColor: 'divider', marginBottom: 2 }}>
             <Tabs value={tab} onChange={onTabChange}>
-              {data.readme !== "" && <Tab label="README" value="readme" />}
               <Tab label="How To Use" value="usage" />
               <Tab label="Versions" value="versions" />
             </Tabs>
           </Box>
           <React.Fragment>
-            {tab === 'readme' && <MuiMarkdown
-              children={data.readme}
-              remarkPlugins={[remarkGfm]}
-            />}
             {tab === 'usage' && <Box marginTop={2} position="relative">
               <IconButton sx={{ padding: 2, position: 'absolute', top: 0, right: 0 }} onClick={() => navigator.clipboard.writeText(usageInfo)}>
                 <CopyIcon sx={{ width: 16, height: 16 }} />
@@ -171,7 +153,7 @@ function TerraformProviderVersionDetailsIndex(props: IndexProps) {
             </Box>}
             {tab === 'versions' && <Box marginTop={2}>
               <Suspense fallback={<ListSkeleton rowCount={3} />}>
-                <TerraformProviderVersionList fragmentRef={data.provider} />
+                <TerraformModuleVersionList fragmentRef={data.module} />
               </Suspense>
             </Box>}
           </React.Fragment>
@@ -181,4 +163,4 @@ function TerraformProviderVersionDetailsIndex(props: IndexProps) {
   );
 }
 
-export default TerraformProviderVersionDetails;
+export default TerraformModuleVersionDetails;

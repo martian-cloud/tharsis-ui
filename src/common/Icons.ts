@@ -5,6 +5,7 @@ import SettingsIcon from '@mui/icons-material/SettingsOutlined';
 import StateVersionIcon from '@mui/icons-material/InsertDriveFileOutlined'
 import VariableIcon from '@mui/icons-material/WindowOutlined';
 import {
+    SourceMerge as VCSProviderIcon,
     RocketLaunchOutline as RunIcon,
     AccountLockOutline as ManagedIdentityIcon,
     LanConnect as ServiceAccountIcon,
@@ -24,5 +25,6 @@ export {
     ManagedIdentityIcon,
     ServiceAccountIcon,
     KeyIcon,
-    TerraformIcon
+    TerraformIcon,
+    VCSProviderIcon,
 };
