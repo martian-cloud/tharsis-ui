@@ -10,7 +10,7 @@ interface Props {
 }
 
 const fetcher = (authService: AuthenticationService): Fetcher => createGraphiQLFetcher({
-    url: cfg.apiUrl,
+    url: `${cfg.apiUrl}/graphql`,
     fetch: (input: URL | RequestInfo, config?: RequestInit | undefined) => {
         return authService.getAccessToken().then(accessToken => {
             if (config) {

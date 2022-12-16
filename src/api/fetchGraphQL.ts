@@ -12,7 +12,7 @@ class GraphQLError extends Error {
 const graphQLFetcher = (authService: AuthenticationService) => {
   return async (text: string, variables?: object) => {
     const token = await authService.getAccessToken()
-    const response = await fetch(cfg.apiUrl, {
+    const response = await fetch(`${cfg.apiUrl}/graphql`, {
       method: 'POST',
       headers: {
         Authorization: `bearer ${token}`,

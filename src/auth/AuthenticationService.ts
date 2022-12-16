@@ -1,29 +1,10 @@
-import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import moment from 'moment';
 import { UserManager } from 'oidc-client';
 
 const HOST = `${window.location.protocol}//${window.location.host}`;
 
-const AUTHORITY = process.env.REACT_APP_OAUTH_PROVIDER_AUTHORITY;
-const CLIENT_ID = process.env.REACT_APP_OAUTH_PROVIDER_CLIENT_ID;
-const SCOPE = process.env.REACT_APP_OAUTH_PROVIDER_SCOPE;
-const LOGOUT_REDIRECT_URL = process.env.REACT_APP_OAUTH_PROVIDER_LOGOUT_REDIRECT_URL;
-const JWT_SUBJECT_FIELD = process.env.REACT_APP_JWT_SUBJECT_FIELD as string;
-
 const QUERY_PARAMS_CACHE_KEY = 'queryParamsBeforeSSORedirect';
-
-const AUTH_CONFIG = {
-    authority: AUTHORITY,
-    client_id: CLIENT_ID,
-    scope: SCOPE,
-    loadUserInfo: false,
-    monitorSession: false,
-    response_type: 'id_token',
-    automaticSilentRenew: false,
-    silent_redirect_uri: `${HOST}${process.env.PUBLIC_URL}/silent-refresh.html`,
-    post_logout_redirect_uri: `${LOGOUT_REDIRECT_URL}/oauth2/v2.0/logout?post_logout_redirect_uri=${HOST}`
-};
 
 class AuthenticationService {
     private user: any;
@@ -31,27 +12,21 @@ class AuthenticationService {
     private expiration = 0;
     private pendingRenewPromise: Promise<any> | null = null;
     private manager: UserManager;
+    private subjectClaim: string
 
-    constructor() {
-        this.manager = new UserManager(AUTH_CONFIG);
-        const endpoint = process.env.REACT_APP_API_URL;
-
-        // Set auth header that will be applied to all http requests
-        axios.interceptors.request.use(
-            config => {
-                if (!endpoint || config.url?.startsWith(endpoint)) {
-                    return this.getAccessToken().then(accessToken => {
-                        if (config.headers) {
-                            config.headers.Authorization = accessToken;
-                        }
-                        return config;
-                    });
-                } else {
-                    return config;
-                }
-            },
-            err => Promise.reject(err),
-        );
+    constructor(issuerUrl: string, clientId: string, scope: string, logoutUrl: string, subjectClaim: string) {
+        this.manager = new UserManager({
+            authority: issuerUrl,
+            client_id: clientId,
+            scope: scope,
+            loadUserInfo: false,
+            monitorSession: false,
+            response_type: 'id_token',
+            automaticSilentRenew: false,
+            silent_redirect_uri: `${HOST}${process.env.PUBLIC_URL}/silent-refresh.html`,
+            post_logout_redirect_uri: `${logoutUrl}?post_logout_redirect_uri=${HOST}`
+        });
+        this.subjectClaim = subjectClaim;
     }
 
     login() {
@@ -142,7 +117,7 @@ class AuthenticationService {
             accessToken: authResult.id_token,
             expiration: decodedToken.exp,
             user: {
-                email: decodedToken[JWT_SUBJECT_FIELD].toLowerCase(),
+                email: decodedToken[this.subjectClaim].toLowerCase(),
                 firstName: decodedToken.given_name,
                 lastName: decodedToken.family_name
             }

@@ -16,7 +16,6 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "autosuggest-highlight": "^3.2.0",
-    "axios": "^0.22.0",
     "dotenv-cli": "^4.0.0",
     "get-graphql-schema": "^2.1.2",
     "graphiql": "^2.0.8",
@@ -52,7 +51,7 @@
     "start": "dotenv react-scripts start",
     "build": "dotenv react-scripts build",
     "relay": "relay-compiler --watch",
-    "update-schema": "get-graphql-schema -h \"Authorization=bearer $THARSIS_API_TOKEN\" http://localhost:8000/graphql > schema/schema.graphql",
+    "update-schema": "get-graphql-schema http://localhost:8000/graphql > schema/schema.graphql",
     "test": "react-scripts test",
     "lint": "eslint ."
   },

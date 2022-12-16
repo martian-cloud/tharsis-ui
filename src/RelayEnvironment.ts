@@ -6,7 +6,7 @@ import cfg from './common/config';
 const KEEP_ALIVE_INTERVAL = 60 * 1000; // 1 minute
 
 const environment = (fetchGraphQL: (query: string, variables?: object) => Promise<any>, authService: AuthenticationService) => {
-    const subscriptionClient = new SubscriptionClient(cfg.wsUrl, {
+    const subscriptionClient = new SubscriptionClient(`${cfg.wsUrl}/graphql`, {
         reconnect: true,
         lazy: true, // connect only when the first subscription is created
         timeout: KEEP_ALIVE_INTERVAL * 2, // The max time to wait for a keep alive response from the server

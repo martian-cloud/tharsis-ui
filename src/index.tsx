@@ -3,13 +3,19 @@ import { createRoot } from 'react-dom/client';
 import graphQLFetcher from './api/fetchGraphQL';
 import App from './App';
 import AuthenticationService from './auth/AuthenticationService';
+import config from './common/config';
 import environment from './RelayEnvironment';
 import reportWebVitals from './reportWebVitals';
 
-const authService = new AuthenticationService();
-const fetchGraphQL = graphQLFetcher(authService);
-
-const relayEnv = environment(fetchGraphQL, authService);
+const authSettingsQuery = `query srcQuery {
+  authSettings {
+    oidcIssuerUrl
+    oidcClientId
+    oidcScope
+    oidcLogoutUrl
+    oidcUsernameClaim
+  }
+}`
 
 const container = document.getElementById('root');
 
@@ -17,10 +23,44 @@ const container = document.getElementById('root');
 if (!container) throw new Error('Failed to find the root element');
 const root = createRoot(container);
 
-authService.login().then(() => {
+const graphqlEndpoint = `${config.apiUrl}/graphql`;
+
+fetch(graphqlEndpoint, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    query: authSettingsQuery,
+    variables: {},
+  }),
+}).then(async response => {
+  const { authSettings } = (await response.json()).data;
+
+  const authService = new AuthenticationService(
+    authSettings.oidcIssuerUrl,
+    authSettings.oidcClientId,
+    authSettings.oidcScope,
+    authSettings.oidcLogoutUrl,
+    authSettings.oidcUsernameClaim
+  );
+  const fetchGraphQL = graphQLFetcher(authService);
+
+  const relayEnv = environment(fetchGraphQL, authService);
+
+  authService.login().then(() => {
+    root.render(
+      <React.StrictMode>
+        <App authService={authService} environment={relayEnv} />
+      </React.StrictMode>
+    );
+  });
+}).catch(error => {
+  const msg = `failed to query auth settings from ${graphqlEndpoint}: ${error}`;
+  console.error(msg);
   root.render(
     <React.StrictMode>
-      <App authService={authService} environment={relayEnv} />
+      {msg}
     </React.StrictMode>
   );
 });
