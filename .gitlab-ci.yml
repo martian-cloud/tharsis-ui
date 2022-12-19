@@ -7,6 +7,7 @@ include:
 stages:
   - pre-build
   - test
+  - publish
 
 # Only start pipelines on Merge Requests or the default branch
 workflow:
@@ -116,3 +117,44 @@ gemnasium-dependency_scanning:
         - "{packages.lock.json,*/packages.lock.json,*/*/packages.lock.json}"
         - "{conan.lock,*/conan.lock,*/*/conan.lock}"
   interruptible: true
+
+publish ui docker:
+  image: docker:stable
+  services:
+    - docker:dind
+  stage: publish
+  variables:
+    KUBERNETES_MEMORY_REQUEST: 2Gi
+    KUBERNETES_MEMORY_LIMIT: 4Gi
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - |
+      echo "This is a tagged commit so major, major.minor and full tags will be pushed to registry"
+
+      # Version is based on semantic versioning
+      full_version=$(docker run --rm -v "$(pwd)":/git-semver mdomke/git-semver | grep -Eo '[0-9\.].*$')
+      major_version=$(docker run --rm -v "$(pwd)":/git-semver mdomke/git-semver -format x | grep -Eo '[0-9\.].*$')
+      major_minor_version=$(docker run --rm -v "$(pwd)":/git-semver mdomke/git-semver -format x.y | grep -Eo '[0-9\.].*$')
+
+      docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
+
+      echo "Building tharsis-ui image"
+      docker build -t $CI_PROJECT_NAME:latest . --no-cache
+
+      registry_uri="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
+
+      docker image tag $CI_PROJECT_NAME:latest $registry_uri:$full_version
+      docker image tag $CI_PROJECT_NAME:latest $registry_uri:$major_version
+      docker image tag $CI_PROJECT_NAME:latest $registry_uri:$major_minor_version
+
+      echo "Pushing tharsis-ui versioned images to registry"
+      docker image push --all-tags $registry_uri
+
+      latest_version=$(git tag | tr - \~ | sort -rV | tr \~ - | head -n1)
+      if [[ "$CI_COMMIT_TAG" == "$latest_version" ]]
+        then
+          echo "Build is latest, tagging and pushing $registry_uri:latest"
+          docker image tag $CI_PROJECT_NAME:latest $registry_uri:latest
+          docker image push $registry_uri:latest
+      fi
