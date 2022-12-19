@@ -20,12 +20,13 @@ import ManagedIdentityTypeChip from './ManagedIdentityTypeChip';
 import { ManagedIdentityDetailsDeleteMutation } from './__generated__/ManagedIdentityDetailsDeleteMutation.graphql';
 import { ManagedIdentityDetailsFragment_group$key } from './__generated__/ManagedIdentityDetailsFragment_group.graphql';
 import { ManagedIdentityDetailsQuery } from './__generated__/ManagedIdentityDetailsQuery.graphql';
+import config from '../../common/config';
 
 interface Props {
     fragmentRef: ManagedIdentityDetailsFragment_group$key
 }
 
-const ISSUER = `https://${process.env['REACT_APP_THARSIS_API_HOST']}${process.env['REACT_APP_THARSIS_API_PORT'] ? `:${process.env['REACT_APP_THARSIS_API_PORT']}` : ''}`;
+const ISSUER = config.apiUrl;
 const HOSTNAME = new URL(ISSUER).hostname;
 
 const FieldLabel = styled(

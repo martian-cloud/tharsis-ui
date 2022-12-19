@@ -160,6 +160,14 @@ type AssignManagedIdentityPayload {
   problems: [Problem!]!
 }
 
+type AuthSettings {
+  oidcIssuerUrl: String
+  oidcClientId: String
+  oidcUsernameClaim: String
+  oidcScope: String
+  oidcLogoutUrl: String
+}
+
 input CancelRunInput {
   clientMutationId: String
   runId: String!
@@ -1035,6 +1043,7 @@ type Query {
 
   """There is no query for an activity event by ID."""
   activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, namespacePath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
+  authSettings: AuthSettings
 }
 
 input RemoveUserFromTeamInput {
