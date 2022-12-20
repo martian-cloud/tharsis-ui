@@ -1,6 +1,8 @@
 FROM node:19-alpine3.16 as build
 
-ENV NODE_OPTIONS --max_old_space_size=4096
+ARG NODE_OPTIONS
+
+ENV NODE_OPTIONS=${NODE_OPTIONS}
 
 WORKDIR /app
 COPY package*.json ./
