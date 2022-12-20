@@ -8,7 +8,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
-RUN touch /app/.env
 RUN npm run build
 
 # stage 2
