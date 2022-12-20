@@ -1,5 +1,10 @@
 FROM node:19-alpine3.16 as build
 
+ARG NODE_OPTIONS
+
+ENV GENERATE_SOURCEMAP=false
+ENV NODE_OPTIONS=${NODE_OPTIONS}
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
