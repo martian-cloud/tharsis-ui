@@ -1,10 +1,11 @@
 FROM node:19-alpine3.16 as build
 
+ENV NODE_OPTIONS --max_old_space_size=4096
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
-RUN touch .env
 RUN npm run build
 
 # stage 2
