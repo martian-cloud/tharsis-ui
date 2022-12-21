@@ -16,6 +16,8 @@ workflow:
       when: always
     - if: $CI_MERGE_REQUEST_IID
       when: always
+    - if: $CI_COMMIT_TAG
+      when: always
     - when: never
 
 # Use SHA of .gitlab-ci.yml and package-lock.json for cache key
@@ -78,6 +80,9 @@ package:
     KUBERNETES_MEMORY_LIMIT: 4Gi
   script:
     - npm run build
+  artifacts:
+    paths:
+      - build/
 
 code_quality:
   artifacts:
@@ -119,13 +124,14 @@ gemnasium-dependency_scanning:
   interruptible: true
 
 publish ui docker:
-  image: docker:stable
+  image: docker:latest
   services:
     - docker:dind
   stage: publish
-  variables:
-    KUBERNETES_MEMORY_REQUEST: 2Gi
-    KUBERNETES_MEMORY_LIMIT: 4Gi
+  dependencies:
+    - package
+  before_script:
+    - apk add git
   rules:
     - if: $CI_COMMIT_TAG
   script:
@@ -140,21 +146,27 @@ publish ui docker:
       docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
 
       echo "Building tharsis-ui image"
-      docker build -t $CI_PROJECT_NAME:latest . --no-cache
+      docker build -t $CI_PROJECT_NAME:latest --no-cache .
 
       registry_uri="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
 
+      echo "Version tagging the ui image"
       docker image tag $CI_PROJECT_NAME:latest $registry_uri:$full_version
       docker image tag $CI_PROJECT_NAME:latest $registry_uri:$major_version
       docker image tag $CI_PROJECT_NAME:latest $registry_uri:$major_minor_version
 
       echo "Pushing tharsis-ui versioned images to registry"
-      docker image push --all-tags $registry_uri
+      docker image push $registry_uri:$full_version
+      docker image push $registry_uri:$major_version
+      docker image push $registry_uri:$major_minor_version
 
       latest_version=$(git tag | tr - \~ | sort -rV | tr \~ - | head -n1)
       if [[ "$CI_COMMIT_TAG" == "$latest_version" ]]
         then
-          echo "Build is latest, tagging and pushing $registry_uri:latest"
+          echo "Build is latest, tagging and pushing image as latest"
           docker image tag $CI_PROJECT_NAME:latest $registry_uri:latest
           docker image push $registry_uri:latest
       fi
+  tags:
+    - oss
+    - docker
