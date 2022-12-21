@@ -165,3 +165,6 @@ publish ui docker:
           docker image tag $CI_PROJECT_NAME:latest $registry_uri:latest
           docker image push $registry_uri:latest
       fi
+  tags:
+    - oss
+    - docker
