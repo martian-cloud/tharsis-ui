@@ -146,7 +146,11 @@ publish ui docker:
       docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
 
       echo "Building tharsis-ui image"
-      docker build -t $CI_PROJECT_NAME:latest --no-cache -m 2G --build-arg NODE_OPTIONS=--max-old-space-size=1024 .
+      export GENERATE_SOURCEMAP=false
+      export NODE_OPTIONS=--max-old-space-size=1024
+      npm install --legacy-peer-deps
+      npm run build
+      docker build -t $CI_PROJECT_NAME:latest --no-cache .
 
       registry_uri="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
 
