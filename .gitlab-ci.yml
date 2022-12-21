@@ -126,7 +126,7 @@ publish ui docker:
     - docker:dind
   stage: publish
   before_script:
-    - apk add git
+    - apk add git npm
   variables:
     KUBERNETES_MEMORY_REQUEST: 2Gi
     KUBERNETES_MEMORY_LIMIT: 4Gi
