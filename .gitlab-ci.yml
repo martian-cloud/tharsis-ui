@@ -80,6 +80,9 @@ package:
     KUBERNETES_MEMORY_LIMIT: 4Gi
   script:
     - npm run build
+  artifacts:
+    paths:
+      - build/
 
 code_quality:
   artifacts:
@@ -125,8 +128,10 @@ publish ui docker:
   services:
     - docker:dind
   stage: publish
+  dependencies:
+    - package
   before_script:
-    - apk add git npm
+    - apk add git
   variables:
     KUBERNETES_MEMORY_REQUEST: 2Gi
     KUBERNETES_MEMORY_LIMIT: 4Gi
@@ -146,10 +151,6 @@ publish ui docker:
       docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
 
       echo "Building tharsis-ui image"
-      export GENERATE_SOURCEMAP=false
-      export NODE_OPTIONS=--max-old-space-size=1024
-      npm install --legacy-peer-deps
-      npm run build
       docker build -t $CI_PROJECT_NAME:latest --no-cache .
 
       registry_uri="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
