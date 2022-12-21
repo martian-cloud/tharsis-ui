@@ -48,8 +48,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "dotenv react-scripts start",
-    "build": "dotenv react-scripts build",
+    "start": "dotenv react-scripts --max_old_space_size=3500 start",
+    "build": "dotenv react-scripts --max_old_space_size=3500 build",
     "relay": "relay-compiler --watch",
     "update-schema": "get-graphql-schema http://localhost:8000/graphql > schema/schema.graphql",
     "test": "react-scripts test",
