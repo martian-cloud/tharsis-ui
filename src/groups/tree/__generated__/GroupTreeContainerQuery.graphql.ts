@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5e7de702ca55d4bfd0306ba04321e71c>>
+ * @generated SignedSource<<ed7e62d06e732e21f9c4ada8e008ffe5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type GroupTreeContainerQuery$variables = {
   last?: number | null;
 };
 export type GroupTreeContainerQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"GroupTreeContainerFragment_groups">;
+  readonly " $fragmentSpreads": FragmentRefs<"GroupTreeContainerFragment_groups" | "GroupTreeContainerFragment_me">;
 };
 export type GroupTreeContainerQuery = {
   response: GroupTreeContainerQuery$data;
@@ -72,22 +72,36 @@ v4 = [
     "value": "FULL_PATH_ASC"
   }
 ],
-v5 = [
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v7 = [
   {
     "kind": "Literal",
     "name": "first",
     "value": 0
   }
 ],
-v6 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "totalCount",
   "storageKey": null
 },
-v7 = [
-  (v6/*: any*/)
+v9 = [
+  (v8/*: any*/)
 ];
 return {
   "fragment": {
@@ -105,6 +119,11 @@ return {
         "args": null,
         "kind": "FragmentSpread",
         "name": "GroupTreeContainerFragment_groups"
+      },
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "GroupTreeContainerFragment_me"
       }
     ],
     "type": "Query",
@@ -145,20 +164,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__typename",
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -200,22 +207,22 @@ return {
                   },
                   {
                     "alias": null,
-                    "args": (v5/*: any*/),
+                    "args": (v7/*: any*/),
                     "concreteType": "GroupConnection",
                     "kind": "LinkedField",
                     "name": "descendentGroups",
                     "plural": false,
-                    "selections": (v7/*: any*/),
+                    "selections": (v9/*: any*/),
                     "storageKey": "descendentGroups(first:0)"
                   },
                   {
                     "alias": null,
-                    "args": (v5/*: any*/),
+                    "args": (v7/*: any*/),
                     "concreteType": "WorkspaceConnection",
                     "kind": "LinkedField",
                     "name": "workspaces",
                     "plural": false,
-                    "selections": (v7/*: any*/),
+                    "selections": (v9/*: any*/),
                     "storageKey": "workspaces(first:0)"
                   }
                 ],
@@ -231,7 +238,7 @@ return {
             ],
             "storageKey": null
           },
-          (v6/*: any*/),
+          (v8/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -284,20 +291,54 @@ return {
         "key": "GroupTreeContainer_groups",
         "kind": "LinkedHandle",
         "name": "groups"
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v6/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "admin",
+                "storageKey": null
+              }
+            ],
+            "type": "User",
+            "abstractKey": null
+          },
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v5/*: any*/)
+            ],
+            "type": "Node",
+            "abstractKey": "__isNode"
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "36332e6e434e784ad2d23a8c18640787",
+    "cacheID": "dc101018669294badb3d0f0d2c402c10",
     "id": null,
     "metadata": {},
     "name": "GroupTreeContainerQuery",
     "operationKind": "query",
-    "text": "query GroupTreeContainerQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n) {\n  ...GroupTreeContainerFragment_groups\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, sort: FULL_PATH_ASC) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
+    "text": "query GroupTreeContainerQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n) {\n  ...GroupTreeContainerFragment_groups\n  ...GroupTreeContainerFragment_me\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, sort: FULL_PATH_ASC) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeContainerFragment_me on Query {\n  me {\n    __typename\n    ... on User {\n      admin\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d0d2bb0ee1f66f6ba0bf087007b6b37c";
+(node as any).hash = "742c58ce117b10f994f67c2b88edd9ed";
 
 export default node;

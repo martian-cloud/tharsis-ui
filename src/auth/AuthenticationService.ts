@@ -32,7 +32,7 @@ class AuthenticationService {
     login() {
         return this.manager.getUser().then(user => {
             return new Promise(resolve => {
-                if (!user || !user.access_token || this._isExpired(this._decodeAccessToken(user.access_token).exp)) {
+                if (!user || !user.id_token || this._isExpired(this._decodeAccessToken(user.id_token).exp)) {
                     if (window.location.href.indexOf('#') !== -1) {
                         resolve(this._completeAuthentication());
                     } else {

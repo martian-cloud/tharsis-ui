@@ -1,6 +1,6 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { LoadingButton } from '@mui/lab';
-import { ButtonGroup, Dialog, DialogActions, DialogContent, DialogTitle, Menu, MenuItem, styled } from '@mui/material';
+import { ButtonGroup, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Menu, MenuItem, Paper, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Tab from '@mui/material/Tab';
@@ -13,14 +13,14 @@ import { useFragment, useLazyLoadQuery, useMutation } from "react-relay/hooks";
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import config from '../../common/config';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
 import { GetConnections } from './ManagedIdentityList';
-import ManagedIdentityPolicyRules from './rules/ManagedIdentityPolicyRules';
 import ManagedIdentityTypeChip from './ManagedIdentityTypeChip';
+import ManagedIdentityPolicyRules from './rules/ManagedIdentityPolicyRules';
 import { ManagedIdentityDetailsDeleteMutation } from './__generated__/ManagedIdentityDetailsDeleteMutation.graphql';
 import { ManagedIdentityDetailsFragment_group$key } from './__generated__/ManagedIdentityDetailsFragment_group.graphql';
 import { ManagedIdentityDetailsQuery } from './__generated__/ManagedIdentityDetailsQuery.graphql';
-import config from '../../common/config';
 
 interface Props {
     fragmentRef: ManagedIdentityDetailsFragment_group$key
@@ -282,9 +282,42 @@ function ManagedIdentityDetails(props: Props) {
                             <FieldLabel>Subject</FieldLabel>
                             <FieldValue>{payload.subject}</FieldValue>
                         </Box>}
+                        {data.managedIdentity.type === 'tharsis_federated' && <Box>
+                            <FieldLabel>Service Account</FieldLabel>
+                            <FieldValue>{payload.serviceAccountPath}</FieldValue>
+                            <FieldLabel>Trusted Identity Provider</FieldLabel>
+                            <Typography color="textSecondary">
+                                Add the identity provider settings below to your service account to allow this managed identity to use it
+                            </Typography>
+                            <Paper sx={{ marginTop: 2, padding: 1 }}>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Issuer URL</TableCell>
+                                            <TableCell>Bound Claims</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        <TableRow
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 }, height: 64 }}>
+                                            <TableCell>{ISSUER}</TableCell>
+                                            <TableCell>
+                                                <Chip
+                                                    size="small"
+                                                    variant="outlined"
+                                                    label={<React.Fragment>
+                                                        <Typography variant="body2" component="span" sx={{ fontWeight: 'bold' }}>sub:</Typography>
+                                                        <Typography variant="body2" component="span">{' ' + payload.subject}</Typography>
+                                                    </React.Fragment>}
+                                                />
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </Paper>
+                        </Box>}
                     </Box>}
                     {tab === 'rules' && <Box>
-
                         <ManagedIdentityPolicyRules
                             fragmentRef={data.managedIdentity}
                             groupPath={group.fullPath}

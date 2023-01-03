@@ -58,7 +58,8 @@ interface Props {
 
 const ManagedIdentityTypes = [
     { name: 'aws_federated', title: 'AWS', description: 'AWS managed identity for assuming an IAM role using OIDC Federation' },
-    { name: 'azure_federated', title: 'Azure', description: 'Azure managed identity for assuming an Azure Service Principal using OIDC Federation' }
+    { name: 'azure_federated', title: 'Azure', description: 'Azure managed identity for assuming an Azure Service Principal using OIDC Federation' },
+    { name: 'tharsis_federated', title: 'Tharsis', description: 'Tharsis managed identity for assuming a Tharsis Service Account using OIDC Federation' }
 ];
 
 function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Props) {
@@ -141,8 +142,8 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
             <Typography variant="subtitle1" gutterBottom>Details</Typography>
             <Divider light />
             <Box marginTop={2} marginBottom={4}>
-                <TextField disabled={editMode} size="small" fullWidth label="Name" value={data.name} onChange={event => onChange({ ...data, name: event.target.value })} />
-                <TextField size="small" margin='normal' fullWidth label="Description" value={data.description} onChange={event => onChange({ ...data, description: event.target.value })} />
+                <TextField autoComplete="off" disabled={editMode} size="small" fullWidth label="Name" value={data.name} onChange={event => onChange({ ...data, name: event.target.value })} />
+                <TextField autoComplete="off" size="small" margin='normal' fullWidth label="Description" value={data.description} onChange={event => onChange({ ...data, description: event.target.value })} />
             </Box>
             {!editMode && <React.Fragment>
                 <Box display="flex" justifyContent="space-between" alignItems="flex-end">
@@ -173,11 +174,45 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
                 <Typography variant="subtitle1" gutterBottom>Provider Configuration</Typography>
                 <Divider light />
                 {data.type === 'aws_federated' && <Box>
-                    <TextField size="small" margin='normal' fullWidth label="IAM Role" value={data.payload.role} onChange={event => onPayloadFieldChange('role', event.target.value)} />
+                    <TextField
+                        size="small"
+                        margin='normal'
+                        fullWidth
+                        label="IAM Role"
+                        value={data.payload.role} onChange={event => onPayloadFieldChange('role', event.target.value)}
+                    />
                 </Box>}
                 {data.type === 'azure_federated' && <Box marginTop={2}>
-                    <TextField size="small" fullWidth label="Client ID" value={data.payload.clientId} onChange={event => onPayloadFieldChange('clientId', event.target.value)} />
-                    <TextField size="small" margin='normal' fullWidth label="Tenant ID" value={data.payload.tenantId} onChange={event => onPayloadFieldChange('tenantId', event.target.value)} />
+                    <TextField
+                        size="small"
+                        fullWidth
+                        label="Client ID"
+                        value={data.payload.clientId}
+                        onChange={event => onPayloadFieldChange('clientId', event.target.value)}
+                    />
+                    <TextField
+                        size="small"
+                        margin='normal'
+                        fullWidth
+                        label="Tenant ID"
+                        value={data.payload.tenantId}
+                        onChange={event => onPayloadFieldChange('tenantId', event.target.value)}
+                    />
+                </Box>}
+                {data.type === 'tharsis_federated' && <Box marginTop={2}>
+                    <TextField
+                        autoComplete="off"
+                        size="small"
+                        fullWidth
+                        label="Service Account"
+                        placeholder="group-path/service-account-name"
+                        value={data.payload.serviceAccountPath}
+                        onChange={event => onPayloadFieldChange('serviceAccountPath', event.target.value)}
+                    />
+                    <Typography color="textSecondary" variant="caption" mt={1}>
+                        Specify the full resource path for the service account that this managed identity will assume. The resource path
+                        consists of the group path for the service account and the service account name.
+                    </Typography>
                 </Box>}
             </Box>}
             {ruleToEdit && <EditManagedIdentityPolicyRuleDialog
