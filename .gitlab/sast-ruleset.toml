@@ -1,0 +1,9 @@
+[semgrep]
+
+  # Object Injection Detection is way too noisy to show as a vuln in security reports. See https://github.com/eslint-community/eslint-plugin-security/issues/21#issuecomment-1157887653
+
+  [[semgrep.ruleset]]
+    disable = true
+    [semgrep.ruleset.identifier]
+        "type" = "semgrep_id"
+        "value" = "eslint.detect-object-injection"
