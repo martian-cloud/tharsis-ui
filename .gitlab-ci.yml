@@ -6,12 +6,14 @@ include:
   - template: Jobs/Secret-Detection.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml
   - template: Jobs/License-Scanning.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
 
 stages:
   - pre-build
   - test
   - publish
   - container_scanning
+  - dast
 
 # Only start pipelines on Merge Requests or the default branch
 workflow:
@@ -23,6 +25,10 @@ workflow:
     - if: $CI_COMMIT_TAG
       when: always
     - when: never
+
+variables:
+  # Used for test builds of the container and scanning
+  IMAGE_TAG: "$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
 
 default:
   services: []
@@ -130,38 +136,46 @@ publish ui docker:
     - apk add git
   script:
     - |
-      echo "This is a tagged commit so major, major.minor and full tags will be pushed to registry"
+        # Build registry URI
+        registry_uri="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
 
-      # Version is based on semantic versioning
-      full_version=$(docker run --rm -v "$(pwd)":/git-semver mdomke/git-semver | grep -Eo '[0-9\.].*$')
-      major_version=$(docker run --rm -v "$(pwd)":/git-semver mdomke/git-semver -format x | grep -Eo '[0-9\.].*$')
-      major_minor_version=$(docker run --rm -v "$(pwd)":/git-semver mdomke/git-semver -format x.y | grep -Eo '[0-9\.].*$')
+        docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
 
-      docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
+        echo "Building tharsis-ui image"
+        docker build -t $CI_PROJECT_NAME:latest --no-cache .
 
-      echo "Building tharsis-ui image"
-      docker build -t $CI_PROJECT_NAME:latest --no-cache .
+        if [ ! -z "$CI_COMMIT_TAG" ]; then
+          echo "This is a tagged commit so major, major.minor and full tags will be pushed to registry"
 
-      registry_uri="$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME"
+          # Version is based on semantic versioning
+          full_version=$(docker run --rm -v "$(pwd)":/git-semver mdomke/git-semver | grep -Eo '[0-9\.].*$')
+          major_version=$(docker run --rm -v "$(pwd)":/git-semver mdomke/git-semver -format x | grep -Eo '[0-9\.].*$')
+          major_minor_version=$(docker run --rm -v "$(pwd)":/git-semver mdomke/git-semver -format x.y | grep -Eo '[0-9\.].*$')
 
-      echo "Version tagging the ui image"
-      docker image tag $CI_PROJECT_NAME:latest $registry_uri:$full_version
-      docker image tag $CI_PROJECT_NAME:latest $registry_uri:$major_version
-      docker image tag $CI_PROJECT_NAME:latest $registry_uri:$major_minor_version
+          echo "Version tagging the ui image"
+          docker image tag $CI_PROJECT_NAME:latest $registry_uri:$full_version
+          docker image tag $CI_PROJECT_NAME:latest $registry_uri:$major_version
+          docker image tag $CI_PROJECT_NAME:latest $registry_uri:$major_minor_version
 
-      echo "Pushing tharsis-ui versioned images to registry"
-      docker image push $registry_uri:$full_version
-      docker image push $registry_uri:$major_version
-      docker image push $registry_uri:$major_minor_version
+          echo "Pushing tharsis-ui versioned images to registry"
+          docker image push $registry_uri:$full_version
+          docker image push $registry_uri:$major_version
+          docker image push $registry_uri:$major_minor_version
 
-      latest_version=$(git tag | tr - \~ | sort -rV | tr \~ - | head -n1)
-      if [[ "$CI_COMMIT_TAG" == "$latest_version" ]]
-        then
-          echo "Build is latest, tagging and pushing image as latest"
-          docker image tag $CI_PROJECT_NAME:latest $registry_uri:latest
-          docker image push $registry_uri:latest
-      fi
+          latest_version=$(git tag | tr - \~ | sort -rV | tr \~ - | head -n1)
+          if [[ "$CI_COMMIT_TAG" == "$latest_version" ]]
+            then
+              echo "Build is latest, tagging and pushing image as latest"
+              docker image tag $CI_PROJECT_NAME:latest $registry_uri:latest
+              docker image push $registry_uri:latest
+          fi
+        else
+          echo "This is a normal commit so $IMAGE_TAG tag will be pushed to GitLab registry"
+          docker image tag $CI_PROJECT_NAME:latest $registry_uri:$IMAGE_TAG
+          docker image push $registry_uri:$IMAGE_TAG
+        fi
   rules:
+    - !reference [.on_default_branch_and_merge_train, rules]
     - !reference [.on_tag_events, rules]
   interruptible: false
 
@@ -231,5 +245,34 @@ license_scanning:
     reports:
       license_scanning: gl-license-scanning-report.json
     paths: [gl-license-scanning-report.json]
+  rules:
+    - !reference [.on_default_branch_and_merge_train, rules]
+
+dast:
+  services:
+    - name: registry.gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-all-in-one-docker:latest
+      alias: tharsis
+    - name: registry.gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-ui:${IMAGE_TAG}
+      alias: tharsis-ui
+  needs:
+    - publish ui docker
+  variables:
+    DAST_WEBSITE: "http://localhost"
+    DAST_AUTH_URL: "http://localhost:8080/realms/tharsis/protocol/openid-connect/auth?client_id=tharsis&redirect_uri=http%3A%2F%2Flocalhost%2F&response_type=id_token&scope=openid%20profile%20email&state=6c323175464243e6a657b75e19885a99&nonce=4fd0a5e072c74e8fb913bec704f2361b"
+    DAST_USERNAME: martian
+    DAST_PASSWORD: martian
+    DAST_USERNAME_FIELD: "css:[name=username]"
+    DAST_PASSWORD_FIELD: "css:[name=password]"
+    DAST_SUBMIT_FIELD: "css:[name=login]"
+    DAST_BROWSER_SCAN: "true"
+    DAST_FULL_SCAN_ENABLED: "true"
+    KUBERNETES_SERVICE_CPU_REQUEST: "250m"
+    KUBERNETES_SERVICE_CPU_LIMIT: "500m"
+    KUBERNETES_SERVICE_MEMORY_REQUEST: "500Mi"
+    KUBERNETES_SERVICE_MEMORY_LIMIT: "1Gi"
+    JAVA_OPTS_APPEND: "-Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=true"
+  before_script:
+    - |
+        timeout 600 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:8000/health)" != "200" ]]; do sleep 5; done' || false
   rules:
     - !reference [.on_default_branch_and_merge_train, rules]
