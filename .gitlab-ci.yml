@@ -195,6 +195,8 @@ gemnasium-dependency_scanning:
   script:
     - /analyzer run
     - cat gl-dependency-scanning-report.json
+  variables:
+    DS_INCLUDE_DEV_DEPENDENCIES: "false"
   artifacts:
     paths:
       - "**/gl-sbom-*.cdx.json"
@@ -266,6 +268,7 @@ dast:
     DAST_SUBMIT_FIELD: "css:[name=login]"
     DAST_BROWSER_SCAN: "true"
     DAST_FULL_SCAN_ENABLED: "true"
+    DAST_EXCLUDE_URLS: "http://localhost/static/.*"
     KUBERNETES_SERVICE_CPU_REQUEST: "250m"
     KUBERNETES_SERVICE_CPU_LIMIT: "500m"
     KUBERNETES_SERVICE_MEMORY_REQUEST: "500Mi"

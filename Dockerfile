@@ -1,5 +1,5 @@
-FROM nginx:stable-alpine
-RUN apk update && apk add libxml2 && apk upgrade
+FROM nginx:1.22-alpine
+RUN apk update --no-cache && apk add --no-cache libxml2 && apk upgrade --no-cache
 COPY ./build /bin/www
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
@@ -10,10 +10,9 @@ RUN chown -R nginx:nginx /bin/www && chmod -R 755 /bin/www && \
 RUN touch /var/run/nginx.pid && \
         chown -R nginx:nginx /var/run/nginx.pid
 
-
 USER nginx
 
-
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl --fail http://localhost || exit 1
 EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;" ]
 
