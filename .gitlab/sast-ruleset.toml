@@ -7,3 +7,10 @@
     [semgrep.ruleset.identifier]
         "type" = "semgrep_id"
         "value" = "eslint.detect-object-injection"
+[kics]
+  [[kics.ruleset]]
+    disable = true
+    [kics.ruleset.identifier]
+      type = "kics_id"
+      # Version pinning can break builds
+      value = "d3499f6d-1651-41bb-a9a7-de925fea487b"
