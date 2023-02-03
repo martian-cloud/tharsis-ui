@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d529a344de58485de3bf268d492b4419>>
+ * @generated SignedSource<<622ae340194afb2448c11d4410510f97>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,37 +10,48 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type JobType = "apply" | "plan" | "%future added value";
+export type ManagedIdentityAccessRuleType = "eligible_principals" | "module_attestation" | "%future added value";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
 export type UpdateManagedIdentityAccessRuleInput = {
-  allowedServiceAccounts: ReadonlyArray<string>;
-  allowedTeams: ReadonlyArray<string>;
-  allowedUsers: ReadonlyArray<string>;
+  allowedServiceAccounts?: ReadonlyArray<string> | null;
+  allowedTeams?: ReadonlyArray<string> | null;
+  allowedUsers?: ReadonlyArray<string> | null;
   clientMutationId?: string | null;
   id: string;
+  moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null;
   runStage: JobType;
 };
-export type ManagedIdentityPolicyRulesUpdateRuleMutation$variables = {
+export type ManagedIdentityAccessRuleModuleAttestationPolicyInput = {
+  predicateType?: string | null;
+  publicKey: string;
+};
+export type ManagedIdentityRulesUpdateRuleMutation$variables = {
   input: UpdateManagedIdentityAccessRuleInput;
 };
-export type ManagedIdentityPolicyRulesUpdateRuleMutation$data = {
+export type ManagedIdentityRulesUpdateRuleMutation$data = {
   readonly updateManagedIdentityAccessRule: {
     readonly accessRule: {
       readonly allowedServiceAccounts: ReadonlyArray<{
         readonly id: string;
         readonly name: string;
         readonly resourcePath: string;
-      }>;
+      }> | null;
       readonly allowedTeams: ReadonlyArray<{
         readonly id: string;
         readonly name: string;
-      }>;
+      }> | null;
       readonly allowedUsers: ReadonlyArray<{
         readonly email: string;
         readonly id: string;
         readonly username: string;
-      }>;
+      }> | null;
       readonly id: string;
+      readonly moduleAttestationPolicies: ReadonlyArray<{
+        readonly predicateType: string | null;
+        readonly publicKey: string;
+      }> | null;
       readonly runStage: JobType;
+      readonly type: ManagedIdentityAccessRuleType;
     } | null;
     readonly problems: ReadonlyArray<{
       readonly field: ReadonlyArray<string> | null;
@@ -49,9 +60,9 @@ export type ManagedIdentityPolicyRulesUpdateRuleMutation$data = {
     }>;
   };
 };
-export type ManagedIdentityPolicyRulesUpdateRuleMutation = {
-  response: ManagedIdentityPolicyRulesUpdateRuleMutation$data;
-  variables: ManagedIdentityPolicyRulesUpdateRuleMutation$variables;
+export type ManagedIdentityRulesUpdateRuleMutation = {
+  response: ManagedIdentityRulesUpdateRuleMutation$data;
+  variables: ManagedIdentityRulesUpdateRuleMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -73,10 +84,17 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v3 = [
+v4 = [
   {
     "alias": null,
     "args": [
@@ -100,6 +118,7 @@ v3 = [
         "plural": false,
         "selections": [
           (v1/*: any*/),
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -142,7 +161,7 @@ v3 = [
             "plural": true,
             "selections": [
               (v1/*: any*/),
-              (v2/*: any*/)
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
@@ -155,12 +174,37 @@ v3 = [
             "plural": true,
             "selections": [
               (v1/*: any*/),
-              (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "resourcePath",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ManagedIdentityAccessRuleModuleAttestationPolicy",
+            "kind": "LinkedField",
+            "name": "moduleAttestationPolicies",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "publicKey",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "predicateType",
                 "storageKey": null
               }
             ],
@@ -191,13 +235,7 @@ v3 = [
             "name": "field",
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "type",
-            "storageKey": null
-          }
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
@@ -210,8 +248,8 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ManagedIdentityPolicyRulesUpdateRuleMutation",
-    "selections": (v3/*: any*/),
+    "name": "ManagedIdentityRulesUpdateRuleMutation",
+    "selections": (v4/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
@@ -219,20 +257,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ManagedIdentityPolicyRulesUpdateRuleMutation",
-    "selections": (v3/*: any*/)
+    "name": "ManagedIdentityRulesUpdateRuleMutation",
+    "selections": (v4/*: any*/)
   },
   "params": {
-    "cacheID": "efda333702d462261330264303a64ac1",
+    "cacheID": "928f4c58504e355940d191661277d772",
     "id": null,
     "metadata": {},
-    "name": "ManagedIdentityPolicyRulesUpdateRuleMutation",
+    "name": "ManagedIdentityRulesUpdateRuleMutation",
     "operationKind": "mutation",
-    "text": "mutation ManagedIdentityPolicyRulesUpdateRuleMutation(\n  $input: UpdateManagedIdentityAccessRuleInput!\n) {\n  updateManagedIdentityAccessRule(input: $input) {\n    accessRule {\n      id\n      runStage\n      allowedUsers {\n        id\n        username\n        email\n      }\n      allowedTeams {\n        id\n        name\n      }\n      allowedServiceAccounts {\n        id\n        name\n        resourcePath\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
+    "text": "mutation ManagedIdentityRulesUpdateRuleMutation(\n  $input: UpdateManagedIdentityAccessRuleInput!\n) {\n  updateManagedIdentityAccessRule(input: $input) {\n    accessRule {\n      id\n      type\n      runStage\n      allowedUsers {\n        id\n        username\n        email\n      }\n      allowedTeams {\n        id\n        name\n      }\n      allowedServiceAccounts {\n        id\n        name\n        resourcePath\n      }\n      moduleAttestationPolicies {\n        publicKey\n        predicateType\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ade5228c04459afc6d477e776de086f2";
+(node as any).hash = "984ff2d231523fa6559e828c30497f9e";
 
 export default node;

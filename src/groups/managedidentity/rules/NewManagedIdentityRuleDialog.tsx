@@ -2,10 +2,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useState } from 'react';
 import { MutationError } from '../../../common/error';
-import ManagedIdentityPolicyRuleForm from './ManagedIdentityPolicyRuleForm';
+import ManagedIdentityRuleForm from './ManagedIdentityRuleForm';
 
 interface Props {
-    inputRule: any;
     groupPath: string;
     submitInProgress?: boolean;
     error?: MutationError;
@@ -13,43 +12,48 @@ interface Props {
     onClose: () => void;
 }
 
-function EditManagedIdentityPolicyRuleDialog(props: Props) {
-    const { inputRule, groupPath, submitInProgress, error, onSubmit, onClose } = props
+function NewManagedIdentityRuleDialog(props: Props) {
+    const { groupPath, submitInProgress, error, onSubmit, onClose } = props
 
-    const [rule, setRule] = useState<any>({ ...inputRule });
+    const [rule, setRule] = useState<any>({
+        runStage: '',
+        allowedUsers: [],
+        allowedTeams: [],
+        allowedServiceAccounts: [],
+        moduleAttestationPolicies: []
+    });
 
     return (
         <Dialog
             fullWidth
-            maxWidth="sm"
+            maxWidth="md"
             open>
             <DialogTitle>
-                Edit Rule
+                New Rule
             </DialogTitle>
             <DialogContent dividers>
-                <ManagedIdentityPolicyRuleForm
-                    editMode
+                <ManagedIdentityRuleForm
                     groupPath={groupPath}
                     rule={rule}
                     onChange={setRule}
-                    disabledRunStages={[]}
                     error={error}
                 />
             </DialogContent>
             <DialogActions>
                 <Button size="small" variant="outlined" onClick={onClose} color="inherit">Cancel</Button>
                 <LoadingButton
+                    disabled={!rule.runStage}
                     loading={submitInProgress}
                     size="small"
                     variant="contained"
                     color="primary"
                     sx={{ marginLeft: 2 }}
                     onClick={() => onSubmit(rule)}>
-                    Update Rule
+                    Create Rule
                 </LoadingButton>
             </DialogActions>
         </Dialog>
-    );
+    )
 }
 
-export default EditManagedIdentityPolicyRuleDialog;
+export default NewManagedIdentityRuleDialog;

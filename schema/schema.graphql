@@ -1,3 +1,13 @@
+"""
+Provides a scalar specification URL for specifying the behavior of custom scalar types.
+"""
+directive @specifiedBy(
+  """
+  The URL should point to a human-readable specification of the data format, serialization, and coercion rules.
+  """
+  url: String!
+) on SCALAR
+
 type _Service {
   sdl: String!
 }
@@ -225,10 +235,26 @@ type CreateGroupPayload {
 input CreateManagedIdentityAccessRuleInput {
   clientMutationId: String
   managedIdentityId: String!
+  type: ManagedIdentityAccessRuleType!
   runStage: JobType!
-  allowedServiceAccounts: [String!]!
-  allowedUsers: [String!]!
-  allowedTeams: [String!]!
+  moduleAttestationPolicies: [ManagedIdentityAccessRuleModuleAttestationPolicyInput!]
+  allowedServiceAccounts: [String!]
+  allowedUsers: [String!]
+  allowedTeams: [String!]
+}
+
+input CreateManagedIdentityAliasInput {
+  clientMutationId: String
+  name: String!
+  aliasSourceId: String
+  aliasSourcePath: String
+  groupPath: String!
+}
+
+type CreateManagedIdentityAliasPayload {
+  clientMutationId: String
+  managedIdentity: ManagedIdentity
+  problems: [Problem!]!
 }
 
 input CreateManagedIdentityCredentialsInput {
@@ -331,6 +357,19 @@ input CreateTerraformCLIDownloadURLInput {
   version: String!
   os: String!
   architecture: String!
+}
+
+input CreateTerraformModuleAttestationInput {
+  clientMutationId: String
+  modulePath: String!
+  description: String
+  attestationData: String!
+}
+
+type CreateTerraformModuleAttestationPayload {
+  clientMutationId: String
+  moduleAttestation: TerraformModuleAttestation
+  problems: [Problem!]!
 }
 
 input CreateTerraformModuleInput {
@@ -502,6 +541,19 @@ input DeleteManagedIdentityAccessRuleInput {
   id: ID!
 }
 
+input DeleteManagedIdentityAliasInput {
+  clientMutationId: String
+  id: ID!
+  force: Boolean
+  metadata: ResourceMetadataInput
+}
+
+type DeleteManagedIdentityAliasPayload {
+  clientMutationId: String
+  managedIdentity: ManagedIdentity
+  problems: [Problem!]!
+}
+
 input DeleteManagedIdentityInput {
   clientMutationId: String
   id: ID!
@@ -547,6 +599,17 @@ input DeleteTeamInput {
 type DeleteTeamPayload {
   clientMutationId: String
   team: Team
+  problems: [Problem!]!
+}
+
+input DeleteTerraformModuleAttestationInput {
+  clientMutationId: String
+  id: String!
+}
+
+type DeleteTerraformModuleAttestationPayload {
+  clientMutationId: String
+  moduleAttestation: TerraformModuleAttestation
   problems: [Problem!]!
 }
 
@@ -778,30 +841,53 @@ type ManagedIdentity implements Node {
   group: Group!
   data: String!
   createdBy: String!
+  aliasSourceId: String
+  aliasSource: ManagedIdentity
+  isAlias: Boolean!
   accessRules: [ManagedIdentityAccessRule!]!
+  aliases(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort): ManagedIdentityConnection!
 }
 
 type ManagedIdentityAccessRule implements Node {
   id: ID!
   metadata: ResourceMetadata!
+  type: ManagedIdentityAccessRuleType!
   runStage: JobType!
-  allowedUsers: [User!]!
-  allowedServiceAccounts: [ServiceAccount!]!
-  allowedTeams: [Team!]!
+  moduleAttestationPolicies: [ManagedIdentityAccessRuleModuleAttestationPolicy!]
+  allowedUsers: [User!]
+  allowedServiceAccounts: [ServiceAccount!]
+  allowedTeams: [Team!]
   managedIdentity: ManagedIdentity!
 }
 
 input ManagedIdentityAccessRuleInput {
   runStage: JobType!
-  allowedServiceAccounts: [String!]!
-  allowedUsers: [String!]!
-  allowedTeams: [String!]!
+  type: ManagedIdentityAccessRuleType!
+  moduleAttestationPolicies: [ManagedIdentityAccessRuleModuleAttestationPolicyInput!]
+  allowedServiceAccounts: [String!]
+  allowedUsers: [String!]
+  allowedTeams: [String!]
+}
+
+type ManagedIdentityAccessRuleModuleAttestationPolicy {
+  publicKey: String!
+  predicateType: String
+}
+
+input ManagedIdentityAccessRuleModuleAttestationPolicyInput {
+  publicKey: String!
+  predicateType: String
 }
 
 type ManagedIdentityAccessRuleMutationPayload {
   clientMutationId: String
   accessRule: ManagedIdentityAccessRule
   problems: [Problem!]!
+}
+
+enum ManagedIdentityAccessRuleType {
+  eligible_principals
+  module_attestation
 }
 
 type ManagedIdentityConnection {
@@ -845,9 +931,12 @@ type Mutation {
   updateManagedIdentityAccessRule(input: UpdateManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
   deleteManagedIdentityAccessRule(input: DeleteManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
   createManagedIdentityCredentials(input: CreateManagedIdentityCredentialsInput!): CreateManagedIdentityCredentialsPayload!
+  createManagedIdentityAlias(input: CreateManagedIdentityAliasInput!): CreateManagedIdentityAliasPayload!
+  deleteManagedIdentityAlias(input: DeleteManagedIdentityAliasInput!): DeleteManagedIdentityAliasPayload!
   createServiceAccount(input: CreateServiceAccountInput!): CreateServiceAccountPayload!
   updateServiceAccount(input: UpdateServiceAccountInput!): UpdateServiceAccountPayload!
   deleteServiceAccount(input: DeleteServiceAccountInput!): DeleteServiceAccountPayload!
+  serviceAccountCreateToken(input: ServiceAccountCreateTokenInput!): ServiceAccountCreateTokenPayload!
   createNamespaceMembership(input: CreateNamespaceMembershipInput!): NamespaceMembershipMutationPayload!
   updateNamespaceMembership(input: UpdateNamespaceMembershipInput!): NamespaceMembershipMutationPayload!
   deleteNamespaceMembership(input: DeleteNamespaceMembershipInput!): NamespaceMembershipMutationPayload!
@@ -881,6 +970,9 @@ type Mutation {
   deleteTerraformModule(input: DeleteTerraformModuleInput): DeleteTerraformModulePayload!
   createTerraformModuleVersion(input: CreateTerraformModuleVersionInput): CreateTerraformModuleVersionPayload!
   deleteTerraformModuleVersion(input: DeleteTerraformModuleVersionInput): DeleteTerraformModuleVersionPayload!
+  createTerraformModuleAttestation(input: CreateTerraformModuleAttestationInput): CreateTerraformModuleAttestationPayload!
+  updateTerraformModuleAttestation(input: UpdateTerraformModuleAttestationInput): UpdateTerraformModuleAttestationPayload!
+  deleteTerraformModuleAttestation(input: DeleteTerraformModuleAttestationInput): DeleteTerraformModuleAttestationPayload!
   createGPGKey(input: CreateGPGKeyInput!): CreateGPGKeyPayload!
   deleteGPGKey(input: DeleteGPGKeyInput!): DeleteGPGKeyPayload!
   createTerraformCLIDownloadURL(input: CreateTerraformCLIDownloadURLInput!): TerraformCLIMutationPayload!
@@ -1094,6 +1186,7 @@ type Run implements Node {
   variables: [RunVariable!]!
   moduleSource: String
   moduleVersion: String
+  moduleDigest: String
   forceCanceledBy: String
   forceCanceled: Boolean!
   forceCancelAvailableAt: Time
@@ -1198,6 +1291,19 @@ type ServiceAccountConnection {
   totalCount: Int!
   pageInfo: PageInfo!
   edges: [ServiceAccountEdge]
+}
+
+input ServiceAccountCreateTokenInput {
+  clientMutationId: String
+  serviceAccountPath: String!
+  token: String!
+}
+
+type ServiceAccountCreateTokenPayload {
+  clientMutationId: String
+  token: String
+  expiresIn: Int
+  problems: [Problem!]!
 }
 
 type ServiceAccountEdge {
@@ -1351,6 +1457,37 @@ type TerraformModule implements Node {
   resourcePath: String!
   latestVersion: TerraformModuleVersion
   versions(after: String, before: String, first: Int, last: Int, sort: TerraformModuleVersionSort): TerraformModuleVersionConnection!
+  attestations(after: String, before: String, first: Int, last: Int, digest: String, sort: TerraformModuleAttestationSort): TerraformModuleAttestationConnection!
+}
+
+type TerraformModuleAttestation implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  createdBy: String!
+  description: String!
+  module: TerraformModule!
+  schemaType: String!
+  predicateType: String!
+  digests: [String!]!
+  data: String!
+}
+
+type TerraformModuleAttestationConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [TerraformModuleAttestationEdge]
+}
+
+type TerraformModuleAttestationEdge {
+  cursor: String!
+  node: TerraformModuleAttestation
+}
+
+enum TerraformModuleAttestationSort {
+  PREDICATE_TYPE_ASC
+  PREDICATE_TYPE_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
 }
 
 type TerraformModuleConfigurationDetails {
@@ -1438,6 +1575,7 @@ type TerraformModuleVersion implements Node {
   submodules: [String!]!
   examples: [String!]!
   configurationDetails(path: String!): TerraformModuleConfigurationDetails
+  attestations(after: String, before: String, first: Int, last: Int, sort: TerraformModuleAttestationSort): TerraformModuleAttestationConnection!
 }
 
 type TerraformModuleVersionConnection {
@@ -1573,9 +1711,10 @@ input UpdateManagedIdentityAccessRuleInput {
   clientMutationId: String
   id: ID!
   runStage: JobType!
-  allowedServiceAccounts: [String!]!
-  allowedUsers: [String!]!
-  allowedTeams: [String!]!
+  moduleAttestationPolicies: [ManagedIdentityAccessRuleModuleAttestationPolicyInput!]
+  allowedServiceAccounts: [String!]
+  allowedUsers: [String!]
+  allowedTeams: [String!]
 }
 
 input UpdateManagedIdentityInput {
@@ -1662,6 +1801,18 @@ type UpdateTeamMemberPayload {
 type UpdateTeamPayload {
   clientMutationId: String
   team: Team
+  problems: [Problem!]!
+}
+
+input UpdateTerraformModuleAttestationInput {
+  clientMutationId: String
+  id: String!
+  description: String!
+}
+
+type UpdateTerraformModuleAttestationPayload {
+  clientMutationId: String
+  moduleAttestation: TerraformModuleAttestation
   problems: [Problem!]!
 }
 

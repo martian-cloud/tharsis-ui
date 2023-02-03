@@ -64,10 +64,12 @@ function NewManagedIdentity(props: Props) {
                     description: formData.description,
                     data: btoa(JSON.stringify(formData.payload)),
                     accessRules: formData.rules.map(rule => ({
+                        type: rule.type,
                         runStage: rule.runStage,
                         allowedServiceAccounts: rule.allowedServiceAccounts.map((sa: any) => (sa.resourcePath)) || [],
                         allowedUsers: rule.allowedUsers.map((user: any) => (user.username)) || [],
-                        allowedTeams: rule.allowedTeams.map((team: any) => (team.name)) || []
+                        allowedTeams: rule.allowedTeams.map((team: any) => (team.name)) || [],
+                        moduleAttestationPolicies: rule.moduleAttestationPolicies.map((att: any) => ({...att, predicateType: att.predicateType === '' ? undefined : att.predicateType}))
                     })),
                     groupPath: group.fullPath
                 },

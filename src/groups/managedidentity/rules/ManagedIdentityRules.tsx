@@ -6,13 +6,13 @@ import { useState } from 'react';
 import { useFragment, useMutation } from 'react-relay';
 import { RecordSourceProxy } from 'relay-runtime';
 import { MutationError } from '../../../common/error';
-import EditManagedIdentityPolicyRuleDialog from './EditManagedIdentityPolicyRuleDialog';
-import ManagedIdentityPolicyRulesList from './ManagedIdentityPolicyRulesList';
-import NewManagedIdentityPolicyRuleDialog from './NewManagedIdentityPolicyRuleDialog';
-import { ManagedIdentityPolicyRulesCreateRuleMutation, ManagedIdentityPolicyRulesCreateRuleMutation$data } from './__generated__/ManagedIdentityPolicyRulesCreateRuleMutation.graphql';
-import { ManagedIdentityPolicyRulesDeleteMutation, ManagedIdentityPolicyRulesDeleteMutation$data } from './__generated__/ManagedIdentityPolicyRulesDeleteMutation.graphql';
-import { ManagedIdentityPolicyRulesFragment_managedIdentity$key } from './__generated__/ManagedIdentityPolicyRulesFragment_managedIdentity.graphql';
-import { ManagedIdentityPolicyRulesUpdateRuleMutation } from './__generated__/ManagedIdentityPolicyRulesUpdateRuleMutation.graphql';
+import EditManagedIdentityRuleDialog from './EditManagedIdentityRuleDialog';
+import ManagedIdentityRulesList from './ManagedIdentityRulesList';
+import NewManagedIdentityRuleDialog from './NewManagedIdentityRuleDialog';
+import { ManagedIdentityRulesCreateRuleMutation, ManagedIdentityRulesCreateRuleMutation$data } from './__generated__/ManagedIdentityRulesCreateRuleMutation.graphql';
+import { ManagedIdentityRulesDeleteMutation, ManagedIdentityRulesDeleteMutation$data } from './__generated__/ManagedIdentityRulesDeleteMutation.graphql';
+import { ManagedIdentityRulesFragment_managedIdentity$key } from './__generated__/ManagedIdentityRulesFragment_managedIdentity.graphql';
+import { ManagedIdentityRulesUpdateRuleMutation } from './__generated__/ManagedIdentityRulesUpdateRuleMutation.graphql';
 
 interface ConfirmationDialogProps {
     deleteInProgress: boolean;
@@ -42,21 +42,26 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
 }
 
 interface Props {
-    fragmentRef: ManagedIdentityPolicyRulesFragment_managedIdentity$key;
+    fragmentRef: ManagedIdentityRulesFragment_managedIdentity$key;
     groupPath: string
 }
 
-function ManagedIdentityPolicyRules(props: Props) {
+function ManagedIdentityRules(props: Props) {
     const { groupPath } = props;
 
-    const data = useFragment<ManagedIdentityPolicyRulesFragment_managedIdentity$key>(
+    const data = useFragment<ManagedIdentityRulesFragment_managedIdentity$key>(
         graphql`
-        fragment ManagedIdentityPolicyRulesFragment_managedIdentity on ManagedIdentity
+        fragment ManagedIdentityRulesFragment_managedIdentity on ManagedIdentity
         {
             id
             accessRules {
                 id
+                type
                 runStage
+                moduleAttestationPolicies {
+                    publicKey
+                    predicateType
+                }
                 allowedUsers {
                     id
                     username
@@ -75,8 +80,8 @@ function ManagedIdentityPolicyRules(props: Props) {
         }
     `, props.fragmentRef);
 
-    const [commitDeleteRule, commitDeleteRuleInFlight] = useMutation<ManagedIdentityPolicyRulesDeleteMutation>(graphql`
-        mutation ManagedIdentityPolicyRulesDeleteMutation($input: DeleteManagedIdentityAccessRuleInput! ) {
+    const [commitDeleteRule, commitDeleteRuleInFlight] = useMutation<ManagedIdentityRulesDeleteMutation>(graphql`
+        mutation ManagedIdentityRulesDeleteMutation($input: DeleteManagedIdentityAccessRuleInput! ) {
             deleteManagedIdentityAccessRule(input: $input) {
                 accessRule {
                     id
@@ -89,11 +94,12 @@ function ManagedIdentityPolicyRules(props: Props) {
             }
     }`);
 
-    const [commitCreateRule, commitCreateRuleInFlight] = useMutation<ManagedIdentityPolicyRulesCreateRuleMutation>(graphql`
-        mutation ManagedIdentityPolicyRulesCreateRuleMutation($input: CreateManagedIdentityAccessRuleInput!) {
+    const [commitCreateRule, commitCreateRuleInFlight] = useMutation<ManagedIdentityRulesCreateRuleMutation>(graphql`
+        mutation ManagedIdentityRulesCreateRuleMutation($input: CreateManagedIdentityAccessRuleInput!) {
             createManagedIdentityAccessRule(input: $input) {
                 accessRule {
                     id
+                    type
                     runStage
                     allowedUsers {
                         id
@@ -107,6 +113,10 @@ function ManagedIdentityPolicyRules(props: Props) {
                     allowedServiceAccounts {
                         id
                         resourcePath
+                    }
+                    moduleAttestationPolicies {
+                        publicKey
+                        predicateType
                     }
                 }
                 problems {
@@ -118,11 +128,12 @@ function ManagedIdentityPolicyRules(props: Props) {
         }
     `);
 
-    const [commitUpdateRule, commitUpdateRuleInFlight] = useMutation<ManagedIdentityPolicyRulesUpdateRuleMutation>(graphql`
-    mutation ManagedIdentityPolicyRulesUpdateRuleMutation($input: UpdateManagedIdentityAccessRuleInput!) {
+    const [commitUpdateRule, commitUpdateRuleInFlight] = useMutation<ManagedIdentityRulesUpdateRuleMutation>(graphql`
+    mutation ManagedIdentityRulesUpdateRuleMutation($input: UpdateManagedIdentityAccessRuleInput!) {
         updateManagedIdentityAccessRule(input: $input) {
                 accessRule {
                     id
+                    type
                     runStage
                     allowedUsers {
                         id
@@ -137,6 +148,10 @@ function ManagedIdentityPolicyRules(props: Props) {
                         id
                         name
                         resourcePath
+                    }
+                    moduleAttestationPolicies {
+                        publicKey
+                        predicateType
                     }
                 }
                 problems {
@@ -173,7 +188,7 @@ function ManagedIdentityPolicyRules(props: Props) {
                     setRuleToDelete(null);
                     enqueueSnackbar(`Unexpected error occurred: ${error.message}`, { variant: 'error' });
                 },
-                updater: (store: RecordSourceProxy, payload: ManagedIdentityPolicyRulesDeleteMutation$data) => {
+                updater: (store: RecordSourceProxy, payload: ManagedIdentityRulesDeleteMutation$data) => {
                     if (!payload.deleteManagedIdentityAccessRule.accessRule) {
                         return;
                     }
@@ -207,10 +222,12 @@ function ManagedIdentityPolicyRules(props: Props) {
             variables: {
                 input: {
                     managedIdentityId: data.id,
+                    type: rule.type,
                     runStage: rule.runStage,
                     allowedServiceAccounts: rule.allowedServiceAccounts.map((sa: any) => (sa.resourcePath)) || [],
                     allowedUsers: rule.allowedUsers.map((user: any) => (user.username)) || [],
-                    allowedTeams: rule.allowedTeams.map((team: any) => (team.name)) || []
+                    allowedTeams: rule.allowedTeams.map((team: any) => (team.name)) || [],
+                    moduleAttestationPolicies: rule.moduleAttestationPolicies.map((att: any) => ({...att, predicateType: att.predicateType === '' ? undefined : att.predicateType}))
                 }
             },
             onCompleted: data => {
@@ -234,7 +251,7 @@ function ManagedIdentityPolicyRules(props: Props) {
                     message: `Unexpected error occurred: ${error.message}`
                 });
             },
-            updater: (store: RecordSourceProxy, payload: ManagedIdentityPolicyRulesCreateRuleMutation$data) => {
+            updater: (store: RecordSourceProxy, payload: ManagedIdentityRulesCreateRuleMutation$data) => {
                 if (!payload.createManagedIdentityAccessRule.accessRule) {
                     return;
                 }
@@ -256,6 +273,7 @@ function ManagedIdentityPolicyRules(props: Props) {
     };
 
     const onUpdateRule = (rule: any) => {
+        setError(undefined);
         commitUpdateRule({
             variables: {
                 input: {
@@ -263,7 +281,8 @@ function ManagedIdentityPolicyRules(props: Props) {
                     runStage: rule.runStage,
                     allowedServiceAccounts: rule.allowedServiceAccounts.map((sa: any) => (sa.resourcePath)) || [],
                     allowedUsers: rule.allowedUsers.map((user: any) => (user.username)) || [],
-                    allowedTeams: rule.allowedTeams.map((team: any) => (team.name)) || []
+                    allowedTeams: rule.allowedTeams.map((team: any) => (team.name)) || [],
+                    moduleAttestationPolicies: rule.moduleAttestationPolicies.map((att: any) => ({...att, predicateType: att.predicateType === '' ? undefined : att.predicateType}))
                 },
             },
             onCompleted: data => {
@@ -288,9 +307,9 @@ function ManagedIdentityPolicyRules(props: Props) {
     return (
         <Box>
             <Typography sx={{ marginBottom: 2 }} color="textSecondary">
-                Access rules determine which principals are allowed to use this managed identity for a particular run stage
+                Access rules contain policies that control if this managed identity can be used for a particular run stage
             </Typography>
-            {data.accessRules.length > 0 && <ManagedIdentityPolicyRulesList
+            {data.accessRules.length > 0 && <ManagedIdentityRulesList
                 accessRules={data.accessRules}
                 onEdit={setRuleToEdit}
                 onDelete={setRuleToDelete}
@@ -298,15 +317,15 @@ function ManagedIdentityPolicyRules(props: Props) {
             {data.accessRules.length === 0 && <Paper sx={{ p: 2 }}>
                 <Typography>No rules exist for this managed identity</Typography>
             </Paper>}
-            {data.accessRules.length !== 2 && <Button
+            <Button
                 sx={{ marginTop: 3 }}
                 color="secondary"
                 size="small"
                 variant="outlined"
                 onClick={() => setShowCreateNewRuleDialog(true)}>
                 Add Access Rule
-            </Button>}
-            {ruleToEdit && <EditManagedIdentityPolicyRuleDialog
+            </Button>
+            {ruleToEdit && <EditManagedIdentityRuleDialog
                 inputRule={ruleToEdit}
                 groupPath={groupPath}
                 submitInProgress={commitUpdateRuleInFlight}
@@ -316,9 +335,8 @@ function ManagedIdentityPolicyRules(props: Props) {
                     setRuleToEdit(null);
                     setError(undefined);
                 }} />}
-            {showCreateNewRuleDialog && <NewManagedIdentityPolicyRuleDialog
+            {showCreateNewRuleDialog && <NewManagedIdentityRuleDialog
                 groupPath={groupPath}
-                disabledRunStages={data.accessRules.map(rule => rule.runStage)}
                 submitInProgress={commitCreateRuleInFlight}
                 error={error}
                 onSubmit={onCreateRule}
@@ -335,4 +353,4 @@ function ManagedIdentityPolicyRules(props: Props) {
     );
 }
 
-export default ManagedIdentityPolicyRules
+export default ManagedIdentityRules

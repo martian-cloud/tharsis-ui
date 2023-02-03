@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9977d5d0f0fc3699c4b364b86fc78090>>
+ * @generated SignedSource<<185faf21092db089e45b51b453bf7016>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,16 +21,16 @@ export type ManagedIdentityDetailsQuery$data = {
         readonly id: string;
         readonly name: string;
         readonly resourcePath: string;
-      }>;
+      }> | null;
       readonly allowedTeams: ReadonlyArray<{
         readonly id: string;
         readonly name: string;
-      }>;
+      }> | null;
       readonly allowedUsers: ReadonlyArray<{
         readonly email: string;
         readonly id: string;
         readonly username: string;
-      }>;
+      }> | null;
       readonly id: string;
       readonly runStage: JobType;
     }>;
@@ -39,7 +39,7 @@ export type ManagedIdentityDetailsQuery$data = {
     readonly id: string;
     readonly name: string;
     readonly type: string;
-    readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityPolicyRulesFragment_managedIdentity">;
+    readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityRulesFragment_managedIdentity">;
   } | null;
 };
 export type ManagedIdentityDetailsQuery = {
@@ -100,9 +100,16 @@ v6 = {
 v7 = {
   "alias": null,
   "args": null,
-  "concreteType": "ManagedIdentityAccessRule",
+  "kind": "ScalarField",
+  "name": "runStage",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "User",
   "kind": "LinkedField",
-  "name": "accessRules",
+  "name": "allowedUsers",
   "plural": true,
   "selections": [
     (v2/*: any*/),
@@ -110,66 +117,47 @@ v7 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "runStage",
+      "name": "username",
       "storageKey": null
     },
     {
       "alias": null,
       "args": null,
-      "concreteType": "User",
-      "kind": "LinkedField",
-      "name": "allowedUsers",
-      "plural": true,
-      "selections": [
-        (v2/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "username",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "email",
-          "storageKey": null
-        }
-      ],
+      "kind": "ScalarField",
+      "name": "email",
       "storageKey": null
-    },
+    }
+  ],
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Team",
+  "kind": "LinkedField",
+  "name": "allowedTeams",
+  "plural": true,
+  "selections": [
+    (v2/*: any*/),
+    (v3/*: any*/)
+  ],
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ServiceAccount",
+  "kind": "LinkedField",
+  "name": "allowedServiceAccounts",
+  "plural": true,
+  "selections": [
+    (v2/*: any*/),
+    (v3/*: any*/),
     {
       "alias": null,
       "args": null,
-      "concreteType": "Team",
-      "kind": "LinkedField",
-      "name": "allowedTeams",
-      "plural": true,
-      "selections": [
-        (v2/*: any*/),
-        (v3/*: any*/)
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ServiceAccount",
-      "kind": "LinkedField",
-      "name": "allowedServiceAccounts",
-      "plural": true,
-      "selections": [
-        (v2/*: any*/),
-        (v3/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "resourcePath",
-          "storageKey": null
-        }
-      ],
+      "kind": "ScalarField",
+      "name": "resourcePath",
       "storageKey": null
     }
   ],
@@ -195,11 +183,26 @@ return {
           (v4/*: any*/),
           (v5/*: any*/),
           (v6/*: any*/),
-          (v7/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ManagedIdentityAccessRule",
+            "kind": "LinkedField",
+            "name": "accessRules",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              (v10/*: any*/)
+            ],
+            "storageKey": null
+          },
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ManagedIdentityPolicyRulesFragment_managedIdentity"
+            "name": "ManagedIdentityRulesFragment_managedIdentity"
           }
         ],
         "storageKey": null
@@ -227,23 +230,64 @@ return {
           (v4/*: any*/),
           (v5/*: any*/),
           (v6/*: any*/),
-          (v7/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ManagedIdentityAccessRule",
+            "kind": "LinkedField",
+            "name": "accessRules",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              (v10/*: any*/),
+              (v5/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ManagedIdentityAccessRuleModuleAttestationPolicy",
+                "kind": "LinkedField",
+                "name": "moduleAttestationPolicies",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "publicKey",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "predicateType",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "d8587083f2d7683295074ee45f9b2ce8",
+    "cacheID": "da399284bb6d805792de1e642e9c3d44",
     "id": null,
     "metadata": {},
     "name": "ManagedIdentityDetailsQuery",
     "operationKind": "query",
-    "text": "query ManagedIdentityDetailsQuery(\n  $id: String!\n) {\n  managedIdentity(id: $id) {\n    id\n    name\n    description\n    type\n    data\n    accessRules {\n      id\n      runStage\n      allowedUsers {\n        id\n        username\n        email\n      }\n      allowedTeams {\n        id\n        name\n      }\n      allowedServiceAccounts {\n        id\n        name\n        resourcePath\n      }\n    }\n    ...ManagedIdentityPolicyRulesFragment_managedIdentity\n  }\n}\n\nfragment ManagedIdentityPolicyRulesFragment_managedIdentity on ManagedIdentity {\n  id\n  accessRules {\n    id\n    runStage\n    allowedUsers {\n      id\n      username\n      email\n    }\n    allowedTeams {\n      id\n      name\n    }\n    allowedServiceAccounts {\n      id\n      name\n      resourcePath\n    }\n  }\n}\n"
+    "text": "query ManagedIdentityDetailsQuery(\n  $id: String!\n) {\n  managedIdentity(id: $id) {\n    id\n    name\n    description\n    type\n    data\n    accessRules {\n      id\n      runStage\n      allowedUsers {\n        id\n        username\n        email\n      }\n      allowedTeams {\n        id\n        name\n      }\n      allowedServiceAccounts {\n        id\n        name\n        resourcePath\n      }\n    }\n    ...ManagedIdentityRulesFragment_managedIdentity\n  }\n}\n\nfragment ManagedIdentityRulesFragment_managedIdentity on ManagedIdentity {\n  id\n  accessRules {\n    id\n    type\n    runStage\n    moduleAttestationPolicies {\n      publicKey\n      predicateType\n    }\n    allowedUsers {\n      id\n      username\n      email\n    }\n    allowedTeams {\n      id\n      name\n    }\n    allowedServiceAccounts {\n      id\n      name\n      resourcePath\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "b2dd239065a793f284ad308334b68632";
+(node as any).hash = "ca3352c59709ec772f13440cedea1493";
 
 export default node;

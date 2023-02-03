@@ -6,11 +6,12 @@ import Stack from '@mui/material/Stack';
 import { darken } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { nanoid } from 'nanoid';
 import React, { useState } from 'react';
 import { MutationError } from '../../common/error';
-import EditManagedIdentityPolicyRuleDialog from './rules/EditManagedIdentityPolicyRuleDialog';
-import ManagedIdentityPolicyRulesList from './rules/ManagedIdentityPolicyRulesList';
-import NewManagedIdentityPolicyRuleDialog from './rules/NewManagedIdentityPolicyRuleDialog';
+import EditManagedIdentityRuleDialog from './rules/EditManagedIdentityRuleDialog';
+import ManagedIdentityRulesList from './rules/ManagedIdentityRulesList';
+import NewManagedIdentityRuleDialog from './rules/NewManagedIdentityRuleDialog';
 
 interface ManagedIdentityTypeButtonProps {
     selected?: boolean
@@ -87,13 +88,14 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
         setShowCreateNewRuleDialog(false);
         onChange({
             ...data,
-            rules: [...data.rules, rule]
+            // Add id to rule to provide uniqueness
+            rules: [...data.rules, {...rule, id: nanoid()}]
         });
     };
 
     const onDeleteRule = (rule: any) => {
         const rulesCopy = [...data.rules];
-        const index = rulesCopy.findIndex(item => item.runStage === rule.runStage);
+        const index = rulesCopy.findIndex(item => item.id === rule.id);
         if (index !== -1) {
             rulesCopy.splice(index, 1);
             onChange({
@@ -107,7 +109,7 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
         setRuleToEdit(null);
 
         const rulesCopy = [...data.rules];
-        const index = rulesCopy.findIndex(item => item.runStage === rule.runStage);
+        const index = rulesCopy.findIndex(item => item.id === rule.id);
         if (index !== -1) {
             rulesCopy[index] = rule;
             onChange({
@@ -148,14 +150,14 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
             {!editMode && <React.Fragment>
                 <Box display="flex" justifyContent="space-between" alignItems="flex-end">
                     <Typography variant="subtitle1" gutterBottom>Access Rules</Typography>
-                    {data.rules.length !== 2 && <Button
+                    <Button
                         sx={{ marginBottom: 1 }}
                         size="small"
                         color="secondary"
                         variant="outlined"
                         onClick={() => setShowCreateNewRuleDialog(true)}>
                         Add Access Rule
-                    </Button>}
+                    </Button>
                 </Box>
                 <Divider light />
 
@@ -163,7 +165,7 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
                     <Typography color="textSecondary" gutterBottom>
                         Access rules determine which principals are allowed to use this managed identity for a particular run stage
                     </Typography>
-                    {data.rules.length > 0 && <ManagedIdentityPolicyRulesList
+                    {data.rules.length > 0 && <ManagedIdentityRulesList
                         accessRules={data.rules}
                         onEdit={setRuleToEdit}
                         onDelete={onDeleteRule}
@@ -215,15 +217,14 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
                     </Typography>
                 </Box>}
             </Box>}
-            {ruleToEdit && <EditManagedIdentityPolicyRuleDialog
+            {ruleToEdit && <EditManagedIdentityRuleDialog
                 inputRule={ruleToEdit}
                 groupPath={groupPath}
                 onSubmit={onEditRule}
                 onClose={() => setRuleToEdit(null)}
             />}
-            {showCreateNewRuleDialog && <NewManagedIdentityPolicyRuleDialog
+            {showCreateNewRuleDialog && <NewManagedIdentityRuleDialog
                 groupPath={groupPath}
-                disabledRunStages={data.rules.map(rule => rule.runStage)}
                 onSubmit={onCreateRule}
                 onClose={() => setShowCreateNewRuleDialog(false)}
             />}
