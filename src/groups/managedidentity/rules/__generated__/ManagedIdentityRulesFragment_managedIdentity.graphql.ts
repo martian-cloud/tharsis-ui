@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<eae809e6050d002ce1efc1c7a70e7873>>
+ * @generated SignedSource<<16489b5b59c29663098eca0f2604e6de>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,32 +10,38 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type JobType = "apply" | "plan" | "%future added value";
+export type ManagedIdentityAccessRuleType = "eligible_principals" | "module_attestation" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type ManagedIdentityPolicyRulesFragment_managedIdentity$data = {
+export type ManagedIdentityRulesFragment_managedIdentity$data = {
   readonly accessRules: ReadonlyArray<{
     readonly allowedServiceAccounts: ReadonlyArray<{
       readonly id: string;
       readonly name: string;
       readonly resourcePath: string;
-    }>;
+    }> | null;
     readonly allowedTeams: ReadonlyArray<{
       readonly id: string;
       readonly name: string;
-    }>;
+    }> | null;
     readonly allowedUsers: ReadonlyArray<{
       readonly email: string;
       readonly id: string;
       readonly username: string;
-    }>;
+    }> | null;
     readonly id: string;
+    readonly moduleAttestationPolicies: ReadonlyArray<{
+      readonly predicateType: string | null;
+      readonly publicKey: string;
+    }> | null;
     readonly runStage: JobType;
+    readonly type: ManagedIdentityAccessRuleType;
   }>;
   readonly id: string;
-  readonly " $fragmentType": "ManagedIdentityPolicyRulesFragment_managedIdentity";
+  readonly " $fragmentType": "ManagedIdentityRulesFragment_managedIdentity";
 };
-export type ManagedIdentityPolicyRulesFragment_managedIdentity$key = {
-  readonly " $data"?: ManagedIdentityPolicyRulesFragment_managedIdentity$data;
-  readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityPolicyRulesFragment_managedIdentity">;
+export type ManagedIdentityRulesFragment_managedIdentity$key = {
+  readonly " $data"?: ManagedIdentityRulesFragment_managedIdentity$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityRulesFragment_managedIdentity">;
 };
 
 const node: ReaderFragment = (function(){
@@ -57,7 +63,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "ManagedIdentityPolicyRulesFragment_managedIdentity",
+  "name": "ManagedIdentityRulesFragment_managedIdentity",
   "selections": [
     (v0/*: any*/),
     {
@@ -73,7 +79,39 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
+          "name": "type",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
           "name": "runStage",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ManagedIdentityAccessRuleModuleAttestationPolicy",
+          "kind": "LinkedField",
+          "name": "moduleAttestationPolicies",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "publicKey",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "predicateType",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         },
         {
@@ -144,6 +182,6 @@ return {
 };
 })();
 
-(node as any).hash = "8807b1b0b78cb1b5657e856d7d4ffc6d";
+(node as any).hash = "5331c382862a7cacf62acb38ec213c0e";
 
 export default node;

@@ -17,7 +17,7 @@ import config from '../../common/config';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
 import { GetConnections } from './ManagedIdentityList';
 import ManagedIdentityTypeChip from './ManagedIdentityTypeChip';
-import ManagedIdentityPolicyRules from './rules/ManagedIdentityPolicyRules';
+import ManagedIdentityRules from './rules/ManagedIdentityRules';
 import { ManagedIdentityDetailsDeleteMutation } from './__generated__/ManagedIdentityDetailsDeleteMutation.graphql';
 import { ManagedIdentityDetailsFragment_group$key } from './__generated__/ManagedIdentityDetailsFragment_group.graphql';
 import { ManagedIdentityDetailsQuery } from './__generated__/ManagedIdentityDetailsQuery.graphql';
@@ -135,7 +135,7 @@ function ManagedIdentityDetails(props: Props) {
                         resourcePath
                     }
                 }
-                ...ManagedIdentityPolicyRulesFragment_managedIdentity
+                ...ManagedIdentityRulesFragment_managedIdentity
             }
         }
     `, { id: managedIdentityId }, { fetchPolicy: 'store-and-network' });
@@ -318,7 +318,7 @@ function ManagedIdentityDetails(props: Props) {
                         </Box>}
                     </Box>}
                     {tab === 'rules' && <Box>
-                        <ManagedIdentityPolicyRules
+                        <ManagedIdentityRules
                             fragmentRef={data.managedIdentity}
                             groupPath={group.fullPath}
                         />

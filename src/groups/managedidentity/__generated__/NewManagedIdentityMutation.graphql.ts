@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c15dd1ee6d88f9b04b66020d145ec1fe>>
+ * @generated SignedSource<<1eb4473901078c3620ac21105692a4ca>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type JobType = "apply" | "plan" | "%future added value";
+export type ManagedIdentityAccessRuleType = "eligible_principals" | "module_attestation" | "%future added value";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
 export type CreateManagedIdentityInput = {
   accessRules?: ReadonlyArray<ManagedIdentityAccessRuleInput> | null;
@@ -22,10 +23,16 @@ export type CreateManagedIdentityInput = {
   type: string;
 };
 export type ManagedIdentityAccessRuleInput = {
-  allowedServiceAccounts: ReadonlyArray<string>;
-  allowedTeams: ReadonlyArray<string>;
-  allowedUsers: ReadonlyArray<string>;
+  allowedServiceAccounts?: ReadonlyArray<string> | null;
+  allowedTeams?: ReadonlyArray<string> | null;
+  allowedUsers?: ReadonlyArray<string> | null;
+  moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null;
   runStage: JobType;
+  type: ManagedIdentityAccessRuleType;
+};
+export type ManagedIdentityAccessRuleModuleAttestationPolicyInput = {
+  predicateType?: string | null;
+  publicKey: string;
 };
 export type NewManagedIdentityMutation$variables = {
   connections: ReadonlyArray<string>;

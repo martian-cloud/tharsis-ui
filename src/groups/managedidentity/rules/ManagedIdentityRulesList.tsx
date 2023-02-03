@@ -2,7 +2,7 @@ import DeleteIcon from '@mui/icons-material/CloseOutlined';
 import EditIcon from '@mui/icons-material/EditOutlined';
 import { Avatar, Box, Button, Chip, Paper, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from '@mui/material';
 import teal from '@mui/material/colors/teal';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Gravatar from '../../../common/Gravatar';
 
 const AvatarContainer = styled(
@@ -33,6 +33,11 @@ const StyledTableRow = styled(
     }
 }));
 
+const ACCESS_RULE_TYPE_LABELS = {
+    eligible_principals: 'Eligible Principals',
+    module_attestation: 'Module Attestation'
+} as any;
+
 function buildPrincipals(rule: any) {
     return [
         ...rule.allowedUsers.map((user: any) => ({ id: user.id, type: 'user', label: user.email, tooltip: user.email, name: user.username })),
@@ -47,14 +52,14 @@ interface Props {
     onDelete: (rule: any) => void;
 }
 
-function ManagedIdentityPolicyRulesList(props: Props) {
+function ManagedIdentityRulesList(props: Props) {
     const { accessRules, onEdit, onDelete } = props;
 
     const [rows, setRows] = useState<any>();
 
     useEffect(() => {
         setRows(accessRules.map((rule: any) => ({
-            type: 'Eligible Principals',
+            type: rule.type,
             principals: buildPrincipals(rule),
             rule: rule
         })));
@@ -66,33 +71,44 @@ function ManagedIdentityPolicyRulesList(props: Props) {
                 <TableHead>
                     <TableRow>
                         <TableCell>Type</TableCell>
-                        <TableCell>Principals</TableCell>
+                        <TableCell>Policy</TableCell>
                         <TableCell>Run Stage</TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map((row: any) => (
-                        <StyledTableRow key={row.rule.runStage}>
+                        <StyledTableRow key={row.rule.id}>
                             <TableCell>
-                                <Typography>{row.type}</Typography>
+                                <Typography variant="body2">{ACCESS_RULE_TYPE_LABELS[row.type]}</Typography>
                             </TableCell>
                             <TableCell>
-                                {row.principals && row.principals.length === 0 && <Typography>None</Typography>}
-                                {row.principals && row.principals.length > 0 &&
-                                    <AvatarContainer>
-                                        {row.principals.map(((rule: any) => (
-                                            <Tooltip key={rule.id} title={rule.tooltip}>
-                                                <Box>
-                                                    {rule.type === 'user' && <Gravatar width={24} height={24} email={rule.label} />}
-                                                    {rule.type !== 'user' && <StyledAvatar>{rule.label}</StyledAvatar>}
-                                                </Box>
-                                            </Tooltip>
-                                        )))}
-                                    </AvatarContainer>}
+                                {row.type === 'eligible_principals' && <Fragment>
+                                    {row.principals && row.principals.length === 0 && <Typography variant="body2" fontWeight={500}>
+                                        No principals are permitted
+                                    </Typography>}
+                                    {row.principals && row.principals.length > 0 && <Box>
+                                        <Typography gutterBottom variant="body2" fontWeight={500}>Only the following principals are permitted:</Typography>
+                                        <AvatarContainer>
+                                            {row.principals.map(((rule: any) => (
+                                                <Tooltip key={rule.id} title={rule.tooltip}>
+                                                    <Box>
+                                                        {rule.type === 'user' && <Gravatar width={24} height={24} email={rule.label} />}
+                                                        {rule.type !== 'user' && <StyledAvatar>{rule.label}</StyledAvatar>}
+                                                    </Box>
+                                                </Tooltip>
+                                            )))}
+                                        </AvatarContainer>
+                                    </Box>}
+                                </Fragment>}
+                                {row.type === 'module_attestation' && <Fragment>
+                                    <Typography variant="body2" fontWeight={500}>
+                                        Only root modules with the required attestations are permitted
+                                    </Typography>
+                                </Fragment>}
                             </TableCell>
                             <TableCell>
-                                <Chip label={`${row.rule.runStage[0].toUpperCase()}${row.rule.runStage.slice(1)}`} />
+                                <Chip size="small" label={`${row.rule.runStage[0].toUpperCase()}${row.rule.runStage.slice(1)}`} />
                             </TableCell>
                             <TableCell>
                                 <Button sx={{ marginRight: 1, minWidth: 40, padding: '2px' }} size="small" color="info" variant="outlined" onClick={() => onEdit(row.rule)}>
@@ -110,4 +126,4 @@ function ManagedIdentityPolicyRulesList(props: Props) {
     ) : null;
 }
 
-export default ManagedIdentityPolicyRulesList;
+export default ManagedIdentityRulesList;

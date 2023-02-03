@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<360ffcce37e8742d6fbea5482a934e0a>>
+ * @generated SignedSource<<fad7b4d070a503fd588497a5d86b42e6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,10 +14,10 @@ export type DeleteManagedIdentityAccessRuleInput = {
   clientMutationId?: string | null;
   id: string;
 };
-export type ManagedIdentityPolicyRulesDeleteMutation$variables = {
+export type ManagedIdentityRulesDeleteMutation$variables = {
   input: DeleteManagedIdentityAccessRuleInput;
 };
-export type ManagedIdentityPolicyRulesDeleteMutation$data = {
+export type ManagedIdentityRulesDeleteMutation$data = {
   readonly deleteManagedIdentityAccessRule: {
     readonly accessRule: {
       readonly id: string;
@@ -29,9 +29,9 @@ export type ManagedIdentityPolicyRulesDeleteMutation$data = {
     }>;
   };
 };
-export type ManagedIdentityPolicyRulesDeleteMutation = {
-  response: ManagedIdentityPolicyRulesDeleteMutation$data;
-  variables: ManagedIdentityPolicyRulesDeleteMutation$variables;
+export type ManagedIdentityRulesDeleteMutation = {
+  response: ManagedIdentityRulesDeleteMutation$data;
+  variables: ManagedIdentityRulesDeleteMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -116,7 +116,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ManagedIdentityPolicyRulesDeleteMutation",
+    "name": "ManagedIdentityRulesDeleteMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -125,20 +125,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ManagedIdentityPolicyRulesDeleteMutation",
+    "name": "ManagedIdentityRulesDeleteMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "b58df76c1a651fdb2a60f991fa038445",
+    "cacheID": "d65667607407f237ed37d03e32480e78",
     "id": null,
     "metadata": {},
-    "name": "ManagedIdentityPolicyRulesDeleteMutation",
+    "name": "ManagedIdentityRulesDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation ManagedIdentityPolicyRulesDeleteMutation(\n  $input: DeleteManagedIdentityAccessRuleInput!\n) {\n  deleteManagedIdentityAccessRule(input: $input) {\n    accessRule {\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
+    "text": "mutation ManagedIdentityRulesDeleteMutation(\n  $input: DeleteManagedIdentityAccessRuleInput!\n) {\n  deleteManagedIdentityAccessRule(input: $input) {\n    accessRule {\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2e1575676adf370a0a2b97248c696178";
+(node as any).hash = "781b8ca2cad6c50b8cfb06fcb96b49e3";
 
 export default node;
