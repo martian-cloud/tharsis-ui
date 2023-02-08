@@ -1,12 +1,11 @@
 import AutoScrollIcon from '@mui/icons-material/ArrowCircleDown';
-import { Box, LinearProgress, Paper, ToggleButton, Tooltip, Typography, useTheme } from '@mui/material';
-import { darken } from '@mui/material/styles';
+import { Box, LinearProgress, Paper, ToggleButton, Tooltip, Typography } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
 import moment from 'moment';
-import React, { useEffect, useMemo, useState } from 'react';
-import ReactAnsi from 'react-ansi';
+import { useEffect, useMemo, useState } from 'react';
 import { useFragment, useRelayEnvironment, useSubscription } from 'react-relay/hooks';
 import { fetchQuery, GraphQLSubscriptionConfig, RecordSourceProxy } from 'relay-runtime';
+import LogViewer from './LogViewer';
 import { JobLogsFragment_logs$key } from './__generated__/JobLogsFragment_logs.graphql';
 import { JobLogsQuery } from './__generated__/JobLogsQuery.graphql';
 import { JobLogsSubscription, JobLogsSubscription$data } from './__generated__/JobLogsSubscription.graphql';
@@ -38,33 +37,32 @@ function JobLogs(props: Props) {
             status
             logLastUpdatedAt
             logSize
-            logs(startOffset:0, limit:1024000)
+            logs(startOffset:0, limit:51200)
         }
       `, props.fragmentRef)
 
     const [logs, setLogs] = useState(data.logs);
-    const [size, setSize] = useState(data.logSize);
+    const [currentLogSize, setCurrentLogSize] = useState(bytes(data.logs));
+    const [actualLogSize, setActualLogSize] = useState(data.logSize);
     const [loading, setLoading] = useState<boolean>(false);
     const [autoScroll, setAutoScroll] = useState(data.status !== 'finished');
     const environment = useRelayEnvironment();
-    const theme = useTheme();
 
     const config = useMemo<GraphQLSubscriptionConfig<JobLogsSubscription>>(() => ({
-        variables: { input: { jobId: data.id, lastSeenLogSize: size } },
+        variables: { input: { jobId: data.id, lastSeenLogSize: actualLogSize } },
         subscription,
         onCompleted: () => console.log("Subscription completed"),
         onError: () => console.warn("Subscription error"),
         updater: (store: RecordSourceProxy, payload: JobLogsSubscription$data) => {
-            if (payload.jobLogEvents.size > size) {
-                setSize(payload.jobLogEvents.size)
+            if (payload.jobLogEvents.size > actualLogSize) {
+                setActualLogSize(payload.jobLogEvents.size)
             }
         }
-    }), [data, size]);
+    }), [data, actualLogSize]);
     useSubscription<JobLogsSubscription>(config);
 
     useEffect(() => {
-        const currentSize = bytes(logs);
-        if (loading || currentSize >= size) {
+        if (loading || currentLogSize >= actualLogSize) {
             return;
         }
 
@@ -82,23 +80,26 @@ function JobLogs(props: Props) {
                 }
               }
             `,
-            { id: data.id, startOffset: currentSize, limit: LOG_CHUNK_SIZE_BYTES },
+            { id: data.id, startOffset: currentLogSize, limit: LOG_CHUNK_SIZE_BYTES },
             { fetchPolicy: 'network-only' }
         ).toPromise().then(async response => {
             setLoading(false);
             const job = response?.job;
             if (job) {
                 setLogs(logs + job.logs);
-                setSize(job.logSize);
+                setActualLogSize(job.logSize);
+                setCurrentLogSize(prev => prev + bytes(job.logs));
             }
         });
-    }, [data, size, logs, loading, environment]);
+    }, [data, actualLogSize, currentLogSize, logs, loading, environment]);
 
     useEffect(() => {
         if (autoScroll) {
             scrollToBottom();
         }
     }, [logs, autoScroll]);
+
+    const loadedPercent = useMemo(() => (currentLogSize / actualLogSize) * 100, [currentLogSize, actualLogSize]);
 
     const scrollToBottom = () => {
         window.scrollTo(0, document.body.scrollHeight);
@@ -131,19 +132,8 @@ function JobLogs(props: Props) {
                     </Tooltip>
                 </Box>
             </Paper>
-            {loading && data.status === 'finished' && <LinearProgress variant="determinate" value={(bytes(logs) / size) * 100} />}
-            <ReactAnsi
-                log={logs}
-                autoScroll={false}
-                linkify={false}
-                logStyle={{
-                    fontSize: '14px',
-                    backgroundColor: darken(theme.palette.background.default, 0.5),
-                    color: theme.palette.text.primary,
-                    wordBreak: 'break-all',
-                    marginBottom: -20
-                }} />
-
+            {data.status === 'finished' && loadedPercent < 100 && <LinearProgress variant="determinate" value={loadedPercent} />}
+            <LogViewer logs={logs} />
         </Box>
     );
 }

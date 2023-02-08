@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<682447ffa97f9bb733bc64e73b30e718>>
+ * @generated SignedSource<<97e608ef3f380e3d11415a1852a78ee3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -63,7 +63,7 @@ const node: ReaderFragment = {
         {
           "kind": "Literal",
           "name": "limit",
-          "value": 1024000
+          "value": 51200
         },
         {
           "kind": "Literal",
@@ -73,13 +73,13 @@ const node: ReaderFragment = {
       ],
       "kind": "ScalarField",
       "name": "logs",
-      "storageKey": "logs(limit:1024000,startOffset:0)"
+      "storageKey": "logs(limit:51200,startOffset:0)"
     }
   ],
   "type": "Job",
   "abstractKey": null
 };
 
-(node as any).hash = "403c0c04b49ffe4c622dde65f45f33a7";
+(node as any).hash = "777170e3cffb3dc5354967cded3ea59d";
 
 export default node;
