@@ -23,7 +23,7 @@ function EditManagedIdentityRuleDialog(props: Props) {
         // Add _id field to policies in order to provide uniqueness
         setRule({
             ...inputRule,
-            moduleAttestationPolicies: inputRule.moduleAttestationPolicies?.map((p: any) => ({ ...p, _id: nanoid() }))
+            moduleAttestationPolicies: inputRule.moduleAttestationPolicies?.map((p: any) => ({ ...p, _id: nanoid() })) || []
         });
     }, [inputRule]);
 
