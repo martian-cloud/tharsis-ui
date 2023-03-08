@@ -1,22 +1,22 @@
-import { Box, Divider, styled, Typography } from '@mui/material'
-import React from 'react'
-import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs'
-import graphql from 'babel-plugin-relay/macro'
+import { Box, Divider, styled, Typography } from '@mui/material';
+import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
+import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'react-relay/hooks';
-import { WorkspaceSettingsFragment_workspace$key } from './__generated__/WorkspaceSettingsFragment_workspace.graphql'
+import { WorkspaceSettingsFragment_workspace$key } from './__generated__/WorkspaceSettingsFragment_workspace.graphql';
 import WorkspaceGeneralSettings from './WorkspaceGeneralSettings';
 import WorkspaceRunSettings from './WorkspaceRunSettings';
-import WorkspaceAdvancedSettings from './WorkspaceAdvancedSettings'
-
-interface Props {
-    fragmentRef: WorkspaceSettingsFragment_workspace$key
-}
+import WorkspaceAdvancedSettings from './WorkspaceAdvancedSettings';
+import WorkspaceVCSProviderSettings from './vcsprovider/WorkspaceVCSProviderSettings';
 
 export const StyledDivider = styled(
     Divider
 )(() => ({
     margin: "24px 0"
 }))
+
+interface Props {
+    fragmentRef: WorkspaceSettingsFragment_workspace$key
+}
 
 function WorkspaceSettings(props: Props) {
 
@@ -30,6 +30,7 @@ function WorkspaceSettings(props: Props) {
             ...WorkspaceGeneralSettingsFragment_workspace
             ...WorkspaceRunSettingsFragment_workspace
             ...WorkspaceAdvancedSettingsFragment_workspace
+            ...WorkspaceVCSProviderSettingsFragment_workspace
         }
     `, props.fragmentRef
     )
@@ -38,14 +39,14 @@ function WorkspaceSettings(props: Props) {
         <Box>
             <NamespaceBreadcrumbs
             namespacePath={data.fullPath}
-            childRoutes={[
-                { title: "settings", path: 'settings' },
-                ]} />
+            childRoutes={[{ title: "settings", path: 'settings' }]} />
             <Typography marginBottom={4} variant="h5" gutterBottom>Workspace Settings</Typography>
             <StyledDivider/>
             <WorkspaceGeneralSettings fragmentRef={data}/>
             <StyledDivider />
             <WorkspaceRunSettings fragmentRef={data} />
+            <StyledDivider />
+            <WorkspaceVCSProviderSettings fragmentRef={data} />
             <StyledDivider />
             <WorkspaceAdvancedSettings fragmentRef={data} />
         </Box>

@@ -28,6 +28,7 @@ import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import ServiceAccounts from './serviceaccount/ServiceAccounts';
+import VCSProviders from './vcsprovider/VCSProviders';
 import GPGKeys from './keys/GPGKeys';
 import NamespaceActivity from '../namespace/activity/NamespaceActivity';
 
@@ -87,6 +88,7 @@ function GroupDetails(props: Props) {
 			...GroupDetailsIndexFragment_group
 			...ManagedIdentitiesFragment_group
 			...ServiceAccountsFragment_group
+			...VCSProvidersFragment_group
 			...VariablesFragment_variables
 			...NamespaceMembershipsFragment_memberships
 			...EditGroupFragment_group
@@ -119,7 +121,8 @@ function GroupDetails(props: Props) {
 							<Route path={`${groupPath}/*`} element={<GroupDetailsIndex route={route} fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/activity/*`} element={<NamespaceActivity fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/managed_identities/*`} element={<ManagedIdentities fragmentRef={data} />} />
-							<Route path={`${groupPath}/-/service_accounts/*`} element={<ServiceAccounts fragmentRef={data} />} />
+                            <Route path={`${groupPath}/-/service_accounts/*`} element={<ServiceAccounts fragmentRef={data} />} />
+                            <Route path={`${groupPath}/-/vcs_providers/*`} element={<VCSProviders fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/variables/*`} element={<Variables fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/members/*`} element={<NamespaceMemberships fragmentRef={data} />} />
 							<Route path={`${groupPath}/-/keys/*`} element={<GPGKeys fragmentRef={data} />} />

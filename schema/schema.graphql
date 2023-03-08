@@ -701,6 +701,7 @@ type DeleteWorkspacePayload {
 input DeleteWorkspaceVCSProviderLinkInput {
   clientMutationId: String
   id: ID!
+  force: Boolean
   metadata: ResourceMetadataInput
 }
 
@@ -718,6 +719,8 @@ type GPGKey implements Node {
   asciiArmor: String!
   group: Group!
   createdBy: String!
+  groupPath: String!
+  resourcePath: String!
 }
 
 type GPGKeyConnection {
@@ -835,6 +838,7 @@ type ManagedIdentity implements Node {
   id: ID!
   metadata: ResourceMetadata!
   type: String!
+  groupPath: String!
   resourcePath: String!
   name: String!
   description: String!
@@ -1277,6 +1281,7 @@ type SCIMTokenPayload {
 type ServiceAccount implements Node {
   id: ID!
   metadata: ResourceMetadata!
+  groupPath: String!
   resourcePath: String!
   name: String!
   description: String!
@@ -1454,6 +1459,7 @@ type TerraformModule implements Node {
   private: Boolean!
   repositoryUrl: String!
   registryNamespace: String!
+  groupPath: String!
   resourcePath: String!
   latestVersion: TerraformModuleVersion
   versions(after: String, before: String, first: Int, last: Int, sort: TerraformModuleVersionSort): TerraformModuleVersionConnection!
@@ -1606,6 +1612,7 @@ type TerraformProvider implements Node {
   repositoryUrl: String!
   registryNamespace: String!
   source: String!
+  groupPath: String!
   resourcePath: String!
   latestVersion: TerraformProviderVersion
   versions(after: String, before: String, first: Int, last: Int, sort: TerraformProviderVersionSort): TerraformProviderVersionConnection!
@@ -1820,8 +1827,6 @@ input UpdateTerraformModuleInput {
   clientMutationId: String
   id: ID!
   metadata: ResourceMetadataInput
-  name: String
-  system: String
   private: Boolean
   repositoryUrl: String
 }
@@ -1836,7 +1841,6 @@ input UpdateTerraformProviderInput {
   clientMutationId: String
   id: ID!
   metadata: ResourceMetadataInput
-  name: String
   private: Boolean
   repositoryUrl: String
 }
@@ -1968,6 +1972,7 @@ type VCSProvider implements Node {
   description: String!
   group: Group!
   hostname: String!
+  groupPath: String!
   resourcePath: String!
   type: VCSProviderType!
   autoCreateWebhooks: Boolean!
@@ -2001,6 +2006,7 @@ type Workspace implements Node & Namespace {
   metadata: ResourceMetadata!
   name: String!
   description: String!
+  groupPath: String!
   fullPath: String!
   group: Group!
   dirtyState: Boolean!
