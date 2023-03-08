@@ -10,7 +10,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { AccountLockOutline as ManagedIdentityIcon, LanConnect as ServiceAccountIcon, KeyVariant as KeyIcon } from 'mdi-material-ui';
+import { AccountLockOutline as ManagedIdentityIcon, LanConnect as ServiceAccountIcon, KeyVariant as KeyIcon, SourceMerge as VCSProviderIcon } from 'mdi-material-ui';
 import React from 'react';
 import { Link as LinkRouter } from 'react-router-dom';
 
@@ -44,6 +44,7 @@ const LIST_ITEMS = [
   { route: 'variables', label: 'Variables', icon: <VariablesIcon /> },
   { route: 'managed_identities', label: 'Managed Identities', icon: <ManagedIdentityIcon /> },
   { route: 'service_accounts', label: 'Service Accounts', icon: <ServiceAccountIcon /> },
+  { route: 'vcs_providers', label: 'VCS Providers', icon: <VCSProviderIcon />},
   { route: 'members', label: 'Members', icon: <MembersIcon /> },
   { route: 'keys', label: 'GPG Keys', icon: <KeyIcon /> },
   { route: 'settings', label: 'Settings', icon: <SettingsIcon /> }
