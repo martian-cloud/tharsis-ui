@@ -13,13 +13,14 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ListSkeleton from '../skeletons/ListSkeleton';
+import TerraformModuleVersionAttestList from './TerraformModuleVersionAttestList';
 import TerraformModuleVersionDetailsSidebar, { SidebarWidth } from './TerraformModuleVersionDetailsSidebar';
 import TerraformModuleVersionList from './TerraformModuleVersionList';
 import { TerraformModuleVersionDetailsIndexFragment_details$key } from './__generated__/TerraformModuleVersionDetailsIndexFragment_details.graphql';
 import { TerraformModuleVersionDetailsQuery } from './__generated__/TerraformModuleVersionDetailsQuery.graphql';
 
 const query = graphql`
-    query TerraformModuleVersionDetailsQuery($registryNamespace: String!, $moduleName: String!, $system: String!, $version: String) {
+    query TerraformModuleVersionDetailsQuery($registryNamespace: String!, $moduleName: String!, $system: String!, $version: String, $first: Int, $after: String) {
       terraformModuleVersion(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system, version: $version) {
         id
         ...TerraformModuleVersionDetailsIndexFragment_details
@@ -99,6 +100,7 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
                   private
                   ...TerraformModuleVersionListFragment_module
               }
+              ...TerraformModuleVersionAttestListFragment_attestations
               ...TerraformModuleVersionDetailsSidebarFragment_details
           }
         `, props.fragmentRef);
@@ -142,6 +144,7 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
             <Tabs value={tab} onChange={onTabChange}>
               <Tab label="How To Use" value="usage" />
               <Tab label="Versions" value="versions" />
+              <Tab label="Attestations" value="attestations" />"
             </Tabs>
           </Box>
           <React.Fragment>
@@ -154,6 +157,11 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
             {tab === 'versions' && <Box marginTop={2}>
               <Suspense fallback={<ListSkeleton rowCount={3} />}>
                 <TerraformModuleVersionList fragmentRef={data.module} />
+              </Suspense>
+                      </Box>}
+            {tab === 'attestations' && <Box marginTop={2}>
+              <Suspense fallback={<ListSkeleton rowCount={3} />}>
+                <TerraformModuleVersionAttestList fragmentRef={data} />
               </Suspense>
             </Box>}
           </React.Fragment>
