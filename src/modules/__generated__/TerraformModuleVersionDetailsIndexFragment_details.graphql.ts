@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<45a2a73e2ba2c439d0596aaeec5cff6c>>
+ * @generated SignedSource<<3e258de19a98be3c23445f648db54cc9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,7 +23,7 @@ export type TerraformModuleVersionDetailsIndexFragment_details$data = {
   };
   readonly status: string;
   readonly version: string;
-  readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionDetailsSidebarFragment_details">;
+  readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionAttestListFragment_attestations" | "TerraformModuleVersionDetailsSidebarFragment_details">;
   readonly " $fragmentType": "TerraformModuleVersionDetailsIndexFragment_details";
 };
 export type TerraformModuleVersionDetailsIndexFragment_details$key = {
@@ -115,6 +115,11 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
+      "name": "TerraformModuleVersionAttestListFragment_attestations"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
       "name": "TerraformModuleVersionDetailsSidebarFragment_details"
     }
   ],
@@ -123,6 +128,6 @@ return {
 };
 })();
 
-(node as any).hash = "c1a92406ac6b4cf15fd05d30beea76d2";
+(node as any).hash = "30b05728c47e49e4ad6c2559f257199a";
 
 export default node;
