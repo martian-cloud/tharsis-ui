@@ -52,7 +52,7 @@ function NewVCSProvider(props: Props) {
     const [formData, setFormData] = useState<FormData>({
         type: undefined,
         name: '',
-        hostname: '',
+        url: '',
         description: '',
         oAuthClientId: '',
         oAuthClientSecret: '',
@@ -70,8 +70,8 @@ function NewVCSProvider(props: Props) {
                 oAuthClientSecret: formData.oAuthClientSecret,
                 autoCreateWebhooks: formData.autoCreateWebhooks
             }
-            if (formData.hostname !== '') {
-                input.hostname = formData.hostname
+            if (formData.url !== '') {
+                input.url = formData.url
             }
             commit({
                 variables: {

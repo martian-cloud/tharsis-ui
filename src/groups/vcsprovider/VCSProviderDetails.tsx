@@ -134,7 +134,7 @@ function VCSProviderDetails(props: Props) {
                     createdBy
                     description
                     type
-                    hostname
+                    url
                     resourcePath
                     autoCreateWebhooks
                     metadata {
@@ -323,8 +323,8 @@ function VCSProviderDetails(props: Props) {
                         <Box>
                             <FieldLabel>Type</FieldLabel>
                             <FieldValue>{vcsProvider.type === 'github' ? 'GitHub' : 'GitLab'}</FieldValue>
-                            <FieldLabel>Hostname</FieldLabel>
-                            <FieldValue>{vcsProvider.hostname}</FieldValue>
+                            <FieldLabel>URL</FieldLabel>
+                            <FieldValue>{vcsProvider.url}</FieldValue>
                             <FieldLabel>Automatically create webhooks?</FieldLabel>
                             <FieldValue>{vcsProvider.autoCreateWebhooks ? 'Yes' : 'No'}</FieldValue>
                         </Box>

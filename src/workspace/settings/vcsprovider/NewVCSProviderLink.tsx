@@ -90,10 +90,10 @@ function NewVCSProviderLink({ fragmentRef, handleWebhookDialog }: Props) {
                 input: {
                     repositoryPath: formData.repositoryPath,
                     workspacePath: workspace.fullPath,
-                    moduleDirectory: formData.moduleDirectory === '' ? null : formData.moduleDirectory,
+                    moduleDirectory: formData.moduleDirectory,
                     providerId: formData.id,
-                    branch: formData.branch === '' ? null : formData.branch,
-                    tagRegex: formData.branch === '' ? null : formData.tagRegex,
+                    branch: formData.branch,
+                    tagRegex: formData.tagRegex,
                     globPatterns: formData.globPatterns,
                     autoSpeculativePlan: formData.autoSpeculativePlan,
                     webhookDisabled: formData.webhookDisabled

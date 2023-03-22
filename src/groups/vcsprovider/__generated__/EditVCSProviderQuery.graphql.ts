@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<70d078cbedda48afafd9ef9705227a5d>>
+ * @generated SignedSource<<4ba2fdd767b7256a480e09f66d468adb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,9 +17,9 @@ export type EditVCSProviderQuery$data = {
   readonly node: {
     readonly autoCreateWebhooks?: boolean;
     readonly description?: string;
-    readonly hostname?: string;
     readonly name?: string;
     readonly type?: VCSProviderType;
+    readonly url?: string;
   } | null;
 };
 export type EditVCSProviderQuery = {
@@ -77,7 +77,7 @@ v2 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "hostname",
+      "name": "url",
       "storageKey": null
     }
   ],
@@ -142,16 +142,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c3f987329f0582b906a85e3885aa85c6",
+    "cacheID": "1193f461ac2571da89344dd31c657404",
     "id": null,
     "metadata": {},
     "name": "EditVCSProviderQuery",
     "operationKind": "query",
-    "text": "query EditVCSProviderQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on VCSProvider {\n      name\n      type\n      description\n      autoCreateWebhooks\n      hostname\n    }\n    id\n  }\n}\n"
+    "text": "query EditVCSProviderQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on VCSProvider {\n      name\n      type\n      description\n      autoCreateWebhooks\n      url\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "765d61343a5d38b1c9a04f755241288f";
+(node as any).hash = "f158ed27a4d9fbe11f1789edb09a5218";
 
 export default node;

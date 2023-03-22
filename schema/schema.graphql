@@ -447,7 +447,7 @@ input CreateVCSProviderInput {
   name: String!
   description: String!
   groupPath: String!
-  hostname: String
+  url: String
   oAuthClientId: String!
   oAuthClientSecret: String!
   type: VCSProviderType!
@@ -1971,7 +1971,7 @@ type VCSProvider implements Node {
   name: String!
   description: String!
   group: Group!
-  hostname: String!
+  url: String!
   groupPath: String!
   resourcePath: String!
   type: VCSProviderType!
@@ -2071,4 +2071,3 @@ type WorkspaceVCSProviderLink implements Node {
   autoSpeculativePlan: Boolean!
   webhookDisabled: Boolean!
 }
-
