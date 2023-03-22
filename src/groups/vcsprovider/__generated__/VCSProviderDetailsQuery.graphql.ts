@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1ebe3d971a6e015b97065f47d1bb6b23>>
+ * @generated SignedSource<<60df60b0e477e44033d1be54b3219808>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,6 @@ export type VCSProviderDetailsQuery$data = {
     readonly autoCreateWebhooks?: boolean;
     readonly createdBy?: string;
     readonly description?: string;
-    readonly hostname?: string;
     readonly id?: string;
     readonly metadata?: {
       readonly createdAt: any;
@@ -26,6 +25,7 @@ export type VCSProviderDetailsQuery$data = {
     readonly name?: string;
     readonly resourcePath?: string;
     readonly type?: VCSProviderType;
+    readonly url?: string;
   } | null;
 };
 export type VCSProviderDetailsQuery = {
@@ -87,7 +87,7 @@ v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "hostname",
+  "name": "url",
   "storageKey": null
 },
 v8 = {
@@ -203,16 +203,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a226b93280e1b7e6400fa78aa4ab9aff",
+    "cacheID": "75d037d7187baeed51d68a4e70d78645",
     "id": null,
     "metadata": {},
     "name": "VCSProviderDetailsQuery",
     "operationKind": "query",
-    "text": "query VCSProviderDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on VCSProvider {\n      id\n      name\n      createdBy\n      description\n      type\n      hostname\n      resourcePath\n      autoCreateWebhooks\n      metadata {\n        createdAt\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query VCSProviderDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on VCSProvider {\n      id\n      name\n      createdBy\n      description\n      type\n      url\n      resourcePath\n      autoCreateWebhooks\n      metadata {\n        createdAt\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "646a4fe0fa0aa0020aa5ecdf2abca7c6";
+(node as any).hash = "f6dad9f6be39c7b6d0461371513ef9b5";
 
 export default node;

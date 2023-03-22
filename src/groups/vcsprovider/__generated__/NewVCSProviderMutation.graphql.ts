@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<089289b17dad7da0a0ff94546ae246db>>
+ * @generated SignedSource<<017f87232243c620464c5ce9a04614d0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,11 +16,11 @@ export type CreateVCSProviderInput = {
   clientMutationId?: string | null;
   description: string;
   groupPath: string;
-  hostname?: string | null;
   name: string;
   oAuthClientId: string;
   oAuthClientSecret: string;
   type: VCSProviderType;
+  url?: string | null;
 };
 export type NewVCSProviderMutation$variables = {
   connections: ReadonlyArray<string>;

@@ -39,7 +39,7 @@ function EditVCSProvider(props: Props) {
                     type
                     description
                     autoCreateWebhooks
-                    hostname
+                    url
                 }
             }
         }
@@ -67,7 +67,7 @@ function EditVCSProvider(props: Props) {
         name: queryData.node.name,
         description: queryData.node.description,
         autoCreateWebhooks: queryData.node.autoCreateWebhooks,
-        hostname: queryData.node.hostname
+        url: queryData.node.url
     } : null);
 
     const onUpdate = () => {

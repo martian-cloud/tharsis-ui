@@ -1,5 +1,5 @@
 import { Box, Divider, FormControlLabel, Stack, styled, Switch, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
+import React from 'react'
 import { darken } from '@mui/material/styles';
 import { FormData } from './VCSProviderForm'
 import VCSProviderTypeChip from './VCSProviderTypeChip';
@@ -49,16 +49,13 @@ const VCSProviderTypes: VCSProviderTypesObj[] = [
 ];
 
 function VCSProviderGeneralDetails({ editMode, data, onChange }: Props) {
-    const [defaultHostName, setDefaultHostName] = useState<string>('Hostname')
-
     const onTypeChange = (type: 'github' | 'gitlab') => {
         if (!editMode && (data.type !== type)) {
             onChange({
                 ...data,
-                type, name: '', description: '', hostname: '', oAuthClientId: '', oAuthClientSecret: '', autoCreateWebhooks: true
+                type, name: '', description: '', url: '', oAuthClientId: '', oAuthClientSecret: '', autoCreateWebhooks: true
             });
         }
-        type === 'github' ? setDefaultHostName('api.github.com') : setDefaultHostName('gitlab.com')
     }
 
     return (
@@ -97,35 +94,37 @@ function VCSProviderGeneralDetails({ editMode, data, onChange }: Props) {
                     onChange={event => onChange({ ...data, description: event.target.value })}
                 />
             </Box>
-            <Typography sx={{ mt: 2 }} variant="subtitle1" gutterBottom>Hostname &#x28;optional&#x29;</Typography>
-            {!editMode && <Typography sx={{ mb: 2 }} variant="subtitle2" color="textSecondary">You may enter a hostname. If no hostname is entered, Tharsis will use the selected provider type's publicly available hostname.</Typography>}
-            <Divider light />
-            <Box marginTop={2} marginBottom={2}>
-                <TextField
-                    disabled={editMode}
-                    size="small" fullWidth
-                    placeholder={defaultHostName}
-                    value={data.hostname}
-                    onChange={event => onChange({ ...data, hostname: event.target.value })}
-                />
-            </Box>
-            <Typography sx={{ mt: 2 }} variant="subtitle1" gutterBottom>Automatically create webhooks?</Typography>
-            <Typography sx={{ mb: 2 }} variant="subtitle2" color="textSecondary">Webhooks allow runs to be made automatically in response to new commits to a branch.</Typography>
-            <Divider light />
-            <Box marginTop={2} marginBottom={2}>
-                <FormControlLabel
-                    disabled={editMode}
-                    label={data.autoCreateWebhooks ? "Yes" : "No"}
-                    control={
-                        <Switch sx={{ m: 1 }}
-                            checked={data.autoCreateWebhooks}
-                            color="secondary"
-                            onChange={event => onChange({ ...data, autoCreateWebhooks: event.target.checked })}
-                        />
-                    }
-                />
-            </Box>
-            <Divider light/>
+            {!!data.type && <React.Fragment>
+                <Typography sx={{ mt: 2 }} variant="subtitle1" gutterBottom>URL &#x28;optional&#x29;</Typography>
+                {!editMode && <Typography sx={{ mb: 2 }} variant="subtitle2" color="textSecondary">You may enter an API URL. If no URL is entered, Tharsis will use the selected provider type's publicly available API URL.</Typography>}
+                <Divider light />
+                <Box marginTop={2} marginBottom={2}>
+                    <TextField
+                        disabled={editMode}
+                        size="small" fullWidth
+                        placeholder={data.type === 'github' ? 'https://api.github.com' : 'https://gitlab.com'}
+                        value={data.url}
+                        onChange={event => onChange({ ...data, url: event.target.value })}
+                    />
+                </Box>
+                <Typography sx={{ mt: 2 }} variant="subtitle1" gutterBottom>Automatically create webhooks?</Typography>
+                <Typography sx={{ mb: 2 }} variant="subtitle2" color="textSecondary">Webhooks allow runs to be made automatically in response to new commits to a branch.</Typography>
+                <Divider light />
+                <Box marginTop={2} marginBottom={2}>
+                    <FormControlLabel
+                        disabled={editMode}
+                        label={data.autoCreateWebhooks ? "Yes" : "No"}
+                        control={
+                            <Switch sx={{ m: 1 }}
+                                checked={data.autoCreateWebhooks}
+                                color="secondary"
+                                onChange={event => onChange({ ...data, autoCreateWebhooks: event.target.checked })}
+                            />
+                        }
+                    />
+                </Box>
+                <Divider light/>
+            </React.Fragment>}
         </Box>
     )
 }

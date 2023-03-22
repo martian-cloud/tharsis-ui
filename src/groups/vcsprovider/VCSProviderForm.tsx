@@ -10,7 +10,7 @@ export interface FormData {
     oAuthClientId: string
     oAuthClientSecret: string
     autoCreateWebhooks: boolean
-    hostname: string
+    url: string
 }
 
 interface Props {
