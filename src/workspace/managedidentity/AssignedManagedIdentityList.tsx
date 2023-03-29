@@ -31,6 +31,9 @@ function AssignedManagedIdentityList(props: Props) {
         fragment AssignedManagedIdentityListFragment_assignedManagedIdentities on Workspace {
             id
             fullPath
+            managedIdentities(includeInherited: true, first: 0) {
+                totalCount
+            }
             assignedManagedIdentities {
                 id
                 ...AssignedManagedIdentityListItemFragment_managedIdentity
@@ -142,6 +145,7 @@ function AssignedManagedIdentityList(props: Props) {
                 ]}
             />
             <Typography variant="h5" gutterBottom>Managed Identities</Typography>
+            {(data.managedIdentities.totalCount > 0) &&
             <Paper variant="outlined" sx={{ marginTop: 4, marginBottom: 4 }}>
                 <Box padding={2}>
                     <Typography gutterBottom>
@@ -171,7 +175,12 @@ function AssignedManagedIdentityList(props: Props) {
                         {error.message}
                     </Alert>}
                 </Box>
-            </Paper>
+            </Paper>}
+            {data.managedIdentities.totalCount === 0 && <Paper variant="outlined" sx={{ marginTop: 4, display: 'flex', justifyContent: 'center' }}>
+                <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+                    <Typography variant="h6" color="textSecondary" align="center">No managed identities have been created in any parent group</Typography>
+                </Box>
+            </Paper>}
 
             {data.assignedManagedIdentities.length > 0 && <Box marginTop={2}>
                 <Typography variant="h6" gutterBottom>

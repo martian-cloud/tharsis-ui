@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<482174a770bbebfcbc13b7b430c98936>>
+ * @generated SignedSource<<d72eaccf216fbde5356848db39ce0a6d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -163,6 +163,35 @@ return {
               },
               {
                 "alias": null,
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "name": "first",
+                    "value": 0
+                  },
+                  {
+                    "kind": "Literal",
+                    "name": "includeInherited",
+                    "value": true
+                  }
+                ],
+                "concreteType": "ManagedIdentityConnection",
+                "kind": "LinkedField",
+                "name": "managedIdentities",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "totalCount",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": "managedIdentities(first:0,includeInherited:true)"
+              },
+              {
+                "alias": null,
                 "args": null,
                 "concreteType": "ManagedIdentity",
                 "kind": "LinkedField",
@@ -223,12 +252,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d9e44974d62f3c292a072e59f67315c0",
+    "cacheID": "ebed0f1e5f1671856f804f376bb6f335",
     "id": null,
     "metadata": {},
     "name": "AssignedManagedIdentityListMutation",
     "operationKind": "mutation",
-    "text": "mutation AssignedManagedIdentityListMutation(\n  $input: AssignManagedIdentityInput!\n) {\n  assignManagedIdentity(input: $input) {\n    workspace {\n      ...AssignedManagedIdentityListFragment_assignedManagedIdentities\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment AssignedManagedIdentityListFragment_assignedManagedIdentities on Workspace {\n  id\n  fullPath\n  assignedManagedIdentities {\n    id\n    ...AssignedManagedIdentityListItemFragment_managedIdentity\n  }\n}\n\nfragment AssignedManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  resourcePath\n}\n"
+    "text": "mutation AssignedManagedIdentityListMutation(\n  $input: AssignManagedIdentityInput!\n) {\n  assignManagedIdentity(input: $input) {\n    workspace {\n      ...AssignedManagedIdentityListFragment_assignedManagedIdentities\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment AssignedManagedIdentityListFragment_assignedManagedIdentities on Workspace {\n  id\n  fullPath\n  managedIdentities(includeInherited: true, first: 0) {\n    totalCount\n  }\n  assignedManagedIdentities {\n    id\n    ...AssignedManagedIdentityListItemFragment_managedIdentity\n  }\n}\n\nfragment AssignedManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  resourcePath\n}\n"
   }
 };
 })();

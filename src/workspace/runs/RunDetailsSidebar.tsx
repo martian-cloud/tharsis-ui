@@ -68,6 +68,7 @@ function RunDetailsSidebar(props: Props) {
             createdAt
           }
           currentJob {
+            runnerPath
             cancelRequested
           }
         }
@@ -77,6 +78,7 @@ function RunDetailsSidebar(props: Props) {
             createdAt
           }
           currentJob {
+            runnerPath
             cancelRequested
           }
         }
@@ -187,6 +189,10 @@ function RunDetailsSidebar(props: Props) {
         {data.moduleVersion && <Box marginBottom={3}>
           <Typography sx={{ marginBottom: 1 }}>Module Version</Typography>
           <Chip size="small" label={data.moduleVersion} />
+        </Box>}
+        {(data as any)[stage].currentJob?.runnerPath && <Box marginBottom={3}>
+          <Typography sx={{ marginBottom: 1 }}>Runner</Typography>
+          <Chip size="small" label={(data as any)[stage].currentJob.runnerPath} />
         </Box>}
         <Box marginBottom={3}>
           <Typography sx={{ marginBottom: 1 }}>Stages</Typography>
