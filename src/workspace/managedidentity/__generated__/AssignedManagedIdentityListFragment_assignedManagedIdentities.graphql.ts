@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bbf3e9397b48b0668985f747b5a4743a>>
+ * @generated SignedSource<<3c471f4963de499f72447111d2b37f17>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,9 @@ export type AssignedManagedIdentityListFragment_assignedManagedIdentities$data =
   }>;
   readonly fullPath: string;
   readonly id: string;
+  readonly managedIdentities: {
+    readonly totalCount: number;
+  };
   readonly " $fragmentType": "AssignedManagedIdentityListFragment_assignedManagedIdentities";
 };
 export type AssignedManagedIdentityListFragment_assignedManagedIdentities$key = {
@@ -48,6 +51,35 @@ return {
     },
     {
       "alias": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "first",
+          "value": 0
+        },
+        {
+          "kind": "Literal",
+          "name": "includeInherited",
+          "value": true
+        }
+      ],
+      "concreteType": "ManagedIdentityConnection",
+      "kind": "LinkedField",
+      "name": "managedIdentities",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        }
+      ],
+      "storageKey": "managedIdentities(first:0,includeInherited:true)"
+    },
+    {
+      "alias": null,
       "args": null,
       "concreteType": "ManagedIdentity",
       "kind": "LinkedField",
@@ -69,6 +101,6 @@ return {
 };
 })();
 
-(node as any).hash = "29477c18cd26d95761297b1420dde2a0";
+(node as any).hash = "021e0f64a4633b2a3e39acb96e63c9ff";
 
 export default node;

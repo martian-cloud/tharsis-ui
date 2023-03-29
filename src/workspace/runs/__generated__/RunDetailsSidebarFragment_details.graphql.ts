@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ff646bc3ee1c1d2e62d4c944d9c388da>>
+ * @generated SignedSource<<286c87842c25fcfea517f880dd52056b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type RunDetailsSidebarFragment_details$data = {
   readonly apply: {
     readonly currentJob: {
       readonly cancelRequested: boolean;
+      readonly runnerPath: string | null;
     } | null;
     readonly metadata: {
       readonly createdAt: any;
@@ -37,6 +38,7 @@ export type RunDetailsSidebarFragment_details$data = {
   readonly plan: {
     readonly currentJob: {
       readonly cancelRequested: boolean;
+      readonly runnerPath: string | null;
     } | null;
     readonly metadata: {
       readonly createdAt: any;
@@ -95,6 +97,13 @@ v3 = [
     "name": "currentJob",
     "plural": false,
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "runnerPath",
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -181,6 +190,6 @@ return {
 };
 })();
 
-(node as any).hash = "c23a2b2e0d35b1beefd2298aefbc7752";
+(node as any).hash = "8939691c2173728cba30ccb00b74718e";
 
 export default node;

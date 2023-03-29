@@ -31,6 +31,7 @@ enum ActivityEventAction {
   CREATE
   DELETE
   LOCK
+  MIGRATE
   REMOVE
   SET_VARIABLES
   UNLOCK
@@ -170,6 +171,18 @@ type AssignManagedIdentityPayload {
   problems: [Problem!]!
 }
 
+input AssignServiceAccountToRunnerInput {
+  clientMutationId: String
+  runnerPath: String!
+  serviceAccountPath: String!
+}
+
+type AssignServiceAccountToRunnerPayload {
+  clientMutationId: String
+  runner: Runner
+  problems: [Problem!]!
+}
+
 type AuthSettings {
   oidcIssuerUrl: String
   oidcClientId: String
@@ -183,6 +196,18 @@ input CancelRunInput {
   runId: String!
   comment: String
   force: Boolean
+}
+
+input ClaimJobInput {
+  clientMutationId: String
+  runnerPath: String!
+}
+
+type ClaimJobPayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  jobId: String
+  token: String
 }
 
 type ConfigurationVersion implements Node {
@@ -312,6 +337,19 @@ input CreateRunInput {
   comment: String
   terraformVersion: String
   variables: [RunVariableInput!]
+}
+
+input CreateRunnerInput {
+  clientMutationId: String
+  name: String!
+  description: String!
+  groupPath: String!
+}
+
+type CreateRunnerPayload {
+  clientMutationId: String
+  runner: Runner
+  problems: [Problem!]!
 }
 
 input CreateServiceAccountInput {
@@ -578,6 +616,18 @@ input DeleteNamespaceVariableInput {
   id: String!
 }
 
+input DeleteRunnerInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+}
+
+type DeleteRunnerPayload {
+  clientMutationId: String
+  runner: Runner
+  problems: [Problem!]!
+}
+
 input DeleteServiceAccountInput {
   clientMutationId: String
   id: ID!
@@ -753,6 +803,7 @@ type Group implements Node & Namespace {
   serviceAccounts(after: String, before: String, first: Int, last: Int, includeInherited: Boolean, search: String): ServiceAccountConnection!
   managedIdentities(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort, includeInherited: Boolean, search: String): ManagedIdentityConnection!
   terraformProviders(after: String, before: String, first: Int, last: Int, search: String): TerraformProviderConnection!
+  runners(after: String, before: String, first: Int, last: Int, includeInherited: Boolean): RunnerConnection!
   memberships: [NamespaceMembership!]!
   variables: [NamespaceVariable!]!
   activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
@@ -792,6 +843,8 @@ type Job implements Node {
   maxJobDuration: Int!
   logSize: Int!
   logs(startOffset: Int!, limit: Int!): String!
+  runner: Runner
+  runnerPath: String
 }
 
 type JobCancellationEvent {
@@ -918,6 +971,18 @@ union Member = User | ServiceAccount | Team
 
 union MeResponse = User | ServiceAccount
 
+input MigrateGroupInput {
+  clientMutationId: String
+  groupPath: String!
+  newParentPath: String
+}
+
+type MigrateGroupPayload {
+  clientMutationId: String
+  group: Group
+  problems: [Problem!]!
+}
+
 """The Mutation type represents all of the entry points into the API."""
 type Mutation {
   createWorkspace(input: CreateWorkspaceInput!): CreateWorkspacePayload!
@@ -926,6 +991,7 @@ type Mutation {
   createGroup(input: CreateGroupInput!): CreateGroupPayload!
   updateGroup(input: UpdateGroupInput!): UpdateGroupPayload!
   deleteGroup(input: DeleteGroupInput!): DeleteGroupPayload!
+  migrateGroup(input: MigrateGroupInput!): MigrateGroupPayload!
   createManagedIdentity(input: CreateManagedIdentityInput!): CreateManagedIdentityPayload!
   updateManagedIdentity(input: UpdateManagedIdentityInput!): UpdateManagedIdentityPayload!
   deleteManagedIdentity(input: DeleteManagedIdentityInput!): DeleteManagedIdentityPayload!
@@ -989,6 +1055,12 @@ type Mutation {
   deleteWorkspaceVCSProviderLink(input: DeleteWorkspaceVCSProviderLinkInput!): DeleteWorkspaceVCSProviderLinkPayload!
   createVCSRun(input: CreateVCSRunInput!): CreateVCSRunPayload!
   resetVCSProviderOAuthToken(input: ResetVCSProviderOAuthTokenInput!): ResetVCSProviderOAuthTokenPayload!
+  claimJob(input: ClaimJobInput!): ClaimJobPayload!
+  createRunner(input: CreateRunnerInput!): CreateRunnerPayload!
+  updateRunner(input: UpdateRunnerInput!): UpdateRunnerPayload!
+  deleteRunner(input: DeleteRunnerInput!): DeleteRunnerPayload!
+  assignServiceAccountToRunner(input: AssignServiceAccountToRunnerInput!): AssignServiceAccountToRunnerPayload!
+  unassignServiceAccountFromRunner(input: AssignServiceAccountToRunnerInput!): AssignServiceAccountToRunnerPayload!
 }
 
 interface Namespace {
@@ -1218,6 +1290,35 @@ type RunMutationPayload {
   clientMutationId: String
   run: Run
   problems: [Problem!]!
+}
+
+type Runner implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  groupPath: String!
+  resourcePath: String!
+  name: String!
+  description: String!
+  group: Group!
+  createdBy: String!
+  type: String!
+  assignedServiceAccounts(after: String, before: String, first: Int, last: Int): ServiceAccountConnection!
+}
+
+type RunnerConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [RunnerEdge]
+}
+
+type RunnerEdge {
+  cursor: String!
+  node: Runner
+}
+
+enum RunnerSort {
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
 }
 
 enum RunSort {
@@ -1770,6 +1871,19 @@ type UpdatePlanPayload {
   problems: [Problem!]!
 }
 
+input UpdateRunnerInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+  description: String!
+}
+
+type UpdateRunnerPayload {
+  clientMutationId: String
+  runner: Runner
+  problems: [Problem!]!
+}
+
 input UpdateServiceAccountInput {
   clientMutationId: String
   id: ID!
@@ -2071,3 +2185,4 @@ type WorkspaceVCSProviderLink implements Node {
   autoSpeculativePlan: Boolean!
   webhookDisabled: Boolean!
 }
+

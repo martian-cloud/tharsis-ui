@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3ca96fd49ab98c372cff147a660af99b>>
+ * @generated SignedSource<<0d0218028269b18ed71ee89458f9688e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -127,6 +127,13 @@ v6 = [
     "name": "currentJob",
     "plural": false,
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "runnerPath",
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -274,12 +281,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1f7c8ed1652c815333ff2177ff4e1e91",
+    "cacheID": "9653a8fdfa6d8c38abee7c35346dc7c5",
     "id": null,
     "metadata": {},
     "name": "RunDetailsSidebarCancelRunMutation",
     "operationKind": "mutation",
-    "text": "mutation RunDetailsSidebarCancelRunMutation(\n  $input: CancelRunInput!\n) {\n  cancelRun(input: $input) {\n    run {\n      ...RunDetailsSidebarFragment_details\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  moduleSource\n  moduleVersion\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n"
+    "text": "mutation RunDetailsSidebarCancelRunMutation(\n  $input: CancelRunInput!\n) {\n  cancelRun(input: $input) {\n    run {\n      ...RunDetailsSidebarFragment_details\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  moduleSource\n  moduleVersion\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();

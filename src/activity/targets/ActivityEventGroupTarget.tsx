@@ -10,6 +10,7 @@ import { ActivityEventGroupTargetFragment_event$key } from './__generated__/Acti
 const ACTION_TEXT = {
     CREATE_MEMBERSHIP: 'added to',
     CREATE: 'created',
+    MIGRATE: 'migrated',
     DELETE_CHILD_RESOURCE: 'deleted',
     REMOVE_MEMBERSHIP: 'removed from',
     SET_VARIABLES: 'variables updated',
@@ -113,7 +114,7 @@ function ActivityEventGroupTarget({ fragmentRef }: Props) {
 
     let primary;
 
-    if (['CREATE', 'UPDATE', 'SET_VARIABLES'].includes(data.action)) {
+    if (['MIGRATE', 'CREATE', 'UPDATE', 'SET_VARIABLES'].includes(data.action)) {
         primary = <React.Fragment>Group {namespaceLink} {actionText}</React.Fragment>;
     } else if ('CREATE_MEMBERSHIP' === data.action) {
         primary = <React.Fragment>{MEMBER_TYPES[payload?.member?.__typename] || 'Unknown member type'} <Typography component="span" sx={{ fontWeight: 500 }}>{getMemberIdentifier(payload?.member)}</Typography> added to group {namespaceLink} with role {payload?.role}</React.Fragment>;
