@@ -1,7 +1,7 @@
 import DeleteIcon from '@mui/icons-material/CloseOutlined';
 import EditIcon from '@mui/icons-material/EditOutlined';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Autocomplete, Avatar, Box, Button, Stack, TextField } from '@mui/material';
+import { Avatar, Box, Button, Stack } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 import { useFragment, useMutation } from "react-relay/hooks";
 import Gravatar from '../../common/Gravatar';
 import Link from '../../routes/Link';
-import NamespaceMembershipRoleLabels from './NamespaceMembershipRoleLabels';
+import RoleAutocomplete from './RoleAutocomplete';
 import { NamespaceMembershipListItemFragment_membership$key } from './__generated__/NamespaceMembershipListItemFragment_membership.graphql';
 import { NamespaceMembershipListItemUpdateNamespaceMembershipMutation } from './__generated__/NamespaceMembershipListItemUpdateNamespaceMembershipMutation.graphql';
 
@@ -33,7 +33,9 @@ function NamespaceMembershipListItem(props: Props) {
                 updatedAt
             }
             id
-            role
+            role {
+                name
+            }
             resourcePath
             member {
                 __typename
@@ -73,11 +75,7 @@ function NamespaceMembershipListItem(props: Props) {
     `);
 
     const [editMode, setEditMode] = useState(false);
-    const [role, setRole] = useState(data.role);
-
-    const onRoleChange = (event: React.ChangeEvent<unknown>, value: any) => {
-        setRole(value);
-    };
+    const [role, setRole] = useState(data.role?.name);
 
     const onSave = () => {
         commitUpdateNamespaceMembership({
@@ -133,25 +131,8 @@ function NamespaceMembershipListItem(props: Props) {
                 {data.member?.__typename}
             </TableCell>
             <TableCell>
-                {editMode && <Autocomplete
-                    size={'small'}
-                    sx={{ minWidth: 100 }}
-                    options={['viewer', 'deployer', 'owner']}
-                    value={role}
-                    onChange={onRoleChange}
-                    disableClearable
-                    getOptionLabel={(option: string) => NamespaceMembershipRoleLabels[option]}
-                    renderInput={(params) => <TextField
-                        {...params}
-                        placeholder="Role"
-                        variant="outlined"
-                        InputLabelProps={{
-                            shrink: true
-                        }} />}
-                />}
-                {!editMode && <React.Fragment>
-                    {NamespaceMembershipRoleLabels[data.role]}
-                </React.Fragment>}
+                {editMode && <RoleAutocomplete onSelected={role => role && setRole(role.name)}/>}
+                {!editMode && <React.Fragment>{data.role.name}</React.Fragment>}
             </TableCell>
             <TableCell>
                 {moment(data.metadata.updatedAt as moment.MomentInput).fromNow()}

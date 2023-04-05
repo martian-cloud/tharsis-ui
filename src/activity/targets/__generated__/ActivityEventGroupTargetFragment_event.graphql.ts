@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<42d4a465ff73b83ad435f4c0b515ad97>>
+ * @generated SignedSource<<78d0d0ff3d7a8ea6f8f4639174e61af5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -34,6 +34,9 @@ export type ActivityEventGroupTargetFragment_event$data = {
     readonly __typename: "ActivityEventDeleteChildResourcePayload";
     readonly name: string;
     readonly type: string;
+  } | {
+    readonly __typename: "ActivityEventMigrateGroupPayload";
+    readonly previousGroupPath: string;
   } | {
     readonly __typename: "ActivityEventRemoveNamespaceMembershipPayload";
     readonly member: {
@@ -223,6 +226,20 @@ return {
           ],
           "type": "ActivityEventRemoveNamespaceMembershipPayload",
           "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "previousGroupPath",
+              "storageKey": null
+            }
+          ],
+          "type": "ActivityEventMigrateGroupPayload",
+          "abstractKey": null
         }
       ],
       "storageKey": null
@@ -238,6 +255,6 @@ return {
 };
 })();
 
-(node as any).hash = "a30c140aa60cb3f6111f131eb49aeabd";
+(node as any).hash = "58194621d9501cab3fa9a2951f9423cc";
 
 export default node;

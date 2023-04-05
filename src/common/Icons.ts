@@ -10,7 +10,8 @@ import {
     AccountLockOutline as ManagedIdentityIcon,
     LanConnect as ServiceAccountIcon,
     KeyVariant as KeyIcon,
-    Terraform as TerraformIcon
+    Terraform as TerraformIcon,
+    RobotOutline as RunnerIcon
 } from 'mdi-material-ui';
 
 export {
@@ -18,6 +19,7 @@ export {
     WorkspaceIcon,
     MemberIcon,
     MemberIcon as TeamIcon,
+    MemberIcon as RoleIcon,
     SettingsIcon,
     StateVersionIcon,
     VariableIcon,
@@ -27,4 +29,5 @@ export {
     KeyIcon,
     TerraformIcon,
     VCSProviderIcon,
+    RunnerIcon,
 };

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d208f6690b784cfdccccdc903b4f1524>>
+ * @generated SignedSource<<68c0bb0f0e0bf22100fd4e07d912d62e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -36,7 +36,9 @@ export type NamespaceMembershipListItemFragment_membership$data = {
     readonly updatedAt: any;
   };
   readonly resourcePath: string;
-  readonly role: string;
+  readonly role: {
+    readonly name: string;
+  };
   readonly " $fragmentType": "NamespaceMembershipListItemFragment_membership";
 };
 export type NamespaceMembershipListItemFragment_membership$key = {
@@ -56,14 +58,14 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "resourcePath",
+  "name": "name",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "resourcePath",
   "storageKey": null
 };
 return {
@@ -101,11 +103,16 @@ return {
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
+      "concreteType": "Role",
+      "kind": "LinkedField",
       "name": "role",
+      "plural": false,
+      "selections": [
+        (v1/*: any*/)
+      ],
       "storageKey": null
     },
-    (v1/*: any*/),
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -147,7 +154,7 @@ return {
           "kind": "InlineFragment",
           "selections": [
             (v0/*: any*/),
-            (v2/*: any*/)
+            (v1/*: any*/)
           ],
           "type": "Team",
           "abstractKey": null
@@ -156,8 +163,8 @@ return {
           "kind": "InlineFragment",
           "selections": [
             (v0/*: any*/),
-            (v2/*: any*/),
-            (v1/*: any*/)
+            (v1/*: any*/),
+            (v2/*: any*/)
           ],
           "type": "ServiceAccount",
           "abstractKey": null
@@ -171,6 +178,6 @@ return {
 };
 })();
 
-(node as any).hash = "967cd0122abf1d100a23a3334deeeb5a";
+(node as any).hash = "529a49cd5f96f6bef77cacd0ec0b9d64";
 
 export default node;

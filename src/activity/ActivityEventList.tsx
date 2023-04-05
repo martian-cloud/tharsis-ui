@@ -12,11 +12,13 @@ import ActivityEventRunTarget from './targets/ActivityEventRunTarget';
 import ActivityEventServiceAccountTarget from './targets/ActivityEventServiceAccountTarget';
 import ActivityEventStateVersionTarget from './targets/ActivityEventStateVersionTarget';
 import ActivityEventTeamTarget from './targets/ActivityEventTeamTarget';
+import ActivityEventRoleTarget from './targets/ActivityEventRoleTarget';
 import ActivityEventTerraformModuleTarget from './targets/ActivityEventTerraformModuleTarget';
 import ActivityEventTerraformProviderTarget from './targets/ActivityEventTerraformProviderTarget';
 import ActivityEventVariableTarget from './targets/ActivityEventVariableTarget';
 import ActivityEventVCSProviderTarget from './targets/ActivityEventVCSProviderTarget';
 import ActivityEventWorkspaceTarget from './targets/ActivityEventWorkspaceTarget';
+import ActivityEventRunnerTarget from './targets/ActivityEventRunnerTarget';
 import { ActivityEventListFragment_connection$key } from './__generated__/ActivityEventListFragment_connection.graphql';
 
 const TARGET_COMPONENT_MAP = {
@@ -33,7 +35,9 @@ const TARGET_COMPONENT_MAP = {
     Team: ActivityEventTeamTarget,
     TerraformProvider: ActivityEventTerraformProviderTarget,
     TerraformModule: ActivityEventTerraformModuleTarget,
-    VCSProvider: ActivityEventVCSProviderTarget
+    VCSProvider: ActivityEventVCSProviderTarget,
+    Role: ActivityEventRoleTarget,
+    Runner: ActivityEventRunnerTarget
 } as any;
 
 interface Props {
@@ -65,6 +69,8 @@ function ActivityEventList({ fragmentRef, loadNext, hasNext }: Props) {
                     ...ActivityEventTerraformProviderTargetFragment_event
                     ...ActivityEventTerraformModuleTargetFragment_event
                     ...ActivityEventVCSProviderTargetFragment_event
+                    ...ActivityEventRoleTargetFragment_event
+                    ...ActivityEventRunnerTargetFragment_event
                 }
             }
         }
