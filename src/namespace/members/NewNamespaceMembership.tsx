@@ -1,12 +1,11 @@
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Autocomplete, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import { darken } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import graphql from 'babel-plugin-relay/macro';
 import React, { useState } from 'react';
@@ -14,10 +13,10 @@ import { useFragment, useMutation } from "react-relay/hooks";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { MutationError } from '../../common/error';
 import NamespaceBreadcrumbs from '../NamespaceBreadcrumbs';
-import NamespaceMembershipRoleLabels from './NamespaceMembershipRoleLabels';
 import ServiceAccountAutocomplete, { ServiceAccountOption } from './ServiceAccountAutocomplete';
 import TeamAutocomplete, { TeamOption } from './TeamAutocomplete';
 import UserAutocomplete, { UserOption } from './UserAutocomplete';
+import RoleAutocomplete, { RoleOption } from './RoleAutocomplete';
 import { NewNamespaceMembershipCreateNamespaceMembershipMutation } from './__generated__/NewNamespaceMembershipCreateNamespaceMembershipMutation.graphql';
 import { NewNamespaceMembershipFragment_memberships$key } from './__generated__/NewNamespaceMembershipFragment_memberships.graphql';
 
@@ -99,8 +98,8 @@ function NewNamespaceMembership(props: Props) {
         }
     };
 
-    const onRoleChange = (event: React.ChangeEvent<unknown>, value: any) => {
-        setRole(value);
+    const onRoleChange = (role: RoleOption | null) => {
+        setRole(role?.name);
     };
 
     const onUserChange = (user: UserOption | null) => {
@@ -202,21 +201,7 @@ function NewNamespaceMembership(props: Props) {
                     </Box>}
                     <Box marginBottom={2}>
                         <Typography gutterBottom color="textSecondary">Role</Typography>
-                        <Autocomplete
-                            size={'medium'}
-                            fullWidth
-                            options={['viewer', 'deployer', 'owner']}
-                            getOptionLabel={(option: string) => NamespaceMembershipRoleLabels[option]}
-                            onChange={onRoleChange}
-                            disableClearable
-                            renderInput={(params) => <TextField
-                                {...params}
-                                placeholder="Role"
-                                variant="outlined"
-                                InputLabelProps={{
-                                    shrink: true
-                                }} />}
-                        />
+                        <RoleAutocomplete onSelected={onRoleChange} />
                     </Box>
                 </Box>
                 <Divider light />

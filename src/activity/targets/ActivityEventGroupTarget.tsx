@@ -10,7 +10,7 @@ import { ActivityEventGroupTargetFragment_event$key } from './__generated__/Acti
 const ACTION_TEXT = {
     CREATE_MEMBERSHIP: 'added to',
     CREATE: 'created',
-    MIGRATE: 'migrated',
+    MIGRATE: 'migrated from',
     DELETE_CHILD_RESOURCE: 'deleted',
     REMOVE_MEMBERSHIP: 'removed from',
     SET_VARIABLES: 'variables updated',
@@ -26,7 +26,8 @@ const RESOURCE_TYPES = {
     TERRAFORM_PROVIDER: 'Terraform provider',
     VARIABLE: 'Variable',
     VCS_PROVIDER: 'VCS Provider',
-    MODULE: 'Module'
+    MODULE: 'Module',
+    RUNNER: 'Runner agent'
 } as any;
 
 const MEMBER_TYPES = {
@@ -101,6 +102,9 @@ function ActivityEventGroupTarget({ fragmentRef }: Props) {
                       }
                     }
                 }
+                ...on ActivityEventMigrateGroupPayload {
+                    previousGroupPath
+                }
             }
             ...ActivityEventListItemFragment_event
         }
@@ -114,7 +118,7 @@ function ActivityEventGroupTarget({ fragmentRef }: Props) {
 
     let primary;
 
-    if (['MIGRATE', 'CREATE', 'UPDATE', 'SET_VARIABLES'].includes(data.action)) {
+    if (['CREATE', 'UPDATE', 'SET_VARIABLES'].includes(data.action)) {
         primary = <React.Fragment>Group {namespaceLink} {actionText}</React.Fragment>;
     } else if ('CREATE_MEMBERSHIP' === data.action) {
         primary = <React.Fragment>{MEMBER_TYPES[payload?.member?.__typename] || 'Unknown member type'} <Typography component="span" sx={{ fontWeight: 500 }}>{getMemberIdentifier(payload?.member)}</Typography> added to group {namespaceLink} with role {payload?.role}</React.Fragment>;
@@ -122,6 +126,8 @@ function ActivityEventGroupTarget({ fragmentRef }: Props) {
         primary = <React.Fragment>{MEMBER_TYPES[payload?.member?.__typename] || 'Unknown member type'} <Typography component="span" sx={{ fontWeight: 500 }}>{getMemberIdentifier(payload?.member)}</Typography> removed from group {namespaceLink}</React.Fragment>;
     } else if (data.action === 'DELETE_CHILD_RESOURCE') {
         primary = <React.Fragment>{RESOURCE_TYPES[payload.type] || 'Unknown resource type'} with name <Typography component="span" sx={{ fontWeight: 500 }}>{payload.name}</Typography> deleted from group {namespaceLink}</React.Fragment>;
+    } else if ('MIGRATE' === data.action) {
+        primary = <React.Fragment>Group {namespaceLink} {actionText} <Typography component="span" sx={{ fontWeight: 500 }}>{payload?.previousGroupPath}</Typography></React.Fragment>;
     }
 
     return (

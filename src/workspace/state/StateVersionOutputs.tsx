@@ -70,7 +70,7 @@ function StateVersionOutputs(props: Props) {
             {(filteredOutputs.length === 0 && search === '') && <Paper variant="outlined" sx={{ marginTop: 4, display: 'flex', justifyContent: 'center' }}>
                 <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
                     <Typography color="textSecondary" align="center">
-                        This run does not have any Terraform variables
+                        This run does not have any Terraform outputs
                     </Typography>
                 </Box>
             </Paper>}

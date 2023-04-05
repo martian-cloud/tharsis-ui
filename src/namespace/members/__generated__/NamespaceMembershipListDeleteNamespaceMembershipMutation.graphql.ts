@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b9a7c7123e4a781ea6b5212f118aa96d>>
+ * @generated SignedSource<<1e2e8404590d4fbc69fe54ecf93f8501>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -106,14 +106,14 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "resourcePath",
+  "name": "name",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "resourcePath",
   "storageKey": null
 };
 return {
@@ -226,11 +226,17 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
+                    "concreteType": "Role",
+                    "kind": "LinkedField",
                     "name": "role",
+                    "plural": false,
+                    "selections": [
+                      (v5/*: any*/),
+                      (v4/*: any*/)
+                    ],
                     "storageKey": null
                   },
-                  (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -266,7 +272,7 @@ return {
                         "kind": "InlineFragment",
                         "selections": [
                           (v4/*: any*/),
-                          (v6/*: any*/)
+                          (v5/*: any*/)
                         ],
                         "type": "Team",
                         "abstractKey": null
@@ -275,8 +281,8 @@ return {
                         "kind": "InlineFragment",
                         "selections": [
                           (v4/*: any*/),
-                          (v6/*: any*/),
-                          (v5/*: any*/)
+                          (v5/*: any*/),
+                          (v6/*: any*/)
                         ],
                         "type": "ServiceAccount",
                         "abstractKey": null
@@ -306,12 +312,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a07d37d18c379dce3df5c2811304c113",
+    "cacheID": "9a591f8a0f0d292b5193ce07686ba170",
     "id": null,
     "metadata": {},
     "name": "NamespaceMembershipListDeleteNamespaceMembershipMutation",
     "operationKind": "mutation",
-    "text": "mutation NamespaceMembershipListDeleteNamespaceMembershipMutation(\n  $input: DeleteNamespaceMembershipInput!\n) {\n  deleteNamespaceMembership(input: $input) {\n    namespace {\n      __typename\n      memberships {\n        ...NamespaceMembershipListItemFragment_membership\n        id\n      }\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment NamespaceMembershipListItemFragment_membership on NamespaceMembership {\n  metadata {\n    createdAt\n    updatedAt\n  }\n  id\n  role\n  resourcePath\n  member {\n    __typename\n    ... on User {\n      id\n      username\n      email\n    }\n    ... on Team {\n      id\n      name\n    }\n    ... on ServiceAccount {\n      id\n      name\n      resourcePath\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
+    "text": "mutation NamespaceMembershipListDeleteNamespaceMembershipMutation(\n  $input: DeleteNamespaceMembershipInput!\n) {\n  deleteNamespaceMembership(input: $input) {\n    namespace {\n      __typename\n      memberships {\n        ...NamespaceMembershipListItemFragment_membership\n        id\n      }\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment NamespaceMembershipListItemFragment_membership on NamespaceMembership {\n  metadata {\n    createdAt\n    updatedAt\n  }\n  id\n  role {\n    name\n    id\n  }\n  resourcePath\n  member {\n    __typename\n    ... on User {\n      id\n      username\n      email\n    }\n    ... on Team {\n      id\n      name\n    }\n    ... on ServiceAccount {\n      id\n      name\n      resourcePath\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
   }
 };
 })();
