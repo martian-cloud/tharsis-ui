@@ -54,6 +54,7 @@ function ManagedIdentityRules(props: Props) {
         fragment ManagedIdentityRulesFragment_managedIdentity on ManagedIdentity
         {
             id
+            isAlias
             accessRules {
                 id
                 type
@@ -311,20 +312,21 @@ function ManagedIdentityRules(props: Props) {
             </Typography>
             {data.accessRules.length > 0 && <ManagedIdentityRulesList
                 accessRules={data.accessRules}
+                isAlias={data.isAlias}
                 onEdit={setRuleToEdit}
                 onDelete={setRuleToDelete}
             />}
             {data.accessRules.length === 0 && <Paper sx={{ p: 2 }}>
                 <Typography>No rules exist for this managed identity</Typography>
             </Paper>}
-            <Button
+            {!data.isAlias && <Button
                 sx={{ marginTop: 3 }}
                 color="secondary"
                 size="small"
                 variant="outlined"
                 onClick={() => setShowCreateNewRuleDialog(true)}>
                 Add Access Rule
-            </Button>
+            </Button>}
             {ruleToEdit && <EditManagedIdentityRuleDialog
                 inputRule={ruleToEdit}
                 groupPath={groupPath}

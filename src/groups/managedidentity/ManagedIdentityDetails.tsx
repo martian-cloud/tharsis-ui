@@ -15,10 +15,13 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import config from '../../common/config';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
+import ManagedIdentityAliases from './aliases/ManagedIdentityAliases';
+import { INITIAL_ITEM_COUNT } from './aliases/ManagedIdentityAliasesList';
 import { GetConnections } from './ManagedIdentityList';
 import ManagedIdentityTypeChip from './ManagedIdentityTypeChip';
 import ManagedIdentityRules from './rules/ManagedIdentityRules';
 import { ManagedIdentityDetailsDeleteMutation } from './__generated__/ManagedIdentityDetailsDeleteMutation.graphql';
+import { ManagedIdentityDetailsDeleteAliasMutation } from './__generated__/ManagedIdentityDetailsDeleteAliasMutation.graphql';
 import { ManagedIdentityDetailsFragment_group$key } from './__generated__/ManagedIdentityDetailsFragment_group.graphql';
 import { ManagedIdentityDetailsQuery } from './__generated__/ManagedIdentityDetailsQuery.graphql';
 
@@ -60,7 +63,8 @@ function buildPolicy(role: string, sub: string): string {
 }
 
 interface ConfirmationDialogProps {
-    managedIdentityName: string
+    isAlias: boolean;
+    managedIdentityName: string;
     deleteInProgress: boolean;
     keepMounted: boolean;
     open: boolean;
@@ -68,16 +72,16 @@ interface ConfirmationDialogProps {
 }
 
 function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
-    const { managedIdentityName, deleteInProgress, onClose, open, ...other } = props;
+    const { isAlias, managedIdentityName, deleteInProgress, onClose, open, ...other } = props;
     return (
         <Dialog
             maxWidth="xs"
             open={open}
             {...other}
         >
-            <DialogTitle>Delete Managed Identity</DialogTitle>
+            <DialogTitle>Delete {isAlias ? 'Alias' : 'Managed Identity'}</DialogTitle>
             <DialogContent dividers>
-                Are you sure you want to delete managed identity <strong>{managedIdentityName}</strong>?
+                Are you sure you want to delete the {isAlias ? 'alias' : 'managed identity'} <strong>{managedIdentityName}</strong>?
             </DialogContent>
             <DialogActions>
                 <Button color="inherit" onClick={() => onClose()}>
@@ -110,9 +114,10 @@ function ManagedIdentityDetails(props: Props) {
         `, props.fragmentRef);
 
     const data = useLazyLoadQuery<ManagedIdentityDetailsQuery>(graphql`
-        query ManagedIdentityDetailsQuery($id: String!) {
+        query ManagedIdentityDetailsQuery($id: String!, $first: Int!, $after: String, $last: Int, $before: String) {
             managedIdentity(id: $id) {
                 id
+                isAlias
                 name
                 description
                 type
@@ -135,12 +140,13 @@ function ManagedIdentityDetails(props: Props) {
                         resourcePath
                     }
                 }
+                ...ManagedIdentityAliasesFragment_managedIdentity
                 ...ManagedIdentityRulesFragment_managedIdentity
             }
         }
-    `, { id: managedIdentityId }, { fetchPolicy: 'store-and-network' });
+    `, { id: managedIdentityId, first: INITIAL_ITEM_COUNT }, { fetchPolicy: 'store-and-network' });
 
-    const [commit, commitInFlight] = useMutation<ManagedIdentityDetailsDeleteMutation>(graphql`
+    const [commitDelete, commitDeleteInFlight] = useMutation<ManagedIdentityDetailsDeleteMutation>(graphql`
         mutation ManagedIdentityDetailsDeleteMutation($input: DeleteManagedIdentityInput!, $connections: [ID!]!) {
             deleteManagedIdentity(input: $input) {
                 managedIdentity {
@@ -162,7 +168,7 @@ function ManagedIdentityDetails(props: Props) {
 
     const onDeleteConfirmationDialogClosed = (confirm?: boolean) => {
         if (confirm) {
-            commit({
+            commitDelete({
                 variables: {
                     input: {
                         id: managedIdentityId
@@ -176,6 +182,49 @@ function ManagedIdentityDetails(props: Props) {
                         enqueueSnackbar(data.deleteManagedIdentity.problems.map(problem => problem.message).join('; '), { variant: 'warning' });
                     } else {
                         navigate(`..`);
+                    }
+                },
+                onError: error => {
+                    setShowDeleteConfirmationDialog(false);
+                    enqueueSnackbar(`Unexpected error occurred: ${error.message}`, { variant: 'error' });
+                }
+            });
+        } else {
+            setShowDeleteConfirmationDialog(false);
+        }
+    };
+
+    const [commitDeleteAlias, commitDeleteAliasInFlight] = useMutation<ManagedIdentityDetailsDeleteAliasMutation>(graphql`
+        mutation ManagedIdentityDetailsDeleteAliasMutation($input: DeleteManagedIdentityAliasInput!, $connections: [ID!]!) {
+            deleteManagedIdentityAlias(input: $input){
+                managedIdentity {
+                    id @deleteEdge(connections: $connections)
+                }
+                problems {
+                    message
+                    field
+                    type
+                }
+            }
+        }
+    `);
+
+    const onDeleteAliasConfirmationDialogClosed = (confirm?: boolean) => {
+        if (confirm) {
+            commitDeleteAlias({
+                variables: {
+                    input: {
+                        id: managedIdentityId
+                    },
+                    connections: GetConnections(group.id)
+                },
+                onCompleted: data => {
+                    setShowDeleteConfirmationDialog(false);
+
+                    if (data.deleteManagedIdentityAlias.problems.length) {
+                        enqueueSnackbar(data.deleteManagedIdentityAlias.problems.map(problem => problem.message).join('; '),  { variant: 'warning' });
+                    } else {
+                        navigate(`..`)
                     }
                 },
                 onError: error => {
@@ -216,11 +265,13 @@ function ManagedIdentityDetails(props: Props) {
                     <Box>
                         <Box display="flex" alignItems="center">
                             <Typography variant="h5" sx={{ marginRight: 1 }}>{data.managedIdentity.name}</Typography>
-                            <ManagedIdentityTypeChip type={data.managedIdentity.type} />
+                            <ManagedIdentityTypeChip mr={1} type={data.managedIdentity.type} />
+                            {data.managedIdentity.isAlias && <Chip label="alias" color="secondary" size="small" />}
+
                         </Box>
                         <Typography color="textSecondary">{data.managedIdentity.description}</Typography>
                     </Box>
-                    <Box>
+                    {!data.managedIdentity.isAlias ? <Box>
                         <ButtonGroup variant="outlined" color="primary">
                             <Button onClick={() => navigate('edit')}>Edit</Button>
                             <Button
@@ -252,11 +303,20 @@ function ManagedIdentityDetails(props: Props) {
                             </MenuItem>
                         </Menu>
                     </Box>
+                        :
+                    <Box>
+                        <Button
+                            variant="outlined"
+                            color="error"
+                            onClick={() => setShowDeleteConfirmationDialog(true)}
+                        >Delete Alias</Button>
+                    </Box>}
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between", border: 1, borderTopLeftRadius: 4, borderTopRightRadius: 4, borderColor: 'divider' }}>
                     <Tabs value={tab} onChange={onTabChange}>
                         <Tab label="Details" value="details" />
                         <Tab label="Rules" value="rules" />
+                        {!data.managedIdentity.isAlias && <Tab label="Aliases" value="aliases" />}
                     </Tabs>
                 </Box>
                 <Box sx={{ border: 1, borderTop: 0, borderBottomLeftRadius: 4, borderBottomRightRadius: 4, borderColor: 'divider', padding: 2 }}>
@@ -323,13 +383,19 @@ function ManagedIdentityDetails(props: Props) {
                             groupPath={group.fullPath}
                         />
                     </Box>}
+                    {tab === 'aliases' && <Box>
+                        <ManagedIdentityAliases
+                            fragmentRef={data.managedIdentity}
+                        />
+                    </Box>}
                 </Box>
                 <DeleteConfirmationDialog
+                    isAlias={data.managedIdentity.isAlias}
                     managedIdentityName={data.managedIdentity.name}
                     keepMounted
-                    deleteInProgress={commitInFlight}
+                    deleteInProgress={data.managedIdentity.isAlias ? commitDeleteAliasInFlight : commitDeleteInFlight}
                     open={showDeleteConfirmationDialog}
-                    onClose={onDeleteConfirmationDialogClosed}
+                    onClose={data.managedIdentity.isAlias ? onDeleteAliasConfirmationDialogClosed : onDeleteConfirmationDialogClosed}
                 />
             </Box>
         );
