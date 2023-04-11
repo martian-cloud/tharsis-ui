@@ -1,7 +1,6 @@
-import { Box, ListItem, ListItemText, Typography, useTheme } from '@mui/material';
+import { Box, Chip, ListItemButton, ListItemText, Typography, useTheme } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
 import moment from 'moment';
-import React from 'react';
 import { useFragment } from "react-relay/hooks";
 import { Link as RouterLink } from 'react-router-dom';
 import ManagedIdentityTypeChip from './ManagedIdentityTypeChip';
@@ -20,6 +19,7 @@ function ManagedIdentityListItem(props: Props) {
                 updatedAt
             }
             id
+            isAlias
             name
             description
             type
@@ -32,9 +32,8 @@ function ManagedIdentityListItem(props: Props) {
     `, props.fragmentRef);
 
     return (
-        <ListItem
+        <ListItemButton
             dense
-            button
             component={RouterLink}
             to={`/groups/${data.group.fullPath}/-/managed_identities/${data.id}`}
             sx={{
@@ -46,15 +45,18 @@ function ManagedIdentityListItem(props: Props) {
                     borderBottomRightRadius: 4
                 }
             }}>
-            <ListItemText primary={<Box display="flex" marginBottom={1}>
-                <Typography sx={{ marginRight: 1 }}>{data.name}</Typography>
-                <ManagedIdentityTypeChip type={data.type} />
-            </Box>} secondary={data.description} />
+            <ListItemText
+                primary={<Box display="flex" marginBottom={1}>
+                        <Typography sx={{ mr: 1 }}>{data.name}</Typography>
+                    <ManagedIdentityTypeChip mr={1} type={data.type} />
+                    {data.isAlias && <Chip label="alias" color="secondary" size="small" />}
+                    </Box>}
+                secondary={data.description} />
             <Typography variant="body2" color="textSecondary">
                 {moment(data.metadata.updatedAt as moment.MomentInput).fromNow()}
             </Typography>
-        </ListItem>
-    )
+        </ListItemButton>
+    );
 }
 
 export default ManagedIdentityListItem

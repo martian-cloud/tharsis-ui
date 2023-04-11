@@ -48,12 +48,13 @@ function buildPrincipals(rule: any) {
 
 interface Props {
     accessRules: any;
+    isAlias?: boolean;
     onEdit: (rule: any) => void;
     onDelete: (rule: any) => void;
 }
 
 function ManagedIdentityRulesList(props: Props) {
-    const { accessRules, onEdit, onDelete } = props;
+    const { accessRules, isAlias, onEdit, onDelete } = props;
 
     const [rows, setRows] = useState<any>();
 
@@ -111,12 +112,14 @@ function ManagedIdentityRulesList(props: Props) {
                                 <Chip size="small" label={`${row.rule.runStage[0].toUpperCase()}${row.rule.runStage.slice(1)}`} />
                             </TableCell>
                             <TableCell>
-                                <Button sx={{ marginRight: 1, minWidth: 40, padding: '2px' }} size="small" color="info" variant="outlined" onClick={() => onEdit(row.rule)}>
-                                    <EditIcon />
-                                </Button>
-                                <Button sx={{ minWidth: 40, padding: '2px' }} size="small" color="info" variant="outlined" onClick={() => onDelete(row.rule)}>
-                                    <DeleteIcon />
-                                </Button>
+                                {!isAlias ? <Fragment>
+                                    <Button sx={{ marginRight: 1, minWidth: 40, padding: '2px' }} size="small" color="info" variant="outlined" onClick={() => onEdit(row.rule)}>
+                                        <EditIcon />
+                                    </Button>
+                                    <Button sx={{ minWidth: 40, padding: '2px' }} size="small" color="info" variant="outlined" onClick={() => onDelete(row.rule)}>
+                                        <DeleteIcon />
+                                    </Button>
+                                </Fragment> : null}
                             </TableCell>
                         </StyledTableRow>
                     ))}

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a4ec403f2ffc78d3c7220a02d957e8fd>>
+ * @generated SignedSource<<af175822bf4a4f591bf40aa182f48147>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,39 +10,23 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type JobType = "apply" | "plan" | "%future added value";
-export type ManagedIdentityAccessRuleType = "eligible_principals" | "module_attestation" | "%future added value";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
-export type CreateManagedIdentityInput = {
-  accessRules?: ReadonlyArray<ManagedIdentityAccessRuleInput> | null;
+export type CreateManagedIdentityAliasInput = {
+  aliasSourceId?: string | null;
+  aliasSourcePath?: string | null;
   clientMutationId?: string | null;
-  data: string;
-  description: string;
   groupPath: string;
   name: string;
-  type: string;
 };
-export type ManagedIdentityAccessRuleInput = {
-  allowedServiceAccounts?: ReadonlyArray<string> | null;
-  allowedTeams?: ReadonlyArray<string> | null;
-  allowedUsers?: ReadonlyArray<string> | null;
-  moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null;
-  runStage: JobType;
-  type: ManagedIdentityAccessRuleType;
-};
-export type ManagedIdentityAccessRuleModuleAttestationPolicyInput = {
-  predicateType?: string | null;
-  publicKey: string;
-};
-export type NewManagedIdentityMutation$variables = {
+export type NewManagedIdentityAliasDialogMutation$variables = {
   connections: ReadonlyArray<string>;
-  input: CreateManagedIdentityInput;
+  input: CreateManagedIdentityAliasInput;
 };
-export type NewManagedIdentityMutation$data = {
-  readonly createManagedIdentity: {
+export type NewManagedIdentityAliasDialogMutation$data = {
+  readonly createManagedIdentityAlias: {
     readonly managedIdentity: {
       readonly id: string;
-      readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityListItemFragment_managedIdentity">;
+      readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityAliasesListItemFragment_managedIdentity">;
     } | null;
     readonly problems: ReadonlyArray<{
       readonly field: ReadonlyArray<string> | null;
@@ -51,9 +35,9 @@ export type NewManagedIdentityMutation$data = {
     }>;
   };
 };
-export type NewManagedIdentityMutation = {
-  response: NewManagedIdentityMutation$data;
-  variables: NewManagedIdentityMutation$variables;
+export type NewManagedIdentityAliasDialogMutation = {
+  response: NewManagedIdentityAliasDialogMutation$data;
+  variables: NewManagedIdentityAliasDialogMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -113,13 +97,6 @@ v5 = {
     (v4/*: any*/)
   ],
   "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
 };
 return {
   "fragment": {
@@ -129,14 +106,14 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "NewManagedIdentityMutation",
+    "name": "NewManagedIdentityAliasDialogMutation",
     "selections": [
       {
         "alias": null,
         "args": (v2/*: any*/),
-        "concreteType": "CreateManagedIdentityPayload",
+        "concreteType": "CreateManagedIdentityAliasPayload",
         "kind": "LinkedField",
-        "name": "createManagedIdentity",
+        "name": "createManagedIdentityAlias",
         "plural": false,
         "selections": [
           {
@@ -151,7 +128,7 @@ return {
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "ManagedIdentityListItemFragment_managedIdentity"
+                "name": "ManagedIdentityAliasesListItemFragment_managedIdentity"
               }
             ],
             "storageKey": null
@@ -171,14 +148,14 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "NewManagedIdentityMutation",
+    "name": "NewManagedIdentityAliasDialogMutation",
     "selections": [
       {
         "alias": null,
         "args": (v2/*: any*/),
-        "concreteType": "CreateManagedIdentityPayload",
+        "concreteType": "CreateManagedIdentityAliasPayload",
         "kind": "LinkedField",
-        "name": "createManagedIdentity",
+        "name": "createManagedIdentityAlias",
         "plural": false,
         "selections": [
           {
@@ -212,10 +189,9 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "isAlias",
+                "name": "name",
                 "storageKey": null
               },
-              (v6/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -228,27 +204,7 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "resourcePath",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Group",
-                "kind": "LinkedField",
-                "name": "group",
-                "plural": false,
-                "selections": [
-                  (v6/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "fullPath",
-                    "storageKey": null
-                  },
-                  (v3/*: any*/)
-                ],
+                "name": "groupPath",
                 "storageKey": null
               }
             ],
@@ -271,7 +227,7 @@ return {
               {
                 "kind": "Literal",
                 "name": "edgeTypeName",
-                "value": "ManagedIdentityEdge"
+                "value": "ManagedIdentityAliasEdge"
               }
             ]
           },
@@ -282,16 +238,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "469ef20aafdf324037e0ce604d616f34",
+    "cacheID": "4acf572807654fee755ccd5018ae211a",
     "id": null,
     "metadata": {},
-    "name": "NewManagedIdentityMutation",
+    "name": "NewManagedIdentityAliasDialogMutation",
     "operationKind": "mutation",
-    "text": "mutation NewManagedIdentityMutation(\n  $input: CreateManagedIdentityInput!\n) {\n  createManagedIdentity(input: $input) {\n    managedIdentity {\n      id\n      ...ManagedIdentityListItemFragment_managedIdentity\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  isAlias\n  name\n  description\n  type\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "mutation NewManagedIdentityAliasDialogMutation(\n  $input: CreateManagedIdentityAliasInput!\n) {\n  createManagedIdentityAlias(input: $input) {\n    managedIdentity {\n      id\n      ...ManagedIdentityAliasesListItemFragment_managedIdentity\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment ManagedIdentityAliasesListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  groupPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "39e88bab7c17e8acde5042edd3005976";
+(node as any).hash = "9e476b93da44d3a7c66c2e8fc1e2cb48";
 
 export default node;

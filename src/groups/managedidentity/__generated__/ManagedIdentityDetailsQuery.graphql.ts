@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<185faf21092db089e45b51b453bf7016>>
+ * @generated SignedSource<<6e777167784b9b9e7336d92c34069a33>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,11 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type JobType = "apply" | "plan" | "%future added value";
 export type ManagedIdentityDetailsQuery$variables = {
+  after?: string | null;
+  before?: string | null;
+  first: number;
   id: string;
+  last?: number | null;
 };
 export type ManagedIdentityDetailsQuery$data = {
   readonly managedIdentity: {
@@ -37,9 +41,10 @@ export type ManagedIdentityDetailsQuery$data = {
     readonly data: string;
     readonly description: string;
     readonly id: string;
+    readonly isAlias: boolean;
     readonly name: string;
     readonly type: string;
-    readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityRulesFragment_managedIdentity">;
+    readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityAliasesFragment_managedIdentity" | "ManagedIdentityRulesFragment_managedIdentity">;
   } | null;
 };
 export type ManagedIdentityDetailsQuery = {
@@ -48,63 +53,88 @@ export type ManagedIdentityDetailsQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "id"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "after"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "before"
+},
+v2 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "first"
+},
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "id"
+},
+v4 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "last"
+},
+v5 = [
   {
     "kind": "Variable",
     "name": "id",
     "variableName": "id"
   }
 ],
-v2 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v3 = {
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isAlias",
+  "storageKey": null
+},
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v4 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "description",
   "storageKey": null
 },
-v5 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
-v6 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "data",
   "storageKey": null
 },
-v7 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "runStage",
   "storageKey": null
 },
-v8 = {
+v13 = {
   "alias": null,
   "args": null,
   "concreteType": "User",
@@ -112,7 +142,7 @@ v8 = {
   "name": "allowedUsers",
   "plural": true,
   "selections": [
-    (v2/*: any*/),
+    (v6/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -130,7 +160,7 @@ v8 = {
   ],
   "storageKey": null
 },
-v9 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "Team",
@@ -138,12 +168,12 @@ v9 = {
   "name": "allowedTeams",
   "plural": true,
   "selections": [
-    (v2/*: any*/),
-    (v3/*: any*/)
+    (v6/*: any*/),
+    (v8/*: any*/)
   ],
   "storageKey": null
 },
-v10 = {
+v15 = {
   "alias": null,
   "args": null,
   "concreteType": "ServiceAccount",
@@ -151,8 +181,8 @@ v10 = {
   "name": "allowedServiceAccounts",
   "plural": true,
   "selections": [
-    (v2/*: any*/),
-    (v3/*: any*/),
+    (v6/*: any*/),
+    (v8/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -162,27 +192,56 @@ v10 = {
     }
   ],
   "storageKey": null
-};
+},
+v16 = [
+  {
+    "kind": "Variable",
+    "name": "after",
+    "variableName": "after"
+  },
+  {
+    "kind": "Variable",
+    "name": "before",
+    "variableName": "before"
+  },
+  {
+    "kind": "Variable",
+    "name": "first",
+    "variableName": "first"
+  },
+  {
+    "kind": "Variable",
+    "name": "last",
+    "variableName": "last"
+  }
+];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/),
+      (v3/*: any*/),
+      (v4/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "ManagedIdentityDetailsQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v5/*: any*/),
         "concreteType": "ManagedIdentity",
         "kind": "LinkedField",
         "name": "managedIdentity",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
-          (v4/*: any*/),
-          (v5/*: any*/),
           (v6/*: any*/),
+          (v7/*: any*/),
+          (v8/*: any*/),
+          (v9/*: any*/),
+          (v10/*: any*/),
+          (v11/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -191,13 +250,18 @@ return {
             "name": "accessRules",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/),
-              (v10/*: any*/)
+              (v6/*: any*/),
+              (v12/*: any*/),
+              (v13/*: any*/),
+              (v14/*: any*/),
+              (v15/*: any*/)
             ],
             "storageKey": null
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ManagedIdentityAliasesFragment_managedIdentity"
           },
           {
             "args": null,
@@ -213,23 +277,30 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v3/*: any*/),
+      (v2/*: any*/),
+      (v0/*: any*/),
+      (v4/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Operation",
     "name": "ManagedIdentityDetailsQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v5/*: any*/),
         "concreteType": "ManagedIdentity",
         "kind": "LinkedField",
         "name": "managedIdentity",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
-          (v4/*: any*/),
-          (v5/*: any*/),
           (v6/*: any*/),
+          (v7/*: any*/),
+          (v8/*: any*/),
+          (v9/*: any*/),
+          (v10/*: any*/),
+          (v11/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -238,12 +309,12 @@ return {
             "name": "accessRules",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/),
+              (v6/*: any*/),
+              (v12/*: any*/),
+              (v13/*: any*/),
+              (v14/*: any*/),
+              (v15/*: any*/),
               (v10/*: any*/),
-              (v5/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -271,6 +342,130 @@ return {
               }
             ],
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": (v16/*: any*/),
+            "concreteType": "ManagedIdentityConnection",
+            "kind": "LinkedField",
+            "name": "aliases",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ManagedIdentityEdge",
+                "kind": "LinkedField",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ManagedIdentity",
+                    "kind": "LinkedField",
+                    "name": "node",
+                    "plural": false,
+                    "selections": [
+                      (v6/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ResourceMetadata",
+                        "kind": "LinkedField",
+                        "name": "metadata",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "updatedAt",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
+                      (v8/*: any*/),
+                      (v9/*: any*/),
+                      (v10/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "groupPath",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__typename",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "cursor",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PageInfo",
+                "kind": "LinkedField",
+                "name": "pageInfo",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "endCursor",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasNextPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasPreviousPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "startCursor",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": (v16/*: any*/),
+            "filters": null,
+            "handle": "connection",
+            "key": "ManagedIdentityAliasesList_aliases",
+            "kind": "LinkedHandle",
+            "name": "aliases"
           }
         ],
         "storageKey": null
@@ -278,16 +473,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "da399284bb6d805792de1e642e9c3d44",
+    "cacheID": "6e162d45034f75afb9b72de25fd3f3d6",
     "id": null,
     "metadata": {},
     "name": "ManagedIdentityDetailsQuery",
     "operationKind": "query",
-    "text": "query ManagedIdentityDetailsQuery(\n  $id: String!\n) {\n  managedIdentity(id: $id) {\n    id\n    name\n    description\n    type\n    data\n    accessRules {\n      id\n      runStage\n      allowedUsers {\n        id\n        username\n        email\n      }\n      allowedTeams {\n        id\n        name\n      }\n      allowedServiceAccounts {\n        id\n        name\n        resourcePath\n      }\n    }\n    ...ManagedIdentityRulesFragment_managedIdentity\n  }\n}\n\nfragment ManagedIdentityRulesFragment_managedIdentity on ManagedIdentity {\n  id\n  accessRules {\n    id\n    type\n    runStage\n    moduleAttestationPolicies {\n      publicKey\n      predicateType\n    }\n    allowedUsers {\n      id\n      username\n      email\n    }\n    allowedTeams {\n      id\n      name\n    }\n    allowedServiceAccounts {\n      id\n      name\n      resourcePath\n    }\n  }\n}\n"
+    "text": "query ManagedIdentityDetailsQuery(\n  $id: String!\n  $first: Int!\n  $after: String\n  $last: Int\n  $before: String\n) {\n  managedIdentity(id: $id) {\n    id\n    isAlias\n    name\n    description\n    type\n    data\n    accessRules {\n      id\n      runStage\n      allowedUsers {\n        id\n        username\n        email\n      }\n      allowedTeams {\n        id\n        name\n      }\n      allowedServiceAccounts {\n        id\n        name\n        resourcePath\n      }\n    }\n    ...ManagedIdentityAliasesFragment_managedIdentity\n    ...ManagedIdentityRulesFragment_managedIdentity\n  }\n}\n\nfragment ManagedIdentityAliasesFragment_managedIdentity on ManagedIdentity {\n  ...ManagedIdentityAliasesListFragment_managedIdentity\n  ...NewManagedIdentityAliasDialogFragment_managedIdentity\n}\n\nfragment ManagedIdentityAliasesListFragment_managedIdentity on ManagedIdentity {\n  id\n  aliases(first: $first, last: $last, after: $after, before: $before) {\n    edges {\n      node {\n        id\n        ...ManagedIdentityAliasesListItemFragment_managedIdentity\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ManagedIdentityAliasesListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  groupPath\n}\n\nfragment ManagedIdentityRulesFragment_managedIdentity on ManagedIdentity {\n  id\n  isAlias\n  accessRules {\n    id\n    type\n    runStage\n    moduleAttestationPolicies {\n      publicKey\n      predicateType\n    }\n    allowedUsers {\n      id\n      username\n      email\n    }\n    allowedTeams {\n      id\n      name\n    }\n    allowedServiceAccounts {\n      id\n      name\n      resourcePath\n    }\n  }\n}\n\nfragment NewManagedIdentityAliasDialogFragment_managedIdentity on ManagedIdentity {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ca3352c59709ec772f13440cedea1493";
+(node as any).hash = "a04d6e0e48381c4fdd196509c5d46d47";
 
 export default node;

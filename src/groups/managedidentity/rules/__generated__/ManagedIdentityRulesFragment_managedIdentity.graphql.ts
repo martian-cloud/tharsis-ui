@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<16489b5b59c29663098eca0f2604e6de>>
+ * @generated SignedSource<<9736d8ac21528e47eb83850ad86861f2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -37,6 +37,7 @@ export type ManagedIdentityRulesFragment_managedIdentity$data = {
     readonly type: ManagedIdentityAccessRuleType;
   }>;
   readonly id: string;
+  readonly isAlias: boolean;
   readonly " $fragmentType": "ManagedIdentityRulesFragment_managedIdentity";
 };
 export type ManagedIdentityRulesFragment_managedIdentity$key = {
@@ -66,6 +67,13 @@ return {
   "name": "ManagedIdentityRulesFragment_managedIdentity",
   "selections": [
     (v0/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "isAlias",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -182,6 +190,6 @@ return {
 };
 })();
 
-(node as any).hash = "5331c382862a7cacf62acb38ec213c0e";
+(node as any).hash = "e1185cbf499d6a22be1978d304ee0b44";
 
 export default node;

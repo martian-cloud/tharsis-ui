@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1e9a7a820c7fb2e6515fb100b150f3db>>
+ * @generated SignedSource<<138f31cf56e255f27aca4d791a321c07>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -191,6 +191,13 @@ return {
                         ],
                         "storageKey": null
                       },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "isAlias",
+                        "storageKey": null
+                      },
                       (v3/*: any*/),
                       {
                         "alias": null,
@@ -314,12 +321,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "aee8336aa17349ff1358ff5fda01e1dd",
+    "cacheID": "950ce7173539891f632c5ff409f0340d",
     "id": null,
     "metadata": {},
     "name": "ManagedIdentityListPaginationQuery",
     "operationKind": "query",
-    "text": "query ManagedIdentityListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $groupPath: String!\n  $last: Int\n  $search: String\n) {\n  ...ManagedIdentityListFragment_managedIdentities\n}\n\nfragment ManagedIdentityListFragment_managedIdentities on Query {\n  group(fullPath: $groupPath) {\n    managedIdentities(after: $after, before: $before, first: $first, last: $last, search: $search, sort: UPDATED_AT_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          ...ManagedIdentityListItemFragment_managedIdentity\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "query ManagedIdentityListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $groupPath: String!\n  $last: Int\n  $search: String\n) {\n  ...ManagedIdentityListFragment_managedIdentities\n}\n\nfragment ManagedIdentityListFragment_managedIdentities on Query {\n  group(fullPath: $groupPath) {\n    managedIdentities(after: $after, before: $before, first: $first, last: $last, search: $search, sort: UPDATED_AT_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          ...ManagedIdentityListItemFragment_managedIdentity\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  isAlias\n  name\n  description\n  type\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
   }
 };
 })();

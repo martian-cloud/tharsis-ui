@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8d8ecf6693a79e569df627a07500622c>>
+ * @generated SignedSource<<6e9db4540eb708f3f5729c41a6dd59a2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -195,6 +195,13 @@ return {
                 ],
                 "storageKey": null
               },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "isAlias",
+                "storageKey": null
+              },
               (v6/*: any*/),
               {
                 "alias": null,
@@ -241,12 +248,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f9c4f54017f1715732af562a43ea3ece",
+    "cacheID": "47d1a1d21d85624e047eb68846b18dd6",
     "id": null,
     "metadata": {},
     "name": "EditManagedIdentityMutation",
     "operationKind": "mutation",
-    "text": "mutation EditManagedIdentityMutation(\n  $input: UpdateManagedIdentityInput!\n) {\n  updateManagedIdentity(input: $input) {\n    managedIdentity {\n      id\n      data\n      ...ManagedIdentityListItemFragment_managedIdentity\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "mutation EditManagedIdentityMutation(\n  $input: UpdateManagedIdentityInput!\n) {\n  updateManagedIdentity(input: $input) {\n    managedIdentity {\n      id\n      data\n      ...ManagedIdentityListItemFragment_managedIdentity\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  isAlias\n  name\n  description\n  type\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
   }
 };
 })();
