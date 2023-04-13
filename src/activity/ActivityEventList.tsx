@@ -14,6 +14,7 @@ import ActivityEventStateVersionTarget from './targets/ActivityEventStateVersion
 import ActivityEventTeamTarget from './targets/ActivityEventTeamTarget';
 import ActivityEventRoleTarget from './targets/ActivityEventRoleTarget';
 import ActivityEventTerraformModuleTarget from './targets/ActivityEventTerraformModuleTarget';
+import ActivityEventTerraformModuleVersionTarget from './targets/ActivityEventTerraformModuleVersionTarget';
 import ActivityEventTerraformProviderTarget from './targets/ActivityEventTerraformProviderTarget';
 import ActivityEventVariableTarget from './targets/ActivityEventVariableTarget';
 import ActivityEventVCSProviderTarget from './targets/ActivityEventVCSProviderTarget';
@@ -35,6 +36,7 @@ const TARGET_COMPONENT_MAP = {
     Team: ActivityEventTeamTarget,
     TerraformProvider: ActivityEventTerraformProviderTarget,
     TerraformModule: ActivityEventTerraformModuleTarget,
+    TerraformModuleVersion: ActivityEventTerraformModuleVersionTarget,
     VCSProvider: ActivityEventVCSProviderTarget,
     Role: ActivityEventRoleTarget,
     Runner: ActivityEventRunnerTarget
@@ -68,6 +70,7 @@ function ActivityEventList({ fragmentRef, loadNext, hasNext }: Props) {
                     ...ActivityEventTeamTargetFragment_event
                     ...ActivityEventTerraformProviderTargetFragment_event
                     ...ActivityEventTerraformModuleTargetFragment_event
+                    ...ActivityEventTerraformModuleVersionTargetFragment_event
                     ...ActivityEventVCSProviderTargetFragment_event
                     ...ActivityEventRoleTargetFragment_event
                     ...ActivityEventRunnerTargetFragment_event
