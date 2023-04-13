@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6a29df7542454f45b5b12bc240be0c8d>>
+ * @generated SignedSource<<d8d940715e73fcac193950e17fc178ad>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type ActivityEventListFragment_connection$data = {
       readonly target: {
         readonly __typename: string;
       };
-      readonly " $fragmentSpreads": FragmentRefs<"ActivityEventGPGKeyTargetFragment_event" | "ActivityEventGroupTargetFragment_event" | "ActivityEventManagedIdentityAccessRuleTargetFragment_event" | "ActivityEventManagedIdentityTargetFragment_event" | "ActivityEventNamespaceMembershipTargetFragment_event" | "ActivityEventRoleTargetFragment_event" | "ActivityEventRunTargetFragment_event" | "ActivityEventRunnerTargetFragment_event" | "ActivityEventServiceAccountTargetFragment_event" | "ActivityEventStateVersionTargetFragment_event" | "ActivityEventTeamTargetFragment_event" | "ActivityEventTerraformModuleTargetFragment_event" | "ActivityEventTerraformProviderTargetFragment_event" | "ActivityEventVCSProviderTargetFragment_event" | "ActivityEventVariableTargetFragment_event" | "ActivityEventWorkspaceTargetFragment_event">;
+      readonly " $fragmentSpreads": FragmentRefs<"ActivityEventGPGKeyTargetFragment_event" | "ActivityEventGroupTargetFragment_event" | "ActivityEventManagedIdentityAccessRuleTargetFragment_event" | "ActivityEventManagedIdentityTargetFragment_event" | "ActivityEventNamespaceMembershipTargetFragment_event" | "ActivityEventRoleTargetFragment_event" | "ActivityEventRunTargetFragment_event" | "ActivityEventRunnerTargetFragment_event" | "ActivityEventServiceAccountTargetFragment_event" | "ActivityEventStateVersionTargetFragment_event" | "ActivityEventTeamTargetFragment_event" | "ActivityEventTerraformModuleTargetFragment_event" | "ActivityEventTerraformModuleVersionTargetFragment_event" | "ActivityEventTerraformProviderTargetFragment_event" | "ActivityEventVCSProviderTargetFragment_event" | "ActivityEventVariableTargetFragment_event" | "ActivityEventWorkspaceTargetFragment_event">;
     } | null;
   } | null> | null;
   readonly " $fragmentType": "ActivityEventListFragment_connection";
@@ -142,6 +142,11 @@ const node: ReaderFragment = {
             {
               "args": null,
               "kind": "FragmentSpread",
+              "name": "ActivityEventTerraformModuleVersionTargetFragment_event"
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
               "name": "ActivityEventVCSProviderTargetFragment_event"
             },
             {
@@ -165,6 +170,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "028894568ed99e3db7459b0483afb136";
+(node as any).hash = "54b3c4628574d821bf36342132514849";
 
 export default node;
