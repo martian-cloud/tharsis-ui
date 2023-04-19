@@ -69,31 +69,33 @@ function RunnerDetails({ fragmentRef }: Props) {
             }
         }`, { id: runnerId, first: INITIAL_ITEM_COUNT }, { fetchPolicy: 'store-and-network' });
 
-    const runner = data.node as any;
+    if (data.node && id) {
 
-    return (
-        <Box>
-            <NamespaceBreadcrumbs
-                namespacePath={group.fullPath}
-                childRoutes={[
-                    { title: "runner agents", path: "runner_agents" },
-                    { title: runner.name, path: runnerId }
-            ]} />
-            <Box display="flex" alignItems="center" mb={2}>
-                <Box sx={{ margin: 1 }}>
-                    <RunnerIcon />
+        const runner = data.node as any;
+
+        return (
+            <Box>
+                <NamespaceBreadcrumbs
+                    namespacePath={group.fullPath}
+                    childRoutes={[
+                        { title: "runner agents", path: "runner_agents" },
+                        { title: runner.name, path: id }
+                    ]} />
+                <Box display="flex" alignItems="center" mb={2}>
+                    <Box sx={{ margin: 1 }}>
+                        <RunnerIcon />
+                    </Box>
+                    <Box marginLeft={1}>
+                        <Typography variant="h5" sx={{ marginRight: 1 }}>{runner.name}</Typography>
+                        <Typography color="textSecondary">{runner.description}</Typography>
+                    </Box>
                 </Box>
-                <Box marginLeft={1}>
-                    <Typography variant="h5" sx={{ marginRight: 1 }}>{runner.name}</Typography>
-                    <Typography color="textSecondary">{runner.description}</Typography>
+                <Box sx={{ display: "flex", border: 1, borderColor: 'divider', borderTopLeftRadius: 4, borderTopRightRadius: 4 }}>
+                    <Tabs value={tab} onChange={onTabChange}>
+                        <Tab label="Details" value="Details" />
+                        <Tab label="Assigned Service Accounts" value="Assigned Service Accounts" />
+                    </Tabs>
                 </Box>
-            </Box>
-            <Box sx={{ display: "flex", border: 1, borderColor: 'divider', borderTopLeftRadius: 4, borderTopRightRadius: 4 }}>
-                <Tabs value={tab} onChange={onTabChange}>
-                    <Tab label="Details" value="Details" />
-                    <Tab label="Assigned Service Accounts" value="Assigned Service Accounts" />
-                </Tabs>
-            </Box>
                 {tab === 'Details' && <Box sx={{ border: 1, borderTop: 0, borderBottomLeftRadius: 4, borderBottomRightRadius: 4, borderColor: 'divider', padding: 2 }}>
                     <FieldLabel>Type</FieldLabel>
                     <FieldValue>{runner.type.charAt(0).toUpperCase() + runner.type.slice(1)}</FieldValue>
@@ -116,9 +118,14 @@ function RunnerDetails({ fragmentRef }: Props) {
                         </Collapse>
                     </Box>
                 </Box>}
-            {tab === 'Assigned Service Accounts' && <AssignedServiceAccountList fragmentRef={runner} />}
-        </Box>
-    );
+                {tab === 'Assigned Service Accounts' && <AssignedServiceAccountList fragmentRef={runner} />}
+            </Box>
+        );
+    } else {
+        return <Box display="flex" justifyContent="center" marginTop={4}>
+            <Typography color="textSecondary">Runner Agent with ID {runnerId} not found</Typography>
+        </Box>;
+    }
 }
 
 export default RunnerDetails

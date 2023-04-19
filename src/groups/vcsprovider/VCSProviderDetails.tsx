@@ -113,7 +113,6 @@ function VCSProviderDetails(props: Props) {
     const [showMore, setShowMore] = useState(false);
     const [error, setError] = useState<MutationError>()
 
-
     const vcsProviderId = id as string;
 
     const group = useFragment<VCSProviderDetailsFragment_group$key>(
@@ -254,7 +253,7 @@ function VCSProviderDetails(props: Props) {
 
     if (data.node && id) {
 
-        const vcsProvider = data.node as any
+        const vcsProvider = data.node as any;
 
         return (
             <Box>
