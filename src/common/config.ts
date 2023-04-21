@@ -17,9 +17,21 @@ function buildGraphqlUrl(protocol: 'http' | 'ws'): string {
     return `${scheme}://${apiUrl.host}`;
 }
 
+function buildDocumentsUrl(): string {
+    const urlSetting = process.env.REACT_APP_THARSIS_DOCUMENTS_URL ? process.env.REACT_APP_THARSIS_DOCUMENTS_URL : (window as any).env.THARSIS_DOCUMENTS_URL;
+    const defaultSetting = 'https://tharsis.martian-cloud.io';
+
+    if (!urlSetting || urlSetting === '__THARSIS_DOCUMENTS_URL__') {
+        return defaultSetting;
+    }
+
+    return urlSetting;
+}
+
 const cfg = {
     apiUrl: buildGraphqlUrl('http'),
-    wsUrl: buildGraphqlUrl('ws')
+    wsUrl: buildGraphqlUrl('ws'),
+    docsUrl: buildDocumentsUrl()
 };
 
 export default cfg;

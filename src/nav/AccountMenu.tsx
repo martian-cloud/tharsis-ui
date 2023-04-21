@@ -1,17 +1,19 @@
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItem, ListItemButton, ListItemText, Link } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import { Launch } from '@mui/icons-material';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../auth/UserContext';
 import Gravatar from '../common/Gravatar';
 import AuthenticationService from '../auth/AuthenticationService';
+import config from '../common/config';
 
 interface Props {
-  authService: AuthenticationService
+  authService: AuthenticationService;
 }
 
 function AccountMenu(props: Props) {
@@ -55,12 +57,29 @@ function AccountMenu(props: Props) {
           </Box>
           <Divider />
           <List dense sx={{}}>
-            <ListItem button onClick={onShowGraphiql}>
+            <ListItemButton onClick={onShowGraphiql}>
               <ListItemText primary="GraphQL Editor" />
+            </ListItemButton>
+            <ListItem secondaryAction={
+              <IconButton LinkComponent={Link}
+                          edge='end'
+                          href={config.docsUrl}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          disableRipple
+                >
+                  <Launch fontSize='small' />
+                </IconButton>
+              }
+              disablePadding
+            >
+              <ListItemButton LinkComponent={Link} href={config.docsUrl} target='_blank' rel='noopener noreferrer' dense>
+                <ListItemText primary="Documentation" />
+              </ListItemButton>
             </ListItem>
-            <ListItem button onClick={()=> (props.authService.signOut())}>
+            <ListItemButton onClick={()=> (props.authService.signOut())}>
               <ListItemText primary="Sign Out" />
-            </ListItem>
+            </ListItemButton>
           </List>
         </div>
       </Popover>
