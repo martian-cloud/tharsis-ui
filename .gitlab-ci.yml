@@ -29,6 +29,7 @@ workflow:
 variables:
   # Used for test builds of the container and scanning
   IMAGE_TAG: "$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+  NODE_OPTIONS: "--max_old_space_size=1536"
 
 default:
   services: []
@@ -114,6 +115,8 @@ package:
   extends: .node
   stage: test
   variables:
+    KUBERNETES_CPU_REQUEST: 1
+    KUBERNETES_CPU_LIMIT: 2
     KUBERNETES_MEMORY_REQUEST: 2Gi
     KUBERNETES_MEMORY_LIMIT: 4Gi
   script:
@@ -259,7 +262,7 @@ dast:
   needs:
     - publish ui docker
   variables:
-    DAST_WEBSITE: "http://localhost"
+    DAST_WEBSITE: "http://localhost:3000"
     DAST_AUTH_URL: "http://localhost:8080/realms/tharsis/protocol/openid-connect/auth?client_id=tharsis&redirect_uri=http%3A%2F%2Flocalhost%2F&response_type=id_token&scope=openid%20profile%20email&state=6c323175464243e6a657b75e19885a99&nonce=4fd0a5e072c74e8fb913bec704f2361b"
     DAST_USERNAME: martian
     DAST_PASSWORD: martian
