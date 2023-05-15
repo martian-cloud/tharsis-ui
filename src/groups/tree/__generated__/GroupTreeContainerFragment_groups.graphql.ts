@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<06bb4842958aa2582b4caf26e8489827>>
+ * @generated SignedSource<<591d9875c8045431e2905af2378df954>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -80,6 +80,11 @@ return {
     {
       "alias": "groups",
       "args": [
+        {
+          "kind": "Literal",
+          "name": "parentPath",
+          "value": ""
+        },
         {
           "kind": "Literal",
           "name": "sort",
@@ -179,7 +184,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": "__GroupTreeContainer_groups_connection(sort:\"FULL_PATH_ASC\")"
+      "storageKey": "__GroupTreeContainer_groups_connection(parentPath:\"\",sort:\"FULL_PATH_ASC\")"
     }
   ],
   "type": "Query",
@@ -187,6 +192,6 @@ return {
 };
 })();
 
-(node as any).hash = "13601e88d5728af50c819a2a34ea17c9";
+(node as any).hash = "4ae739807426e31c4536b6030fad445d";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c9b2f255917f8d9b38db3525ec9ad7de>>
+ * @generated SignedSource<<0116aa4d1ab9491ae5682497895dab45>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,6 +20,7 @@ export type GroupDetailsIndexFragment_group$data = {
   readonly workspaces: {
     readonly totalCount: number;
   };
+  readonly " $fragmentSpreads": FragmentRefs<"MigrateGroupDialogFragment_group">;
   readonly " $fragmentType": "GroupDetailsIndexFragment_group";
 };
 export type GroupDetailsIndexFragment_group$key = {
@@ -90,6 +91,11 @@ return {
       "plural": false,
       "selections": (v1/*: any*/),
       "storageKey": "descendentGroups(first:0)"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "MigrateGroupDialogFragment_group"
     }
   ],
   "type": "Group",
@@ -97,6 +103,6 @@ return {
 };
 })();
 
-(node as any).hash = "c971ddbaf66b4e011fde82d7f8e6dca2";
+(node as any).hash = "b138b8d3a2bee6670fedc2e5262ee7ad";
 
 export default node;

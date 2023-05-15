@@ -6,11 +6,12 @@ import { MutationError } from '../../../common/error';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { GetConnections } from './ManagedIdentityAliasesList';
 import ManagedIdentityAliasForm from './ManagedIdentityAliasForm';
+import { NewManagedIdentityAliasDialogFragment_managedIdentity$key } from './__generated__/NewManagedIdentityAliasDialogFragment_managedIdentity.graphql';
 import { NewManagedIdentityAliasDialogMutation } from './__generated__/NewManagedIdentityAliasDialogMutation.graphql';
 
 interface Props {
     onClose: () => void
-    fragmentRef: any
+    fragmentRef: NewManagedIdentityAliasDialogFragment_managedIdentity$key
 }
 
 export interface FormData {
@@ -25,7 +26,7 @@ function NewManagedIdentityAliasDialog({ onClose, fragmentRef }: Props) {
         groupPath: ''
     });
 
-    const managedIdentity = useFragment(
+    const managedIdentity = useFragment<NewManagedIdentityAliasDialogFragment_managedIdentity$key>(
         graphql`
         fragment NewManagedIdentityAliasDialogFragment_managedIdentity on ManagedIdentity
         {

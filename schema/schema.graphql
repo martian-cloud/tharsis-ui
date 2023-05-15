@@ -66,13 +66,13 @@ type ActivityEventDeleteChildResourcePayload {
   type: String!
 }
 
-type ActivityEventMigrateGroupPayload {
-  previousGroupPath: String!
-}
-
 type ActivityEventEdge {
   cursor: String!
   node: ActivityEvent
+}
+
+type ActivityEventMigrateGroupPayload {
+  previousGroupPath: String!
 }
 
 union ActivityEventPayload = ActivityEventCreateNamespaceMembershipPayload | ActivityEventUpdateNamespaceMembershipPayload | ActivityEventRemoveNamespaceMembershipPayload | ActivityEventDeleteChildResourcePayload | ActivityEventAddTeamMemberPayload | ActivityEventRemoveTeamMemberPayload | ActivityEventUpdateTeamMemberPayload | ActivityEventMigrateGroupPayload
@@ -331,6 +331,19 @@ input CreateNamespaceVariableInput {
   hcl: Boolean!
   key: String!
   value: String!
+}
+
+input CreateRoleInput {
+  clientMutationId: String
+  name: String!
+  description: String!
+  permissions: [String!]!
+}
+
+type CreateRolePayload {
+  clientMutationId: String
+  role: Role
+  problems: [Problem!]!
 }
 
 input CreateRunInput {
@@ -620,6 +633,19 @@ input DeleteNamespaceMembershipInput {
 input DeleteNamespaceVariableInput {
   clientMutationId: String
   id: String!
+}
+
+input DeleteRoleInput {
+  clientMutationId: String
+  id: ID!
+  force: Boolean
+  metadata: ResourceMetadataInput
+}
+
+type DeleteRolePayload {
+  clientMutationId: String
+  role: Role
+  problems: [Problem!]!
 }
 
 input DeleteRunnerInput {
@@ -1061,10 +1087,10 @@ type Mutation {
   deleteWorkspaceVCSProviderLink(input: DeleteWorkspaceVCSProviderLinkInput!): DeleteWorkspaceVCSProviderLinkPayload!
   createVCSRun(input: CreateVCSRunInput!): CreateVCSRunPayload!
   resetVCSProviderOAuthToken(input: ResetVCSProviderOAuthTokenInput!): ResetVCSProviderOAuthTokenPayload!
-  claimJob(input: ClaimJobInput!): ClaimJobPayload!
   createRole(input: CreateRoleInput!): CreateRolePayload!
   updateRole(input: UpdateRoleInput!): UpdateRolePayload!
   deleteRole(input: DeleteRoleInput!): DeleteRolePayload!
+  claimJob(input: ClaimJobInput!): ClaimJobPayload!
   createRunner(input: CreateRunnerInput!): CreateRunnerPayload!
   updateRunner(input: UpdateRunnerInput!): UpdateRunnerPayload!
   deleteRunner(input: DeleteRunnerInput!): DeleteRunnerPayload!
@@ -1083,73 +1109,6 @@ interface Namespace {
   serviceAccounts(after: String, before: String, first: Int, last: Int, includeInherited: Boolean, search: String): ServiceAccountConnection!
   managedIdentities(after: String, before: String, first: Int, last: Int, sort: ManagedIdentitySort, includeInherited: Boolean, search: String): ManagedIdentityConnection!
   activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
-}
-
-enum RoleSort {
-  NAME_ASC
-  NAME_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
-}
-
-type RoleConnection {
-  totalCount: Int!
-  pageInfo: PageInfo!
-  edges: [RoleEdge]
-}
-
-type RoleEdge {
-  cursor: String!
-  node: Role
-}
-
-type CreateRolePayload {
-  clientMutationId: String
-  role: Role
-  problems: [Problem!]!
-}
-
-type UpdateRolePayload {
-  clientMutationId: String
-  role: Role
-  problems: [Problem!]!
-}
-
-type DeleteRolePayload {
-  clientMutationId: String
-  role: Role
-  problems: [Problem!]!
-}
-
-type Role implements Node {
-  id: ID!
-  metadata: ResourceMetadata!
-  createdBy: String!
-  name: String!
-  description: String!
-  permissions: [String!]!
-}
-
-input CreateRoleInput {
-  clientMutationId: String
-  name: String!
-  description: String!
-  permissions: [String!]!
-}
-
-input UpdateRoleInput {
-  clientMutationId: String
-  ID: ID!
-  description: String
-  permissions: [String!]!
-  metadata: ResourceMetadataInput
-}
-
-input DeleteRoleInput {
-  clientMutationId: String
-  ID: ID!
-  force: Boolean
-  metadata: ResourceMetadataInput
 }
 
 type NamespaceMembership implements Node {
@@ -1265,7 +1224,7 @@ type Query {
   node(id: String!): Node
   namespace(fullPath: String!): Namespace
   group(fullPath: String!): Group
-  groups(after: String, before: String, first: Int, last: Int, parentPath: String, sort: GroupSort): GroupConnection!
+  groups(after: String, before: String, first: Int, last: Int, parentPath: String, search: String, sort: GroupSort): GroupConnection!
   workspace(fullPath: String!): Workspace
   workspaces(after: String, before: String, first: Int, last: Int, groupPath: String, search: String, sort: WorkspaceSort): WorkspaceConnection!
   terraformProviders(after: String, before: String, first: Int, last: Int, search: String, sort: TerraformProviderSort): TerraformProviderConnection!
@@ -1284,12 +1243,12 @@ type Query {
   team(name: String!): Team
   teams(after: String, before: String, first: Int, last: Int, search: String, sort: TeamSort): TeamConnection!
   terraformCLIVersions: TerraformCLIVersions
-  role(name: String!): Role
-  roles(after: String, before: String, first: Int, last: Int, search: String, sort: RoleSort): RoleConnection!
-  availableRolePermissions: [String!]!
 
   """There is no query for an activity event by ID."""
   activityEvents(after: String, before: String, first: Int, last: Int, username: String, serviceAccountPath: String, namespacePath: String, includeNested: Boolean, timeRangeStart: Time, timeRangeEnd: Time, actions: [ActivityEventAction!], targetTypes: [ActivityEventTargetType!], sort: ActivityEventSort): ActivityEventConnection!
+  role(name: String!): Role
+  roles(after: String, before: String, first: Int, last: Int, search: String, sort: RoleSort): RoleConnection!
+  availableRolePermissions: [String!]!
   authSettings: AuthSettings
 }
 
@@ -1326,6 +1285,33 @@ type ResourceMetadata {
 
 input ResourceMetadataInput {
   version: String!
+}
+
+type Role implements Node {
+  id: ID!
+  metadata: ResourceMetadata!
+  createdBy: String!
+  name: String!
+  description: String!
+  permissions: [String!]!
+}
+
+type RoleConnection {
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [RoleEdge]
+}
+
+type RoleEdge {
+  cursor: String!
+  node: Role
+}
+
+enum RoleSort {
+  NAME_ASC
+  NAME_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
 }
 
 type Run implements Node {
@@ -1950,6 +1936,20 @@ type UpdatePlanPayload {
   problems: [Problem!]!
 }
 
+input UpdateRoleInput {
+  clientMutationId: String
+  id: ID!
+  description: String
+  permissions: [String!]!
+  metadata: ResourceMetadataInput
+}
+
+type UpdateRolePayload {
+  clientMutationId: String
+  role: Role
+  problems: [Problem!]!
+}
+
 input UpdateRunnerInput {
   clientMutationId: String
   id: ID!
@@ -2264,3 +2264,4 @@ type WorkspaceVCSProviderLink implements Node {
   autoSpeculativePlan: Boolean!
   webhookDisabled: Boolean!
 }
+
