@@ -164,6 +164,7 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
                 descendentGroups(first: 0) {
                     totalCount
                 }
+                ...MigrateGroupDialogFragment_group
             }
         `,
         props.fragmentRef
@@ -279,7 +280,6 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
                             <Typography color="textSecondary">No workspaces in this group</Typography>
                         </Box>}
                     </TabPanel>
-
                     <TabPanel value="subgroups">
                         {data.descendentGroups.totalCount > 0 && <Suspense fallback={<ListSkeleton rowCount={10} />}>
                             <GroupsList groupPath={data.fullPath} />

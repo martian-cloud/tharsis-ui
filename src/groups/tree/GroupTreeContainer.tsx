@@ -55,6 +55,7 @@ function GroupTreeContainer(props: Props) {
                 before: $before
                 first: $first
                 last: $last
+                parentPath: ""
                 sort:FULL_PATH_ASC
             ) @connection(key: "GroupTreeContainer_groups") {
                 edges {

@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
-import { Box, Button, Dialog, DialogActions, DialogTitle, DialogContent, Typography, Alert, AlertTitle, TextField } from '@mui/material'
+import React, { useState } from 'react';
+import { Box, Button, Dialog, DialogActions, DialogTitle, DialogContent, Typography, Alert, AlertTitle, TextField } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useFragment, useMutation } from 'react-relay';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import graphql from 'babel-plugin-relay/macro'
-import { GroupAdvancedSettingsFragment_group$key } from './__generated__/GroupAdvancedSettingsFragment_group.graphql'
-import { GroupAdvancedSettingsDeleteDialogFragment_group$key } from './__generated__/GroupAdvancedSettingsDeleteDialogFragment_group.graphql'
-import { GroupAdvancedSettingsDeleteMutation } from './__generated__/GroupAdvancedSettingsDeleteMutation.graphql'
+import graphql from 'babel-plugin-relay/macro';
+import MigrateGroupDialog from './MigrateGroupDialog';
+import { GroupAdvancedSettingsFragment_group$key } from './__generated__/GroupAdvancedSettingsFragment_group.graphql';
+import { GroupAdvancedSettingsDeleteDialogFragment_group$key } from './__generated__/GroupAdvancedSettingsDeleteDialogFragment_group.graphql';
+import { GroupAdvancedSettingsDeleteMutation } from './__generated__/GroupAdvancedSettingsDeleteMutation.graphql';
 
 interface ConfirmationDialogProps {
-    deleteInProgress: boolean;
+    deleteInProgress: boolean
     onClose: (confirm?: boolean) => void
     closeDialog: () => void
     open: boolean
@@ -25,7 +26,7 @@ interface Props {
 
 function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
     const { deleteInProgress, onClose, closeDialog, open, fragmentRef } = props;
-    const [deleteInput, setDeleteInput] = useState<string>('')
+    const [deleteInput, setDeleteInput] = useState<string>('');
 
     const data = useFragment(
         graphql`
@@ -34,8 +35,7 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
             name
             fullPath
         }
-    `, fragmentRef
-    )
+    `, fragmentRef);
 
     return (
         <Dialog
@@ -62,12 +62,12 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
                 </TextField>
             </DialogContent>
             <DialogActions>
-                <Button color="inherit"
+                <Button
+                    color="inherit"
                     onClick={() => {
                         closeDialog()
                         setDeleteInput('')
-                    }}>Cancel
-                </Button>
+                    }}>Cancel</Button>
                 <LoadingButton
                     color="error"
                     variant="outlined"
@@ -82,8 +82,9 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
     );
 }
 
-function GroupAdvancedSettings(props: Props) {
+function GroupAdvancedSettings({ fragmentRef }: Props) {
     const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = useState<boolean>(false);
+    const [showMigrateGroupDialog, setShowMigrateGroupDialog] = useState<boolean>(false);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
@@ -94,9 +95,9 @@ function GroupAdvancedSettings(props: Props) {
             name
             fullPath
             ...GroupAdvancedSettingsDeleteDialogFragment_group
+            ...MigrateGroupDialogFragment_group
         }
-    `, props.fragmentRef
-    )
+    `, fragmentRef);
 
     const [commitDelete, commitDeleteInFlight] = useMutation<GroupAdvancedSettingsDeleteMutation>(
         graphql`
@@ -109,7 +110,7 @@ function GroupAdvancedSettings(props: Props) {
                 }
             }
         }
-    `)
+    `);
 
     const onDeleteConfirmationDialogClosed = (confirm?: boolean) => {
         if (confirm) {
@@ -140,6 +141,17 @@ function GroupAdvancedSettings(props: Props) {
     return (
         <Box>
             <Typography marginBottom={2} variant="h6" gutterBottom>Advanced Settings</Typography>
+            <Box sx={{ mb: 4 }}>
+                <Typography variant="subtitle1" gutterBottom>Migrate Group</Typography>
+                <Typography marginBottom={2} variant="subtitle2">Migrate group to another parent or sibling group</Typography>
+                <Alert sx={{ mb: 2 }} severity="warning">Migrating a group is potentially destructive.</Alert>
+                <Button
+                    variant="outlined"
+                    color="warning"
+                    onClick={() => setShowMigrateGroupDialog(true)}
+                >Migrate Group</Button>
+            </Box>
+            <Typography variant="subtitle1" gutterBottom>Delete Group</Typography>
             <Alert sx={{ mb: 2 }} severity="error">Deleting a group is a permanent action that cannot be undone.</Alert>
             <Box>
                 <Button
@@ -148,6 +160,7 @@ function GroupAdvancedSettings(props: Props) {
                     onClick={() => setShowDeleteConfirmationDialog(true)}
                 >Delete Group</Button>
             </Box>
+            {showMigrateGroupDialog && <MigrateGroupDialog onClose={() => setShowMigrateGroupDialog(false)} fragmentRef={data} />}
             <DeleteConfirmationDialog
                 fragmentRef={data}
                 deleteInProgress={commitDeleteInFlight}
@@ -156,7 +169,7 @@ function GroupAdvancedSettings(props: Props) {
                 open={showDeleteConfirmationDialog}
             />
         </Box>
-    )
+    );
 }
 
 export default GroupAdvancedSettings

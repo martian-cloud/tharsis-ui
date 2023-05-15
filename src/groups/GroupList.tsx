@@ -30,7 +30,7 @@ function GroupsList(props: Props) {
         query GroupListQuery($first: Int, $last: Int, $after: String, $before: String, $fullPath: String!) {
             ...GroupListFragment_groups
         }
-    `, { first: 100, fullPath: groupPath }, {fetchPolicy: 'store-and-network'})
+    `, { first: 100, fullPath: groupPath }, { fetchPolicy: 'store-and-network' });
 
     const { data, loadNext, hasNext } = usePaginationFragment<GroupListPaginationQuery, GroupListFragment_groups$key>(
         graphql`
@@ -53,7 +53,7 @@ function GroupsList(props: Props) {
             }
         }
       }
-    `, queryData)
+    `, queryData);
 
     const edgeCount = (data.groups.edges?.length ?? 0) - 1
 
@@ -70,7 +70,7 @@ function GroupsList(props: Props) {
                 </List>
             </InfiniteScroll>
         </Box>
-    )
+    );
 }
 
 export default GroupsList
