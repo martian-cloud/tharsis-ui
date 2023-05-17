@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d77ccdd5390499a6cc98fff6f0070601>>
+ * @generated SignedSource<<cee25239e74319637152812d02266e41>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,8 +14,9 @@ export type WorkspaceListPaginationQuery$variables = {
   after?: string | null;
   before?: string | null;
   first?: number | null;
-  fullPath?: string | null;
+  groupPath?: string | null;
   last?: number | null;
+  search?: string | null;
 };
 export type WorkspaceListPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"WorkspaceListFragment_workspaces">;
@@ -45,12 +46,17 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "fullPath"
+    "name": "groupPath"
   },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "last"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "search"
   }
 ],
 v1 = [
@@ -72,12 +78,17 @@ v1 = [
   {
     "kind": "Variable",
     "name": "groupPath",
-    "variableName": "fullPath"
+    "variableName": "groupPath"
   },
   {
     "kind": "Variable",
     "name": "last",
     "variableName": "last"
+  },
+  {
+    "kind": "Variable",
+    "name": "search",
+    "variableName": "search"
   },
   {
     "kind": "Literal",
@@ -251,26 +262,27 @@ return {
         "args": (v1/*: any*/),
         "filters": [
           "groupPath",
+          "search",
           "sort"
         ],
         "handle": "connection",
-        "key": "GroupDetails_workspaces",
+        "key": "WorkspaceList_workspaces",
         "kind": "LinkedHandle",
         "name": "workspaces"
       }
     ]
   },
   "params": {
-    "cacheID": "dae9e19416da20f6e84e5d6afb3b7616",
+    "cacheID": "5d57bf6ea0c59f7557f28f39b73036cc",
     "id": null,
     "metadata": {},
     "name": "WorkspaceListPaginationQuery",
     "operationKind": "query",
-    "text": "query WorkspaceListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $fullPath: String\n  $last: Int\n) {\n  ...WorkspaceListFragment_workspaces\n}\n\nfragment WorkspaceListFragment_workspaces on Query {\n  workspaces(after: $after, before: $before, first: $first, last: $last, groupPath: $fullPath, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...WorkspaceListItemFragment_workspace\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment WorkspaceListItemFragment_workspace on Workspace {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n}\n"
+    "text": "query WorkspaceListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $groupPath: String\n  $last: Int\n  $search: String\n) {\n  ...WorkspaceListFragment_workspaces\n}\n\nfragment WorkspaceListFragment_workspaces on Query {\n  workspaces(after: $after, before: $before, first: $first, last: $last, groupPath: $groupPath, search: $search, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...WorkspaceListItemFragment_workspace\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment WorkspaceListItemFragment_workspace on Workspace {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "85c081c278fce6eba6a921ac8a7ab28b";
+(node as any).hash = "74a2768dc27a771958783588ba43ece2";
 
 export default node;

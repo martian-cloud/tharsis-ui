@@ -7,7 +7,7 @@ function ExploreGroupsEntryPoint() {
     const [queryRef, loadQuery] = useQueryLoader<GroupTreeContainerQueryType>(GroupTreeContainerQuery)
 
     useEffect(() => {
-        loadQuery({ first: INITIAL_ITEM_COUNT }, { fetchPolicy: 'store-and-network' })
+        loadQuery({ first: INITIAL_ITEM_COUNT, parentPath: '' }, { fetchPolicy: 'store-and-network' })
     }, [loadQuery])
 
     return queryRef != null ? <GroupTreeContainer queryRef={queryRef} /> : null

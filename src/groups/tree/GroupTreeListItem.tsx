@@ -72,7 +72,7 @@ function GroupTreeListItem(props: Props) {
                                     sx={{ fontWeight: "500" }}
                                     to={`/groups/${data.fullPath}`}
                                 >
-                                    {data.name}
+                                    {nested ? data.name : data.fullPath}
                                 </Link>
                                 <Typography variant="body2" color="textSecondary">{data.description}</Typography>
                             </Box>

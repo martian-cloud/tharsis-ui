@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<51bada264551c99d46bfc4d17696d40b>>
+ * @generated SignedSource<<20cb09218e5b05f089e38a4b0b88fa7a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,8 +14,9 @@ export type GroupListPaginationQuery$variables = {
   after?: string | null;
   before?: string | null;
   first?: number | null;
-  fullPath?: string | null;
   last?: number | null;
+  parentPath?: string | null;
+  search?: string | null;
 };
 export type GroupListPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"GroupListFragment_groups">;
@@ -45,12 +46,17 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "fullPath"
+    "name": "last"
   },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "last"
+    "name": "parentPath"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "search"
   }
 ],
 v1 = [
@@ -77,7 +83,12 @@ v1 = [
   {
     "kind": "Variable",
     "name": "parentPath",
-    "variableName": "fullPath"
+    "variableName": "parentPath"
+  },
+  {
+    "kind": "Variable",
+    "name": "search",
+    "variableName": "search"
   },
   {
     "kind": "Literal",
@@ -282,6 +293,7 @@ return {
         "args": (v1/*: any*/),
         "filters": [
           "parentPath",
+          "search",
           "sort"
         ],
         "handle": "connection",
@@ -292,16 +304,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "953e9e81d47aadcc9796ce410defa6e5",
+    "cacheID": "b9a3d5d20759f90f874d9cf3182e95f9",
     "id": null,
     "metadata": {},
     "name": "GroupListPaginationQuery",
     "operationKind": "query",
-    "text": "query GroupListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $fullPath: String\n  $last: Int\n) {\n  ...GroupListFragment_groups\n}\n\nfragment GroupListFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, parentPath: $fullPath, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...GroupListItemFragment_group\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
+    "text": "query GroupListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $parentPath: String\n  $search: String\n) {\n  ...GroupListFragment_groups\n}\n\nfragment GroupListFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, parentPath: $parentPath, search: $search, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...GroupListItemFragment_group\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d364831eaa5d72704b459fd36d16277d";
+(node as any).hash = "6a070dcc9f07d92465b844b829f78f5a";
 
 export default node;

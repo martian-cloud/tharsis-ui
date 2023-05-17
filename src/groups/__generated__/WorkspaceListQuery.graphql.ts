@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f70ee8f33bd52a8e995cd958605587ab>>
+ * @generated SignedSource<<00f6aa4ad286a86690579b53cc109d02>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,8 +14,9 @@ export type WorkspaceListQuery$variables = {
   after?: string | null;
   before?: string | null;
   first?: number | null;
-  fullPath: string;
+  groupPath?: string | null;
   last?: number | null;
+  search?: string | null;
 };
 export type WorkspaceListQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"WorkspaceListFragment_workspaces">;
@@ -44,14 +45,19 @@ v2 = {
 v3 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "fullPath"
+  "name": "groupPath"
 },
 v4 = {
   "defaultValue": null,
   "kind": "LocalArgument",
   "name": "last"
 },
-v5 = [
+v5 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "search"
+},
+v6 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -70,12 +76,17 @@ v5 = [
   {
     "kind": "Variable",
     "name": "groupPath",
-    "variableName": "fullPath"
+    "variableName": "groupPath"
   },
   {
     "kind": "Variable",
     "name": "last",
     "variableName": "last"
+  },
+  {
+    "kind": "Variable",
+    "name": "search",
+    "variableName": "search"
   },
   {
     "kind": "Literal",
@@ -90,7 +101,8 @@ return {
       (v1/*: any*/),
       (v2/*: any*/),
       (v3/*: any*/),
-      (v4/*: any*/)
+      (v4/*: any*/),
+      (v5/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -112,14 +124,15 @@ return {
       (v4/*: any*/),
       (v0/*: any*/),
       (v1/*: any*/),
-      (v3/*: any*/)
+      (v3/*: any*/),
+      (v5/*: any*/)
     ],
     "kind": "Operation",
     "name": "WorkspaceListQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "concreteType": "WorkspaceConnection",
         "kind": "LinkedField",
         "name": "workspaces",
@@ -258,29 +271,30 @@ return {
       },
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "filters": [
           "groupPath",
+          "search",
           "sort"
         ],
         "handle": "connection",
-        "key": "GroupDetails_workspaces",
+        "key": "WorkspaceList_workspaces",
         "kind": "LinkedHandle",
         "name": "workspaces"
       }
     ]
   },
   "params": {
-    "cacheID": "7369c7e560258135b3efd0c5024402ff",
+    "cacheID": "1796e31caf353ac535a214c389db0867",
     "id": null,
     "metadata": {},
     "name": "WorkspaceListQuery",
     "operationKind": "query",
-    "text": "query WorkspaceListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $fullPath: String!\n) {\n  ...WorkspaceListFragment_workspaces\n}\n\nfragment WorkspaceListFragment_workspaces on Query {\n  workspaces(after: $after, before: $before, first: $first, last: $last, groupPath: $fullPath, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...WorkspaceListItemFragment_workspace\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment WorkspaceListItemFragment_workspace on Workspace {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n}\n"
+    "text": "query WorkspaceListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupPath: String\n  $search: String\n) {\n  ...WorkspaceListFragment_workspaces\n}\n\nfragment WorkspaceListFragment_workspaces on Query {\n  workspaces(after: $after, before: $before, first: $first, last: $last, groupPath: $groupPath, search: $search, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...WorkspaceListItemFragment_workspace\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment WorkspaceListItemFragment_workspace on Workspace {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "681af843a0a75db174249e3110d52a26";
+(node as any).hash = "9605a86a80c75d74ae31a05df4cc761e";
 
 export default node;
