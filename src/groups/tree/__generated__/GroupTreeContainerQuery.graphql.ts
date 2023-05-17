@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e55a3055d42242cbc49e69736d1f1e53>>
+ * @generated SignedSource<<9ea56e5b4b32d01312fcd76d2a04bbcd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,8 @@ export type GroupTreeContainerQuery$variables = {
   before?: string | null;
   first?: number | null;
   last?: number | null;
+  parentPath?: string | null;
+  search?: string | null;
 };
 export type GroupTreeContainerQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"GroupTreeContainerFragment_groups" | "GroupTreeContainerFragment_me">;
@@ -45,7 +47,17 @@ v3 = {
   "kind": "LocalArgument",
   "name": "last"
 },
-v4 = [
+v4 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "parentPath"
+},
+v5 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "search"
+},
+v6 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -67,9 +79,14 @@ v4 = [
     "variableName": "last"
   },
   {
-    "kind": "Literal",
+    "kind": "Variable",
     "name": "parentPath",
-    "value": ""
+    "variableName": "parentPath"
+  },
+  {
+    "kind": "Variable",
+    "name": "search",
+    "variableName": "search"
   },
   {
     "kind": "Literal",
@@ -77,36 +94,36 @@ v4 = [
     "value": "FULL_PATH_ASC"
   }
 ],
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-},
-v7 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 0
-  }
-],
-v8 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "totalCount",
   "storageKey": null
 },
-v9 = [
-  (v8/*: any*/)
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v10 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 0
+  }
+],
+v11 = [
+  (v7/*: any*/)
 ];
 return {
   "fragment": {
@@ -114,7 +131,9 @@ return {
       (v0/*: any*/),
       (v1/*: any*/),
       (v2/*: any*/),
-      (v3/*: any*/)
+      (v3/*: any*/),
+      (v4/*: any*/),
+      (v5/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -140,19 +159,22 @@ return {
       (v2/*: any*/),
       (v3/*: any*/),
       (v0/*: any*/),
-      (v1/*: any*/)
+      (v1/*: any*/),
+      (v5/*: any*/),
+      (v4/*: any*/)
     ],
     "kind": "Operation",
     "name": "GroupTreeContainerQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v4/*: any*/),
+        "args": (v6/*: any*/),
         "concreteType": "GroupConnection",
         "kind": "LinkedField",
         "name": "groups",
         "plural": false,
         "selections": [
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -169,8 +191,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v5/*: any*/),
-                  (v6/*: any*/),
+                  (v8/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -212,22 +234,22 @@ return {
                   },
                   {
                     "alias": null,
-                    "args": (v7/*: any*/),
+                    "args": (v10/*: any*/),
                     "concreteType": "GroupConnection",
                     "kind": "LinkedField",
                     "name": "descendentGroups",
                     "plural": false,
-                    "selections": (v9/*: any*/),
+                    "selections": (v11/*: any*/),
                     "storageKey": "descendentGroups(first:0)"
                   },
                   {
                     "alias": null,
-                    "args": (v7/*: any*/),
+                    "args": (v10/*: any*/),
                     "concreteType": "WorkspaceConnection",
                     "kind": "LinkedField",
                     "name": "workspaces",
                     "plural": false,
-                    "selections": (v9/*: any*/),
+                    "selections": (v11/*: any*/),
                     "storageKey": "workspaces(first:0)"
                   }
                 ],
@@ -243,7 +265,6 @@ return {
             ],
             "storageKey": null
           },
-          (v8/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -288,8 +309,9 @@ return {
       },
       {
         "alias": null,
-        "args": (v4/*: any*/),
+        "args": (v6/*: any*/),
         "filters": [
+          "search",
           "parentPath",
           "sort"
         ],
@@ -306,7 +328,7 @@ return {
         "name": "me",
         "plural": false,
         "selections": [
-          (v6/*: any*/),
+          (v9/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -324,7 +346,7 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
-              (v5/*: any*/)
+              (v8/*: any*/)
             ],
             "type": "Node",
             "abstractKey": "__isNode"
@@ -335,16 +357,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "922f82d11a02e21a48646f93fad13646",
+    "cacheID": "7e3f5a225c845f7268b205de52a05ede",
     "id": null,
     "metadata": {},
     "name": "GroupTreeContainerQuery",
     "operationKind": "query",
-    "text": "query GroupTreeContainerQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n) {\n  ...GroupTreeContainerFragment_groups\n  ...GroupTreeContainerFragment_me\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, parentPath: \"\", sort: FULL_PATH_ASC) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeContainerFragment_me on Query {\n  me {\n    __typename\n    ... on User {\n      admin\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
+    "text": "query GroupTreeContainerQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $search: String\n  $parentPath: String\n) {\n  ...GroupTreeContainerFragment_groups\n  ...GroupTreeContainerFragment_me\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, search: $search, parentPath: $parentPath, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeContainerFragment_me on Query {\n  me {\n    __typename\n    ... on User {\n      admin\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "742c58ce117b10f994f67c2b88edd9ed";
+(node as any).hash = "55fb4dee059dd2ece8ac3273c3947f0b";
 
 export default node;

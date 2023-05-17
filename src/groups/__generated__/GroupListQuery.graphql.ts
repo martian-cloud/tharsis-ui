@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<440d3abc2ba8ef3692d2b07017b8f0fc>>
+ * @generated SignedSource<<c2b7f251a152e7d4ef6d353cd09e6382>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,8 +14,9 @@ export type GroupListQuery$variables = {
   after?: string | null;
   before?: string | null;
   first?: number | null;
-  fullPath: string;
   last?: number | null;
+  parentPath?: string | null;
+  search?: string | null;
 };
 export type GroupListQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"GroupListFragment_groups">;
@@ -44,14 +45,19 @@ v2 = {
 v3 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "fullPath"
+  "name": "last"
 },
 v4 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "last"
+  "name": "parentPath"
 },
-v5 = [
+v5 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "search"
+},
+v6 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -75,7 +81,12 @@ v5 = [
   {
     "kind": "Variable",
     "name": "parentPath",
-    "variableName": "fullPath"
+    "variableName": "parentPath"
+  },
+  {
+    "kind": "Variable",
+    "name": "search",
+    "variableName": "search"
   },
   {
     "kind": "Literal",
@@ -83,22 +94,22 @@ v5 = [
     "value": "FULL_PATH_ASC"
   }
 ],
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "totalCount",
   "storageKey": null
 },
-v7 = [
+v8 = [
   {
     "kind": "Literal",
     "name": "first",
     "value": 0
   }
 ],
-v8 = [
-  (v6/*: any*/)
+v9 = [
+  (v7/*: any*/)
 ];
 return {
   "fragment": {
@@ -107,7 +118,8 @@ return {
       (v1/*: any*/),
       (v2/*: any*/),
       (v3/*: any*/),
-      (v4/*: any*/)
+      (v4/*: any*/),
+      (v5/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -126,23 +138,24 @@ return {
   "operation": {
     "argumentDefinitions": [
       (v2/*: any*/),
-      (v4/*: any*/),
+      (v3/*: any*/),
       (v0/*: any*/),
       (v1/*: any*/),
-      (v3/*: any*/)
+      (v4/*: any*/),
+      (v5/*: any*/)
     ],
     "kind": "Operation",
     "name": "GroupListQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "concreteType": "GroupConnection",
         "kind": "LinkedField",
         "name": "groups",
         "plural": false,
         "selections": [
-          (v6/*: any*/),
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -207,22 +220,22 @@ return {
                   },
                   {
                     "alias": null,
-                    "args": (v7/*: any*/),
+                    "args": (v8/*: any*/),
                     "concreteType": "GroupConnection",
                     "kind": "LinkedField",
                     "name": "descendentGroups",
                     "plural": false,
-                    "selections": (v8/*: any*/),
+                    "selections": (v9/*: any*/),
                     "storageKey": "descendentGroups(first:0)"
                   },
                   {
                     "alias": null,
-                    "args": (v7/*: any*/),
+                    "args": (v8/*: any*/),
                     "concreteType": "WorkspaceConnection",
                     "kind": "LinkedField",
                     "name": "workspaces",
                     "plural": false,
-                    "selections": (v8/*: any*/),
+                    "selections": (v9/*: any*/),
                     "storageKey": "workspaces(first:0)"
                   },
                   {
@@ -289,9 +302,10 @@ return {
       },
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "filters": [
           "parentPath",
+          "search",
           "sort"
         ],
         "handle": "connection",
@@ -302,16 +316,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1e54665f61531081e715449041742465",
+    "cacheID": "ab1090155dc91fea807af2b5dd44cee9",
     "id": null,
     "metadata": {},
     "name": "GroupListQuery",
     "operationKind": "query",
-    "text": "query GroupListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $fullPath: String!\n) {\n  ...GroupListFragment_groups\n}\n\nfragment GroupListFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, parentPath: $fullPath, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...GroupListItemFragment_group\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
+    "text": "query GroupListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $parentPath: String\n  $search: String\n) {\n  ...GroupListFragment_groups\n}\n\nfragment GroupListFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, parentPath: $parentPath, search: $search, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...GroupListItemFragment_group\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5b193a9d5853bc846a6c687f2d77eba8";
+(node as any).hash = "9a0c8a7b05522bd0f0025dc8dcbb647c";
 
 export default node;

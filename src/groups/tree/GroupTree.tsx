@@ -14,11 +14,12 @@ interface Props {
     loadNext: LoadMoreFn<NestedGroupsListPaginationQuery>
     hasNext: boolean
     isLoadingNext: boolean
+    isRefreshing?: boolean
     nested?: boolean
 }
 
 function GroupTree(props: Props) {
-    const { connectionKey, nested, loadNext, hasNext, isLoadingNext } = props;
+    const { connectionKey, nested, loadNext, hasNext, isLoadingNext, isRefreshing } = props;
 
     const data = useFragment<GroupTreeFragment_connection$key>(graphql`
         fragment GroupTreeFragment_connection on GroupConnection {
@@ -30,11 +31,11 @@ function GroupTree(props: Props) {
                 }
             }
         }
-    `, connectionKey)
+    `, connectionKey);
 
     return (
         <Box>
-            <List disablePadding>
+            <List disablePadding sx={isRefreshing ? { opacity: 0.5 } : null}>
                 {data.edges?.map((edge: any, index: number) => <GroupTreeListItem key={edge.node.id} groupKey={edge.node} nested={nested} last={index === (data.totalCount - 1)} />)}
                 {hasNext && <NestableTreeItem nested={nested} last={true}>
                     <Paper
@@ -46,13 +47,12 @@ function GroupTree(props: Props) {
                             {!isLoadingNext && <LoadMoreIcon color="action" />}
                             {isLoadingNext && <CircularProgress size={24} />}
                         </Box>
-                        
                         <Typography color="textSecondary" sx={{ fontWeight: "500" }}>View More</Typography>
                     </Paper>
                 </NestableTreeItem>}
             </List>
         </Box>
-    )
+    );
 }
 
-export default GroupTree
+export default GroupTree;

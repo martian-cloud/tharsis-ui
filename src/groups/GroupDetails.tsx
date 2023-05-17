@@ -18,7 +18,7 @@ import ListSkeleton from '../skeletons/ListSkeleton';
 import EditGroup from './EditGroup';
 import GroupSettings from './settings/GroupSettings'
 import GroupDetailsDrawer from './GroupDetailsDrawer';
-import GroupsList from './GroupList';
+import GroupList from './GroupList';
 import ManagedIdentities from './managedidentity/ManagedIdentities';
 import Runners from './runner/Runners';
 import WorkspaceList from './WorkspaceList';
@@ -282,7 +282,7 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
                     </TabPanel>
                     <TabPanel value="subgroups">
                         {data.descendentGroups.totalCount > 0 && <Suspense fallback={<ListSkeleton rowCount={10} />}>
-                            <GroupsList groupPath={data.fullPath} />
+                            <GroupList groupPath={data.fullPath} />
                         </Suspense>}
                         {data.descendentGroups.totalCount === 0 && <Box padding={4} display="flex" justifyContent="center" alignItems="center">
                             <Typography color="textSecondary">No subgroups in this group</Typography>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<591d9875c8045431e2905af2378df954>>
+ * @generated SignedSource<<b114faca818adfc7769a341edfbe225c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type GroupTreeContainerFragment_groups$data = {
         readonly id: string;
       } | null;
     } | null> | null;
+    readonly totalCount: number;
     readonly " $fragmentSpreads": FragmentRefs<"GroupTreeFragment_connection">;
   };
   readonly " $fragmentType": "GroupTreeContainerFragment_groups";
@@ -47,6 +48,14 @@ return {
     {
       "kind": "RootArgument",
       "name": "last"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "parentPath"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "search"
     }
   ],
   "kind": "Fragment",
@@ -81,9 +90,14 @@ return {
       "alias": "groups",
       "args": [
         {
-          "kind": "Literal",
+          "kind": "Variable",
           "name": "parentPath",
-          "value": ""
+          "variableName": "parentPath"
+        },
+        {
+          "kind": "Variable",
+          "name": "search",
+          "variableName": "search"
         },
         {
           "kind": "Literal",
@@ -96,6 +110,13 @@ return {
       "name": "__GroupTreeContainer_groups_connection",
       "plural": false,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        },
         {
           "alias": null,
           "args": null,
@@ -184,7 +205,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": "__GroupTreeContainer_groups_connection(parentPath:\"\",sort:\"FULL_PATH_ASC\")"
+      "storageKey": null
     }
   ],
   "type": "Query",
@@ -192,6 +213,6 @@ return {
 };
 })();
 
-(node as any).hash = "4ae739807426e31c4536b6030fad445d";
+(node as any).hash = "cab5ead79eb3cb7623c8c8e348c54068";
 
 export default node;

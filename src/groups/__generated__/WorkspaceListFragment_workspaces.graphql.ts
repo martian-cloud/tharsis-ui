@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d3ee2f211e88f211f691540846a716b9>>
+ * @generated SignedSource<<85a078e962cfed793c81c65f652582b3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -47,11 +47,15 @@ return {
     },
     {
       "kind": "RootArgument",
-      "name": "fullPath"
+      "name": "groupPath"
     },
     {
       "kind": "RootArgument",
       "name": "last"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "search"
     }
   ],
   "kind": "Fragment",
@@ -88,7 +92,12 @@ return {
         {
           "kind": "Variable",
           "name": "groupPath",
-          "variableName": "fullPath"
+          "variableName": "groupPath"
+        },
+        {
+          "kind": "Variable",
+          "name": "search",
+          "variableName": "search"
         },
         {
           "kind": "Literal",
@@ -98,7 +107,7 @@ return {
       ],
       "concreteType": "WorkspaceConnection",
       "kind": "LinkedField",
-      "name": "__GroupDetails_workspaces_connection",
+      "name": "__WorkspaceList_workspaces_connection",
       "plural": false,
       "selections": [
         {
@@ -204,6 +213,6 @@ return {
 };
 })();
 
-(node as any).hash = "85c081c278fce6eba6a921ac8a7ab28b";
+(node as any).hash = "74a2768dc27a771958783588ba43ece2";
 
 export default node;
