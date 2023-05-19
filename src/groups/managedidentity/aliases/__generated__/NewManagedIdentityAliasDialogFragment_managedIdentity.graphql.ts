@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<db70ee3a95cd9d1243eef148dbc2c389>>
+ * @generated SignedSource<<b35a131c7f56cd17920a2edbd6fa0999>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NewManagedIdentityAliasDialogFragment_managedIdentity$data = {
+  readonly groupPath: string;
   readonly id: string;
   readonly " $fragmentType": "NewManagedIdentityAliasDialogFragment_managedIdentity";
 };
@@ -31,12 +32,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "id",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "groupPath",
+      "storageKey": null
     }
   ],
   "type": "ManagedIdentity",
   "abstractKey": null
 };
 
-(node as any).hash = "d930ea080dcfdc97ceac402ea68a6c1a";
+(node as any).hash = "bc14350b5bffed5c7e9d4632b9668625";
 
 export default node;

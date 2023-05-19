@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6e777167784b9b9e7336d92c34069a33>>
+ * @generated SignedSource<<8f7fa1c2d15c979fb8b8d5aeac3be75e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -214,7 +214,14 @@ v16 = [
     "name": "last",
     "variableName": "last"
   }
-];
+],
+v17 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "groupPath",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -389,13 +396,7 @@ return {
                       (v8/*: any*/),
                       (v9/*: any*/),
                       (v10/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "groupPath",
-                        "storageKey": null
-                      },
+                      (v17/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -466,19 +467,20 @@ return {
             "key": "ManagedIdentityAliasesList_aliases",
             "kind": "LinkedHandle",
             "name": "aliases"
-          }
+          },
+          (v17/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "6e162d45034f75afb9b72de25fd3f3d6",
+    "cacheID": "3481132755ea64ac558a334c22beb329",
     "id": null,
     "metadata": {},
     "name": "ManagedIdentityDetailsQuery",
     "operationKind": "query",
-    "text": "query ManagedIdentityDetailsQuery(\n  $id: String!\n  $first: Int!\n  $after: String\n  $last: Int\n  $before: String\n) {\n  managedIdentity(id: $id) {\n    id\n    isAlias\n    name\n    description\n    type\n    data\n    accessRules {\n      id\n      runStage\n      allowedUsers {\n        id\n        username\n        email\n      }\n      allowedTeams {\n        id\n        name\n      }\n      allowedServiceAccounts {\n        id\n        name\n        resourcePath\n      }\n    }\n    ...ManagedIdentityAliasesFragment_managedIdentity\n    ...ManagedIdentityRulesFragment_managedIdentity\n  }\n}\n\nfragment ManagedIdentityAliasesFragment_managedIdentity on ManagedIdentity {\n  ...ManagedIdentityAliasesListFragment_managedIdentity\n  ...NewManagedIdentityAliasDialogFragment_managedIdentity\n}\n\nfragment ManagedIdentityAliasesListFragment_managedIdentity on ManagedIdentity {\n  id\n  aliases(first: $first, last: $last, after: $after, before: $before) {\n    edges {\n      node {\n        id\n        ...ManagedIdentityAliasesListItemFragment_managedIdentity\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ManagedIdentityAliasesListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  groupPath\n}\n\nfragment ManagedIdentityRulesFragment_managedIdentity on ManagedIdentity {\n  id\n  isAlias\n  accessRules {\n    id\n    type\n    runStage\n    moduleAttestationPolicies {\n      publicKey\n      predicateType\n    }\n    allowedUsers {\n      id\n      username\n      email\n    }\n    allowedTeams {\n      id\n      name\n    }\n    allowedServiceAccounts {\n      id\n      name\n      resourcePath\n    }\n  }\n}\n\nfragment NewManagedIdentityAliasDialogFragment_managedIdentity on ManagedIdentity {\n  id\n}\n"
+    "text": "query ManagedIdentityDetailsQuery(\n  $id: String!\n  $first: Int!\n  $after: String\n  $last: Int\n  $before: String\n) {\n  managedIdentity(id: $id) {\n    id\n    isAlias\n    name\n    description\n    type\n    data\n    accessRules {\n      id\n      runStage\n      allowedUsers {\n        id\n        username\n        email\n      }\n      allowedTeams {\n        id\n        name\n      }\n      allowedServiceAccounts {\n        id\n        name\n        resourcePath\n      }\n    }\n    ...ManagedIdentityAliasesFragment_managedIdentity\n    ...ManagedIdentityRulesFragment_managedIdentity\n  }\n}\n\nfragment ManagedIdentityAliasesFragment_managedIdentity on ManagedIdentity {\n  ...ManagedIdentityAliasesListFragment_managedIdentity\n  ...NewManagedIdentityAliasDialogFragment_managedIdentity\n}\n\nfragment ManagedIdentityAliasesListFragment_managedIdentity on ManagedIdentity {\n  id\n  aliases(first: $first, last: $last, after: $after, before: $before) {\n    edges {\n      node {\n        id\n        ...ManagedIdentityAliasesListItemFragment_managedIdentity\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ManagedIdentityAliasesListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  groupPath\n}\n\nfragment ManagedIdentityRulesFragment_managedIdentity on ManagedIdentity {\n  id\n  isAlias\n  accessRules {\n    id\n    type\n    runStage\n    moduleAttestationPolicies {\n      publicKey\n      predicateType\n    }\n    allowedUsers {\n      id\n      username\n      email\n    }\n    allowedTeams {\n      id\n      name\n    }\n    allowedServiceAccounts {\n      id\n      name\n      resourcePath\n    }\n  }\n}\n\nfragment NewManagedIdentityAliasDialogFragment_managedIdentity on ManagedIdentity {\n  id\n  groupPath\n}\n"
   }
 };
 })();
