@@ -9,14 +9,14 @@ import ManagedIdentityAliasForm from './ManagedIdentityAliasForm';
 import { NewManagedIdentityAliasDialogFragment_managedIdentity$key } from './__generated__/NewManagedIdentityAliasDialogFragment_managedIdentity.graphql';
 import { NewManagedIdentityAliasDialogMutation } from './__generated__/NewManagedIdentityAliasDialogMutation.graphql';
 
-interface Props {
-    onClose: () => void
-    fragmentRef: NewManagedIdentityAliasDialogFragment_managedIdentity$key
-}
-
 export interface FormData {
     name: string
     groupPath: string
+}
+
+interface Props {
+    onClose: () => void
+    fragmentRef: NewManagedIdentityAliasDialogFragment_managedIdentity$key
 }
 
 function NewManagedIdentityAliasDialog({ onClose, fragmentRef }: Props) {
@@ -31,6 +31,7 @@ function NewManagedIdentityAliasDialog({ onClose, fragmentRef }: Props) {
         fragment NewManagedIdentityAliasDialogFragment_managedIdentity on ManagedIdentity
         {
             id
+            groupPath
         }
     `, fragmentRef);
 
@@ -97,6 +98,7 @@ function NewManagedIdentityAliasDialog({ onClose, fragmentRef }: Props) {
                     data={formData}
                     error={error}
                     onChange={setFormData}
+                    groupPath={managedIdentity.groupPath}
                 />
             </DialogContent>
             <DialogActions>
