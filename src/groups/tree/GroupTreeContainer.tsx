@@ -83,7 +83,9 @@ function GroupTreeContainer(props: Props) {
                 (input?: string) => {
                     setIsRefreshing(true);
 
-                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, search: input?.trim() })
+                    const normalizedInput = input?.trim();
+
+                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, search: normalizedInput })
                         .subscribe({
                             complete: () => {
                                 setIsRefreshing(false);
@@ -94,7 +96,7 @@ function GroupTreeContainer(props: Props) {
                                 // At this point the data for the query should
                                 // be cached, so we use the 'store-only'
                                 // fetchPolicy to avoid suspending.
-                                refetch({ first: INITIAL_ITEM_COUNT, search: input === '' ? null : input?.trim(), parentPath: input === '' ? '' : null }, { fetchPolicy: 'store-only' });
+                                refetch({ first: INITIAL_ITEM_COUNT, search: input === '' ? null : normalizedInput, parentPath: input === '' ? '' : null }, { fetchPolicy: 'store-only' });
                             },
                             error: () => {
                                 setIsRefreshing(false);

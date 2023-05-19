@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Box, List, Typography } from '@mui/material';
 import throttle from 'lodash.throttle';
 import graphql from 'babel-plugin-relay/macro';
@@ -71,7 +71,9 @@ function GroupList(props: Props) {
                 (input?: string) => {
                     setIsRefreshing(true);
 
-                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, parentPath: groupPath, search: input })
+                    const normalizedInput = input?.trim();
+
+                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, parentPath: groupPath, search: normalizedInput })
                         .subscribe({
                             complete: () => {
                                 setIsRefreshing(false);
@@ -82,7 +84,7 @@ function GroupList(props: Props) {
                                 // At this point the data for the query should
                                 // be cached, so we use the 'store-only'
                                 // fetchPolicy to avoid suspending.
-                                refetch({ first: INITIAL_ITEM_COUNT, search: input?.trim() }, { fetchPolicy: 'store-only' });
+                                refetch({ first: INITIAL_ITEM_COUNT, search: normalizedInput }, { fetchPolicy: 'store-only' });
                             },
                             error: () => {
                                 setIsRefreshing(false);
@@ -94,6 +96,12 @@ function GroupList(props: Props) {
             ),
         [environment, refetch, groupPath],
     );
+
+    useEffect(() => {
+        return () => {
+            fetch.cancel()
+        }
+    }, [fetch]);
 
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         fetch(event.target.value.toLowerCase());
