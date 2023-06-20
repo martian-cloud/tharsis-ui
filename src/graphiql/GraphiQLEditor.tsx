@@ -1,13 +1,11 @@
+import { useContext } from 'react';
 import { createGraphiQLFetcher, Fetcher } from '@graphiql/toolkit';
 import { Box, Toolbar } from '@mui/material';
 import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
 import AuthenticationService from '../auth/AuthenticationService';
+import AuthServiceContext from '../auth/AuthServiceContext';
 import cfg from '../common/config';
-
-interface Props {
-    authService: AuthenticationService
-}
 
 const fetcher = (authService: AuthenticationService): Fetcher => createGraphiQLFetcher({
     url: `${cfg.apiUrl}/graphql`,
@@ -21,8 +19,10 @@ const fetcher = (authService: AuthenticationService): Fetcher => createGraphiQLF
     }
 });
 
-function GraphiQLEditor(props: Props) {
-    const f = fetcher(props.authService);
+function GraphiQLEditor() {
+    const authService = useContext<AuthenticationService>(AuthServiceContext)
+
+    const f = fetcher(authService);
 
     return (
         <Box sx={{

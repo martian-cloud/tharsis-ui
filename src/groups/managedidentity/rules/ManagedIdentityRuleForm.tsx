@@ -3,41 +3,14 @@ import { Alert, Avatar, Box, Button, IconButton, List, ListItem, ListItemText, S
 import teal from '@mui/material/colors/teal';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { darken, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { nanoid } from 'nanoid';
 import { Fragment } from 'react';
 import { MutationError } from '../../../common/error';
 import Gravatar from '../../../common/Gravatar';
+import PanelButton from '../../../common/PanelButton';
 import ManagedIdentityRuleModuleAttestationPolicy from './ManagedIdentityRuleModuleAttestationPolicy';
 import PrincipalAutocomplete, { Option, ServiceAccountOption, TeamOption, UserOption } from './PrincipalAutocomplete';
-
-interface RuleTypeButtonProps {
-    selected?: boolean
-    disabled?: boolean
-}
-
-const RuleTypeButton = styled(
-    'div',
-    { shouldForwardProp: (prop) => !['selected', 'disabled'].includes(prop.toString()) }
-)<RuleTypeButtonProps>(({ theme, selected, disabled }) => ({
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: 4,
-    padding: 16,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    maxWidth: 300,
-    ...(selected && {
-        borderColor: theme.palette.primary.main,
-        backgroundColor: darken(theme.palette.primary.main, 0.8)
-    }),
-    ...(!disabled && {
-        cursor: 'pointer',
-        '&:hover': {
-            backgroundColor: darken(theme.palette.primary.main, 0.8)
-        },
-    })
-}));
 
 const StyledAvatar = styled(
     Avatar
@@ -180,7 +153,7 @@ function ManagedIdentityRuleForm(props: Props) {
             <Box marginBottom={2}>
                 <Typography variant="subtitle1" gutterBottom>Rule Type</Typography>
                 <Stack marginTop={2} direction="row" spacing={2}>
-                    <RuleTypeButton
+                    <PanelButton
                         disabled={editMode}
                         selected={rule.type === 'eligible_principals'}
                         onClick={() => onTypeChange('eligible_principals')}
@@ -189,8 +162,8 @@ function ManagedIdentityRuleForm(props: Props) {
                         <Typography variant="caption" align="center">
                             Restricts which users, service accounts, and teams are allowed to use this managed identity
                         </Typography>
-                    </RuleTypeButton>
-                    <RuleTypeButton
+                    </PanelButton>
+                    <PanelButton
                         disabled={editMode}
                         selected={rule.type === 'module_attestation'}
                         onClick={() => onTypeChange('module_attestation')}
@@ -199,7 +172,7 @@ function ManagedIdentityRuleForm(props: Props) {
                         <Typography variant="caption" align="center">
                             Only root modules that have the required attestations can be used with this managed identity
                         </Typography>
-                    </RuleTypeButton>
+                    </PanelButton>
                 </Stack>
             </Box>
             {rule.type && <Box marginBottom={2}>

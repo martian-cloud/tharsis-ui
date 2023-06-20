@@ -1,15 +1,17 @@
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import StateIcon from '@mui/icons-material/InsertDriveFileOutlined';
-import { Avatar, Box, Chip, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { Alert, AlertTitle, Avatar, Box, Dialog, DialogActions, DialogContent, DialogTitle, Button, Chip, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
 import { CubeOutline as ModuleIcon } from 'mdi-material-ui';
 import moment from 'moment';
-import React from 'react';
-import { useFragment } from 'react-relay/hooks';
+import { LoadingButton } from "@mui/lab";
+import React, { useState } from 'react';
+import { useFragment, useMutation } from 'react-relay/hooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
 import Link from '../routes/Link';
+import { MutationError } from '../common/error';
 import RunStatusChip from './runs/RunStatusChip';
 import StateVersionDependencies from './state/StateVersionDependencies';
 import StateVersionInputVariables from './state/StateVersionInputVariables';
@@ -18,17 +20,56 @@ import StateVersionResources from './state/StateVersionResources';
 import WorkspaceDetailsCurrentJob from './WorkspaceDetailsCurrentJob';
 import WorkspaceDetailsEmpty from './WorkspaceDetailsEmpty';
 import WorkspaceDetailsStateFile from './WorkspaceDetailsStateFile';
+import { CreateRunMutation, VCSRunMutation } from './runs/create/CreateRun';
 import { WorkspaceDetailsIndexFragment_workspace$key } from './__generated__/WorkspaceDetailsIndexFragment_workspace.graphql';
+import { CreateRun_VCSRunMutation } from './runs/create/__generated__/CreateRun_VCSRunMutation.graphql';
+import { CreateRun_RunMutation } from './runs/create/__generated__/CreateRun_RunMutation.graphql';
 
 interface Props {
     fragmentRef: WorkspaceDetailsIndexFragment_workspace$key
 }
 
+interface ConfirmationDialogProps {
+    open: boolean
+    onClose: (confirm?: boolean) => void
+    deleteInProgress: boolean | undefined
+}
+
+function DestroyRunConfirmationDialog({ deleteInProgress, onClose, open }: ConfirmationDialogProps) {
+
+    return (
+        <Dialog
+            keepMounted
+            maxWidth="sm"
+            open={open}
+        >
+            <DialogTitle>Destroy Run</DialogTitle>
+            <DialogContent >
+                <Alert sx={{ mb: 2 }} severity="warning">
+                    <AlertTitle>Warning</AlertTitle>
+                    Initiating a destroy run will <strong><ins>permanently</ins></strong> remove all resources for the given project, including infrastructure, data, and any configurations associated with those resources. The created plan will have to be applied manually.
+                </Alert>
+            </DialogContent>
+            <DialogActions>
+                <Button
+                    color="inherit"
+                    onClick={() => onClose()}>Cancel</Button>
+                <LoadingButton
+                    color="error"
+                    variant="outlined"
+                    loading={deleteInProgress}
+                    onClick={() => onClose(true)}>Destroy</LoadingButton>
+            </DialogActions>
+        </Dialog>
+    );
+}
+
 function WorkspaceDetailsIndex(props: Props) {
     const { fragmentRef } = props;
-
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const [showDestroyRunConfirmationDialog, setShowDestroyRunConfirmationDialog] = useState<boolean>(false);
+    const [error, setError] = useState<MutationError>();
 
     const tab = searchParams.get('tab') ?? 'resources';
 
@@ -67,6 +108,9 @@ function WorkspaceDetailsIndex(props: Props) {
                 }
                 configurationVersion {
                     id
+                    vcsEvent {
+                        status
+                    }
                 }
                 plan {
                     status
@@ -87,6 +131,88 @@ function WorkspaceDetailsIndex(props: Props) {
       }
     `, fragmentRef);
 
+    const [commitDestroyVCSRun, destroyVCSRunIsInFlight] = useMutation<CreateRun_VCSRunMutation>(VCSRunMutation)
+
+    const [commitDestroyRun, destroyRunIsInFlight] = useMutation<CreateRun_RunMutation>(CreateRunMutation)
+
+    const onDestroyVCSRun = () => {
+        commitDestroyVCSRun({
+            variables: {
+                input: {
+                    workspacePath: data.fullPath,
+                    isDestroy: true
+                }
+            },
+            onCompleted: data => {
+                if (data.createVCSRun.problems.length) {
+                    setError({
+                        severity: 'warning',
+                        message: data.createVCSRun.problems.map(problem => problem.message).join('; ')
+                    });
+                } else if (!data.createVCSRun) {
+                    setError({
+                        severity: 'error',
+                        message: "Unexpected error occurred"
+                    });
+                } else {
+                    setShowDestroyRunConfirmationDialog(false)
+                }
+            },
+            onError: error => {
+                setError({
+                    severity: 'error',
+                    message: `Unexpected error occurred: ${error.message}`
+                });
+            }
+        })
+    };
+
+    const onDestroyRun = () => {
+        commitDestroyRun({
+            variables: {
+                input: {
+                    workspacePath: data.fullPath,
+                    configurationVersionId: data.currentStateVersion?.run?.configurationVersion?.id,
+                    moduleSource: data.currentStateVersion?.run?.moduleSource,
+                    moduleVersion: data.currentStateVersion?.run?.moduleVersion,
+                    isDestroy: true
+                }
+            },
+            onCompleted: data => {
+                if (data.createRun.problems.length) {
+                    setError({
+                        severity: 'warning',
+                        message: data.createRun.problems.map(problem => problem.message).join('; ')
+                    });
+                } else if (!data.createRun) {
+                    setError({
+                        severity: 'error',
+                        message: "Unexpected error occurred"
+                    });
+                } else {
+                    setShowDestroyRunConfirmationDialog(false)
+                }
+            },
+            onError: error => {
+                setError({
+                    severity: 'error',
+                    message: `Unexpected error occurred: ${error.message}`
+                });
+            }
+        })
+    };
+
+    const onDestroyConfirmationDialogClosed = (confirm?: boolean) => {
+        if (confirm) {
+            if (data.currentStateVersion?.run?.configurationVersion && data.currentStateVersion.run.configurationVersion.vcsEvent) {
+                onDestroyVCSRun()
+            } else {
+                onDestroyRun()
+            }
+        }
+        setShowDestroyRunConfirmationDialog(false)
+    };
+
     const onTabChange = (event: React.SyntheticEvent, newValue: string) => {
         navigate({
             search: `?tab=${newValue}`
@@ -98,7 +224,6 @@ function WorkspaceDetailsIndex(props: Props) {
     return (
         <Box>
             <NamespaceBreadcrumbs namespacePath={data.fullPath} />
-
             <Box display="flex" justifyContent="space-between" marginBottom={4}>
                 <Box display="flex" alignItems="center">
                     <Avatar sx={{ width: 56, height: 56, marginRight: 2, bgcolor: teal[200] }} variant="rounded">{data.name[0].toUpperCase()}</Avatar>
@@ -107,6 +232,14 @@ function WorkspaceDetailsIndex(props: Props) {
                         <Typography color="textSecondary" variant="subtitle2">{data.description}</Typography>
                     </Stack>
                 </Box>
+                {(data.currentStateVersion && data.currentStateVersion.run) && <Button sx={{ mt: 1, mb: 1 }}
+                    size='small'
+                    variant="outlined"
+                    color="error"
+                    onClick={() => setShowDestroyRunConfirmationDialog(true)}
+                >
+                    Destroy Workspace
+                </Button>}
             </Box>
 
             {data.currentJob && <Box marginBottom={2}>
@@ -115,6 +248,9 @@ function WorkspaceDetailsIndex(props: Props) {
 
             {!data.currentStateVersion && <WorkspaceDetailsEmpty fragmentRef={data} />}
 
+            {error && <Alert sx={{ marginTop: 2, mb: 2 }} severity={error.severity}>
+                {error.message}
+            </Alert>}
             {data.currentStateVersion && <Paper sx={{ marginBottom: 2, padding: 2 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Stack direction="row" spacing={2}>
@@ -205,6 +341,11 @@ function WorkspaceDetailsIndex(props: Props) {
                 {tab === 'dependencies' && <StateVersionDependencies fragmentRef={data.currentStateVersion} />}
                 {tab === 'stateFile' && <WorkspaceDetailsStateFile fragmentRef={data.currentStateVersion} />}
             </React.Fragment>}
+            <DestroyRunConfirmationDialog
+                open={showDestroyRunConfirmationDialog}
+                deleteInProgress={destroyVCSRunIsInFlight || destroyRunIsInFlight}
+                onClose={onDestroyConfirmationDialogClosed}
+            />
         </Box>
     );
 }
