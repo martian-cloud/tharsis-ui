@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<85265563aa7170dba0ff798af1786e0c>>
+ * @generated SignedSource<<29d3b1ced865eb70323101d5ab40ced8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -33,6 +33,9 @@ export type WorkspaceDetailsIndexFragment_workspace$data = {
       } | null;
       readonly configurationVersion: {
         readonly id: string;
+        readonly vcsEvent: {
+          readonly status: string;
+        } | null;
       } | null;
       readonly createdBy: string;
       readonly id: string;
@@ -73,17 +76,14 @@ var v0 = {
   "name": "id",
   "storageKey": null
 },
-v1 = [
-  (v0/*: any*/)
-],
-v2 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "createdAt",
   "storageKey": null
 },
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "concreteType": "ResourceMetadata",
@@ -91,11 +91,11 @@ v3 = {
   "name": "metadata",
   "plural": false,
   "selections": [
-    (v2/*: any*/)
+    (v1/*: any*/)
   ],
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -147,7 +147,9 @@ return {
       "kind": "LinkedField",
       "name": "currentJob",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": [
+        (v0/*: any*/)
+      ],
       "storageKey": null
     },
     {
@@ -179,7 +181,7 @@ return {
           "kind": "FragmentSpread",
           "name": "WorkspaceDetailsStateFileFragment_stateVersion"
         },
-        (v3/*: any*/),
+        (v2/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -194,7 +196,7 @@ return {
               "name": "StateVersionInputVariablesFragment_variables"
             },
             (v0/*: any*/),
-            (v4/*: any*/),
+            (v3/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -223,7 +225,7 @@ return {
               "name": "moduleVersion",
               "storageKey": null
             },
-            (v3/*: any*/),
+            (v2/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -231,7 +233,21 @@ return {
               "kind": "LinkedField",
               "name": "configurationVersion",
               "plural": false,
-              "selections": (v1/*: any*/),
+              "selections": [
+                (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "VCSEvent",
+                  "kind": "LinkedField",
+                  "name": "vcsEvent",
+                  "plural": false,
+                  "selections": [
+                    (v3/*: any*/)
+                  ],
+                  "storageKey": null
+                }
+              ],
               "storageKey": null
             },
             {
@@ -242,8 +258,8 @@ return {
               "name": "plan",
               "plural": false,
               "selections": [
-                (v4/*: any*/),
-                (v3/*: any*/)
+                (v3/*: any*/),
+                (v2/*: any*/)
               ],
               "storageKey": null
             },
@@ -255,7 +271,7 @@ return {
               "name": "apply",
               "plural": false,
               "selections": [
-                (v4/*: any*/),
+                (v3/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -271,7 +287,7 @@ return {
                   "name": "metadata",
                   "plural": false,
                   "selections": [
-                    (v2/*: any*/),
+                    (v1/*: any*/),
                     {
                       "alias": null,
                       "args": null,
@@ -297,6 +313,6 @@ return {
 };
 })();
 
-(node as any).hash = "d2931d46f4ef9d1a459a48da666c6eba";
+(node as any).hash = "5201d3de6e96cb9895b3bae10fee9bcb";
 
 export default node;

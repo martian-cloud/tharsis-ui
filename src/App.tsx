@@ -8,7 +8,7 @@ import React, { Suspense } from 'react';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { BrowserRouter } from 'react-router-dom';
 import AuthenticationService from './auth/AuthenticationService';
-import UserContext from './auth/UserContext';
+import AuthServiceContext from './auth/AuthServiceContext';
 import ErrorBoundary from './ErrorBoundary';
 import AppHeader from './nav/AppHeader';
 import AppRoutes from './routes/AppRoutes';
@@ -57,47 +57,47 @@ function App(props: Props) {
     notistackRef.current?.closeSnackbar(key);
   }
 
-  return (
-    <BrowserRouter>
-      <RelayEnvironmentProvider environment={props.environment}>
-        <UserContext.Provider value={props.authService.getCurrentUser()}>
-          <ThemeProvider theme={theme}>
-            <SnackbarProvider
-              ref={notistackRef}
-              action={(key) => (
-                <Button onClick={onClickDismiss(key)} color="inherit">
-                  Dismiss
-                </Button>
-              )}
-            >
-              <CssBaseline />
-              <AppHeader authService={props.authService} />
-              <Box marginTop="65px">
-                <ErrorBoundary>
-                  <Suspense fallback={<Box
-                    sx={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100vh',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <CircularProgress />
-                  </Box>}>
-                    <AppRoutes authService={props.authService} />
-                  </Suspense>
-                </ErrorBoundary>
-              </Box>
-            </SnackbarProvider>
-          </ThemeProvider>
-        </UserContext.Provider>
-      </RelayEnvironmentProvider>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <RelayEnvironmentProvider environment={props.environment}>
+                <AuthServiceContext.Provider value={props.authService}>
+                    <ThemeProvider theme={theme}>
+                        <SnackbarProvider
+                            ref={notistackRef}
+                            action={(key) => (
+                                <Button onClick={onClickDismiss(key)} color="inherit">
+                                    Dismiss
+                                </Button>
+                            )}
+                        >
+                            <CssBaseline />
+                            <AppHeader />
+                            <Box marginTop="65px">
+                                <ErrorBoundary>
+                                    <Suspense fallback={<Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            width: '100%',
+                                            height: '100vh',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}
+                                    >
+                                        <CircularProgress />
+                                    </Box>}>
+                                        <AppRoutes />
+                                    </Suspense>
+                                </ErrorBoundary>
+                            </Box>
+                        </SnackbarProvider>
+                    </ThemeProvider>
+                </AuthServiceContext.Provider>
+            </RelayEnvironmentProvider>
+        </BrowserRouter>
+    );
 }
 
 export default App;

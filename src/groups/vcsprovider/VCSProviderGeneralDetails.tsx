@@ -1,6 +1,6 @@
-import { Box, Divider, FormControlLabel, Stack, styled, Switch, TextField, Typography } from '@mui/material'
+import { Box, Divider, FormControlLabel, Stack, Switch, TextField, Typography } from '@mui/material'
 import React from 'react'
-import { darken } from '@mui/material/styles';
+import PanelButton from '../../common/PanelButton';
 import { FormData } from './VCSProviderForm'
 import VCSProviderTypeChip from './VCSProviderTypeChip';
 
@@ -10,38 +10,10 @@ interface Props {
     onChange: (data: FormData) => void
 }
 
-interface VCSProviderTypeButtonProps {
-    selected?: boolean
-    disabled?: boolean
-}
-
 interface VCSProviderTypesObj {
     name: 'github' | 'gitlab'
     title: string
 }
-
-const VCSProviderTypeButton = styled(
-    'div',
-    { shouldForwardProp: (prop) => !['selected', 'disabled'].includes(prop.toString()) }
-)<VCSProviderTypeButtonProps>(({ theme, selected, disabled }) => ({
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: 4,
-    padding: 16,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    maxWidth: 300,
-    ...(selected && {
-        borderColor: theme.palette.primary.main,
-        backgroundColor: darken(theme.palette.primary.main, 0.8)
-    }),
-    ...(!disabled && {
-        cursor: 'pointer',
-        '&:hover': {
-            backgroundColor: darken(theme.palette.primary.main, 0.8)
-        },
-    })
-}));
 
 const VCSProviderTypes: VCSProviderTypesObj[] = [
     { name: 'github', title: 'GitHub' },
@@ -64,7 +36,7 @@ function VCSProviderGeneralDetails({ editMode, data, onChange }: Props) {
             {!editMode && <Typography sx={{ mb: 2 }} variant="subtitle2" color="textSecondary">Select a VCS Provider type. Tharsis supports the following VCS providers:</Typography>}
             <Divider light />
             <Stack marginTop={2} marginBottom={2} direction="row" spacing={2}>
-                {VCSProviderTypes.map(type => <VCSProviderTypeButton
+                {VCSProviderTypes.map(type => <PanelButton
                     key={type.name}
                     disabled={editMode}
                     selected={data.type === type.name}
@@ -72,7 +44,7 @@ function VCSProviderGeneralDetails({ editMode, data, onChange }: Props) {
                 >
                 <VCSProviderTypeChip type={type.name}/>
                 <Typography variant="subtitle1">{type.title}</Typography>
-                </VCSProviderTypeButton>)}
+                </PanelButton>)}
             </Stack>
             <Typography sx={{ mt: 2 }} variant="subtitle1" gutterBottom>Provider Details</Typography>
             {!editMode && <Typography sx={{ mb: 2 }} variant="subtitle2" color="textSecondary">Choose a unique name as a group can have multiple instances of a VCS provider.</Typography>}

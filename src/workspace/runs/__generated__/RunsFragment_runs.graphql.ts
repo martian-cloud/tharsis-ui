@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1251015aaf968682a776da1f474aa05d>>
+ * @generated SignedSource<<f4dffec26c9194d93fe54b30ee8b1c8e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,8 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunsFragment_runs$data = {
   readonly fullPath: string;
-  readonly id: string;
-  readonly " $fragmentSpreads": FragmentRefs<"RunDetailsFragment_details">;
+  readonly " $fragmentSpreads": FragmentRefs<"CreateRunFragment_workspace" | "RunDetailsFragment_details" | "RunsIndexFragment_runs">;
   readonly " $fragmentType": "RunsFragment_runs";
 };
 export type RunsFragment_runs$key = {
@@ -31,15 +30,18 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "id",
+      "name": "fullPath",
       "storageKey": null
     },
     {
-      "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "fullPath",
-      "storageKey": null
+      "kind": "FragmentSpread",
+      "name": "RunsIndexFragment_runs"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CreateRunFragment_workspace"
     },
     {
       "args": null,
@@ -51,6 +53,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "1dc80ad325cca01792e7b8225bcbd95d";
+(node as any).hash = "96acfe24509b1d1b59d32416597475c1";
 
 export default node;
