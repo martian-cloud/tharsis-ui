@@ -81,6 +81,7 @@ function WorkspaceDetailsIndex(props: Props) {
         name
         description
         fullPath
+        preventDestroyPlan
         ...WorkspaceDetailsEmptyFragment_workspace
         ...WorkspaceDetailsCurrentJobFragment_workspace
         currentJob {
@@ -232,14 +233,27 @@ function WorkspaceDetailsIndex(props: Props) {
                         <Typography color="textSecondary" variant="subtitle2">{data.description}</Typography>
                     </Stack>
                 </Box>
-                {(data.currentStateVersion && data.currentStateVersion.run) && <Button sx={{ mt: 1, mb: 1 }}
-                    size='small'
-                    variant="outlined"
-                    color="error"
-                    onClick={() => setShowDestroyRunConfirmationDialog(true)}
-                >
-                    Destroy Workspace
-                </Button>}
+                {(data.currentStateVersion && data.currentStateVersion.run) && (
+                    <Box>
+                        <Tooltip
+                            title={data.preventDestroyPlan ? "Prevent Destroy Run is enabled for this workspace." : "Create a destroy run, which destroys all resources in this workspace."}
+                            placement="top"
+                        >
+                            <span>
+                                <Button
+                                    sx={{ mt: 1, mb: 1 }}
+                                    size="small"
+                                    variant="outlined"
+                                    color="error"
+                                    disabled={data.preventDestroyPlan}
+                                    onClick={() => setShowDestroyRunConfirmationDialog(true)}
+                                >
+                                    Destroy Workspace
+                                </Button>
+                            </span>
+                        </Tooltip>
+                    </Box>
+                )}
             </Box>
 
             {data.currentJob && <Box marginBottom={2}>
