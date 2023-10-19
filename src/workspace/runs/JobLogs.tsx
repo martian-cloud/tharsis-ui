@@ -44,22 +44,27 @@ function JobLogs(props: Props) {
     const [logs, setLogs] = useState(data.logs);
     const [currentLogSize, setCurrentLogSize] = useState(bytes(data.logs));
     const [actualLogSize, setActualLogSize] = useState(data.logSize);
+    const [lastLogEventSize, setLastLogEventSize] = useState(data.logSize);
     const [loading, setLoading] = useState<boolean>(false);
     const [autoScroll, setAutoScroll] = useState(data.status !== 'finished');
     const environment = useRelayEnvironment();
 
     const config = useMemo<GraphQLSubscriptionConfig<JobLogsSubscription>>(() => ({
-        variables: { input: { jobId: data.id, lastSeenLogSize: actualLogSize } },
+        variables: { input: { jobId: data.id, lastSeenLogSize: data.logSize } },
         subscription,
         onCompleted: () => console.log("Subscription completed"),
         onError: () => console.warn("Subscription error"),
         updater: (store: RecordSourceProxy, payload: JobLogsSubscription$data) => {
-            if (payload.jobLogEvents.size > actualLogSize) {
-                setActualLogSize(payload.jobLogEvents.size)
-            }
+            setLastLogEventSize(payload.jobLogEvents.size);
         }
-    }), [data, actualLogSize]);
+    }), [data.id]);
     useSubscription<JobLogsSubscription>(config);
+
+    useEffect(() => {
+        if (lastLogEventSize > actualLogSize) {
+            setActualLogSize(lastLogEventSize);
+        }
+    }, [lastLogEventSize, actualLogSize]);
 
     useEffect(() => {
         if (loading || currentLogSize >= actualLogSize) {
