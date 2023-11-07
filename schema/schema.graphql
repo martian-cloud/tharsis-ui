@@ -75,7 +75,11 @@ type ActivityEventMigrateGroupPayload {
   previousGroupPath: String!
 }
 
-union ActivityEventPayload = ActivityEventCreateNamespaceMembershipPayload | ActivityEventUpdateNamespaceMembershipPayload | ActivityEventRemoveNamespaceMembershipPayload | ActivityEventDeleteChildResourcePayload | ActivityEventAddTeamMemberPayload | ActivityEventRemoveTeamMemberPayload | ActivityEventUpdateTeamMemberPayload | ActivityEventMigrateGroupPayload
+type ActivityEventMoveManagedIdentityPayload {
+  previousGroupPath: String!
+}
+
+union ActivityEventPayload = ActivityEventCreateNamespaceMembershipPayload | ActivityEventUpdateNamespaceMembershipPayload | ActivityEventRemoveNamespaceMembershipPayload | ActivityEventDeleteChildResourcePayload | ActivityEventAddTeamMemberPayload | ActivityEventRemoveTeamMemberPayload | ActivityEventUpdateTeamMemberPayload | ActivityEventMigrateGroupPayload | ActivityEventMoveManagedIdentityPayload
 
 type ActivityEventRemoveNamespaceMembershipPayload {
   member: Member
@@ -1015,6 +1019,18 @@ type MigrateGroupPayload {
   problems: [Problem!]!
 }
 
+input MoveManagedIdentityInput {
+  clientMutationId: String
+  managedIdentityId: ID!
+  newParentPath: String!
+}
+
+type MoveManagedIdentityPayload {
+  clientMutationId: String
+  managedIdentity: ManagedIdentity
+  problems: [Problem!]!
+}
+
 """The Mutation type represents all of the entry points into the API."""
 type Mutation {
   createWorkspace(input: CreateWorkspaceInput!): CreateWorkspacePayload!
@@ -1029,6 +1045,7 @@ type Mutation {
   deleteManagedIdentity(input: DeleteManagedIdentityInput!): DeleteManagedIdentityPayload!
   assignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
   unassignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
+  moveManagedIdentity(input: MoveManagedIdentityInput!): MoveManagedIdentityPayload!
   createManagedIdentityAccessRule(input: CreateManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
   updateManagedIdentityAccessRule(input: UpdateManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
   deleteManagedIdentityAccessRule(input: DeleteManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
@@ -2264,4 +2281,3 @@ type WorkspaceVCSProviderLink implements Node {
   autoSpeculativePlan: Boolean!
   webhookDisabled: Boolean!
 }
-
