@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d5c0c2795ad71a268dac2497efcbf79d>>
+ * @generated SignedSource<<208b19e7a7b365369f2a3a97cf172764>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,14 @@ import { FragmentRefs } from "relay-runtime";
 export type ActivityEventManagedIdentityTargetFragment_event$data = {
   readonly action: ActivityEventAction;
   readonly namespacePath: string | null;
+  readonly payload: {
+    readonly __typename: "ActivityEventMoveManagedIdentityPayload";
+    readonly previousGroupPath: string;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
+  } | null;
   readonly target: {
     readonly description?: string;
     readonly id?: string;
@@ -95,6 +103,38 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "payload",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "previousGroupPath",
+              "storageKey": null
+            }
+          ],
+          "type": "ActivityEventMoveManagedIdentityPayload",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "ActivityEventListItemFragment_event"
@@ -104,6 +144,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "3ea63d1e238c105f759945bb8fe3e953";
+(node as any).hash = "61fdc0a9eb2f5275f955857377b43ed3";
 
 export default node;

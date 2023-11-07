@@ -24,6 +24,7 @@ import { ManagedIdentityDetailsDeleteMutation } from './__generated__/ManagedIde
 import { ManagedIdentityDetailsDeleteAliasMutation } from './__generated__/ManagedIdentityDetailsDeleteAliasMutation.graphql';
 import { ManagedIdentityDetailsFragment_group$key } from './__generated__/ManagedIdentityDetailsFragment_group.graphql';
 import { ManagedIdentityDetailsQuery } from './__generated__/ManagedIdentityDetailsQuery.graphql';
+import MoveManagedIdentityDialog from './MoveManagedIdentityDialog';
 
 interface Props {
     fragmentRef: ManagedIdentityDetailsFragment_group$key
@@ -100,6 +101,7 @@ function ManagedIdentityDetails(props: Props) {
     const navigate = useNavigate();
     const [menuAnchorEl, setMenuAnchorEl] = useState<Element | null>(null);
     const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = useState<boolean>(false);
+    const [showMoveManagedIdentityDialog, setShowMoveManagedIdentityDialog] = useState<boolean>(false);
 
     const managedIdentityId = id as string;
     const tab = searchParams.get('tab') || 'details';
@@ -122,6 +124,7 @@ function ManagedIdentityDetails(props: Props) {
                 description
                 type
                 data
+                groupPath
                 accessRules {
                     id
                     runStage
@@ -142,6 +145,7 @@ function ManagedIdentityDetails(props: Props) {
                 }
                 ...ManagedIdentityAliasesFragment_managedIdentity
                 ...ManagedIdentityRulesFragment_managedIdentity
+                ...MoveManagedIdentityDialogFragment_managedIdentity
             }
         }
     `, { id: managedIdentityId, first: INITIAL_ITEM_COUNT }, { fetchPolicy: 'store-and-network' });
@@ -250,7 +254,7 @@ function ManagedIdentityDetails(props: Props) {
         actionCallback();
     };
 
-    if (data.managedIdentity && id) {
+    if (data.managedIdentity && id && data.managedIdentity.groupPath === group.fullPath) {
         const payload = JSON.parse(atob(data.managedIdentity.data));
         return (
             <Box>
@@ -298,6 +302,9 @@ function ManagedIdentityDetails(props: Props) {
                                 horizontal: 'right',
                             }}
                         >
+                            <MenuItem onClick={() => onMenuAction(() => setShowMoveManagedIdentityDialog(true))}>
+                                Move Managed Identity
+                            </MenuItem>
                             <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
                                 Delete Managed Identity
                             </MenuItem>
@@ -397,6 +404,7 @@ function ManagedIdentityDetails(props: Props) {
                     open={showDeleteConfirmationDialog}
                     onClose={data.managedIdentity.isAlias ? onDeleteAliasConfirmationDialogClosed : onDeleteConfirmationDialogClosed}
                 />
+                {showMoveManagedIdentityDialog && <MoveManagedIdentityDialog onClose={() => setShowMoveManagedIdentityDialog(false)} fragmentRef={data.managedIdentity} groupId={group.id} />}
             </Box>
         );
     } else {
