@@ -4,7 +4,6 @@ include:
   - template: Jobs/SAST.gitlab-ci.yml
   - template: Jobs/SAST-IaC.gitlab-ci.yml
   - template: Jobs/Secret-Detection.gitlab-ci.yml
-  - template: Code-Quality.gitlab-ci.yml
   - template: Jobs/License-Scanning.gitlab-ci.yml
   - template: DAST.gitlab-ci.yml
 
@@ -232,16 +231,6 @@ kics-iac-sast:
     - !reference [.on_default_branch_and_merge_train, rules]
 
 secret_detection:
-  rules:
-    - !reference [.on_default_branch_and_merge_train, rules]
-
-code_quality:
-  artifacts:
-    paths:
-      - gl-code-quality-report.json
-  tags:
-    - oss
-    - docker
   rules:
     - !reference [.on_default_branch_and_merge_train, rules]
 
