@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<017f87232243c620464c5ce9a04614d0>>
+ * @generated SignedSource<<7e6d564c50fd963a5744ba7225a736b8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type VCSProviderType = "github" | "gitlab" | "%future added value";
 export type CreateVCSProviderInput = {
   autoCreateWebhooks: boolean;

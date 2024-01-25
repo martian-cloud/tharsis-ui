@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d6426d23431a896e2afc0caf61825206>>
+ * @generated SignedSource<<99d239b667de25c5e657d46c5bb35fd4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteGPGKeyInput = {
   clientMutationId?: string | null;
   id: string;

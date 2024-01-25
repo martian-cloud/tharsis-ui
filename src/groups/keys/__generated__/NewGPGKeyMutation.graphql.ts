@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5905d1b35095cdb228f0df56a76c2c46>>
+ * @generated SignedSource<<0674a80debc6f64cd03fdc6b30a72f59>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateGPGKeyInput = {
   asciiArmor: string;
   clientMutationId?: string | null;

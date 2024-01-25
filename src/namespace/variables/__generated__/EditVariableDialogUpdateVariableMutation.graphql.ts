@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<38fcf3f38d054e28818a33e13e4ccad4>>
+ * @generated SignedSource<<3781dca1c85a9ff62dfc06f57c48421c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateNamespaceVariableInput = {
   clientMutationId?: string | null;
   hcl: boolean;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<42c326fa9428cca4bbf3f273233d192d>>
+ * @generated SignedSource<<37ef4e83325e40a1b115fb72d8c61625>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,27 +10,20 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RunnerDetailsQuery$variables = {
+export type AssignedServiceAccountListQuery$variables = {
   after?: string | null;
   first: number;
   id: string;
 };
-export type RunnerDetailsQuery$data = {
+export type AssignedServiceAccountListQuery$data = {
   readonly node: {
-    readonly createdBy?: string;
-    readonly description?: string;
     readonly id?: string;
-    readonly metadata?: {
-      readonly createdAt: any;
-    };
-    readonly name?: string;
-    readonly type?: string;
     readonly " $fragmentSpreads": FragmentRefs<"AssignedServiceAccountListFragment_assignedServiceAccounts">;
   } | null;
 };
-export type RunnerDetailsQuery = {
-  response: RunnerDetailsQuery$data;
-  variables: RunnerDetailsQuery$variables;
+export type AssignedServiceAccountListQuery = {
+  response: AssignedServiceAccountListQuery$data;
+  variables: AssignedServiceAccountListQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -67,56 +60,17 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "__typename",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "type",
+  "name": "resourcePath",
   "storageKey": null
 },
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "description",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "createdBy",
-  "storageKey": null
-},
-v9 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ResourceMetadata",
-  "kind": "LinkedField",
-  "name": "metadata",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "createdAt",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v10 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-},
-v11 = [
+v7 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -137,7 +91,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "RunnerDetailsQuery",
+    "name": "AssignedServiceAccountListQuery",
     "selections": [
       {
         "alias": null,
@@ -151,11 +105,6 @@ return {
             "kind": "InlineFragment",
             "selections": [
               (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -180,7 +129,7 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "RunnerDetailsQuery",
+    "name": "AssignedServiceAccountListQuery",
     "selections": [
       {
         "alias": null,
@@ -190,19 +139,41 @@ return {
         "name": "node",
         "plural": false,
         "selections": [
-          (v10/*: any*/),
+          (v5/*: any*/),
           (v4/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/),
               {
                 "alias": null,
-                "args": (v11/*: any*/),
+                "args": null,
+                "kind": "ScalarField",
+                "name": "type",
+                "storageKey": null
+              },
+              (v6/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Group",
+                "kind": "LinkedField",
+                "name": "group",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "fullPath",
+                    "storageKey": null
+                  },
+                  (v4/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": (v7/*: any*/),
                 "concreteType": "ServiceAccountConnection",
                 "kind": "LinkedField",
                 "name": "assignedServiceAccounts",
@@ -235,6 +206,28 @@ return {
                           {
                             "alias": null,
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "name",
+                            "storageKey": null
+                          },
+                          (v6/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "groupPath",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "description",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
                             "concreteType": "ResourceMetadata",
                             "kind": "LinkedField",
                             "name": "metadata",
@@ -250,36 +243,7 @@ return {
                             ],
                             "storageKey": null
                           },
-                          (v5/*: any*/),
-                          (v7/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "resourcePath",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "Group",
-                            "kind": "LinkedField",
-                            "name": "group",
-                            "plural": false,
-                            "selections": [
-                              (v5/*: any*/),
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "fullPath",
-                                "storageKey": null
-                              },
-                              (v4/*: any*/)
-                            ],
-                            "storageKey": null
-                          },
-                          (v10/*: any*/)
+                          (v5/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -323,7 +287,7 @@ return {
               },
               {
                 "alias": null,
-                "args": (v11/*: any*/),
+                "args": (v7/*: any*/),
                 "filters": null,
                 "handle": "connection",
                 "key": "AssignedServiceAccountList_assignedServiceAccounts",
@@ -340,16 +304,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "818988716af94c8f5e04bd979bf65efd",
+    "cacheID": "065a63b224f7873e00ada00529fe2689",
     "id": null,
     "metadata": {},
-    "name": "RunnerDetailsQuery",
+    "name": "AssignedServiceAccountListQuery",
     "operationKind": "query",
-    "text": "query RunnerDetailsQuery(\n  $id: String!\n  $first: Int!\n  $after: String\n) {\n  node(id: $id) {\n    __typename\n    ... on Runner {\n      id\n      name\n      type\n      description\n      createdBy\n      metadata {\n        createdAt\n      }\n      ...AssignedServiceAccountListFragment_assignedServiceAccounts\n    }\n    id\n  }\n}\n\nfragment AssignedServiceAccountListFragment_assignedServiceAccounts on Runner {\n  assignedServiceAccounts(first: $first, after: $after) {\n    totalCount\n    edges {\n      node {\n        id\n        ...ServiceAccountListItemFragment_serviceAccount\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment ServiceAccountListItemFragment_serviceAccount on ServiceAccount {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "query AssignedServiceAccountListQuery(\n  $id: String!\n  $first: Int!\n  $after: String\n) {\n  node(id: $id) {\n    __typename\n    ... on Runner {\n      id\n      ...AssignedServiceAccountListFragment_assignedServiceAccounts\n    }\n    id\n  }\n}\n\nfragment AssignedServiceAccountListFragment_assignedServiceAccounts on Runner {\n  type\n  resourcePath\n  group {\n    fullPath\n    id\n  }\n  assignedServiceAccounts(first: $first, after: $after) {\n    totalCount\n    edges {\n      node {\n        id\n        ...AssignedServiceAccountListItemFragment_assignedServiceAccount\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment AssignedServiceAccountListItemFragment_assignedServiceAccount on ServiceAccount {\n  id\n  name\n  resourcePath\n  groupPath\n  description\n  metadata {\n    updatedAt\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d0e10b485768f7fdc300ba3ca1cdde0c";
+(node as any).hash = "55a744a7414675228fc2f6a9087b62e9";
 
 export default node;

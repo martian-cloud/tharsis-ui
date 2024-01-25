@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<91de31a85fbbc29df3f0051690bec928>>
+ * @generated SignedSource<<7e8ddf664225b838b0dede9db7d64165>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type ResetVCSProviderOAuthTokenInput = {
   clientMutationId?: string | null;
   providerId: string;

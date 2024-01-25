@@ -178,6 +178,7 @@ type AssignServiceAccountToRunnerPayload {
   clientMutationId: String
   problems: [Problem!]!
   runner: Runner
+  serviceAccount: ServiceAccount
 }
 
 type AuthSettings {
@@ -354,6 +355,7 @@ input CreateRunInput {
 input CreateRunnerInput {
   clientMutationId: String
   description: String!
+  disabled: Boolean
   groupPath: String!
   name: String!
 }
@@ -362,6 +364,29 @@ type CreateRunnerPayload {
   clientMutationId: String
   problems: [Problem!]!
   runner: Runner
+}
+
+input CreateRunnerSessionErrorInput {
+  clientMutationId: String
+  errorMessage: String!
+  runnerSessionId: String!
+}
+
+type CreateRunnerSessionErrorPayload {
+  clientMutationId: String
+  problems: [Problem!]!
+}
+
+input CreateRunnerSessionInput {
+  clientMutationId: String
+  internal: Boolean!
+  runnerPath: String!
+}
+
+type CreateRunnerSessionPayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  runnerSession: RunnerSession
 }
 
 input CreateServiceAccountInput {
@@ -963,18 +988,24 @@ type JobEdge {
   node: Job
 }
 
-type JobLogEvent {
+type JobEvent {
   action: String!
+  job: Job!
+}
+
+type JobLogStreamEvent {
+  completed: Boolean!
   size: Int!
 }
 
-input JobLogSubscriptionInput {
+input JobLogStreamSubscriptionInput {
   jobId: String!
   lastSeenLogSize: Int
 }
 
 enum JobSort {
   CREATED_AT_ASC
+  CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
 }
@@ -984,6 +1015,11 @@ enum JobStatus {
   pending
   queued
   running
+}
+
+input JobSubscriptionInput {
+  runnerId: String
+  workspaceId: String
 }
 
 type JobTimestamps {
@@ -1133,6 +1169,8 @@ type Mutation {
   createRole(input: CreateRoleInput!): CreateRolePayload!
   createRun(input: CreateRunInput!): RunMutationPayload!
   createRunner(input: CreateRunnerInput!): CreateRunnerPayload!
+  createRunnerSession(input: CreateRunnerSessionInput!): CreateRunnerSessionPayload!
+  createRunnerSessionError(input: CreateRunnerSessionErrorInput!): CreateRunnerSessionErrorPayload!
   createSCIMToken: SCIMTokenPayload!
   createServiceAccount(input: CreateServiceAccountInput!): CreateServiceAccountPayload!
   createStateVersion(input: CreateStateVersionInput!): CreateStateVersionPayload!
@@ -1177,6 +1215,7 @@ type Mutation {
   moveManagedIdentity(input: MoveManagedIdentityInput!): MoveManagedIdentityPayload!
   removeUserFromTeam(input: RemoveUserFromTeamInput): RemoveUserFromTeamPayload!
   resetVCSProviderOAuthToken(input: ResetVCSProviderOAuthTokenInput!): ResetVCSProviderOAuthTokenPayload!
+  runnerSessionHeartbeat(input: RunnerSessionHeartbeatInput!): RunnerSessionHeartbeatPayload!
   saveJobLogs(input: SaveJobLogsInput!): SaveJobLogsPayload!
   serviceAccountCreateToken(input: ServiceAccountCreateTokenInput!): ServiceAccountCreateTokenPayload!
   setNamespaceVariables(input: SetNamespaceVariablesInput!): NamespaceVariableMutationPayload!
@@ -1346,6 +1385,7 @@ type Query {
   run(id: String!): Run
   runs(after: String, before: String, first: Int, last: Int, sort: RunSort, workspaceId: String, workspacePath: String): RunConnection!
   serviceAccount(id: String!): ServiceAccount
+  sharedRunners(after: String, before: String, first: Int, last: Int, sort: ServiceAccountSort): RunnerConnection!
   team(name: String!): Team
   teams(after: String, before: String, first: Int, last: Int, search: String, sort: TeamSort): TeamConnection!
   terraformCLIVersions: TerraformCLIVersions
@@ -1519,13 +1559,16 @@ type Runner implements Node {
   assignedServiceAccounts(after: String, before: String, first: Int, last: Int): ServiceAccountConnection!
   createdBy: String!
   description: String!
+  disabled: Boolean!
   group: Group!
   groupPath: String!
   id: ID!
+  jobs(after: String, before: String, first: Int, last: Int, sort: JobSort): JobConnection!
   metadata: ResourceMetadata!
   name: String!
   resourcePath: String!
-  type: String!
+  sessions(after: String, before: String, first: Int, last: Int, sort: RunnerSessionSort): RunnerSessionConnection!
+  type: RunnerType!
 }
 
 type RunnerConnection {
@@ -1539,9 +1582,81 @@ type RunnerEdge {
   node: Runner
 }
 
+type RunnerSession implements Node {
+  active: Boolean!
+  errorCount: Int!
+  errorLog: RunnerSessionErrorLog
+  id: ID!
+  internal: Boolean!
+  lastContacted: Time!
+  metadata: ResourceMetadata!
+  runner: Runner!
+}
+
+type RunnerSessionConnection {
+  edges: [RunnerSessionEdge]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type RunnerSessionEdge {
+  cursor: String!
+  node: RunnerSession
+}
+
+type RunnerSessionErrorLog {
+  data(limit: Int!, startOffset: Int!): String!
+  lastUpdatedAt: Time
+  size: Int!
+}
+
+type RunnerSessionErrorLogEvent {
+  completed: Boolean!
+  size: Int!
+}
+
+input RunnerSessionErrorLogSubscriptionInput {
+  lastSeenLogSize: Int
+  runnerSessionId: String!
+}
+
+type RunnerSessionEvent {
+  action: String!
+  runnerSession: RunnerSession!
+}
+
+input RunnerSessionEventSubscriptionInput {
+  groupId: String
+  runnerId: String
+  runnerType: RunnerType
+}
+
+input RunnerSessionHeartbeatInput {
+  clientMutationId: String
+  runnerSessionId: String!
+}
+
+type RunnerSessionHeartbeatPayload {
+  clientMutationId: String
+  problems: [Problem!]!
+}
+
+enum RunnerSessionSort {
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  LAST_CONTACTED_AT_ASC
+  LAST_CONTACTED_AT_DESC
+}
+
 enum RunnerSort {
   UPDATED_AT_ASC
   UPDATED_AT_DESC
+}
+
+"""The case of the values must match the model."""
+enum RunnerType {
+  group
+  shared
 }
 
 type SCIMTokenPayload {
@@ -1664,7 +1779,10 @@ enum StateVersionSort {
 
 type Subscription {
   jobCancellationEvent(input: JobCancellationEventSubscriptionInput!): JobCancellationEvent!
-  jobLogEvents(input: JobLogSubscriptionInput!): JobLogEvent!
+  jobEvents(input: JobSubscriptionInput!): JobEvent!
+  jobLogStreamEvents(input: JobLogStreamSubscriptionInput!): JobLogStreamEvent!
+  runnerSessionErrorLogEvents(input: RunnerSessionErrorLogSubscriptionInput!): RunnerSessionErrorLogEvent!
+  runnerSessionEvents(input: RunnerSessionEventSubscriptionInput!): RunnerSessionEvent!
   workspaceEvents(input: WorkspaceSubscriptionInput!): WorkspaceEvent!
   workspaceRunEvents(input: RunSubscriptionInput!): RunEvent!
 }
@@ -2120,6 +2238,7 @@ type UpdateRolePayload {
 input UpdateRunnerInput {
   clientMutationId: String
   description: String!
+  disabled: Boolean
   id: ID!
   metadata: ResourceMetadataInput
 }

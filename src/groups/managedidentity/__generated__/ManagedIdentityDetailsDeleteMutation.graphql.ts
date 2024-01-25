@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<35754c4495c340f08b9e4c3d66f89d9e>>
+ * @generated SignedSource<<2e42daf19b3c3a0692b42e520bf361c4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteManagedIdentityInput = {
   clientMutationId?: string | null;
   force?: boolean | null;

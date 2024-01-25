@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<653b0372eb6e2853b6bf89c6c9c3e788>>
+ * @generated SignedSource<<4ba0032643dab0f32ec1a74fc5b8b277>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type VariableCategory = "environment" | "terraform" | "%future added value";
 export type CreateRunInput = {
   clientMutationId?: string | null;
@@ -18,6 +18,8 @@ export type CreateRunInput = {
   isDestroy?: boolean | null;
   moduleSource?: string | null;
   moduleVersion?: string | null;
+  refresh?: boolean | null;
+  targetAddresses?: ReadonlyArray<string> | null;
   terraformVersion?: string | null;
   variables?: ReadonlyArray<RunVariableInput> | null;
   workspacePath: string;

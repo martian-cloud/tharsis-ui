@@ -1,22 +1,42 @@
-import { List, ListItem, ListItemButton, ListItemText, Link } from '@mui/material';
+import { Launch } from '@mui/icons-material';
+import { Link, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import { Launch } from '@mui/icons-material';
+import graphql from 'babel-plugin-relay/macro';
 import React, { useContext, useState } from 'react';
+import { useFragment } from 'react-relay/hooks';
 import { useNavigate } from 'react-router-dom';
 import AuthServiceContext from '../auth/AuthServiceContext';
-import Gravatar from '../common/Gravatar';
 import AuthenticationService from '../auth/AuthenticationService';
+import Gravatar from '../common/Gravatar';
 import config from '../common/config';
+import { AccountMenuFragment$key } from './__generated__/AccountMenuFragment.graphql';
 
-function AccountMenu() {
+interface Props {
+    fragmentRef: AccountMenuFragment$key
+}
+
+function AccountMenu({ fragmentRef }: Props) {
     const navigate = useNavigate();
     const authService = useContext<AuthenticationService>(AuthServiceContext);
     const email = authService.getCurrentUser().email;
     const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
+
+    const data = useFragment<AccountMenuFragment$key>(
+        graphql`
+        fragment AccountMenuFragment on Query
+        {
+            me {
+                ... on User {
+                    username
+                    admin
+                }
+            }
+        }
+        `, fragmentRef);
 
     function onMenuOpen(event: React.MouseEvent<HTMLButtonElement>) {
         setMenuAnchorEl(event.currentTarget);
@@ -30,6 +50,13 @@ function AccountMenu() {
         onMenuClose();
         navigate('graphiql');
     }
+
+    function onShowAdminArea() {
+        onMenuClose();
+        navigate('admin');
+    }
+
+    const isAdmin = data.me?.admin;
 
     return (
         <div>
@@ -50,10 +77,15 @@ function AccountMenu() {
             >
                 <div>
                     <Box padding={2}>
-                        <Typography>{email}</Typography>
+                        <Typography>{data.me?.username}</Typography>
                     </Box>
                     <Divider />
                     <List dense sx={{}}>
+                        {isAdmin && <ListItemButton>
+                            <ListItemText onClick={onShowAdminArea}>
+                                Admin Area
+                            </ListItemText>
+                        </ListItemButton>}
                         <ListItemButton onClick={onShowGraphiql}>
                             <ListItemText primary="GraphQL Editor" />
                         </ListItemButton>

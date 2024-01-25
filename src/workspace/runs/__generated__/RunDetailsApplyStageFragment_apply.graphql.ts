@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a7ed0ab5cb56bd3252cb33ccb848e0ea>>
+ * @generated SignedSource<<9806deff77e2f8052d48a3d3fbbff0a5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,6 +10,7 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type ApplyStatus = "canceled" | "created" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
+export type JobStatus = "finished" | "pending" | "queued" | "running" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type RunStatus = "applied" | "apply_queued" | "applying" | "canceled" | "errored" | "pending" | "plan_queued" | "planned" | "planned_and_finished" | "planning" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
@@ -18,7 +19,7 @@ export type RunDetailsApplyStageFragment_apply$data = {
     readonly currentJob: {
       readonly cancelRequested: boolean;
       readonly id: string;
-      readonly status: string;
+      readonly status: JobStatus;
       readonly timestamps: {
         readonly finishedAt: any | null;
         readonly pendingAt: any | null;

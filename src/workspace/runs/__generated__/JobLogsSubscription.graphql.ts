@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f5232336ff532b74b03591595dee6591>>
+ * @generated SignedSource<<b9173fa5705de53333c723fbb4a8a116>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,16 +9,15 @@
 // @ts-nocheck
 
 import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
-export type JobLogSubscriptionInput = {
+export type JobLogStreamSubscriptionInput = {
   jobId: string;
   lastSeenLogSize?: number | null;
 };
 export type JobLogsSubscription$variables = {
-  input: JobLogSubscriptionInput;
+  input: JobLogStreamSubscriptionInput;
 };
 export type JobLogsSubscription$data = {
-  readonly jobLogEvents: {
-    readonly action: string;
+  readonly jobLogStreamEvents: {
     readonly size: number;
   };
 };
@@ -45,18 +44,11 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "JobLogEvent",
+    "concreteType": "JobLogStreamEvent",
     "kind": "LinkedField",
-    "name": "jobLogEvents",
+    "name": "jobLogStreamEvents",
     "plural": false,
     "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "action",
-        "storageKey": null
-      },
       {
         "alias": null,
         "args": null,
@@ -86,16 +78,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "2a096b6b8b6756437fbb6c5a61dbfb8d",
+    "cacheID": "eb1d30d6cb57a80d14cac615936c9d2d",
     "id": null,
     "metadata": {},
     "name": "JobLogsSubscription",
     "operationKind": "subscription",
-    "text": "subscription JobLogsSubscription(\n  $input: JobLogSubscriptionInput!\n) {\n  jobLogEvents(input: $input) {\n    action\n    size\n  }\n}\n"
+    "text": "subscription JobLogsSubscription(\n  $input: JobLogStreamSubscriptionInput!\n) {\n  jobLogStreamEvents(input: $input) {\n    size\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "819a69e3d4664f32ec3cf8aacce6bb94";
+(node as any).hash = "8dec75d5dcbc78eb86dd059a15ac0582";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f30ac5a42962c628867ead1de7477e1d>>
+ * @generated SignedSource<<334a23d44293c098c07c985f6398c2de>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type VariableCategory = "environment" | "terraform" | "%future added value";
 export type CreateNamespaceVariableInput = {
   category: VariableCategory;

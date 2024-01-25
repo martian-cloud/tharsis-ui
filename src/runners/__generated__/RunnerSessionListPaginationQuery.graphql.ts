@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<41b792df9eedf955125bf9967c9cc4c5>>
+ * @generated SignedSource<<b6245444aeb5f1fc4fa2f3fa1c8cde0e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,19 +10,19 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AssignedServiceAccountListPaginationQuery$variables = {
+export type RunnerSessionListPaginationQuery$variables = {
   after?: string | null;
   first?: number | null;
   id: string;
 };
-export type AssignedServiceAccountListPaginationQuery$data = {
+export type RunnerSessionListPaginationQuery$data = {
   readonly node: {
-    readonly " $fragmentSpreads": FragmentRefs<"AssignedServiceAccountListFragment_assignedServiceAccounts">;
+    readonly " $fragmentSpreads": FragmentRefs<"RunnerSessionListFragment_sessions">;
   } | null;
 };
-export type AssignedServiceAccountListPaginationQuery = {
-  response: AssignedServiceAccountListPaginationQuery$data;
-  variables: AssignedServiceAccountListPaginationQuery$variables;
+export type RunnerSessionListPaginationQuery = {
+  response: RunnerSessionListPaginationQuery$data;
+  variables: RunnerSessionListPaginationQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -74,21 +74,19 @@ v4 = [
     "kind": "Variable",
     "name": "first",
     "variableName": "first"
+  },
+  {
+    "kind": "Literal",
+    "name": "sort",
+    "value": "LAST_CONTACTED_AT_DESC"
   }
-],
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "AssignedServiceAccountListPaginationQuery",
+    "name": "RunnerSessionListPaginationQuery",
     "selections": [
       {
         "alias": null,
@@ -101,7 +99,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "AssignedServiceAccountListFragment_assignedServiceAccounts"
+            "name": "RunnerSessionListFragment_sessions"
           }
         ],
         "storageKey": null
@@ -114,7 +112,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "AssignedServiceAccountListPaginationQuery",
+    "name": "RunnerSessionListPaginationQuery",
     "selections": [
       {
         "alias": null,
@@ -131,10 +129,17 @@ return {
             "selections": [
               {
                 "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "type",
+                "storageKey": null
+              },
+              {
+                "alias": null,
                 "args": (v4/*: any*/),
-                "concreteType": "ServiceAccountConnection",
+                "concreteType": "RunnerSessionConnection",
                 "kind": "LinkedField",
-                "name": "assignedServiceAccounts",
+                "name": "sessions",
                 "plural": false,
                 "selections": [
                   {
@@ -147,7 +152,7 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "ServiceAccountEdge",
+                    "concreteType": "RunnerSessionEdge",
                     "kind": "LinkedField",
                     "name": "edges",
                     "plural": true,
@@ -155,12 +160,40 @@ return {
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "ServiceAccount",
+                        "concreteType": "RunnerSession",
                         "kind": "LinkedField",
                         "name": "node",
                         "plural": false,
                         "selections": [
                           (v3/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "lastContacted",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "active",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "internal",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "errorCount",
+                            "storageKey": null
+                          },
                           {
                             "alias": null,
                             "args": null,
@@ -176,41 +209,6 @@ return {
                                 "name": "updatedAt",
                                 "storageKey": null
                               }
-                            ],
-                            "storageKey": null
-                          },
-                          (v5/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "description",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "resourcePath",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "Group",
-                            "kind": "LinkedField",
-                            "name": "group",
-                            "plural": false,
-                            "selections": [
-                              (v5/*: any*/),
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "fullPath",
-                                "storageKey": null
-                              },
-                              (v3/*: any*/)
                             ],
                             "storageKey": null
                           },
@@ -259,11 +257,13 @@ return {
               {
                 "alias": null,
                 "args": (v4/*: any*/),
-                "filters": null,
+                "filters": [
+                  "sort"
+                ],
                 "handle": "connection",
-                "key": "AssignedServiceAccountList_assignedServiceAccounts",
+                "key": "RunnerSessionList_sessions",
                 "kind": "LinkedHandle",
-                "name": "assignedServiceAccounts"
+                "name": "sessions"
               }
             ],
             "type": "Runner",
@@ -275,16 +275,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cbc987a74b7f33bcd3d0c86b39c9422e",
+    "cacheID": "bede03561ab411f274124c3bcf18e3a9",
     "id": null,
     "metadata": {},
-    "name": "AssignedServiceAccountListPaginationQuery",
+    "name": "RunnerSessionListPaginationQuery",
     "operationKind": "query",
-    "text": "query AssignedServiceAccountListPaginationQuery(\n  $after: String\n  $first: Int\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ...AssignedServiceAccountListFragment_assignedServiceAccounts\n    id\n  }\n}\n\nfragment AssignedServiceAccountListFragment_assignedServiceAccounts on Runner {\n  assignedServiceAccounts(first: $first, after: $after) {\n    totalCount\n    edges {\n      node {\n        id\n        ...ServiceAccountListItemFragment_serviceAccount\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment ServiceAccountListItemFragment_serviceAccount on ServiceAccount {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "query RunnerSessionListPaginationQuery(\n  $after: String\n  $first: Int\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ...RunnerSessionListFragment_sessions\n    id\n  }\n}\n\nfragment RunnerSessionListFragment_sessions on Runner {\n  type\n  sessions(first: $first, after: $after, sort: LAST_CONTACTED_AT_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...RunnerSessionListItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RunnerSessionListItemFragment on RunnerSession {\n  id\n  lastContacted\n  active\n  internal\n  errorCount\n  metadata {\n    updatedAt\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a18c09925b68b6bcec4483d3c8cbd435";
+(node as any).hash = "d8b3141c25c4c3f89e8f76176b4f5cfc";
 
 export default node;

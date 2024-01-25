@@ -10,9 +10,8 @@ import { JobLogsFragment_logs$key } from './__generated__/JobLogsFragment_logs.g
 import { JobLogsQuery } from './__generated__/JobLogsQuery.graphql';
 import { JobLogsSubscription, JobLogsSubscription$data } from './__generated__/JobLogsSubscription.graphql';
 
-const subscription = graphql`subscription JobLogsSubscription($input: JobLogSubscriptionInput!) {
-    jobLogEvents(input: $input) {
-      action
+const subscription = graphql`subscription JobLogsSubscription($input: JobLogStreamSubscriptionInput!) {
+    jobLogStreamEvents(input: $input) {
       size
     }
   }`;
@@ -55,7 +54,7 @@ function JobLogs(props: Props) {
         onCompleted: () => console.log("Subscription completed"),
         onError: () => console.warn("Subscription error"),
         updater: (store: RecordSourceProxy, payload: JobLogsSubscription$data) => {
-            setLastLogEventSize(payload.jobLogEvents.size);
+            setLastLogEventSize(payload.jobLogStreamEvents.size);
         }
     }), [data.id]);
     useSubscription<JobLogsSubscription>(config);

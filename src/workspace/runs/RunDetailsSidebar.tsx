@@ -192,7 +192,9 @@ function RunDetailsSidebar(props: Props) {
         </Box>}
         {(data as any)[stage].currentJob?.runnerPath && <Box marginBottom={3}>
           <Typography sx={{ marginBottom: 1 }}>Runner</Typography>
-          <Chip size="small" label={(data as any)[stage].currentJob.runnerPath} />
+          <Tooltip title={(data as any)[stage].currentJob.runnerPath} >
+            <Chip size="small" label={(data as any)[stage].currentJob.runnerPath} />
+          </Tooltip>
         </Box>}
         <Box marginBottom={3}>
           <Typography sx={{ marginBottom: 1 }}>Stages</Typography>
