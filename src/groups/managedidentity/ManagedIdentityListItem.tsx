@@ -1,16 +1,17 @@
 import { Box, Chip, ListItemButton, ListItemText, Typography, useTheme } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
 import { useFragment } from "react-relay/hooks";
 import { Link as RouterLink } from 'react-router-dom';
+import RelativeTimestamp from '../../common/RelativeTimestamp';
 import ManagedIdentityTypeChip from './ManagedIdentityTypeChip';
 import { ManagedIdentityListItemFragment_managedIdentity$key } from './__generated__/ManagedIdentityListItemFragment_managedIdentity.graphql';
 
 interface Props {
     fragmentRef: ManagedIdentityListItemFragment_managedIdentity$key
+    inherited: boolean
 }
 
-function ManagedIdentityListItem(props: Props) {
+function ManagedIdentityListItem({ fragmentRef, inherited }: Props) {
     const theme = useTheme();
 
     const data = useFragment<ManagedIdentityListItemFragment_managedIdentity$key>(graphql`
@@ -24,18 +25,14 @@ function ManagedIdentityListItem(props: Props) {
             description
             type
             resourcePath
-            group {
-                name
-                fullPath
-            }
+            groupPath
         }
-    `, props.fragmentRef);
+    `, fragmentRef);
 
     return (
         <ListItemButton
-            dense
             component={RouterLink}
-            to={`/groups/${data.group.fullPath}/-/managed_identities/${data.id}`}
+            to={`/groups/${data.groupPath}/-/managed_identities/${data.id}`}
             sx={{
                 borderBottom: `1px solid ${theme.palette.divider}`,
                 borderLeft: `1px solid ${theme.palette.divider}`,
@@ -45,16 +42,20 @@ function ManagedIdentityListItem(props: Props) {
                     borderBottomRightRadius: 4
                 }
             }}>
+            <Box minWidth={70}>
+                <ManagedIdentityTypeChip mr={1} type={data.type} />
+            </Box>
             <ListItemText
-                primary={<Box display="flex" marginBottom={1}>
-                        <Typography sx={{ mr: 1 }}>{data.name}</Typography>
-                    <ManagedIdentityTypeChip mr={1} type={data.type} />
-                    {data.isAlias && <Chip label="alias" color="secondary" size="small" />}
-                    </Box>}
-                secondary={data.description} />
-            <Typography variant="body2" color="textSecondary">
-                {moment(data.metadata.updatedAt as moment.MomentInput).fromNow()}
-            </Typography>
+                primary={<Box>
+                    <Box display="flex">
+                        <Typography fontWeight={500}>{data.name}</Typography>
+                        {data.isAlias && <Chip sx={{ ml: 1 }} label="alias" color="secondary" size="small" />}
+                    </Box>
+                    {data.description && <Typography variant="body2" color="textSecondary">{data.description}</Typography>}
+                    {inherited && <Typography mt={0.5} color="textSecondary" variant="caption">Inherited from group <strong>{data.groupPath}</strong></Typography>}
+                </Box>}
+            />
+            <RelativeTimestamp variant="body2" color="textSecondary" timestamp={data.metadata.updatedAt} />
         </ListItemButton>
     );
 }

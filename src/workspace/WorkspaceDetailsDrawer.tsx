@@ -44,7 +44,7 @@ const LIST_ITEMS = [
   { route: 'runs', label: 'Runs', icon: <RunIcon /> },
   { route: 'variables', label: 'Variables', icon: <VariablesIcon /> },
   { route: 'state_versions', label: 'State Versions', icon: <StateIcon /> },
-  { route: 'managed_identities', label: 'Managed Identities', icon: <ManagedIdentityIcon /> },
+  { route: 'managed_identities', label: 'Assigned Managed Identities', icon: <ManagedIdentityIcon /> },
   { route: 'members', label: 'Members', icon: <MembersIcon /> },
   { route: 'settings', label: 'Settings', icon: <SettingsIcon /> }
 ];

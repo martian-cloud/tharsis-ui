@@ -2,15 +2,15 @@ import DeleteIcon from '@mui/icons-material/CloseOutlined';
 import EditIcon from '@mui/icons-material/EditOutlined';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Avatar, Box, Button, Stack } from '@mui/material';
-import teal from '@mui/material/colors/teal';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useFragment, useMutation } from "react-relay/hooks";
 import Gravatar from '../../common/Gravatar';
+import RelativeTimestamp from '../../common/RelativeTimestamp';
 import Link from '../../routes/Link';
 import RoleAutocomplete from './RoleAutocomplete';
 import { NamespaceMembershipListItemFragment_membership$key } from './__generated__/NamespaceMembershipListItemFragment_membership.graphql';
@@ -131,11 +131,11 @@ function NamespaceMembershipListItem(props: Props) {
                 {data.member?.__typename}
             </TableCell>
             <TableCell>
-                {editMode && <RoleAutocomplete onSelected={role => role && setRole(role.name)}/>}
+                {editMode && <RoleAutocomplete onSelected={role => role && setRole(role.name)} />}
                 {!editMode && <React.Fragment>{data.role.name}</React.Fragment>}
             </TableCell>
             <TableCell>
-                {moment(data.metadata.updatedAt as moment.MomentInput).fromNow()}
+                <RelativeTimestamp timestamp={data.metadata.updatedAt} />
             </TableCell>
             <TableCell>
                 {membershipNamespacePath === namespacePath ? 'Direct Member' : <Link

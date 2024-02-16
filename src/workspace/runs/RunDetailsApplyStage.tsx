@@ -1,24 +1,25 @@
 import { LoadingButton } from '@mui/lab';
 import { Chip, Paper, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
-import { blue, green, red } from '@mui/material/colors';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import { blue, green, red } from '@mui/material/colors';
 import graphql from 'babel-plugin-relay/macro';
 import humanizeDuration from 'humanize-duration';
 import moment from 'moment';
 import React, { useState } from 'react';
 import Lottie from 'react-lottie-player';
 import { useFragment, useMutation } from 'react-relay/hooks';
-import { MutationError } from '../../common/error';
 import Gravatar from '../../common/Gravatar';
+import RelativeTimestamp from '../../common/RelativeTimestamp';
+import { MutationError } from '../../common/error';
 import RocketLottieFileJson from '../../lotties/rocket-in-space-lottie.json';
+import ForceCancelRunAlert from './ForceCancelRunAlert';
 import JobLogs from './JobLogs';
 import RunStageStatusChip from './RunStageStatusChip';
 import RunVariables from './RunVariables';
 import { RunDetailsApplyStageApplyRunMutation } from './__generated__/RunDetailsApplyStageApplyRunMutation.graphql';
 import { RunDetailsApplyStageFragment_apply$key } from './__generated__/RunDetailsApplyStageFragment_apply.graphql';
-import ForceCancelRunAlert from './ForceCancelRunAlert';
 
 interface Props {
     fragmentRef: RunDetailsApplyStageFragment_apply$key
@@ -116,7 +117,7 @@ function RunDetailsApplyStage(props: Props) {
 
     return (
         <Box>
-            {data.apply?.currentJob?.cancelRequested && data.apply?.status !== 'canceled' && <ForceCancelRunAlert fragmentRef={data}/>}
+            {data.apply?.currentJob?.cancelRequested && data.apply?.status !== 'canceled' && <ForceCancelRunAlert fragmentRef={data} />}
             {data.apply && data.apply.status !== 'created' && data.apply.triggeredBy && <Box>
                 {data.apply.status !== 'pending' && <Box
                     sx={{
@@ -129,11 +130,7 @@ function RunDetailsApplyStage(props: Props) {
                     <RunStageStatusChip status={data.apply.status} />
                     <Box display="flex" alignItems="center" marginLeft={2}>
                         <Typography sx={{ paddingRight: '4px' }}>Apply triggered</Typography>
-                        <Tooltip title={data.apply.metadata.createdAt as string}>
-                            <Typography>
-                                {moment(data.apply.metadata.createdAt as moment.MomentInput).fromNow()}
-                            </Typography>
-                        </Tooltip>
+                        <RelativeTimestamp component="span" timestamp={data.apply.metadata.createdAt} />
                         <Typography sx={{ paddingLeft: '4px', paddingRight: '8px' }}>by</Typography>
                         <Gravatar width={20} height={20} email={data.apply.triggeredBy} />
                         <Typography
@@ -209,11 +206,7 @@ function RunDetailsApplyStage(props: Props) {
                         <Typography sx={{ marginBottom: 2 }} variant="h6" align="center">Apply operation is pending and will start shortly</Typography>
                         <Box display="flex" alignItems="center" marginLeft={2}>
                             <Typography sx={{ paddingRight: '4px' }} color="textSecondary">Triggered</Typography>
-                            <Tooltip title={data.apply.metadata.createdAt as string}>
-                                <Typography color="textSecondary">
-                                    {moment(data.apply.metadata.createdAt as moment.MomentInput).fromNow()}
-                                </Typography>
-                            </Tooltip>
+                            <RelativeTimestamp color="textSecondary" component="span" timestamp={data.apply.metadata.createdAt} />
                             <Typography sx={{ paddingLeft: '4px', paddingRight: '8px' }} color="textSecondary">by</Typography>
                             <Tooltip title={data.apply.triggeredBy}>
                                 <Box>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dfb4cdebf55e38eae37ed938f25b6b5d>>
+ * @generated SignedSource<<d5929263b7da371f45fde33d991e34cf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -78,7 +78,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "includeInherited",
-    "value": false
+    "value": true
   },
   {
     "kind": "Variable",
@@ -89,6 +89,11 @@ v1 = [
     "kind": "Variable",
     "name": "search",
     "variableName": "search"
+  },
+  {
+    "kind": "Literal",
+    "name": "sort",
+    "value": "GROUP_LEVEL_DESC"
   }
 ],
 v2 = {
@@ -96,13 +101,6 @@ v2 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
   "storageKey": null
 };
 return {
@@ -176,6 +174,13 @@ return {
                       {
                         "alias": null,
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "groupPath",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
                         "concreteType": "ResourceMetadata",
                         "kind": "LinkedField",
                         "name": "metadata",
@@ -191,7 +196,13 @@ return {
                         ],
                         "storageKey": null
                       },
-                      (v3/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
+                        "storageKey": null
+                      },
                       {
                         "alias": null,
                         "args": null,
@@ -204,26 +215,6 @@ return {
                         "args": null,
                         "kind": "ScalarField",
                         "name": "resourcePath",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "Group",
-                        "kind": "LinkedField",
-                        "name": "group",
-                        "plural": false,
-                        "selections": [
-                          (v3/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "fullPath",
-                            "storageKey": null
-                          },
-                          (v2/*: any*/)
-                        ],
                         "storageKey": null
                       },
                       {
@@ -293,7 +284,8 @@ return {
             "args": (v1/*: any*/),
             "filters": [
               "includeInherited",
-              "search"
+              "search",
+              "sort"
             ],
             "handle": "connection",
             "key": "ServiceAccountList_serviceAccounts",
@@ -307,16 +299,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b365c0fa7c015b1b1808ba418c8acf62",
+    "cacheID": "23b2dbc8ab022c48e819cd7f22644846",
     "id": null,
     "metadata": {},
     "name": "ServiceAccountListPaginationQuery",
     "operationKind": "query",
-    "text": "query ServiceAccountListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $groupPath: String!\n  $last: Int\n  $search: String\n) {\n  ...ServiceAccountListFragment_serviceAccounts\n}\n\nfragment ServiceAccountListFragment_serviceAccounts on Query {\n  group(fullPath: $groupPath) {\n    serviceAccounts(after: $after, before: $before, first: $first, last: $last, includeInherited: false, search: $search) {\n      totalCount\n      edges {\n        node {\n          id\n          ...ServiceAccountListItemFragment_serviceAccount\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ServiceAccountListItemFragment_serviceAccount on ServiceAccount {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "query ServiceAccountListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $groupPath: String!\n  $last: Int\n  $search: String\n) {\n  ...ServiceAccountListFragment_serviceAccounts\n}\n\nfragment ServiceAccountListFragment_serviceAccounts on Query {\n  group(fullPath: $groupPath) {\n    serviceAccounts(after: $after, before: $before, first: $first, last: $last, includeInherited: true, search: $search, sort: GROUP_LEVEL_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          groupPath\n          ...ServiceAccountListItemFragment_serviceAccount\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ServiceAccountListItemFragment_serviceAccount on ServiceAccount {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  resourcePath\n  groupPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c02bbaf17c6ab71644381243c18ad549";
+(node as any).hash = "16e0b15730f2b84496afb48f04a809af";
 
 export default node;

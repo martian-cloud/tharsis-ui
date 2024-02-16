@@ -49,7 +49,7 @@ function VCSProviderList(props: Props) {
         }
     `, props.fragmentRef)
 
-    const queryData = useLazyLoadQuery<VCSProviderListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath })
+    const queryData = useLazyLoadQuery<VCSProviderListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath }, { fetchPolicy: 'store-and-network' })
 
     const { data, loadNext, hasNext, refetch } = usePaginationFragment<VCSProviderListPaginationQuery,VCSProviderListFragment_vcsProviders$key>(
         graphql`
@@ -62,12 +62,14 @@ function VCSProviderList(props: Props) {
                 first: $first
                 last: $last
                 search: $search
-                includeInherited: false
+                includeInherited: true
+                sort: GROUP_LEVEL_DESC
             ) @connection(key: "VCSProviderList_vcsProviders") {
                 totalCount
                 edges {
                     node {
                         id
+                        groupPath
                         ...VCSProviderListItemFragment_vcsProvider
                     }
                 }
@@ -195,6 +197,7 @@ function VCSProviderList(props: Props) {
                         {data.group?.vcsProviders.edges?.map((edge: any) => <VCSProviderListItem
                             key={edge.node.id}
                             fragmentRef={edge.node}
+                            inherited={group.fullPath !== edge.node.groupPath}
                         />)}
                     </List>
                 </InfiniteScroll>

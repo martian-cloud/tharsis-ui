@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<563394fca77dfb507ac810fd0bc0eb59>>
+ * @generated SignedSource<<608d23e047c51120bec80fdb235c4f1d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -79,7 +79,18 @@ return {
   "selections": [
     {
       "alias": "runners",
-      "args": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "includeInherited",
+          "value": true
+        },
+        {
+          "kind": "Literal",
+          "name": "sort",
+          "value": "GROUP_LEVEL_DESC"
+        }
+      ],
       "concreteType": "RunnerConnection",
       "kind": "LinkedField",
       "name": "__GroupRunnersList_runners_connection",
@@ -153,7 +164,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "storageKey": "__GroupRunnersList_runners_connection(includeInherited:true,sort:\"GROUP_LEVEL_DESC\")"
     },
     (v1/*: any*/)
   ],
@@ -162,6 +173,6 @@ return {
 };
 })();
 
-(node as any).hash = "4bad4252891a94c1a9fedd30be103ecc";
+(node as any).hash = "1f66d20a748b286895f404e41a8901c8";
 
 export default node;

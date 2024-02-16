@@ -1,10 +1,9 @@
-import { Box, ListItem, ListItemText, Typography, useTheme, Tooltip, Chip } from '@mui/material';
+import { Box, Chip, ListItem, ListItemText, Tooltip, Typography, useTheme } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
-import React from 'react';
 import { useFragment } from "react-relay/hooks";
 import { Link as RouterLink } from 'react-router-dom';
 import Gravatar from '../common/Gravatar';
+import RelativeTimestamp from '../common/RelativeTimestamp';
 import { TerraformProviderVersionListItemFragment_version$key } from './__generated__/TerraformProviderVersionListItemFragment_version.graphql';
 
 interface Props {
@@ -51,7 +50,7 @@ function TerraformProviderVersionListItem(props: Props) {
                 </Box>} />
             <Box display="flex" alignItems="center">
                 <Typography variant="body2" color="textSecondary" sx={{ marginRight: 1 }}>
-                    {moment(data.metadata.createdAt as moment.MomentInput).fromNow()} by
+                    <RelativeTimestamp component="span" timestamp={data.metadata.createdAt} /> by
                 </Typography>
                 <Tooltip title={data.createdBy}>
                     <Box>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9ea56e5b4b32d01312fcd76d2a04bbcd>>
+ * @generated SignedSource<<09a517948f7edd75d788e4cfee0ea563>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -91,7 +91,7 @@ v6 = [
   {
     "kind": "Literal",
     "name": "sort",
-    "value": "FULL_PATH_ASC"
+    "value": "GROUP_LEVEL_ASC"
   }
 ],
 v7 = {
@@ -357,12 +357,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7e3f5a225c845f7268b205de52a05ede",
+    "cacheID": "45320b6beab96c572f77839bb3a0b21a",
     "id": null,
     "metadata": {},
     "name": "GroupTreeContainerQuery",
     "operationKind": "query",
-    "text": "query GroupTreeContainerQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $search: String\n  $parentPath: String\n) {\n  ...GroupTreeContainerFragment_groups\n  ...GroupTreeContainerFragment_me\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, search: $search, parentPath: $parentPath, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeContainerFragment_me on Query {\n  me {\n    __typename\n    ... on User {\n      admin\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
+    "text": "query GroupTreeContainerQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $search: String\n  $parentPath: String\n) {\n  ...GroupTreeContainerFragment_groups\n  ...GroupTreeContainerFragment_me\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, search: $search, parentPath: $parentPath, sort: GROUP_LEVEL_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeContainerFragment_me on Query {\n  me {\n    __typename\n    ... on User {\n      admin\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
   }
 };
 })();

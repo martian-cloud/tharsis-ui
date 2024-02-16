@@ -210,7 +210,8 @@ function CreateRun({ fragmentRef }: Props) {
                 input: {
                     workspacePath: workspace.fullPath,
                     moduleSource: options.moduleSource,
-                    moduleVersion: options.moduleVersion === '' ? null : options.moduleVersion?.trim()
+                    moduleVersion: options.moduleVersion === '' ? null : options.moduleVersion?.trim(),
+                    speculative: formData.runType === 'plan'
                 }
             },
             onCompleted: data => {
@@ -251,7 +252,7 @@ function CreateRun({ fragmentRef }: Props) {
     }
 
     const enableButton = useMemo(() => (formData.source === 'vcs' && workspace.workspaceVcsProviderLink) ||
-        (formData.source === 'module' && (formData.options as ModuleRunDataOptions).moduleSource !== '') ||
+        (formData.source === 'module' && (formData.options as ModuleRunDataOptions).moduleSource !== '' && formData.runType !== '') ||
         (formData.source === 'configuration_version' && (formData.options as ConfigVersionRunDataOptions).file && formData.runType),
         [formData]);
 

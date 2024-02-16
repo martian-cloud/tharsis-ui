@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<593dafcc218691b67ac657845a93eea9>>
+ * @generated SignedSource<<468e46e908b0cf22b4db9418ee1167fc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type RunnerListFragment_runners$data = {
   readonly edges: ReadonlyArray<{
     readonly node: {
+      readonly groupPath: string;
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"RunnerListItemFragment_runner">;
     } | null;
@@ -54,6 +55,13 @@ const node: ReaderFragment = {
               "storageKey": null
             },
             {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "groupPath",
+              "storageKey": null
+            },
+            {
               "args": null,
               "kind": "FragmentSpread",
               "name": "RunnerListItemFragment_runner"
@@ -69,6 +77,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "0077cc3ac5b986f2285aa34dfeacc20c";
+(node as any).hash = "7a3f5808f50da2b81f272d1f1519abec";
 
 export default node;

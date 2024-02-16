@@ -1,17 +1,18 @@
-import { Box, TableCell, TableRow, Tooltip } from '@mui/material';
-import { useFragment } from 'react-relay/hooks';
+import { Box, TableCell, TableRow, Tooltip, Typography } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
-import Link from '../routes/Link';
+import { useFragment } from 'react-relay/hooks';
 import Gravatar from '../common/Gravatar';
+import RelativeTimestamp from '../common/RelativeTimestamp';
+import Link from '../routes/Link';
 import RunnerChip from './RunnerChip';
 import { RunnerListItemFragment_runner$key } from './__generated__/RunnerListItemFragment_runner.graphql';
 
 interface Props {
     fragmentRef: RunnerListItemFragment_runner$key
+    inherited?: boolean
 }
 
-function RunnerListItem({ fragmentRef }: Props) {
+function RunnerListItem({ fragmentRef, inherited }: Props) {
 
     const data = useFragment<RunnerListItemFragment_runner$key>(graphql`
         fragment RunnerListItemFragment_runner on Runner {
@@ -22,26 +23,32 @@ function RunnerListItem({ fragmentRef }: Props) {
             name
             disabled
             createdBy
+            groupPath
         }
     `, fragmentRef);
 
     return (
         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell>
-                <Link color="inherit" to={data.id}>{data.name}</Link>
+                <Typography fontWeight={500}>
+                    <Link color="inherit" to={`/groups/${data.groupPath}/-/runners/${data.id}`}>{data.name}</Link>
+                </Typography>
+                {inherited && <Typography mt={0.5} color="textSecondary" variant="caption">Inherited from group <strong>{data.groupPath}</strong></Typography>}
             </TableCell>
             <TableCell>
                 <RunnerChip disabled={data.disabled} />
             </TableCell>
             <TableCell>
-                <Tooltip title={data.createdBy}>
-                    <Box display="flex" alignItems="center">
-                        <Gravatar width={24} height={24} email={data.createdBy} />
-                        <Box ml={1}>
-                            {moment(data.metadata.createdAt as moment.MomentInput).fromNow()}
+                <Box display="flex" alignItems="center">
+                    <Tooltip title={data.createdBy}>
+                        <Box>
+                            <Gravatar width={24} height={24} email={data.createdBy} />
                         </Box>
+                    </Tooltip>
+                    <Box ml={1}>
+                        <RelativeTimestamp variant="body2" timestamp={data.metadata.createdAt} />
                     </Box>
-                </Tooltip>
+                </Box>
             </TableCell>
         </TableRow >
     );

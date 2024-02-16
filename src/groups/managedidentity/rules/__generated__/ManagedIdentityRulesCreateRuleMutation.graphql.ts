@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ccdecb09f597aba807cc95a9f2134a50>>
+ * @generated SignedSource<<676e674046c68ae66a4deb283add5292>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,7 @@ export type CreateManagedIdentityAccessRuleInput = {
   moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null;
   runStage: JobType;
   type: ManagedIdentityAccessRuleType;
+  verifyStateLineage?: boolean | null;
 };
 export type ManagedIdentityAccessRuleModuleAttestationPolicyInput = {
   predicateType?: string | null;

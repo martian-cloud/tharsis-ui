@@ -49,7 +49,7 @@ function ManagedIdentityList(props: Props) {
         }
     `, props.fragmentRef)
 
-    const queryData = useLazyLoadQuery<ManagedIdentityListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath })
+    const queryData = useLazyLoadQuery<ManagedIdentityListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath }, {fetchPolicy: 'store-and-network'})
 
     const { data, loadNext, hasNext, refetch } = usePaginationFragment<ManagedIdentityListPaginationQuery, ManagedIdentityListFragment_managedIdentities$key>(
         graphql`
@@ -62,12 +62,14 @@ function ManagedIdentityList(props: Props) {
                 first: $first
                 last: $last
                 search: $search
-                sort: UPDATED_AT_DESC
+                includeInherited: true
+                sort: GROUP_LEVEL_DESC
             ) @connection(key: "ManagedIdentityList_managedIdentities") {
                 totalCount
                 edges {
                     node {
                         id
+                        groupPath
                         ...ManagedIdentityListItemFragment_managedIdentity
                     }
                 }
@@ -194,6 +196,7 @@ function ManagedIdentityList(props: Props) {
                         {data.group?.managedIdentities.edges?.map((edge: any) => <ManagedIdentityListItem
                             key={edge.node.id}
                             fragmentRef={edge.node}
+                            inherited={edge.node.groupPath !== group.fullPath}
                         />)}
                     </List>
                 </InfiniteScroll>

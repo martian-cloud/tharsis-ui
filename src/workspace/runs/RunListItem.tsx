@@ -1,14 +1,13 @@
 import Chip from '@mui/material/Chip';
-import red from '@mui/material/colors/red';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Tooltip from '@mui/material/Tooltip';
+import red from '@mui/material/colors/red';
 import Box from '@mui/system/Box';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
-import React from 'react';
 import { useFragment } from "react-relay/hooks";
 import Gravatar from '../../common/Gravatar';
+import RelativeTimestamp from '../../common/RelativeTimestamp';
 import Link from '../../routes/Link';
 import RunStageIcons from './RunStageIcons';
 import RunStatusChip from './RunStatusChip';
@@ -59,14 +58,14 @@ function RunListItem(props: Props) {
                 {!data.apply && <Chip size="small" label="Speculative" />}
             </TableCell>
             <TableCell>
-                <Tooltip title={data.createdBy}>
-                    <Box display="flex" alignItems="center">
-                        <Gravatar width={24} height={24} email={data.createdBy} />
-                        <Box marginLeft={1}>
-                            {moment(data.metadata.createdAt as moment.MomentInput).fromNow()}
+                <Box display="flex" alignItems="center">
+                    <Tooltip title={data.createdBy}>
+                        <Box>
+                            <Gravatar width={24} height={24} email={data.createdBy} />
                         </Box>
-                    </Box>
-                </Tooltip>
+                    </Tooltip>
+                    <RelativeTimestamp ml={1} timestamp={data.metadata.createdAt} />
+                </Box>
             </TableCell>
             <TableCell>
                 <RunStageIcons planStatus={data.plan.status} applyStatus={data.apply?.status} runPath={runPath} />

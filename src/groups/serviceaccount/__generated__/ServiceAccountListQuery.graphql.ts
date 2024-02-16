@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d01751bf88d454eddecb6556937766a4>>
+ * @generated SignedSource<<cc5fa4674be7d405ce57226dbd20e09a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -76,7 +76,7 @@ v6 = [
   {
     "kind": "Literal",
     "name": "includeInherited",
-    "value": false
+    "value": true
   },
   {
     "kind": "Variable",
@@ -87,6 +87,11 @@ v6 = [
     "kind": "Variable",
     "name": "search",
     "variableName": "search"
+  },
+  {
+    "kind": "Literal",
+    "name": "sort",
+    "value": "GROUP_LEVEL_DESC"
   }
 ],
 v7 = {
@@ -94,13 +99,6 @@ v7 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
   "storageKey": null
 };
 return {
@@ -188,6 +186,13 @@ return {
                       {
                         "alias": null,
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "groupPath",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
                         "concreteType": "ResourceMetadata",
                         "kind": "LinkedField",
                         "name": "metadata",
@@ -203,7 +208,13 @@ return {
                         ],
                         "storageKey": null
                       },
-                      (v8/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
+                        "storageKey": null
+                      },
                       {
                         "alias": null,
                         "args": null,
@@ -216,26 +227,6 @@ return {
                         "args": null,
                         "kind": "ScalarField",
                         "name": "resourcePath",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "Group",
-                        "kind": "LinkedField",
-                        "name": "group",
-                        "plural": false,
-                        "selections": [
-                          (v8/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "fullPath",
-                            "storageKey": null
-                          },
-                          (v7/*: any*/)
-                        ],
                         "storageKey": null
                       },
                       {
@@ -305,7 +296,8 @@ return {
             "args": (v6/*: any*/),
             "filters": [
               "includeInherited",
-              "search"
+              "search",
+              "sort"
             ],
             "handle": "connection",
             "key": "ServiceAccountList_serviceAccounts",
@@ -319,12 +311,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a6a34add78ed07fc6da5fc665c96dddb",
+    "cacheID": "8f0c5f09314be6a015d001f20486a230",
     "id": null,
     "metadata": {},
     "name": "ServiceAccountListQuery",
     "operationKind": "query",
-    "text": "query ServiceAccountListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupPath: String!\n  $search: String\n) {\n  ...ServiceAccountListFragment_serviceAccounts\n}\n\nfragment ServiceAccountListFragment_serviceAccounts on Query {\n  group(fullPath: $groupPath) {\n    serviceAccounts(after: $after, before: $before, first: $first, last: $last, includeInherited: false, search: $search) {\n      totalCount\n      edges {\n        node {\n          id\n          ...ServiceAccountListItemFragment_serviceAccount\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ServiceAccountListItemFragment_serviceAccount on ServiceAccount {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "query ServiceAccountListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupPath: String!\n  $search: String\n) {\n  ...ServiceAccountListFragment_serviceAccounts\n}\n\nfragment ServiceAccountListFragment_serviceAccounts on Query {\n  group(fullPath: $groupPath) {\n    serviceAccounts(after: $after, before: $before, first: $first, last: $last, includeInherited: true, search: $search, sort: GROUP_LEVEL_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          groupPath\n          ...ServiceAccountListItemFragment_serviceAccount\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ServiceAccountListItemFragment_serviceAccount on ServiceAccount {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  resourcePath\n  groupPath\n}\n"
   }
 };
 })();

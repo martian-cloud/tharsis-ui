@@ -4,10 +4,10 @@ import ListItem from '@mui/material/ListItem';
 import { useTheme } from '@mui/material/styles';
 import graphql from 'babel-plugin-relay/macro';
 import { Terraform as TerraformIcon } from 'mdi-material-ui';
-import moment from 'moment';
 import { useFragment } from "react-relay/hooks";
 import { Link as LinkRouter } from 'react-router-dom';
 import Gravatar from '../common/Gravatar';
+import RelativeTimestamp from '../common/RelativeTimestamp';
 import { TerraformModuleSearchListItemFragment_module$key } from './__generated__/TerraformModuleSearchListItemFragment_module.graphql';
 
 interface Props {
@@ -66,7 +66,7 @@ function TerraformModuleSearchListItem(props: Props) {
                     <Box>
                         {data.latestVersion && <Box display="flex" alignItems="center">
                             <Typography variant="body2" color="textSecondary">
-                                {data.latestVersion.version} published {moment(data.latestVersion.metadata.createdAt as moment.MomentInput).fromNow()} by
+                                {data.latestVersion.version} published <RelativeTimestamp component="span" timestamp={data.latestVersion.metadata.createdAt}/> by
                             </Typography>
                             <Tooltip title={data.latestVersion.createdBy}>
                                 <Box>

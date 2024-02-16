@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<30bb395bd45103f6e2b4cadf2c33b12a>>
+ * @generated SignedSource<<1c1039fca4a13d6aa37c398d888ad5d3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type GroupRunnersListQuery$variables = {
 };
 export type GroupRunnersListQuery$data = {
   readonly node: {
+    readonly fullPath?: string;
     readonly " $fragmentSpreads": FragmentRefs<"GroupRunnersListFragment_runners">;
   } | null;
 };
@@ -52,17 +53,24 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "fullPath",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v6 = [
+v7 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -72,6 +80,16 @@ v6 = [
     "kind": "Variable",
     "name": "first",
     "variableName": "first"
+  },
+  {
+    "kind": "Literal",
+    "name": "includeInherited",
+    "value": true
+  },
+  {
+    "kind": "Literal",
+    "name": "sort",
+    "value": "GROUP_LEVEL_DESC"
   }
 ];
 return {
@@ -100,7 +118,8 @@ return {
                 "args": null,
                 "kind": "FragmentSpread",
                 "name": "GroupRunnersListFragment_runners"
-              }
+              },
+              (v4/*: any*/)
             ],
             "type": "Group",
             "abstractKey": null
@@ -130,14 +149,14 @@ return {
         "name": "node",
         "plural": false,
         "selections": [
-          (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
               {
                 "alias": null,
-                "args": (v6/*: any*/),
+                "args": (v7/*: any*/),
                 "concreteType": "RunnerConnection",
                 "kind": "LinkedField",
                 "name": "runners",
@@ -159,8 +178,15 @@ return {
                         "name": "node",
                         "plural": false,
                         "selections": [
+                          (v6/*: any*/),
                           (v5/*: any*/),
-                          (v4/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "groupPath",
+                            "storageKey": null
+                          },
                           {
                             "alias": null,
                             "args": null,
@@ -243,13 +269,17 @@ return {
               },
               {
                 "alias": null,
-                "args": (v6/*: any*/),
-                "filters": null,
+                "args": (v7/*: any*/),
+                "filters": [
+                  "includeInherited",
+                  "sort"
+                ],
                 "handle": "connection",
                 "key": "GroupRunnersList_runners",
                 "kind": "LinkedHandle",
                 "name": "runners"
-              }
+              },
+              (v4/*: any*/)
             ],
             "type": "Group",
             "abstractKey": null
@@ -260,16 +290,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9ccf7667d8f73c74bf90afb945e90fb1",
+    "cacheID": "d011ee035a734a893c503dd007acc112",
     "id": null,
     "metadata": {},
     "name": "GroupRunnersListQuery",
     "operationKind": "query",
-    "text": "query GroupRunnersListQuery(\n  $id: String!\n  $first: Int!\n  $after: String\n) {\n  node(id: $id) {\n    __typename\n    ... on Group {\n      ...GroupRunnersListFragment_runners\n    }\n    id\n  }\n}\n\nfragment GroupRunnersListFragment_runners on Group {\n  runners(after: $after, first: $first) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...RunnerListFragment_runners\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RunnerListFragment_runners on RunnerConnection {\n  edges {\n    node {\n      id\n      ...RunnerListItemFragment_runner\n    }\n  }\n}\n\nfragment RunnerListItemFragment_runner on Runner {\n  metadata {\n    createdAt\n  }\n  id\n  name\n  disabled\n  createdBy\n}\n"
+    "text": "query GroupRunnersListQuery(\n  $id: String!\n  $first: Int!\n  $after: String\n) {\n  node(id: $id) {\n    __typename\n    ... on Group {\n      ...GroupRunnersListFragment_runners\n      fullPath\n    }\n    id\n  }\n}\n\nfragment GroupRunnersListFragment_runners on Group {\n  runners(after: $after, first: $first, includeInherited: true, sort: GROUP_LEVEL_DESC) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...RunnerListFragment_runners\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RunnerListFragment_runners on RunnerConnection {\n  edges {\n    node {\n      id\n      groupPath\n      ...RunnerListItemFragment_runner\n    }\n  }\n}\n\nfragment RunnerListItemFragment_runner on Runner {\n  metadata {\n    createdAt\n  }\n  id\n  name\n  disabled\n  createdBy\n  groupPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "921d51583e2811cbd9b014057cb6a186";
+(node as any).hash = "f51bb3b4a30e8eecc48a42d495f74549";
 
 export default node;

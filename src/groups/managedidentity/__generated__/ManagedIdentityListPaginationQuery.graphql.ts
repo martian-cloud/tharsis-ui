@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<138f31cf56e255f27aca4d791a321c07>>
+ * @generated SignedSource<<d38c1e5dfd56b1b06ee313447f4e1afb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -76,6 +76,11 @@ v1 = [
     "variableName": "first"
   },
   {
+    "kind": "Literal",
+    "name": "includeInherited",
+    "value": true
+  },
+  {
     "kind": "Variable",
     "name": "last",
     "variableName": "last"
@@ -88,7 +93,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "sort",
-    "value": "UPDATED_AT_DESC"
+    "value": "GROUP_LEVEL_DESC"
   }
 ],
 v2 = {
@@ -96,13 +101,6 @@ v2 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
   "storageKey": null
 };
 return {
@@ -176,6 +174,13 @@ return {
                       {
                         "alias": null,
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "groupPath",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
                         "concreteType": "ResourceMetadata",
                         "kind": "LinkedField",
                         "name": "metadata",
@@ -198,7 +203,13 @@ return {
                         "name": "isAlias",
                         "storageKey": null
                       },
-                      (v3/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
+                        "storageKey": null
+                      },
                       {
                         "alias": null,
                         "args": null,
@@ -218,26 +229,6 @@ return {
                         "args": null,
                         "kind": "ScalarField",
                         "name": "resourcePath",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "Group",
-                        "kind": "LinkedField",
-                        "name": "group",
-                        "plural": false,
-                        "selections": [
-                          (v3/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "fullPath",
-                            "storageKey": null
-                          },
-                          (v2/*: any*/)
-                        ],
                         "storageKey": null
                       },
                       {
@@ -307,6 +298,7 @@ return {
             "args": (v1/*: any*/),
             "filters": [
               "search",
+              "includeInherited",
               "sort"
             ],
             "handle": "connection",
@@ -321,16 +313,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "950ce7173539891f632c5ff409f0340d",
+    "cacheID": "d333ba5e7d1bd2b38b827fd69b6b7309",
     "id": null,
     "metadata": {},
     "name": "ManagedIdentityListPaginationQuery",
     "operationKind": "query",
-    "text": "query ManagedIdentityListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $groupPath: String!\n  $last: Int\n  $search: String\n) {\n  ...ManagedIdentityListFragment_managedIdentities\n}\n\nfragment ManagedIdentityListFragment_managedIdentities on Query {\n  group(fullPath: $groupPath) {\n    managedIdentities(after: $after, before: $before, first: $first, last: $last, search: $search, sort: UPDATED_AT_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          ...ManagedIdentityListItemFragment_managedIdentity\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  isAlias\n  name\n  description\n  type\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "query ManagedIdentityListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $groupPath: String!\n  $last: Int\n  $search: String\n) {\n  ...ManagedIdentityListFragment_managedIdentities\n}\n\nfragment ManagedIdentityListFragment_managedIdentities on Query {\n  group(fullPath: $groupPath) {\n    managedIdentities(after: $after, before: $before, first: $first, last: $last, search: $search, includeInherited: true, sort: GROUP_LEVEL_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          groupPath\n          ...ManagedIdentityListItemFragment_managedIdentity\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  isAlias\n  name\n  description\n  type\n  resourcePath\n  groupPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4d9fb086098b7c15168f3c51da3c2057";
+(node as any).hash = "35f31e2d7e3e2f9b4d900a378ce26446";
 
 export default node;

@@ -264,6 +264,7 @@ input CreateManagedIdentityAccessRuleInput {
   moduleAttestationPolicies: [ManagedIdentityAccessRuleModuleAttestationPolicyInput!]
   runStage: JobType!
   type: ManagedIdentityAccessRuleType!
+  verifyStateLineage: Boolean
 }
 
 input CreateManagedIdentityAliasInput {
@@ -346,6 +347,7 @@ input CreateRunInput {
   moduleSource: String
   moduleVersion: String
   refresh: Boolean
+  speculative: Boolean
   targetAddresses: [String!]
   terraformVersion: String
   variables: [RunVariableInput!]
@@ -379,7 +381,6 @@ type CreateRunnerSessionErrorPayload {
 
 input CreateRunnerSessionInput {
   clientMutationId: String
-  internal: Boolean!
   runnerPath: String!
 }
 
@@ -896,6 +897,8 @@ type GPGKeyEdge {
 }
 
 enum GPGKeySort {
+  GROUP_LEVEL_ASC
+  GROUP_LEVEL_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
 }
@@ -906,15 +909,15 @@ type Group implements Namespace & Node {
   descendentGroups(after: String, before: String, first: Int, last: Int, sort: GroupSort): GroupConnection!
   description: String!
   fullPath: String!
-  gpgKeys(after: String, before: String, first: Int, includeInherited: Boolean, last: Int): GPGKeyConnection!
+  gpgKeys(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, sort: GPGKeySort): GPGKeyConnection!
   id: ID!
   managedIdentities(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, search: String, sort: ManagedIdentitySort): ManagedIdentityConnection!
   memberships: [NamespaceMembership!]!
   metadata: ResourceMetadata!
   name: String!
   parent: Group
-  runners(after: String, before: String, first: Int, includeInherited: Boolean, last: Int): RunnerConnection!
-  serviceAccounts(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, search: String): ServiceAccountConnection!
+  runners(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, sort: RunnerSort): RunnerConnection!
+  serviceAccounts(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, search: String, sort: ServiceAccountSort): ServiceAccountConnection!
   terraformProviderMirrors(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, sort: TerraformProviderVersionMirrorSort): TerraformProviderVersionMirrorConnection!
   terraformProviders(after: String, before: String, first: Int, last: Int, search: String): TerraformProviderConnection!
   variables: [NamespaceVariable!]!
@@ -936,6 +939,8 @@ type GroupEdge {
 enum GroupSort {
   FULL_PATH_ASC
   FULL_PATH_DESC
+  GROUP_LEVEL_ASC
+  GROUP_LEVEL_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
 }
@@ -1069,6 +1074,7 @@ type ManagedIdentityAccessRule implements Node {
   moduleAttestationPolicies: [ManagedIdentityAccessRuleModuleAttestationPolicy!]
   runStage: JobType!
   type: ManagedIdentityAccessRuleType!
+  verifyStateLineage: Boolean!
 }
 
 input ManagedIdentityAccessRuleInput {
@@ -1078,6 +1084,7 @@ input ManagedIdentityAccessRuleInput {
   moduleAttestationPolicies: [ManagedIdentityAccessRuleModuleAttestationPolicyInput!]
   runStage: JobType!
   type: ManagedIdentityAccessRuleType!
+  verifyStateLineage: Boolean
 }
 
 type ManagedIdentityAccessRuleModuleAttestationPolicy {
@@ -1117,6 +1124,8 @@ type ManagedIdentityEdge {
 }
 
 enum ManagedIdentitySort {
+  GROUP_LEVEL_ASC
+  GROUP_LEVEL_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
 }
@@ -1375,7 +1384,7 @@ type Query {
   job(id: String!): Job
   jobs(after: String, before: String, first: Int, jobStatus: JobStatus, jobType: JobType, last: Int, sort: JobSort, workspacePath: String): JobConnection!
   maintenanceMode: MaintenanceMode
-  managedIdentity(id: String!): ManagedIdentity
+  managedIdentity(id: String, path: String): ManagedIdentity
   me: MeResponse
   namespace(fullPath: String!): Namespace
   node(id: String!): Node
@@ -1486,6 +1495,8 @@ type Run implements Node {
   moduleVersion: String
   plan: Plan!
   refresh: Boolean!
+  speculative: Boolean!
+  stateVersion: StateVersion
   status: RunStatus!
   targetAddresses: [String!]!
   terraformVersion: String!
@@ -1649,6 +1660,8 @@ enum RunnerSessionSort {
 }
 
 enum RunnerSort {
+  GROUP_LEVEL_ASC
+  GROUP_LEVEL_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
 }
@@ -1716,6 +1729,8 @@ type ServiceAccountEdge {
 }
 
 enum ServiceAccountSort {
+  GROUP_LEVEL_ASC
+  GROUP_LEVEL_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
 }
@@ -2160,6 +2175,7 @@ input UpdateManagedIdentityAccessRuleInput {
   id: ID!
   moduleAttestationPolicies: [ManagedIdentityAccessRuleModuleAttestationPolicyInput!]
   runStage: JobType!
+  verifyStateLineage: Boolean
 }
 
 input UpdateManagedIdentityInput {
@@ -2466,6 +2482,8 @@ type VCSProviderEdge {
 enum VCSProviderSort {
   CREATED_AT_ASC
   CREATED_AT_DESC
+  GROUP_LEVEL_ASC
+  GROUP_LEVEL_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
 }

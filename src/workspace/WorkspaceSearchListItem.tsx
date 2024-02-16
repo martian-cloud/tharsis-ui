@@ -1,12 +1,12 @@
 import { Avatar, Box, Stack, Typography } from '@mui/material';
-import teal from '@mui/material/colors/teal';
 import Link from '@mui/material/Link';
 import ListItem from '@mui/material/ListItem';
+import teal from '@mui/material/colors/teal';
 import { useTheme } from '@mui/material/styles';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
 import { useFragment } from "react-relay/hooks";
 import { Link as LinkRouter } from 'react-router-dom';
+import RelativeTimestamp from '../common/RelativeTimestamp';
 import { WorkspaceSearchListItemFragment_workspace$key } from './__generated__/WorkspaceSearchListItemFragment_workspace.graphql';
 
 interface Props {
@@ -73,7 +73,7 @@ function WorkspaceSearchListItem(props: Props) {
                         <Typography variant="body2" color="textSecondary">{data.description}</Typography>
                     </Box>
                     <Stack direction="row" spacing={1}>
-                        <Typography variant="body2" color="textSecondary">{moment(data.metadata.updatedAt as moment.MomentInput).fromNow()}</Typography>
+                        <RelativeTimestamp variant="body2" color="textSecondary" timestamp={data.metadata.updatedAt} />
                     </Stack>
                 </Box>
             </Box>

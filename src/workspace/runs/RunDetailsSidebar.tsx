@@ -9,15 +9,14 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
-import React from 'react';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { Link as LinkRouter } from 'react-router-dom';
 import { MutationError } from '../../common/error';
 import Gravatar from '../../common/Gravatar';
-import RunStageStatusTypes from './RunStageStatusTypes';
+import RelativeTimestamp from '../../common/RelativeTimestamp';
 import { RunDetailsSidebarCancelRunMutation } from './__generated__/RunDetailsSidebarCancelRunMutation.graphql';
 import { RunDetailsSidebarFragment_details$key } from './__generated__/RunDetailsSidebarFragment_details.graphql';
+import RunStageStatusTypes from './RunStageStatusTypes';
 
 interface Props {
   fragmentRef: RunDetailsSidebarFragment_details$key
@@ -150,11 +149,7 @@ function RunDetailsSidebar(props: Props) {
         <Box marginBottom={3}>
           <Typography sx={{ marginBottom: 1 }}>Created</Typography>
           <Box display="flex" alignItems="center">
-            <Tooltip title={data.metadata.createdAt as string}>
-              <Typography variant="subtitle1" sx={{ marginRight: 1 }}>
-                {moment(data.metadata.createdAt as moment.MomentInput).fromNow()} by
-              </Typography>
-            </Tooltip>
+            <RelativeTimestamp variant="subtitle1" sx={{ marginRight: 1 }} timestamp={data.metadata.createdAt} />
             <Tooltip title={data.createdBy}>
               <Box>
                 <Gravatar width={20} height={20} email={data.createdBy} />

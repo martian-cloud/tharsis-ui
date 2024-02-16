@@ -33,9 +33,10 @@ function GroupRunnersList({ fragmentRef }: Props) {
             node(id: $id) {
                 ... on Group {
                     ...GroupRunnersListFragment_runners
+                    fullPath
                 }
             }
-        }`, { id: group.id, first: 20 });
+        }`, { id: group.id, first: 20 }, { fetchPolicy: 'store-and-network' });
 
     const { data, loadNext, hasNext } = usePaginationFragment<GroupRunnersListPaginationQuery, GroupRunnersListFragment_runners$key>(
         graphql`
@@ -44,6 +45,8 @@ function GroupRunnersList({ fragmentRef }: Props) {
                 runners(
                     after: $after
                     first: $first
+                    includeInherited: true
+                    sort: GROUP_LEVEL_DESC
                 ) @connection(key: "GroupRunnersList_runners") {
                     edges {
                         node {
@@ -56,7 +59,7 @@ function GroupRunnersList({ fragmentRef }: Props) {
         `, queryData.node);
 
     return data ? (
-        <RunnerList fragmentRef={data.runners} loadNext={loadNext} hasNext={hasNext} />
+        <RunnerList fragmentRef={data.runners} loadNext={loadNext} hasNext={hasNext} groupPath={queryData?.node?.fullPath} />
     ) : null;
 }
 

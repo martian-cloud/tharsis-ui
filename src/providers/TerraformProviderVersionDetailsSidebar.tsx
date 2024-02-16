@@ -1,10 +1,10 @@
-import { Chip, Link, styled, Toolbar, Tooltip, Typography, useTheme, TypographyProps } from '@mui/material';
+import { Chip, Link, Toolbar, Tooltip, Typography, TypographyProps, styled, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
 import { useFragment } from 'react-relay/hooks';
 import Gravatar from '../common/Gravatar';
+import RelativeTimestamp from '../common/RelativeTimestamp';
 import { TerraformProviderVersionDetailsSidebarFragment_details$key } from './__generated__/TerraformProviderVersionDetailsSidebarFragment_details.graphql';
 
 interface Props {
@@ -21,7 +21,7 @@ const Section = styled(Box)(() => ({
 }));
 
 const FieldLabel = styled(
-  ({...props}: TypographyProps) => <Typography color="textSecondary" variant="subtitle2" {...props} />
+  ({ ...props }: TypographyProps) => <Typography color="textSecondary" variant="subtitle2" {...props} />
 )(() => ({
   fontSize: 16,
   marginBottom: 1,
@@ -95,11 +95,9 @@ function TerraformProviderVersionDetailsSidebar(props: Props) {
         {data && <Section>
           <FieldLabel>Published</FieldLabel>
           <Box display="flex" alignItems="center">
-            <Tooltip title={data.metadata.createdAt as string}>
-              <Typography sx={{ marginRight: 1 }}>
-                {moment(data.metadata.createdAt as moment.MomentInput).fromNow()} by
-              </Typography>
-            </Tooltip>
+            <Typography sx={{ marginRight: 1 }}>
+              <RelativeTimestamp component="span" timestamp={data.metadata.createdAt} /> by
+            </Typography>
             <Tooltip title={data.createdBy}>
               <Box>
                 <Gravatar width={20} height={20} email={data.createdBy} />

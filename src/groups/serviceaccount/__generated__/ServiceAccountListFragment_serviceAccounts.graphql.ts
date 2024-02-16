@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fe2fd03689599cf0a509aa2ad567f3d6>>
+ * @generated SignedSource<<4f7df9112c91e9b09d363da782fba100>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type ServiceAccountListFragment_serviceAccounts$data = {
     readonly serviceAccounts: {
       readonly edges: ReadonlyArray<{
         readonly node: {
+          readonly groupPath: string;
           readonly id: string;
           readonly " $fragmentSpreads": FragmentRefs<"ServiceAccountListItemFragment_serviceAccount">;
         } | null;
@@ -109,12 +110,17 @@ return {
             {
               "kind": "Literal",
               "name": "includeInherited",
-              "value": false
+              "value": true
             },
             {
               "kind": "Variable",
               "name": "search",
               "variableName": "search"
+            },
+            {
+              "kind": "Literal",
+              "name": "sort",
+              "value": "GROUP_LEVEL_DESC"
             }
           ],
           "concreteType": "ServiceAccountConnection",
@@ -150,6 +156,13 @@ return {
                       "args": null,
                       "kind": "ScalarField",
                       "name": "id",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "groupPath",
                       "storageKey": null
                     },
                     {
@@ -228,6 +241,6 @@ return {
 };
 })();
 
-(node as any).hash = "c02bbaf17c6ab71644381243c18ad549";
+(node as any).hash = "16e0b15730f2b84496afb48f04a809af";
 
 export default node;

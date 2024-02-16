@@ -1,29 +1,29 @@
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import StateIcon from '@mui/icons-material/InsertDriveFileOutlined';
-import { Alert, AlertTitle, Avatar, Box, Dialog, DialogActions, DialogContent, DialogTitle, Button, Chip, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { LoadingButton } from "@mui/lab";
+import { Alert, AlertTitle, Avatar, Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
 import { CubeOutline as ModuleIcon } from 'mdi-material-ui';
-import moment from 'moment';
-import { LoadingButton } from "@mui/lab";
 import React, { useState } from 'react';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import RelativeTimestamp from '../common/RelativeTimestamp';
+import { MutationError } from '../common/error';
 import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
 import Link from '../routes/Link';
-import { MutationError } from '../common/error';
+import WorkspaceDetailsCurrentJob from './WorkspaceDetailsCurrentJob';
+import WorkspaceDetailsEmpty from './WorkspaceDetailsEmpty';
+import WorkspaceDetailsStateFile from './WorkspaceDetailsStateFile';
+import { WorkspaceDetailsIndexFragment_workspace$key } from './__generated__/WorkspaceDetailsIndexFragment_workspace.graphql';
 import RunStatusChip from './runs/RunStatusChip';
+import { CreateRunMutation, VCSRunMutation } from './runs/create/CreateRun';
+import { CreateRun_RunMutation } from './runs/create/__generated__/CreateRun_RunMutation.graphql';
+import { CreateRun_VCSRunMutation } from './runs/create/__generated__/CreateRun_VCSRunMutation.graphql';
 import StateVersionDependencies from './state/StateVersionDependencies';
 import StateVersionInputVariables from './state/StateVersionInputVariables';
 import StateVersionOutputs from './state/StateVersionOutputs';
 import StateVersionResources from './state/StateVersionResources';
-import WorkspaceDetailsCurrentJob from './WorkspaceDetailsCurrentJob';
-import WorkspaceDetailsEmpty from './WorkspaceDetailsEmpty';
-import WorkspaceDetailsStateFile from './WorkspaceDetailsStateFile';
-import { CreateRunMutation, VCSRunMutation } from './runs/create/CreateRun';
-import { WorkspaceDetailsIndexFragment_workspace$key } from './__generated__/WorkspaceDetailsIndexFragment_workspace.graphql';
-import { CreateRun_VCSRunMutation } from './runs/create/__generated__/CreateRun_VCSRunMutation.graphql';
-import { CreateRun_RunMutation } from './runs/create/__generated__/CreateRun_RunMutation.graphql';
 
 interface Props {
     fragmentRef: WorkspaceDetailsIndexFragment_workspace$key
@@ -271,11 +271,8 @@ function WorkspaceDetailsIndex(props: Props) {
                         <StateIcon />
                         <Typography component="div">
                             State last updated{' '}
-                            <Tooltip sx={{ display: 'inline-block' }} title={data.currentStateVersion.metadata.createdAt as string}>
-                                <Box display="flex" alignItems="center">
-                                    {moment(data.currentStateVersion.metadata.createdAt as moment.MomentInput).fromNow()}
-                                </Box>
-                            </Tooltip>{' '}
+                            <RelativeTimestamp component="span" timestamp={data.currentStateVersion.metadata.createdAt} />
+                            {' '}
                             {!data.currentStateVersion.run && 'by manual update'}
                             {data.currentStateVersion.run && <React.Fragment>
                                 by run{' '}

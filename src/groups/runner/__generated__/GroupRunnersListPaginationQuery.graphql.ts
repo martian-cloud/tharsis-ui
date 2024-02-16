@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<64b4f78b810e331336c4dc71729b57cf>>
+ * @generated SignedSource<<34195e2ff3fc5795a69eec92f1233840>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -74,6 +74,16 @@ v4 = [
     "kind": "Variable",
     "name": "first",
     "variableName": "first"
+  },
+  {
+    "kind": "Literal",
+    "name": "includeInherited",
+    "value": true
+  },
+  {
+    "kind": "Literal",
+    "name": "sort",
+    "value": "GROUP_LEVEL_DESC"
   }
 ];
 return {
@@ -148,6 +158,13 @@ return {
                         "selections": [
                           (v3/*: any*/),
                           (v2/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "groupPath",
+                            "storageKey": null
+                          },
                           {
                             "alias": null,
                             "args": null,
@@ -231,7 +248,10 @@ return {
               {
                 "alias": null,
                 "args": (v4/*: any*/),
-                "filters": null,
+                "filters": [
+                  "includeInherited",
+                  "sort"
+                ],
                 "handle": "connection",
                 "key": "GroupRunnersList_runners",
                 "kind": "LinkedHandle",
@@ -247,16 +267,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cb85abdb85e1a300eeac8e1a5bf744e4",
+    "cacheID": "51eb6a9cba254bc43a2c77e3f5cb1bb0",
     "id": null,
     "metadata": {},
     "name": "GroupRunnersListPaginationQuery",
     "operationKind": "query",
-    "text": "query GroupRunnersListPaginationQuery(\n  $after: String\n  $first: Int\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ...GroupRunnersListFragment_runners\n    id\n  }\n}\n\nfragment GroupRunnersListFragment_runners on Group {\n  runners(after: $after, first: $first) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...RunnerListFragment_runners\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RunnerListFragment_runners on RunnerConnection {\n  edges {\n    node {\n      id\n      ...RunnerListItemFragment_runner\n    }\n  }\n}\n\nfragment RunnerListItemFragment_runner on Runner {\n  metadata {\n    createdAt\n  }\n  id\n  name\n  disabled\n  createdBy\n}\n"
+    "text": "query GroupRunnersListPaginationQuery(\n  $after: String\n  $first: Int\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ...GroupRunnersListFragment_runners\n    id\n  }\n}\n\nfragment GroupRunnersListFragment_runners on Group {\n  runners(after: $after, first: $first, includeInherited: true, sort: GROUP_LEVEL_DESC) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...RunnerListFragment_runners\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RunnerListFragment_runners on RunnerConnection {\n  edges {\n    node {\n      id\n      groupPath\n      ...RunnerListItemFragment_runner\n    }\n  }\n}\n\nfragment RunnerListItemFragment_runner on Runner {\n  metadata {\n    createdAt\n  }\n  id\n  name\n  disabled\n  createdBy\n  groupPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4bad4252891a94c1a9fedd30be103ecc";
+(node as any).hash = "1f66d20a748b286895f404e41a8901c8";
 
 export default node;

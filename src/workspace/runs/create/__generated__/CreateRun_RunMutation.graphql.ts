@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4ba0032643dab0f32ec1a74fc5b8b277>>
+ * @generated SignedSource<<11b3c02b3ff61ca51b64ae5be512a7b2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,7 @@ export type CreateRunInput = {
   moduleSource?: string | null;
   moduleVersion?: string | null;
   refresh?: boolean | null;
+  speculative?: boolean | null;
   targetAddresses?: ReadonlyArray<string> | null;
   terraformVersion?: string | null;
   variables?: ReadonlyArray<RunVariableInput> | null;

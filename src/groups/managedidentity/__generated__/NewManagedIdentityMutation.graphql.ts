@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8d684762488024de04af27c5f1763d8f>>
+ * @generated SignedSource<<5446a6f13e8d65a3f8ffa956c59991b9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,6 +29,7 @@ export type ManagedIdentityAccessRuleInput = {
   moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null;
   runStage: JobType;
   type: ManagedIdentityAccessRuleType;
+  verifyStateLineage?: boolean | null;
 };
 export type ManagedIdentityAccessRuleModuleAttestationPolicyInput = {
   predicateType?: string | null;
@@ -112,13 +113,6 @@ v5 = {
     },
     (v4/*: any*/)
   ],
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
   "storageKey": null
 };
 return {
@@ -215,7 +209,13 @@ return {
                 "name": "isAlias",
                 "storageKey": null
               },
-              (v6/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -234,21 +234,8 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Group",
-                "kind": "LinkedField",
-                "name": "group",
-                "plural": false,
-                "selections": [
-                  (v6/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "fullPath",
-                    "storageKey": null
-                  },
-                  (v3/*: any*/)
-                ],
+                "kind": "ScalarField",
+                "name": "groupPath",
                 "storageKey": null
               }
             ],
@@ -282,12 +269,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "469ef20aafdf324037e0ce604d616f34",
+    "cacheID": "ac81dfc7d133be9b81273a9946f91b3f",
     "id": null,
     "metadata": {},
     "name": "NewManagedIdentityMutation",
     "operationKind": "mutation",
-    "text": "mutation NewManagedIdentityMutation(\n  $input: CreateManagedIdentityInput!\n) {\n  createManagedIdentity(input: $input) {\n    managedIdentity {\n      id\n      ...ManagedIdentityListItemFragment_managedIdentity\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  isAlias\n  name\n  description\n  type\n  resourcePath\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "mutation NewManagedIdentityMutation(\n  $input: CreateManagedIdentityInput!\n) {\n  createManagedIdentity(input: $input) {\n    managedIdentity {\n      id\n      ...ManagedIdentityListItemFragment_managedIdentity\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  isAlias\n  name\n  description\n  type\n  resourcePath\n  groupPath\n}\n"
   }
 };
 })();

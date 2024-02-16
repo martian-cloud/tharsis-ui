@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<685c7b3ed516bd2770df757b3bf10b11>>
+ * @generated SignedSource<<95b4f3dce7bf2682824dbfa4af3c7efd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -93,7 +93,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "sort",
-    "value": "FULL_PATH_ASC"
+    "value": "GROUP_LEVEL_ASC"
   }
 ],
 v2 = {
@@ -304,16 +304,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fe13f8d6258cb73bbd8fb062b8e82e11",
+    "cacheID": "89ba102d20820ea4a06ed63a68a0ccdf",
     "id": null,
     "metadata": {},
     "name": "GroupsPaginationQuery",
     "operationKind": "query",
-    "text": "query GroupsPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $parentPath: String\n  $search: String\n) {\n  ...GroupTreeContainerFragment_groups\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, search: $search, parentPath: $parentPath, sort: FULL_PATH_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
+    "text": "query GroupsPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $parentPath: String\n  $search: String\n) {\n  ...GroupTreeContainerFragment_groups\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, search: $search, parentPath: $parentPath, sort: GROUP_LEVEL_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "cab5ead79eb3cb7623c8c8e348c54068";
+(node as any).hash = "d6a01e3b4e8449c850503340a1b04b6f";
 
 export default node;

@@ -96,13 +96,15 @@ function GPGKeyList(props: Props) {
                 before: $before
                 first: $first
                 last: $last
-                includeInherited: false
+                includeInherited: true
+                sort: GROUP_LEVEL_DESC
             ) @connection(key: "GPGKeyList_gpgKeys") {
                 totalCount
                 edges {
                     node {
                         id
                         gpgKeyId
+                        groupPath
                         ...GPGKeyListItemFragment_key
                     }
                 }
@@ -206,6 +208,7 @@ function GPGKeyList(props: Props) {
                             key={edge.node.id}
                             fragmentRef={edge.node}
                             onDelete={() => setGPGKeyToDelete(edge.node)}
+                            inherited={edge.node.groupPath !== group.fullPath}
                         />)}
                     </List>
                 </InfiniteScroll>

@@ -64,7 +64,7 @@ function CreateRunForm({ error, data, onChange, fragmentRef }: Props) {
                         onClick={() => {
                             onChange({
                                 source: source.name,
-                                runType: source.name === 'module' ? 'Apply' : null,
+                                runType: '',
                                 options: DEFAULT_RUN_OPTIONS[source.name]
                             })
                         }}>
@@ -75,7 +75,7 @@ function CreateRunForm({ error, data, onChange, fragmentRef }: Props) {
                     </PanelButton>)}
                 </Stack>
             </Box>
-            {(data.source === 'configuration_version') && <Box marginBottom={4}>
+            {(data.source === 'module' || data.source === 'configuration_version') && <Box marginBottom={4}>
                 <Typography variant="subtitle1" gutterBottom>Select Run Type</Typography>
                 <Divider light />
                 <Stack marginTop={2} marginBottom={2} direction="row" spacing={2}>

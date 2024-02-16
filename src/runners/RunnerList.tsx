@@ -14,9 +14,10 @@ interface Props {
     loadNext: LoadMoreFn<any>
     hasNext: boolean
     hideNewRunnerButton?: boolean
+    groupPath?: string
 }
 
-function RunnerList({ fragmentRef, loadNext, hasNext, hideNewRunnerButton }: Props) {
+function RunnerList({ fragmentRef, loadNext, hasNext, hideNewRunnerButton, groupPath }: Props) {
     const theme = useTheme();
 
     const data = useFragment<RunnerListFragment_runners$key>(graphql`
@@ -24,6 +25,7 @@ function RunnerList({ fragmentRef, loadNext, hasNext, hideNewRunnerButton }: Pro
             edges {
                 node {
                     id
+                    groupPath
                     ...RunnerListItemFragment_runner
                 }
             }
@@ -83,7 +85,7 @@ function RunnerList({ fragmentRef, loadNext, hasNext, hideNewRunnerButton }: Pro
                             </TableHead>
                             <TableBody>
                                 {data.edges?.map((edge: any) => (
-                                    <RunnerListItem key={edge.node.id} fragmentRef={edge.node} />
+                                    <RunnerListItem key={edge.node.id} fragmentRef={edge.node} inherited={!!groupPath && groupPath !== edge.node.groupPath} />
                                 ))}
                             </TableBody>
                         </Table>
