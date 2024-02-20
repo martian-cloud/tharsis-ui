@@ -118,6 +118,7 @@ package:
     KUBERNETES_CPU_LIMIT: 2
     KUBERNETES_MEMORY_REQUEST: 2Gi
     KUBERNETES_MEMORY_LIMIT: 4Gi
+    KUBERNETES_NODE_SELECTOR_FAMILY: "node.kubernetes.io/instance-type=c6a.xlarge"
   script:
     - npm run build
   artifacts:
