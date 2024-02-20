@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3df784cc638b931558e0a5ae1f597b9b>>
+ * @generated SignedSource<<9f4985b0c91bc6b0e0402bd8bacb4000>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -56,6 +56,10 @@ return {
     {
       "kind": "RootArgument",
       "name": "search"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "sort"
     }
   ],
   "kind": "Fragment",
@@ -100,9 +104,9 @@ return {
           "variableName": "search"
         },
         {
-          "kind": "Literal",
+          "kind": "Variable",
           "name": "sort",
-          "value": "GROUP_LEVEL_ASC"
+          "variableName": "sort"
         }
       ],
       "concreteType": "GroupConnection",
@@ -213,6 +217,6 @@ return {
 };
 })();
 
-(node as any).hash = "d6a01e3b4e8449c850503340a1b04b6f";
+(node as any).hash = "0e182ad85e2a571871b3807f22988048";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<95b4f3dce7bf2682824dbfa4af3c7efd>>
+ * @generated SignedSource<<102838f344a976a4a50d1423d48da95c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,6 +10,7 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type GroupSort = "FULL_PATH_ASC" | "FULL_PATH_DESC" | "GROUP_LEVEL_ASC" | "GROUP_LEVEL_DESC" | "UPDATED_AT_ASC" | "UPDATED_AT_DESC" | "%future added value";
 export type GroupsPaginationQuery$variables = {
   after?: string | null;
   before?: string | null;
@@ -17,6 +18,7 @@ export type GroupsPaginationQuery$variables = {
   last?: number | null;
   parentPath?: string | null;
   search?: string | null;
+  sort?: GroupSort | null;
 };
 export type GroupsPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"GroupTreeContainerFragment_groups">;
@@ -57,6 +59,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "search"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "sort"
   }
 ],
 v1 = [
@@ -91,9 +98,9 @@ v1 = [
     "variableName": "search"
   },
   {
-    "kind": "Literal",
+    "kind": "Variable",
     "name": "sort",
-    "value": "GROUP_LEVEL_ASC"
+    "variableName": "sort"
   }
 ],
 v2 = {
@@ -304,16 +311,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "89ba102d20820ea4a06ed63a68a0ccdf",
+    "cacheID": "035e36356ea2859f7c3053d407270a67",
     "id": null,
     "metadata": {},
     "name": "GroupsPaginationQuery",
     "operationKind": "query",
-    "text": "query GroupsPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $parentPath: String\n  $search: String\n) {\n  ...GroupTreeContainerFragment_groups\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, search: $search, parentPath: $parentPath, sort: GROUP_LEVEL_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
+    "text": "query GroupsPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $parentPath: String\n  $search: String\n  $sort: GroupSort\n) {\n  ...GroupTreeContainerFragment_groups\n}\n\nfragment GroupTreeContainerFragment_groups on Query {\n  groups(after: $after, before: $before, first: $first, last: $last, search: $search, parentPath: $parentPath, sort: $sort) {\n    totalCount\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    ...GroupTreeFragment_connection\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment GroupTreeFragment_connection on GroupConnection {\n  totalCount\n  edges {\n    node {\n      id\n      ...GroupTreeListItemFragment_group\n    }\n  }\n}\n\nfragment GroupTreeListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d6a01e3b4e8449c850503340a1b04b6f";
+(node as any).hash = "0e182ad85e2a571871b3807f22988048";
 
 export default node;
