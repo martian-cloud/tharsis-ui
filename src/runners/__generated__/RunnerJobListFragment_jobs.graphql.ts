@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e79f2dd734244332a3653e5a9c40985b>>
+ * @generated SignedSource<<fa64e8c3dfdbc8888047b21edc3b4f60>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,28 +9,30 @@
 // @ts-nocheck
 
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+export type RunnerType = "group" | "shared" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type AssignedServiceAccountListFragment_assignedServiceAccounts$data = {
-  readonly assignedServiceAccounts: {
+export type RunnerJobListFragment_jobs$data = {
+  readonly id: string;
+  readonly jobs: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly " $fragmentSpreads": FragmentRefs<"ServiceAccountListItemFragment_serviceAccount">;
+        readonly " $fragmentSpreads": FragmentRefs<"RunnerJobListItemFragment">;
       } | null;
     } | null> | null;
     readonly totalCount: number;
   };
-  readonly id: string;
-  readonly " $fragmentType": "AssignedServiceAccountListFragment_assignedServiceAccounts";
+  readonly type: RunnerType;
+  readonly " $fragmentType": "RunnerJobListFragment_jobs";
 };
-export type AssignedServiceAccountListFragment_assignedServiceAccounts$key = {
-  readonly " $data"?: AssignedServiceAccountListFragment_assignedServiceAccounts$data;
-  readonly " $fragmentSpreads": FragmentRefs<"AssignedServiceAccountListFragment_assignedServiceAccounts">;
+export type RunnerJobListFragment_jobs$key = {
+  readonly " $data"?: RunnerJobListFragment_jobs$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RunnerJobListFragment_jobs">;
 };
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "assignedServiceAccounts"
+  "jobs"
 ],
 v1 = {
   "alias": null,
@@ -72,18 +74,31 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./AssignedServiceAccountListPaginationQuery.graphql'),
+      "operation": require('./RunnerJobListPaginationQuery.graphql'),
       "identifierField": "id"
     }
   },
-  "name": "AssignedServiceAccountListFragment_assignedServiceAccounts",
+  "name": "RunnerJobListFragment_jobs",
   "selections": [
     {
-      "alias": "assignedServiceAccounts",
+      "alias": null,
       "args": null,
-      "concreteType": "ServiceAccountConnection",
+      "kind": "ScalarField",
+      "name": "type",
+      "storageKey": null
+    },
+    {
+      "alias": "jobs",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "sort",
+          "value": "CREATED_AT_DESC"
+        }
+      ],
+      "concreteType": "JobConnection",
       "kind": "LinkedField",
-      "name": "__AssignedServiceAccountList_assignedServiceAccounts_connection",
+      "name": "__RunnerJobList_jobs_connection",
       "plural": false,
       "selections": [
         {
@@ -96,7 +111,7 @@ return {
         {
           "alias": null,
           "args": null,
-          "concreteType": "ServiceAccountEdge",
+          "concreteType": "JobEdge",
           "kind": "LinkedField",
           "name": "edges",
           "plural": true,
@@ -104,7 +119,7 @@ return {
             {
               "alias": null,
               "args": null,
-              "concreteType": "ServiceAccount",
+              "concreteType": "Job",
               "kind": "LinkedField",
               "name": "node",
               "plural": false,
@@ -113,7 +128,7 @@ return {
                 {
                   "args": null,
                   "kind": "FragmentSpread",
-                  "name": "ServiceAccountListItemFragment_serviceAccount"
+                  "name": "RunnerJobListItemFragment"
                 },
                 {
                   "alias": null,
@@ -161,7 +176,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "storageKey": "__RunnerJobList_jobs_connection(sort:\"CREATED_AT_DESC\")"
     },
     (v1/*: any*/)
   ],
@@ -170,6 +185,6 @@ return {
 };
 })();
 
-(node as any).hash = "a18c09925b68b6bcec4483d3c8cbd435";
+(node as any).hash = "861eef10350dcd844cb6cae9a0d38a70";
 
 export default node;

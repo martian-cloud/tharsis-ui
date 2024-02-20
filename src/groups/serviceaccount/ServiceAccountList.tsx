@@ -49,7 +49,7 @@ function ServiceAccountList(props: Props) {
         }
     `, props.fragmentRef);
 
-    const queryData = useLazyLoadQuery<ServiceAccountListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath })
+    const queryData = useLazyLoadQuery<ServiceAccountListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath }, { fetchPolicy: 'store-and-network' })
 
     const { data, loadNext, hasNext, refetch } = usePaginationFragment<ServiceAccountListPaginationQuery, ServiceAccountListFragment_serviceAccounts$key>(
         graphql`
@@ -61,13 +61,15 @@ function ServiceAccountList(props: Props) {
                 before: $before
                 first: $first
                 last: $last
-                includeInherited: false
+                includeInherited: true
                 search: $search
+                sort: GROUP_LEVEL_DESC
             ) @connection(key: "ServiceAccountList_serviceAccounts") {
                 totalCount
                 edges {
                     node {
                         id
+                        groupPath
                         ...ServiceAccountListItemFragment_serviceAccount
                     }
                 }
@@ -195,6 +197,7 @@ function ServiceAccountList(props: Props) {
                         {data.group?.serviceAccounts.edges?.map((edge: any) => <ServiceAccountListItem
                             key={edge.node.id}
                             fragmentRef={edge.node}
+                            inherited={edge.node.groupPath !== group.fullPath}
                         />)}
                     </List>
                 </InfiniteScroll>

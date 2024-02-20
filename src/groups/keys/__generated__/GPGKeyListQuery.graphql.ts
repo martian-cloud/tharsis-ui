@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9456d8a8bae212657523f765de57a899>>
+ * @generated SignedSource<<db195982a485e2e6fc66a87b685a7430>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -70,12 +70,17 @@ v5 = [
   {
     "kind": "Literal",
     "name": "includeInherited",
-    "value": false
+    "value": true
   },
   {
     "kind": "Variable",
     "name": "last",
     "variableName": "last"
+  },
+  {
+    "kind": "Literal",
+    "name": "sort",
+    "value": "GROUP_LEVEL_DESC"
   }
 ],
 v6 = {
@@ -170,6 +175,13 @@ return {
                         "args": null,
                         "kind": "ScalarField",
                         "name": "gpgKeyId",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "groupPath",
                         "storageKey": null
                       },
                       {
@@ -270,7 +282,8 @@ return {
             "alias": null,
             "args": (v5/*: any*/),
             "filters": [
-              "includeInherited"
+              "includeInherited",
+              "sort"
             ],
             "handle": "connection",
             "key": "GPGKeyList_gpgKeys",
@@ -284,12 +297,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6bd3266babe46e44a581129af98273e5",
+    "cacheID": "6f857f1ce75fb5dd40af1c8d32645e81",
     "id": null,
     "metadata": {},
     "name": "GPGKeyListQuery",
     "operationKind": "query",
-    "text": "query GPGKeyListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupPath: String!\n) {\n  ...GPGKeyListFragment_keys\n}\n\nfragment GPGKeyListFragment_keys on Query {\n  group(fullPath: $groupPath) {\n    gpgKeys(after: $after, before: $before, first: $first, last: $last, includeInherited: false) {\n      totalCount\n      edges {\n        node {\n          id\n          gpgKeyId\n          ...GPGKeyListItemFragment_key\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment GPGKeyListItemFragment_key on GPGKey {\n  metadata {\n    createdAt\n  }\n  id\n  gpgKeyId\n  fingerprint\n  createdBy\n}\n"
+    "text": "query GPGKeyListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupPath: String!\n) {\n  ...GPGKeyListFragment_keys\n}\n\nfragment GPGKeyListFragment_keys on Query {\n  group(fullPath: $groupPath) {\n    gpgKeys(after: $after, before: $before, first: $first, last: $last, includeInherited: true, sort: GROUP_LEVEL_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          gpgKeyId\n          groupPath\n          ...GPGKeyListItemFragment_key\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment GPGKeyListItemFragment_key on GPGKey {\n  metadata {\n    createdAt\n  }\n  id\n  gpgKeyId\n  fingerprint\n  createdBy\n  groupPath\n}\n"
   }
 };
 })();

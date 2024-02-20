@@ -20,7 +20,7 @@ import GroupSettings from './settings/GroupSettings'
 import GroupDetailsDrawer from './GroupDetailsDrawer';
 import GroupList from './GroupList';
 import ManagedIdentities from './managedidentity/ManagedIdentities';
-import Runners from './runner/Runners';
+import GroupRunners from './runner/GroupRunners';
 import WorkspaceList from './WorkspaceList';
 import { GroupDetailsFragment_group$key } from './__generated__/GroupDetailsFragment_group.graphql';
 import { GroupDetailsIndexFragment_group$key } from './__generated__/GroupDetailsIndexFragment_group.graphql';
@@ -88,7 +88,7 @@ function GroupDetails(props: Props) {
             name
             ...GroupDetailsIndexFragment_group
             ...ManagedIdentitiesFragment_group
-            ...RunnersFragment_group
+            ...GroupRunnersFragment_group
             ...ServiceAccountsFragment_group
             ...VCSProvidersFragment_group
             ...VariablesFragment_variables
@@ -123,7 +123,7 @@ function GroupDetails(props: Props) {
                             <Route path={`${groupPath}/*`} element={<GroupDetailsIndex route={route} fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/activity/*`} element={<NamespaceActivity fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/managed_identities/*`} element={<ManagedIdentities fragmentRef={data} />} />
-                            <Route path={`${groupPath}/-/runner_agents/*`} element={<Runners fragmentRef={data} />} />
+                            <Route path={`${groupPath}/-/runners/*`} element={<GroupRunners fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/service_accounts/*`} element={<ServiceAccounts fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/vcs_providers/*`} element={<VCSProviders fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/variables/*`} element={<Variables fragmentRef={data} />} />

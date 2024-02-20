@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<622ae340194afb2448c11d4410510f97>>
+ * @generated SignedSource<<41e3bc4779af00eba7c298d087e2741e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type JobType = "apply" | "plan" | "%future added value";
 export type ManagedIdentityAccessRuleType = "eligible_principals" | "module_attestation" | "%future added value";
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateManagedIdentityAccessRuleInput = {
   allowedServiceAccounts?: ReadonlyArray<string> | null;
   allowedTeams?: ReadonlyArray<string> | null;
@@ -20,6 +20,7 @@ export type UpdateManagedIdentityAccessRuleInput = {
   id: string;
   moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null;
   runStage: JobType;
+  verifyStateLineage?: boolean | null;
 };
 export type ManagedIdentityAccessRuleModuleAttestationPolicyInput = {
   predicateType?: string | null;

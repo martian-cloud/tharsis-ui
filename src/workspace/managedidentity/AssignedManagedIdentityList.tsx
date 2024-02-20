@@ -144,7 +144,7 @@ function AssignedManagedIdentityList(props: Props) {
                     { title: "managed identities", path: 'managed_identities' }
                 ]}
             />
-            <Typography variant="h5" gutterBottom>Managed Identities</Typography>
+            <Typography variant="h5" gutterBottom>Assigned Managed Identities</Typography>
             {(data.managedIdentities.totalCount > 0) &&
             <Paper variant="outlined" sx={{ marginTop: 4, marginBottom: 4 }}>
                 <Box padding={2}>

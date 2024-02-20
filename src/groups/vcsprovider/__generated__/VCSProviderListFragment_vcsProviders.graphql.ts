@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d6a8f7690813e33e87cc06330cdcaad4>>
+ * @generated SignedSource<<7abc5bd6d7117a058392bc5a8431c0c6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type VCSProviderListFragment_vcsProviders$data = {
     readonly vcsProviders: {
       readonly edges: ReadonlyArray<{
         readonly node: {
+          readonly groupPath: string;
           readonly id: string;
           readonly " $fragmentSpreads": FragmentRefs<"VCSProviderListItemFragment_vcsProvider">;
         } | null;
@@ -109,12 +110,17 @@ return {
             {
               "kind": "Literal",
               "name": "includeInherited",
-              "value": false
+              "value": true
             },
             {
               "kind": "Variable",
               "name": "search",
               "variableName": "search"
+            },
+            {
+              "kind": "Literal",
+              "name": "sort",
+              "value": "GROUP_LEVEL_DESC"
             }
           ],
           "concreteType": "VCSProviderConnection",
@@ -150,6 +156,13 @@ return {
                       "args": null,
                       "kind": "ScalarField",
                       "name": "id",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "groupPath",
                       "storageKey": null
                     },
                     {
@@ -228,6 +241,6 @@ return {
 };
 })();
 
-(node as any).hash = "24bb8e3c8ec85a51f88986ab2dc75940";
+(node as any).hash = "d2da0798d0172bb9dbfc39b2c5ea6b55";
 
 export default node;

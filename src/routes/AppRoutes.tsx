@@ -11,6 +11,7 @@ import TerraformModuleVersionDetailsEntryPoint from './TerraformModuleVersionDet
 import TerraformProviderSearchEntryPoint from './TerraformProviderSearchEntryPoint';
 import TerraformProviderVersionDetailsEntryPoint from './TerraformProviderVersionDetailsEntryPoint';
 import WorkspaceSearchEntryPoint from './WorkspaceSearchEntryPoint';
+import AdminAreaEntryPoint from '../admin/AdminArea';
 
 function AppRoutes() {
     return (
@@ -28,6 +29,7 @@ function AppRoutes() {
                 <Route path="/module-registry/:registryNamespace/:moduleName/:system/:version" element={<TerraformModuleVersionDetailsEntryPoint />} />
                 <Route path="/module-registry/:registryNamespace/:moduleName/:system" element={<TerraformModuleVersionDetailsEntryPoint />} />
                 <Route path="/module-registry/*" element={<TerraformModuleSearchEntryPoint />} />
+                <Route path="/admin/*" element={<AdminAreaEntryPoint />} />
                 <Route path="/" element={<HomeEntryPoint />} />
             </Routes>
         </ScrollRestoration>

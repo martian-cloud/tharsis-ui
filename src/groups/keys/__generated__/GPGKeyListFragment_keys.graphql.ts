@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<995a94f3e7abcb60cdd002e5b7da3536>>
+ * @generated SignedSource<<3b482b815dbd3e3268c73d20d214c1e9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type GPGKeyListFragment_keys$data = {
       readonly edges: ReadonlyArray<{
         readonly node: {
           readonly gpgKeyId: string;
+          readonly groupPath: string;
           readonly id: string;
           readonly " $fragmentSpreads": FragmentRefs<"GPGKeyListItemFragment_key">;
         } | null;
@@ -106,7 +107,12 @@ return {
             {
               "kind": "Literal",
               "name": "includeInherited",
-              "value": false
+              "value": true
+            },
+            {
+              "kind": "Literal",
+              "name": "sort",
+              "value": "GROUP_LEVEL_DESC"
             }
           ],
           "concreteType": "GPGKeyConnection",
@@ -149,6 +155,13 @@ return {
                       "args": null,
                       "kind": "ScalarField",
                       "name": "gpgKeyId",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "groupPath",
                       "storageKey": null
                     },
                     {
@@ -216,7 +229,7 @@ return {
               "storageKey": null
             }
           ],
-          "storageKey": "__GPGKeyList_gpgKeys_connection(includeInherited:false)"
+          "storageKey": "__GPGKeyList_gpgKeys_connection(includeInherited:true,sort:\"GROUP_LEVEL_DESC\")"
         }
       ],
       "storageKey": null
@@ -227,6 +240,6 @@ return {
 };
 })();
 
-(node as any).hash = "9672f0f1408e931d6ec8bb1da4621354";
+(node as any).hash = "61ba20a8ee1b914ce5ccff15e9ee952a";
 
 export default node;

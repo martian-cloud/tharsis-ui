@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b114faca818adfc7769a341edfbe225c>>
+ * @generated SignedSource<<3df784cc638b931558e0a5ae1f597b9b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -102,7 +102,7 @@ return {
         {
           "kind": "Literal",
           "name": "sort",
-          "value": "FULL_PATH_ASC"
+          "value": "GROUP_LEVEL_ASC"
         }
       ],
       "concreteType": "GroupConnection",
@@ -213,6 +213,6 @@ return {
 };
 })();
 
-(node as any).hash = "cab5ead79eb3cb7623c8c8e348c54068";
+(node as any).hash = "d6a01e3b4e8449c850503340a1b04b6f";
 
 export default node;

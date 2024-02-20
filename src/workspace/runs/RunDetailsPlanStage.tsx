@@ -1,5 +1,7 @@
 import { Chip, Paper, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
 import { blue, green, red } from '@mui/material/colors';
 import graphql from 'babel-plugin-relay/macro';
 import humanizeDuration from 'humanize-duration';
@@ -8,14 +10,13 @@ import React, { useState } from 'react';
 import Lottie from 'react-lottie-player';
 import { useFragment } from 'react-relay/hooks';
 import Gravatar from '../../common/Gravatar';
-import JobLogs from './JobLogs';
+import RelativeTimestamp from '../../common/RelativeTimestamp';
 import RocketLottieFileJson from '../../lotties/rocket-in-space-lottie.json';
-import RunStageStatusChip from './RunStageStatusChip';
-import { RunDetailsPlanStageFragment_plan$key } from './__generated__/RunDetailsPlanStageFragment_plan.graphql';
-import RunVariables from './RunVariables';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import ForceCancelRunAlert from './ForceCancelRunAlert';
+import JobLogs from './JobLogs';
+import RunStageStatusChip from './RunStageStatusChip';
+import RunVariables from './RunVariables';
+import { RunDetailsPlanStageFragment_plan$key } from './__generated__/RunDetailsPlanStageFragment_plan.graphql';
 
 interface Props {
     fragmentRef: RunDetailsPlanStageFragment_plan$key
@@ -79,11 +80,7 @@ function RunDetailsPlanStage(props: Props) {
                 <RunStageStatusChip status={data.plan.status} />
                 <Box display="flex" alignItems="center" marginLeft={2}>
                     <Typography sx={{ paddingRight: '4px' }}>Plan triggered</Typography>
-                    <Tooltip title={data.plan.metadata.createdAt as string}>
-                        <Typography>
-                            {moment(data.plan.metadata.createdAt as moment.MomentInput).fromNow()}
-                        </Typography>
-                    </Tooltip>
+                    <RelativeTimestamp component="span" timestamp={data.plan.metadata.createdAt} />
                     <Typography sx={{ paddingLeft: '4px', paddingRight: '8px' }}>by</Typography>
                     <Gravatar width={20} height={20} email={data.createdBy} />
                     <Typography
@@ -159,11 +156,7 @@ function RunDetailsPlanStage(props: Props) {
                     <Typography sx={{ marginBottom: 2 }} variant="h6" align="center">Plan operation is pending and will start shortly</Typography>
                     <Box display="flex" alignItems="center" marginLeft={2}>
                         <Typography sx={{ paddingRight: '4px' }} color="textSecondary">Triggered</Typography>
-                        <Tooltip title={data.plan.metadata.createdAt as string}>
-                            <Typography color="textSecondary">
-                                {moment(data.plan.metadata.createdAt as moment.MomentInput).fromNow()}
-                            </Typography>
-                        </Tooltip>
+                        <RelativeTimestamp color="textSecondary" component="span" timestamp={data.plan.metadata.createdAt} />
                         <Typography sx={{ paddingLeft: '4px', paddingRight: '8px' }} color="textSecondary">by</Typography>
                         <Tooltip title={data.createdBy}>
                             <Box>

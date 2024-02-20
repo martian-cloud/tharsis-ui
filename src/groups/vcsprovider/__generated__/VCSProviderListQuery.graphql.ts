@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<79f0c9fbf9d806114d21c7c89c78a746>>
+ * @generated SignedSource<<d3eb2b5f8fdbff9c50572e62df16adf1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -76,7 +76,7 @@ v6 = [
   {
     "kind": "Literal",
     "name": "includeInherited",
-    "value": false
+    "value": true
   },
   {
     "kind": "Variable",
@@ -87,6 +87,11 @@ v6 = [
     "kind": "Variable",
     "name": "search",
     "variableName": "search"
+  },
+  {
+    "kind": "Literal",
+    "name": "sort",
+    "value": "GROUP_LEVEL_DESC"
   }
 ],
 v7 = {
@@ -94,13 +99,6 @@ v7 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
   "storageKey": null
 };
 return {
@@ -188,6 +186,13 @@ return {
                       {
                         "alias": null,
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "groupPath",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
                         "concreteType": "ResourceMetadata",
                         "kind": "LinkedField",
                         "name": "metadata",
@@ -203,32 +208,18 @@ return {
                         ],
                         "storageKey": null
                       },
-                      (v8/*: any*/),
                       {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "description",
+                        "name": "name",
                         "storageKey": null
                       },
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "Group",
-                        "kind": "LinkedField",
-                        "name": "group",
-                        "plural": false,
-                        "selections": [
-                          (v8/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "fullPath",
-                            "storageKey": null
-                          },
-                          (v7/*: any*/)
-                        ],
+                        "kind": "ScalarField",
+                        "name": "description",
                         "storageKey": null
                       },
                       {
@@ -298,7 +289,8 @@ return {
             "args": (v6/*: any*/),
             "filters": [
               "search",
-              "includeInherited"
+              "includeInherited",
+              "sort"
             ],
             "handle": "connection",
             "key": "VCSProviderList_vcsProviders",
@@ -312,12 +304,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "50b1dd7e7812f88a6aceb630221bb232",
+    "cacheID": "0f72f555b0ddae38c67359f3e1264a20",
     "id": null,
     "metadata": {},
     "name": "VCSProviderListQuery",
     "operationKind": "query",
-    "text": "query VCSProviderListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupPath: String!\n  $search: String\n) {\n  ...VCSProviderListFragment_vcsProviders\n}\n\nfragment VCSProviderListFragment_vcsProviders on Query {\n  group(fullPath: $groupPath) {\n    vcsProviders(after: $after, before: $before, first: $first, last: $last, search: $search, includeInherited: false) {\n      totalCount\n      edges {\n        node {\n          id\n          ...VCSProviderListItemFragment_vcsProvider\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment VCSProviderListItemFragment_vcsProvider on VCSProvider {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  group {\n    name\n    fullPath\n    id\n  }\n}\n"
+    "text": "query VCSProviderListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupPath: String!\n  $search: String\n) {\n  ...VCSProviderListFragment_vcsProviders\n}\n\nfragment VCSProviderListFragment_vcsProviders on Query {\n  group(fullPath: $groupPath) {\n    vcsProviders(after: $after, before: $before, first: $first, last: $last, search: $search, includeInherited: true, sort: GROUP_LEVEL_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          groupPath\n          ...VCSProviderListItemFragment_vcsProvider\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment VCSProviderListItemFragment_vcsProvider on VCSProvider {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  groupPath\n}\n"
   }
 };
 })();

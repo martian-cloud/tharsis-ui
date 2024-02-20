@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cfaf1fa6ae3fcf9d6efdeb7a72ae8582>>
+ * @generated SignedSource<<6c60820f3d238520bade1492c344bc7c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type ManagedIdentityListFragment_managedIdentities$data = {
     readonly managedIdentities: {
       readonly edges: ReadonlyArray<{
         readonly node: {
+          readonly groupPath: string;
           readonly id: string;
           readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityListItemFragment_managedIdentity">;
         } | null;
@@ -107,6 +108,11 @@ return {
           "alias": "managedIdentities",
           "args": [
             {
+              "kind": "Literal",
+              "name": "includeInherited",
+              "value": true
+            },
+            {
               "kind": "Variable",
               "name": "search",
               "variableName": "search"
@@ -114,7 +120,7 @@ return {
             {
               "kind": "Literal",
               "name": "sort",
-              "value": "UPDATED_AT_DESC"
+              "value": "GROUP_LEVEL_DESC"
             }
           ],
           "concreteType": "ManagedIdentityConnection",
@@ -150,6 +156,13 @@ return {
                       "args": null,
                       "kind": "ScalarField",
                       "name": "id",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "groupPath",
                       "storageKey": null
                     },
                     {
@@ -228,6 +241,6 @@ return {
 };
 })();
 
-(node as any).hash = "4d9fb086098b7c15168f3c51da3c2057";
+(node as any).hash = "35f31e2d7e3e2f9b4d900a378ce26446";
 
 export default node;

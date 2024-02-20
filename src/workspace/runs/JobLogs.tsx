@@ -10,9 +10,8 @@ import { JobLogsFragment_logs$key } from './__generated__/JobLogsFragment_logs.g
 import { JobLogsQuery } from './__generated__/JobLogsQuery.graphql';
 import { JobLogsSubscription, JobLogsSubscription$data } from './__generated__/JobLogsSubscription.graphql';
 
-const subscription = graphql`subscription JobLogsSubscription($input: JobLogSubscriptionInput!) {
-    jobLogEvents(input: $input) {
-      action
+const subscription = graphql`subscription JobLogsSubscription($input: JobLogStreamSubscriptionInput!) {
+    jobLogStreamEvents(input: $input) {
       size
     }
   }`;
@@ -44,22 +43,27 @@ function JobLogs(props: Props) {
     const [logs, setLogs] = useState(data.logs);
     const [currentLogSize, setCurrentLogSize] = useState(bytes(data.logs));
     const [actualLogSize, setActualLogSize] = useState(data.logSize);
+    const [lastLogEventSize, setLastLogEventSize] = useState(data.logSize);
     const [loading, setLoading] = useState<boolean>(false);
     const [autoScroll, setAutoScroll] = useState(data.status !== 'finished');
     const environment = useRelayEnvironment();
 
     const config = useMemo<GraphQLSubscriptionConfig<JobLogsSubscription>>(() => ({
-        variables: { input: { jobId: data.id, lastSeenLogSize: actualLogSize } },
+        variables: { input: { jobId: data.id, lastSeenLogSize: data.logSize } },
         subscription,
         onCompleted: () => console.log("Subscription completed"),
         onError: () => console.warn("Subscription error"),
         updater: (store: RecordSourceProxy, payload: JobLogsSubscription$data) => {
-            if (payload.jobLogEvents.size > actualLogSize) {
-                setActualLogSize(payload.jobLogEvents.size)
-            }
+            setLastLogEventSize(payload.jobLogStreamEvents.size);
         }
-    }), [data, actualLogSize]);
+    }), [data.id]);
     useSubscription<JobLogsSubscription>(config);
+
+    useEffect(() => {
+        if (lastLogEventSize > actualLogSize) {
+            setActualLogSize(lastLogEventSize);
+        }
+    }, [lastLogEventSize, actualLogSize]);
 
     useEffect(() => {
         if (loading || currentLogSize >= actualLogSize) {

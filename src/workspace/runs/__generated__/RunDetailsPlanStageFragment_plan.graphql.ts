@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e7bc53d1cddf4c1f863d0ff0e90fb5d7>>
+ * @generated SignedSource<<dfc3deaf9e85ccc82b97fa46d77dec0c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type JobStatus = "finished" | "pending" | "queued" | "running" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type RunDetailsPlanStageFragment_plan$data = {
@@ -17,7 +18,7 @@ export type RunDetailsPlanStageFragment_plan$data = {
     readonly currentJob: {
       readonly cancelRequested: boolean;
       readonly id: string;
-      readonly status: string;
+      readonly status: JobStatus;
       readonly timestamps: {
         readonly finishedAt: any | null;
         readonly pendingAt: any | null;

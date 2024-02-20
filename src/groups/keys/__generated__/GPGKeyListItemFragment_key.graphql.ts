@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0c685b29c3ae6e99382f69f3ba613c2e>>
+ * @generated SignedSource<<e1c112dab55a8bc872101c05f914101d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ export type GPGKeyListItemFragment_key$data = {
   readonly createdBy: string;
   readonly fingerprint: string;
   readonly gpgKeyId: string;
+  readonly groupPath: string;
   readonly id: string;
   readonly metadata: {
     readonly createdAt: any;
@@ -76,12 +77,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "createdBy",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "groupPath",
+      "storageKey": null
     }
   ],
   "type": "GPGKey",
   "abstractKey": null
 };
 
-(node as any).hash = "3ccc7b8e291213e42a591e5e8bab7f09";
+(node as any).hash = "2f109781172826e191d8c7f87ff6f98e";
 
 export default node;

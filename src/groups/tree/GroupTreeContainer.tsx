@@ -59,7 +59,7 @@ function GroupTreeContainer(props: Props) {
                 last: $last
                 search: $search
                 parentPath: $parentPath
-                sort:FULL_PATH_ASC
+                sort: GROUP_LEVEL_ASC
             ) @connection(key: "GroupTreeContainer_groups") {
                 totalCount
                 edges {

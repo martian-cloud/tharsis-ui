@@ -1,16 +1,17 @@
-import { Avatar, ListItem, ListItemText, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, ListItem, ListItemText, Typography, useTheme } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
-import moment from 'moment';
 import { useFragment } from "react-relay/hooks";
 import { Link as RouterLink } from 'react-router-dom';
+import RelativeTimestamp from '../../common/RelativeTimestamp';
 import { ServiceAccountListItemFragment_serviceAccount$key } from './__generated__/ServiceAccountListItemFragment_serviceAccount.graphql';
 
 interface Props {
     fragmentRef: ServiceAccountListItemFragment_serviceAccount$key
+    inherited: boolean
 }
 
-function ServiceAccountListItem(props: Props) {
+function ServiceAccountListItem({ fragmentRef, inherited }: Props) {
     const theme = useTheme();
 
     const data = useFragment<ServiceAccountListItemFragment_serviceAccount$key>(graphql`
@@ -22,19 +23,15 @@ function ServiceAccountListItem(props: Props) {
             name
             description
             resourcePath
-            group {
-                name
-                fullPath
-            }
+            groupPath
         }
-    `, props.fragmentRef);
+    `, fragmentRef);
 
     return (
         <ListItem
-            dense
             button
             component={RouterLink}
-            to={`/groups/${data.group.fullPath}/-/service_accounts/${data.id}`}
+            to={`/groups/${data.groupPath}/-/service_accounts/${data.id}`}
             sx={{
                 borderBottom: `1px solid ${theme.palette.divider}`,
                 borderLeft: `1px solid ${theme.palette.divider}`,
@@ -47,10 +44,13 @@ function ServiceAccountListItem(props: Props) {
             <Avatar variant="rounded" sx={{ width: 32, height: 32, bgcolor: teal[200], marginRight: 2 }}>
                 {data.name[0].toUpperCase()}
             </Avatar>
-            <ListItemText primary={<Typography>{data.name}</Typography>} secondary={data.description} />
-            <Typography variant="body2" color="textSecondary">
-                {moment(data.metadata.updatedAt as moment.MomentInput).fromNow()}
-            </Typography>
+            <ListItemText
+                primary={<Box>
+                    <Typography fontWeight={500}>{data.name}</Typography>
+                    {data.description && <Typography variant="body2" color="textSecondary">{data.description}</Typography>}
+                    {inherited && <Typography mt={0.5} color="textSecondary" variant="caption">Inherited from group <strong>{data.groupPath}</strong></Typography>}
+                </Box>} />
+            <RelativeTimestamp variant="body2" color="textSecondary" timestamp={data.metadata.updatedAt} />
         </ListItem>
     );
 }

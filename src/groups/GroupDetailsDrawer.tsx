@@ -43,9 +43,9 @@ const LIST_ITEMS = [
   { route: 'activity', label: 'Activity', icon: <ActivityIcon /> },
   { route: 'variables', label: 'Variables', icon: <VariablesIcon /> },
   { route: 'managed_identities', label: 'Managed Identities', icon: <ManagedIdentityIcon /> },
-  { route: 'runner_agents', label: 'Runner Agents', icon: <RunnersIcon /> },
+  { route: 'runners', label: 'Runner Agents', icon: <RunnersIcon /> },
   { route: 'service_accounts', label: 'Service Accounts', icon: <ServiceAccountIcon /> },
-  { route: 'vcs_providers', label: 'VCS Providers', icon: <VCSProviderIcon />},
+  { route: 'vcs_providers', label: 'VCS Providers', icon: <VCSProviderIcon /> },
   { route: 'members', label: 'Members', icon: <MembersIcon /> },
   { route: 'keys', label: 'GPG Keys', icon: <KeyIcon /> },
   { route: 'settings', label: 'Settings', icon: <SettingsIcon /> }

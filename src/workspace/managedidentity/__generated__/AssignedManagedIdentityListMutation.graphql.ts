@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d72eaccf216fbde5356848db39ce0a6d>>
+ * @generated SignedSource<<28f9f72041edc04dd31f598b29ddccfd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type AssignManagedIdentityInput = {
   clientMutationId?: string | null;
   managedIdentityId?: string | null;

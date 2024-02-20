@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<97e608ef3f380e3d11415a1852a78ee3>>
+ * @generated SignedSource<<80bc454a10d5d2b8b26a9fb13b75eae5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,13 +9,14 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type JobStatus = "finished" | "pending" | "queued" | "running" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type JobLogsFragment_logs$data = {
   readonly id: string;
   readonly logLastUpdatedAt: any | null;
   readonly logSize: number;
   readonly logs: string;
-  readonly status: string;
+  readonly status: JobStatus;
   readonly " $fragmentType": "JobLogsFragment_logs";
 };
 export type JobLogsFragment_logs$key = {

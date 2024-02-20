@@ -102,7 +102,9 @@ function LogViewer({ logs }: Props) {
                 marginTop: 0,
                 paddingTop: 1,
                 paddingBottom: 2,
-                minHeight: 120
+                minHeight: 120,
+                height: '100%',
+                overflowY: 'auto',
             }}
             component="pre"
         >

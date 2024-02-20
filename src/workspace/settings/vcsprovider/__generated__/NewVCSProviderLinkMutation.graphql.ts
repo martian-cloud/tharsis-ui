@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bb350251821d7dcc420fb4f168dbb5b3>>
+ * @generated SignedSource<<4b5454323ecbcc740fc0ecac93647179>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type VCSProviderType = "github" | "gitlab" | "%future added value";
 export type CreateWorkspaceVCSProviderLinkInput = {
   autoSpeculativePlan: boolean;

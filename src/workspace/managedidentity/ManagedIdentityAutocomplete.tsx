@@ -17,6 +17,7 @@ export interface ManagedIdentityOption {
     readonly name: string;
     readonly description: string;
     readonly resourcePath: string;
+    readonly groupPath: string;
     readonly type: string;
 }
 
@@ -48,11 +49,12 @@ function ManagedIdentityAutocomplete(props: Props) {
                         graphql`
                           query ManagedIdentityAutocompleteQuery($path: String!, $search: String!) {
                             namespace(fullPath: $path) {
-                                managedIdentities(first: 50, includeInherited: true, search: $search) {
+                                managedIdentities(first: 50, includeInherited: true, search: $search, sort: GROUP_LEVEL_DESC) {
                                     edges {
                                         node {
                                             id
                                             name
+                                            groupPath
                                             resourcePath
                                             description
                                             type
@@ -101,8 +103,8 @@ function ManagedIdentityAutocomplete(props: Props) {
             isOptionEqualToValue={(option: ManagedIdentityOption, value: ManagedIdentityOption) => option.id === value.id}
             getOptionLabel={(option: ManagedIdentityOption) => option.resourcePath}
             renderOption={(props: React.HTMLAttributes<HTMLLIElement>, option: ManagedIdentityOption, { inputValue }) => {
-                const matches = match(option.resourcePath, inputValue);
-                const parts = parse(option.resourcePath, matches);
+                const matches = match(option.name, inputValue);
+                const parts = parse(option.name, matches);
                 return (
                     <Box component="li" {...props}>
                         <Box width="100%" display="flex" justifyContent="space-between" alignItems="center">
@@ -119,7 +121,7 @@ function ManagedIdentityAutocomplete(props: Props) {
                                         </span>
                                     ))}
                                 </Typography>
-                                <Typography variant="caption">{option.description}</Typography>
+                                <Typography variant="caption" color="textSecondary">{option.groupPath}</Typography>
                             </Box>
                             <ManagedIdentityTypeChip type={option.type} />
                         </Box>

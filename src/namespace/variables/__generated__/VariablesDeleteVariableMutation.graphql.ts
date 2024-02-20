@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6833eca3433a2552cd74a647a92a97d5>>
+ * @generated SignedSource<<98d4f30d43bcbf80a469b517902df297>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "%future added value";
+export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteNamespaceVariableInput = {
   clientMutationId?: string | null;
   id: string;

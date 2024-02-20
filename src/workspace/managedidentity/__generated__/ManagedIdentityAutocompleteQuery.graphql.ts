@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d93bc2fda0d91832e105b598092a9a6a>>
+ * @generated SignedSource<<d1058667e76aa2eac57a65f6b0b96319>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,7 @@ export type ManagedIdentityAutocompleteQuery$data = {
       readonly edges: ReadonlyArray<{
         readonly node: {
           readonly description: string;
+          readonly groupPath: string;
           readonly id: string;
           readonly name: string;
           readonly resourcePath: string;
@@ -77,6 +78,11 @@ v3 = {
       "kind": "Variable",
       "name": "search",
       "variableName": "search"
+    },
+    {
+      "kind": "Literal",
+      "name": "sort",
+      "value": "GROUP_LEVEL_DESC"
     }
   ],
   "concreteType": "ManagedIdentityConnection",
@@ -106,6 +112,13 @@ v3 = {
               "args": null,
               "kind": "ScalarField",
               "name": "name",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "groupPath",
               "storageKey": null
             },
             {
@@ -190,16 +203,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "dc1bdebb46639386e636fa822e09006f",
+    "cacheID": "3b82da3aaf461a0bf9781f750d44aa60",
     "id": null,
     "metadata": {},
     "name": "ManagedIdentityAutocompleteQuery",
     "operationKind": "query",
-    "text": "query ManagedIdentityAutocompleteQuery(\n  $path: String!\n  $search: String!\n) {\n  namespace(fullPath: $path) {\n    __typename\n    managedIdentities(first: 50, includeInherited: true, search: $search) {\n      edges {\n        node {\n          id\n          name\n          resourcePath\n          description\n          type\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ManagedIdentityAutocompleteQuery(\n  $path: String!\n  $search: String!\n) {\n  namespace(fullPath: $path) {\n    __typename\n    managedIdentities(first: 50, includeInherited: true, search: $search, sort: GROUP_LEVEL_DESC) {\n      edges {\n        node {\n          id\n          name\n          groupPath\n          resourcePath\n          description\n          type\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4f43bbd88ec455ba104454926f2538aa";
+(node as any).hash = "34e12eb1489e9346e207382fa4a7deb4";
 
 export default node;

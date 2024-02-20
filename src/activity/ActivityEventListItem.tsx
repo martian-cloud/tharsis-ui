@@ -1,10 +1,10 @@
 import { Avatar, Box, ListItem, ListItemIcon, Typography, useTheme } from '@mui/material';
+import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from "react-relay/hooks";
 import Gravatar from '../common/Gravatar';
-import moment from 'moment';
+import RelativeTimestamp from '../common/RelativeTimestamp';
 import { ActivityEventListItemFragment_event$key } from './__generated__/ActivityEventListItemFragment_event.graphql';
-import teal from '@mui/material/colors/teal';
 
 interface Props {
     fragmentRef: ActivityEventListItemFragment_event$key
@@ -65,9 +65,7 @@ function ActivityEventListItem({ fragmentRef, icon, primary, secondary }: Props)
                             {data.initiator.__typename === 'User' && data.initiator.username}
                             {data.initiator.__typename === 'ServiceAccount' && data.initiator.resourcePath}
                         </Typography>
-                        <Typography ml={2} variant="body2" color="textSecondary">
-                            {moment(data.metadata.createdAt as moment.MomentInput).fromNow()}
-                        </Typography>
+                        <RelativeTimestamp ml={2} variant="body2" color="textSecondary" timestamp={data.metadata.createdAt} />
                     </Box>
                     <Typography variant="body1">{primary}</Typography>
                 </Box>

@@ -1,4 +1,5 @@
 import AppBar, { AppBarProps } from '@mui/material/AppBar';
+import graphql from 'babel-plugin-relay/macro';
 import { Box, Button, Stack } from '@mui/material';
 import { styled } from "@mui/material/styles";
 import Toolbar from '@mui/material/Toolbar';
@@ -6,17 +7,31 @@ import AccountMenu from '../nav/AccountMenu';
 import Link from '../routes/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import RegistryMenu from './RegistryMenu';
+import { useFragment } from 'react-relay/hooks';
+import { AppHeaderFragment$key } from './__generated__/AppHeaderFragment.graphql';
 
 const StyledAppBar = styled(AppBar)<AppBarProps>(({ theme }) => ({
-  boxShadow: 'none',
-  borderBottomStyle: 'solid',
-  borderBottomWidth: 1,
-  borderBottomColor: theme.palette.divider,
-  zIndex: theme.zIndex.drawer + 1,
-  backgroundImage: 'none'
+    boxShadow: 'none',
+    borderBottomStyle: 'solid',
+    borderBottomWidth: 1,
+    borderBottomColor: theme.palette.divider,
+    zIndex: theme.zIndex.drawer + 1,
+    backgroundImage: 'none'
 }));
 
-function AppHeader() {
+interface Props {
+    fragmentRef: AppHeaderFragment$key
+}
+
+function AppHeader(props: Props) {
+    const data = useFragment<AppHeaderFragment$key>(
+        graphql`
+        fragment AppHeaderFragment on Query
+        {
+            ...AccountMenuFragment
+        }
+        `, props.fragmentRef);
+
     return (
         <StyledAppBar position="fixed" color={"inherit"}>
             <Toolbar>
@@ -39,7 +54,7 @@ function AppHeader() {
                         </Button>
                         <RegistryMenu />
                     </Stack>
-                    <AccountMenu />
+                    <AccountMenu fragmentRef={data} />
                 </Box>
             </Toolbar>
         </StyledAppBar>
