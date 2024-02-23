@@ -1,20 +1,21 @@
-import graphql from 'babel-plugin-relay/macro';
-import React, { useMemo, useState } from 'react';
-import { ConnectionHandler, fetchQuery, PreloadedQuery, useFragment, usePaginationFragment, usePreloadedQuery, useRelayEnvironment } from 'react-relay/hooks';
-import GroupTree from './GroupTree';
-import throttle from 'lodash.throttle';
-import { GroupTreeContainerFragment_groups$key } from './__generated__/GroupTreeContainerFragment_groups.graphql';
-import { GroupsPaginationQuery } from './__generated__/GroupsPaginationQuery.graphql';
 import { Box, Button, Paper, Typography } from '@mui/material';
-import SearchInput from '../../common/SearchInput';
+import graphql from 'babel-plugin-relay/macro';
+import throttle from 'lodash.throttle';
+import React, { useMemo, useState } from 'react';
+import { ConnectionHandler, PreloadedQuery, fetchQuery, useFragment, usePaginationFragment, usePreloadedQuery, useRelayEnvironment } from 'react-relay/hooks';
 import { Link as RouterLink } from 'react-router-dom';
-import { GroupTreeContainerQuery } from './__generated__/GroupTreeContainerQuery.graphql';
+import SearchInput from '../../common/SearchInput';
+import GroupTree from './GroupTree';
+import { GroupTreeContainerFragment_groups$key } from './__generated__/GroupTreeContainerFragment_groups.graphql';
 import { GroupTreeContainerFragment_me$key } from './__generated__/GroupTreeContainerFragment_me.graphql';
+import { GroupTreeContainerQuery } from './__generated__/GroupTreeContainerQuery.graphql';
+import { GroupsPaginationQuery } from './__generated__/GroupsPaginationQuery.graphql';
 
 export const INITIAL_ITEM_COUNT = 100;
+export const DEFAULT_SORT = 'FULL_PATH_ASC';
 
 const query = graphql`
-    query GroupTreeContainerQuery($first: Int, $last: Int, $after: String, $before: String, $search: String, $parentPath: String) {
+    query GroupTreeContainerQuery($first: Int, $last: Int, $after: String, $before: String, $search: String, $parentPath: String, $sort: GroupSort) {
       ...GroupTreeContainerFragment_groups
       ...GroupTreeContainerFragment_me
     }
@@ -28,7 +29,7 @@ export function GetConnections() {
     const connectionId = ConnectionHandler.getConnectionID(
         "root",
         "GroupTreeContainer_groups",
-        { sort: "FULL_PATH_ASC" }
+        { sort: DEFAULT_SORT, parentPath: '' }
     );
     return [connectionId]
 }
@@ -59,7 +60,7 @@ function GroupTreeContainer(props: Props) {
                 last: $last
                 search: $search
                 parentPath: $parentPath
-                sort: GROUP_LEVEL_ASC
+                sort: $sort
             ) @connection(key: "GroupTreeContainer_groups") {
                 totalCount
                 edges {
@@ -84,8 +85,9 @@ function GroupTreeContainer(props: Props) {
                     setIsRefreshing(true);
 
                     const normalizedInput = input?.trim();
+                    const sort = input === '' ? DEFAULT_SORT : 'GROUP_LEVEL_ASC';
 
-                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, search: normalizedInput })
+                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, search: normalizedInput, sort })
                         .subscribe({
                             complete: () => {
                                 setIsRefreshing(false);
@@ -96,7 +98,7 @@ function GroupTreeContainer(props: Props) {
                                 // At this point the data for the query should
                                 // be cached, so we use the 'store-only'
                                 // fetchPolicy to avoid suspending.
-                                refetch({ first: INITIAL_ITEM_COUNT, search: input === '' ? null : normalizedInput, parentPath: input === '' ? '' : null }, { fetchPolicy: 'store-only' });
+                                refetch({ first: INITIAL_ITEM_COUNT, search: input === '' ? null : normalizedInput, parentPath: input === '' ? '' : null, sort }, { fetchPolicy: 'store-only' });
                             },
                             error: () => {
                                 setIsRefreshing(false);
