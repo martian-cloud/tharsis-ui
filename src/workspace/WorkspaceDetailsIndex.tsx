@@ -14,7 +14,7 @@ import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
 import Link from '../routes/Link';
 import WorkspaceDetailsCurrentJob from './WorkspaceDetailsCurrentJob';
 import WorkspaceDetailsEmpty from './WorkspaceDetailsEmpty';
-import WorkspaceDetailsStateFile from './WorkspaceDetailsStateFile';
+import StateVersionFile from './state/StateVersionFile';
 import { WorkspaceDetailsIndexFragment_workspace$key } from './__generated__/WorkspaceDetailsIndexFragment_workspace.graphql';
 import RunStatusChip from './runs/RunStatusChip';
 import { CreateRunMutation, VCSRunMutation } from './runs/create/CreateRun';
@@ -24,6 +24,7 @@ import StateVersionDependencies from './state/StateVersionDependencies';
 import StateVersionInputVariables from './state/StateVersionInputVariables';
 import StateVersionOutputs from './state/StateVersionOutputs';
 import StateVersionResources from './state/StateVersionResources';
+import TabContent from '../common/TabContent';
 
 interface Props {
     fragmentRef: WorkspaceDetailsIndexFragment_workspace$key
@@ -92,7 +93,7 @@ function WorkspaceDetailsIndex(props: Props) {
             ...StateVersionOutputsFragment_outputs
             ...StateVersionResourcesFragment_resources
             ...StateVersionDependenciesFragment_dependencies
-            ...WorkspaceDetailsStateFileFragment_stateVersion
+            ...StateVersionFileFragment_stateVersion
             metadata {
                 createdAt
             }
@@ -350,7 +351,9 @@ function WorkspaceDetailsIndex(props: Props) {
                 </React.Fragment>}
                 {tab === 'outputs' && <StateVersionOutputs fragmentRef={data.currentStateVersion} />}
                 {tab === 'dependencies' && <StateVersionDependencies fragmentRef={data.currentStateVersion} />}
-                {tab === 'stateFile' && <WorkspaceDetailsStateFile fragmentRef={data.currentStateVersion} />}
+                {tab === 'stateFile' && <TabContent>
+                    <StateVersionFile fragmentRef={data.currentStateVersion} />
+                </TabContent>}
             </React.Fragment>}
             <DestroyRunConfirmationDialog
                 open={showDestroyRunConfirmationDialog}

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ed0ae75e0cd2bb4f5eb3ed3c7e0cc42b>>
+ * @generated SignedSource<<c58894c1379395a928f50327ba731bee>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,13 +9,13 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type StateVersionDetailsQuery$variables = {
   id: string;
 };
 export type StateVersionDetailsQuery$data = {
   readonly node: {
     readonly createdBy?: string;
-    readonly data?: string;
     readonly id?: string;
     readonly metadata?: {
       readonly createdAt: any;
@@ -23,6 +23,7 @@ export type StateVersionDetailsQuery$data = {
     readonly run?: {
       readonly createdBy: string;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"StateVersionFileFragment_stateVersion">;
   } | null;
 };
 export type StateVersionDetailsQuery = {
@@ -62,13 +63,6 @@ v3 = {
 v4 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "data",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
   "concreteType": "ResourceMetadata",
   "kind": "LinkedField",
   "name": "metadata",
@@ -105,7 +99,6 @@ return {
               (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
-              (v5/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -117,6 +110,11 @@ return {
                   (v3/*: any*/)
                 ],
                 "storageKey": null
+              },
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "StateVersionFileFragment_stateVersion"
               }
             ],
             "type": "StateVersion",
@@ -156,7 +154,6 @@ return {
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
-              (v5/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -180,16 +177,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "21aa56850de251e475de243479af7069",
+    "cacheID": "2589364dc21ee75728bc2e0ac1a48381",
     "id": null,
     "metadata": {},
     "name": "StateVersionDetailsQuery",
     "operationKind": "query",
-    "text": "query StateVersionDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on StateVersion {\n      id\n      createdBy\n      data\n      metadata {\n        createdAt\n      }\n      run {\n        createdBy\n        id\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query StateVersionDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on StateVersion {\n      id\n      createdBy\n      metadata {\n        createdAt\n      }\n      run {\n        createdBy\n        id\n      }\n      ...StateVersionFileFragment_stateVersion\n    }\n    id\n  }\n}\n\nfragment StateVersionFileFragment_stateVersion on StateVersion {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e06cee67380842594de004991ce6aecf";
+(node as any).hash = "da09f99536f825cfecef74e20b44ca14";
 
 export default node;
