@@ -1,15 +1,13 @@
-import { Box, Typography, Tooltip } from '@mui/material'
-import React from 'react'
-import graphql from 'babel-plugin-relay/macro'
+import { Box, Tooltip, Typography } from '@mui/material';
+import graphql from 'babel-plugin-relay/macro';
+import moment from 'moment';
+import { useFragment, useLazyLoadQuery } from 'react-relay';
 import { useParams } from 'react-router-dom';
-import { useFragment, useLazyLoadQuery } from 'react-relay'
-import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs'
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import moment from 'moment'
-import Gravatar from '../../common/Gravatar'
-import { StateVersionDetailsFragment_details$key } from './__generated__/StateVersionDetailsFragment_details.graphql'
-import { StateVersionDetailsQuery } from './__generated__/StateVersionDetailsQuery.graphql'
+import Gravatar from '../../common/Gravatar';
+import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
+import StateVersionFile from './StateVersionFile';
+import { StateVersionDetailsFragment_details$key } from './__generated__/StateVersionDetailsFragment_details.graphql';
+import { StateVersionDetailsQuery } from './__generated__/StateVersionDetailsQuery.graphql';
 
 interface Props {
     fragmentRef: StateVersionDetailsFragment_details$key
@@ -34,13 +32,13 @@ function StateVersionDetails(props: Props) {
                 ... on StateVersion {
                     id
                     createdBy
-                    data
                     metadata {
                         createdAt
                     }
                     run {
                         createdBy
                     }
+                    ...StateVersionFileFragment_stateVersion
                 }
             }
         }
@@ -48,7 +46,7 @@ function StateVersionDetails(props: Props) {
 
     const createdBy = queryData.node?.run ? queryData.node.run.createdBy : (queryData.node?.createdBy || '')
 
-    return (
+    return queryData.node ? (
         <Box>
             <NamespaceBreadcrumbs
                 namespacePath={data.fullPath}
@@ -66,17 +64,13 @@ function StateVersionDetails(props: Props) {
                 </Typography>
                 <Tooltip title={createdBy}>
                     <Box>
-                        <Gravatar width={20} height={20} email={createdBy}/>
+                        <Gravatar width={20} height={20} email={createdBy} />
                     </Box>
-                    </Tooltip>
-                </Box>
-            <Box sx={{ fontSize: 14, overflowX: 'auto' }}>
-                <SyntaxHighlighter language="json" style={a11yDark}>
-                    {JSON.stringify(JSON.parse(atob(queryData.node?.data || '')), null, 2)}
-                </SyntaxHighlighter>
+                </Tooltip>
             </Box>
+            <StateVersionFile fragmentRef={queryData.node} />
         </Box>
-    )
+    ) : <Box>Not Found</Box>
 }
 
 export default StateVersionDetails
