@@ -18,10 +18,11 @@ export interface RoleOption {
 
 interface Props {
     onSelected: (value: RoleOption | null) => void
+    size?: 'small' | 'medium'
 }
 
 function RoleAutocomplete(props: Props) {
-    const { onSelected } = props;
+    const { onSelected, size } = props;
 
     const [options, setOptions] = useState<ReadonlyArray<RoleOption> | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
@@ -81,8 +82,8 @@ function RoleAutocomplete(props: Props) {
 
     return (
         <Autocomplete
+            size={size}
             fullWidth
-            size="small"
             sx={{ minWidth: 150 }}
             onChange={(event: React.SyntheticEvent, value: RoleOption | null) => onSelected(value)}
             onInputChange={(_, newInputValue: string) => setInputValue(newInputValue)}
