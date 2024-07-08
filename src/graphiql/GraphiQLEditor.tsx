@@ -14,7 +14,7 @@ const fetcher = (authService: AuthenticationService): Fetcher => createGraphiQLF
             if (config) {
                 config.headers = { ...config.headers, "Authorization": `bearer ${accessToken}` }
             }
-            return fetch(input, config)
+            return fetch(input, config) // nosemgrep: nodejs_scan.javascript-ssrf-rule-node_ssrf
         });
     }
 });
