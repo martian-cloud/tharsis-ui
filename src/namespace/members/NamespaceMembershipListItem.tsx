@@ -131,7 +131,7 @@ function NamespaceMembershipListItem(props: Props) {
                 {data.member?.__typename}
             </TableCell>
             <TableCell>
-                {editMode && <RoleAutocomplete onSelected={role => role && setRole(role.name)} />}
+                {editMode && <RoleAutocomplete size="small" onSelected={role => role && setRole(role.name)} />}
                 {!editMode && <React.Fragment>{data.role.name}</React.Fragment>}
             </TableCell>
             <TableCell>

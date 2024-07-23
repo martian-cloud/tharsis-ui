@@ -39,7 +39,7 @@ function ModuleVersionAutocomplete({ registryNamespace, moduleName, system, valu
                         graphql`
                             query ModuleVersionAutocompleteQuery($registryNamespace: String!, $moduleName: String!, $system: String!) {
                                 terraformModule(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system) {
-                                    versions(first: 20) {
+                                    versions(first: 50) {
                                         edges {
                                             node {
                                                 version
@@ -79,7 +79,6 @@ function ModuleVersionAutocomplete({ registryNamespace, moduleName, system, valu
 
     return (
         <Autocomplete
-            sx={{ maxWidth: 150 }}
             size="small"
             value={value}
             onChange={(event: React.SyntheticEvent, value: string | null) => onSelected(value)}
