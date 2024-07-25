@@ -208,13 +208,6 @@ gemnasium-dependency_scanning:
   rules:
     - !reference [.on_default_branch_and_merge_train, rules]
 
-nodejs-scan-sast:
-  artifacts:
-    paths:
-      - gl-sast-report.json
-  rules:
-    - !reference [.on_default_branch_and_merge_train, rules]
-
 semgrep-sast:
   artifacts:
     paths:
