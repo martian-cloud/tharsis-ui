@@ -31,7 +31,7 @@ function RunnerListItem({ fragmentRef, inherited }: Props) {
         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
             <TableCell>
                 <Typography fontWeight={500}>
-                    <Link color="inherit" to={`/groups/${data.groupPath}/-/runners/${data.id}`}>{data.name}</Link>
+                    <Link color="inherit" to={data.id}>{data.name}</Link>
                 </Typography>
                 {inherited && <Typography mt={0.5} color="textSecondary" variant="caption">Inherited from group <strong>{data.groupPath}</strong></Typography>}
             </TableCell>
@@ -50,7 +50,7 @@ function RunnerListItem({ fragmentRef, inherited }: Props) {
                     </Box>
                 </Box>
             </TableCell>
-        </TableRow >
+        </TableRow>
     );
 }
 

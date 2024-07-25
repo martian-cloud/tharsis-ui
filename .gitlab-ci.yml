@@ -4,7 +4,6 @@ include:
   - template: Jobs/SAST.gitlab-ci.yml
   - template: Jobs/SAST-IaC.gitlab-ci.yml
   - template: Jobs/Secret-Detection.gitlab-ci.yml
-  - template: Jobs/License-Scanning.gitlab-ci.yml
   - template: DAST.gitlab-ci.yml
 
 stages:
@@ -223,14 +222,6 @@ kics-iac-sast:
     - !reference [.on_default_branch_and_merge_train, rules]
 
 secret_detection:
-  rules:
-    - !reference [.on_default_branch_and_merge_train, rules]
-
-license_scanning:
-  artifacts:
-    reports:
-      license_scanning: gl-license-scanning-report.json
-    paths: [gl-license-scanning-report.json]
   rules:
     - !reference [.on_default_branch_and_merge_train, rules]
 

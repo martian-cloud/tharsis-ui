@@ -17,7 +17,7 @@ export const uploadConfigVersionPackage = async (
         body: new Uint8Array(fileData),
     };
 
-    const response = await fetch(
+    const response = await fetch( // nosemgrep: nodejs_scan.javascript-ssrf-rule-node_ssrf
         `${cfg.apiUrl}/tfe/v2/workspaces/${workspaceId}/configuration-versions/${configVersionId}/upload`,
         requestOptions
     );

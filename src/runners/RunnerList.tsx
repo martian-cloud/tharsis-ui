@@ -104,4 +104,4 @@ function RunnerList({ fragmentRef, loadNext, hasNext, hideNewRunnerButton, group
     );
 }
 
-export default RunnerList
+export default RunnerList;

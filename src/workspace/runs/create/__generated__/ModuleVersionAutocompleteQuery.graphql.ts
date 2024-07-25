@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<29b4283d3a431e2d889177ee28f22592>>
+ * @generated SignedSource<<0153558b2a92c75b66f7516448cf731c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -67,7 +67,7 @@ v4 = [
   {
     "kind": "Literal",
     "name": "first",
-    "value": 20
+    "value": 50
   }
 ],
 v5 = {
@@ -135,7 +135,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "versions(first:20)"
+            "storageKey": "versions(first:50)"
           }
         ],
         "storageKey": null
@@ -195,7 +195,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "versions(first:20)"
+            "storageKey": "versions(first:50)"
           },
           (v6/*: any*/)
         ],
@@ -204,16 +204,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a7ac388edfffcb7709fbab92675b52e3",
+    "cacheID": "0d3501bf24fd5f193c30812f3922804c",
     "id": null,
     "metadata": {},
     "name": "ModuleVersionAutocompleteQuery",
     "operationKind": "query",
-    "text": "query ModuleVersionAutocompleteQuery(\n  $registryNamespace: String!\n  $moduleName: String!\n  $system: String!\n) {\n  terraformModule(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system) {\n    versions(first: 20) {\n      edges {\n        node {\n          version\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ModuleVersionAutocompleteQuery(\n  $registryNamespace: String!\n  $moduleName: String!\n  $system: String!\n) {\n  terraformModule(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system) {\n    versions(first: 50) {\n      edges {\n        node {\n          version\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "05b6bf383e837dff9b93414959cff8cb";
+(node as any).hash = "21eebc693ab20b0a3c927e6bb38d2d6d";
 
 export default node;

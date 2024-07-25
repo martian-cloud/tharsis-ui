@@ -109,7 +109,7 @@ function ModuleSource({ data, onChange, fragmentRef }: Props) {
                 </Box>
                 <Stack>
                     <TextField
-                        sx={{ maxWidth: 150 }}
+                        sx={{ maxWidth: 300 }}
                         autoComplete="off"
                         size="small"
                         label="Version"
