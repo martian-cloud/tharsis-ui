@@ -189,6 +189,11 @@ type AuthSettings {
   oidcUsernameClaim: String
 }
 
+enum BoundClaimsType {
+  GLOB
+  STRING
+}
+
 input CancelRunInput {
   clientMutationId: String
   comment: String
@@ -1062,6 +1067,7 @@ type ManagedIdentity implements Node {
   name: String!
   resourcePath: String!
   type: String!
+  workspaces(after: String, before: String, first: Int, last: Int, sort: WorkspaceSort): WorkspaceConnection!
 }
 
 type ManagedIdentityAccessRule implements Node {
@@ -1286,6 +1292,7 @@ type NamespaceMembershipEdge {
 
 type NamespaceMembershipMutationPayload {
   clientMutationId: String
+  membership: NamespaceMembership
   namespace: Namespace
   problems: [Problem!]!
 }
@@ -1323,11 +1330,13 @@ interface Node {
 
 type OIDCTrustPolicy {
   boundClaims: [JWTClaim!]!
+  boundClaimsType: BoundClaimsType!
   issuer: String!
 }
 
 input OIDCTrustPolicyInput {
   boundClaims: [JWTClaimInput!]!
+  boundClaimsType: BoundClaimsType
   issuer: String!
 }
 
@@ -1548,7 +1557,7 @@ enum RunStatus {
 
 input RunSubscriptionInput {
   runId: String
-  workspacePath: String!
+  workspacePath: String
 }
 
 type RunVariable {
@@ -2405,6 +2414,7 @@ type User implements Node {
   metadata: ResourceMetadata!
   namespaceMemberships(after: String, before: String, first: Int, last: Int): NamespaceMembershipConnection!
   scimExternalId: String
+  teams(after: String, before: String, first: Int, last: Int, sort: TeamSort): TeamConnection!
   username: String!
 }
 

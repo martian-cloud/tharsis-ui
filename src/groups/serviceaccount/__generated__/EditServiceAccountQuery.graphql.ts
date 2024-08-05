@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7c3a8f81daf2d11fa680649ffa14dab2>>
+ * @generated SignedSource<<8f7e943181f0facbff7a8afb1f183148>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+export type BoundClaimsType = "GLOB" | "STRING" | "%future added value";
 export type EditServiceAccountQuery$variables = {
   id: string;
 };
@@ -23,6 +24,7 @@ export type EditServiceAccountQuery$data = {
         readonly name: string;
         readonly value: string;
       }>;
+      readonly boundClaimsType: BoundClaimsType;
       readonly issuer: string;
     }>;
     readonly resourcePath: string;
@@ -110,6 +112,13 @@ v2 = [
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "boundClaimsType",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "JWTClaim",
             "kind": "LinkedField",
             "name": "boundClaims",
@@ -151,16 +160,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "c5a672fbbac8d7cc3681e76f9179b6a8",
+    "cacheID": "cf6f817ee24850aa30984bc03ac4bfeb",
     "id": null,
     "metadata": {},
     "name": "EditServiceAccountQuery",
     "operationKind": "query",
-    "text": "query EditServiceAccountQuery(\n  $id: String!\n) {\n  serviceAccount(id: $id) {\n    id\n    name\n    description\n    resourcePath\n    createdBy\n    oidcTrustPolicies {\n      issuer\n      boundClaims {\n        name\n        value\n      }\n    }\n  }\n}\n"
+    "text": "query EditServiceAccountQuery(\n  $id: String!\n) {\n  serviceAccount(id: $id) {\n    id\n    name\n    description\n    resourcePath\n    createdBy\n    oidcTrustPolicies {\n      issuer\n      boundClaimsType\n      boundClaims {\n        name\n        value\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "17db3d21285c4d130d019346bf197e83";
+(node as any).hash = "cf3debf62324a0cf74626e1cd4b2e34e";
 
 export default node;

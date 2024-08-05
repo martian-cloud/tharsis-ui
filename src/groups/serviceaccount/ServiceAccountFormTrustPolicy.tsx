@@ -1,8 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, Chip, IconButton, Paper } from '@mui/material';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+import InfoIcon from '@mui/icons-material/Info';
+import { Box, Button, Checkbox, Chip, FormControlLabel, IconButton, Paper, TextField, Tooltip, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import EditClaimDialog from './EditClaimDialog';
 
@@ -74,7 +72,7 @@ function ServiceAccountFormTrustPolicy(props: Props) {
             >
                 <DeleteIcon />
             </IconButton>
-            <Box marginBottom={2}>
+            <Box mb={3}>
                 <Typography gutterBottom>Issuer URL</Typography>
                 <TextField
                     size="small"
@@ -85,7 +83,7 @@ function ServiceAccountFormTrustPolicy(props: Props) {
                     onChange={event => onChange({ ...trustPolicy, issuer: event.target.value })}
                 />
             </Box>
-            <Box>
+            <Box mb={3}>
                 <Typography gutterBottom>Bound Claims</Typography>
                 <Box display="flex" flexWrap="wrap" sx={{
                     margin: '0 -4px',
@@ -116,6 +114,32 @@ function ServiceAccountFormTrustPolicy(props: Props) {
                     </Button>
                 </Box>
             </Box>
+            <FormControlLabel
+                control={<Checkbox
+                    color="secondary"
+                    checked={trustPolicy.boundClaimsType === 'GLOB'}
+                    onChange={event => onChange({ ...trustPolicy, boundClaimsType: event.target.checked ? 'GLOB' : 'STRING' })}
+                />}
+                label={
+                    <Box display="flex" alignItems="center">
+                        <Typography variant="body2">Enable wildcard matching for bound claims</Typography>
+                        <Tooltip title="When enabled, wildcard characters can be used in claim values to match any string">
+                            <InfoIcon sx={{
+                                width: 16,
+                                height: 16,
+                                marginLeft: '4px',
+                                verticalAlign: 'middle',
+                                opacity: '20%',
+                                transition: 'ease',
+                                transitionDuration: '300ms',
+                                ":hover": {
+                                    opacity: '100%'
+                                }
+                            }} />
+                        </Tooltip>
+                    </Box>
+                }
+            />
             {claimToEdit && <EditClaimDialog
                 claim={claimToEdit}
                 error={editClaimError}
