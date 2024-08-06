@@ -4,7 +4,6 @@ import { useFragment } from 'react-relay/hooks';
 import { RunIcon } from '../../common/Icons';
 import ActivityEventLink from '../ActivityEventLink';
 import ActivityEventListItem from '../ActivityEventListItem';
-import Link from '../../routes/Link';
 import { ActivityEventRunTargetFragment_event$key } from './__generated__/ActivityEventRunTargetFragment_event.graphql';
 
 const ACTION_TEXT = {
@@ -40,7 +39,9 @@ function ActivityEventRunTarget({ fragmentRef }: Props) {
             fragmentRef={data}
             icon={<RunIcon />}
             primary={<React.Fragment>
-                Run <ActivityEventLink to={`/groups/${data.namespacePath}/-/runs/${run.id}`}>{run.id.substring(0, 8)}...</ActivityEventLink> {actionText} in <Link color="inherit" to={`/groups/${data.namespacePath}`}>{data.namespacePath}</Link>
+                Run <ActivityEventLink
+                    to={`/groups/${data.namespacePath}/-/runs/${run.id}`}>{run.id.substring(0, 8)}...
+                </ActivityEventLink> {actionText} in <ActivityEventLink to={`/groups/${data.namespacePath}`}>{data.namespacePath}</ActivityEventLink>
             </React.Fragment>}
         />
     );

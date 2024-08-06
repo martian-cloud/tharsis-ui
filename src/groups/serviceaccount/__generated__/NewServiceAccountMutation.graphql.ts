@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4ffe23f8666a91520a0b1a28254087dd>>
+ * @generated SignedSource<<e013ce9c5cb502f1a6942edc85e66b89>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
+export type BoundClaimsType = "GLOB" | "STRING" | "%future added value";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateServiceAccountInput = {
   clientMutationId?: string | null;
@@ -19,6 +20,7 @@ export type CreateServiceAccountInput = {
 };
 export type OIDCTrustPolicyInput = {
   boundClaims: ReadonlyArray<JWTClaimInput>;
+  boundClaimsType?: BoundClaimsType | null;
   issuer: string;
 };
 export type JWTClaimInput = {
@@ -46,6 +48,7 @@ export type NewServiceAccountMutation$data = {
           readonly name: string;
           readonly value: string;
         }>;
+        readonly boundClaimsType: BoundClaimsType;
         readonly issuer: string;
       }>;
       readonly resourcePath: string;
@@ -132,6 +135,13 @@ v4 = {
           "args": null,
           "kind": "ScalarField",
           "name": "issuer",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "boundClaimsType",
           "storageKey": null
         },
         {
@@ -264,16 +274,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "683a76675c1c132ac1c311e8fafde454",
+    "cacheID": "d3f49dbf8ef31b0fb598c9f937a02f00",
     "id": null,
     "metadata": {},
     "name": "NewServiceAccountMutation",
     "operationKind": "mutation",
-    "text": "mutation NewServiceAccountMutation(\n  $input: CreateServiceAccountInput!\n) {\n  createServiceAccount(input: $input) {\n    serviceAccount {\n      id\n      name\n      description\n      resourcePath\n      createdBy\n      oidcTrustPolicies {\n        issuer\n        boundClaims {\n          name\n          value\n        }\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
+    "text": "mutation NewServiceAccountMutation(\n  $input: CreateServiceAccountInput!\n) {\n  createServiceAccount(input: $input) {\n    serviceAccount {\n      id\n      name\n      description\n      resourcePath\n      createdBy\n      oidcTrustPolicies {\n        issuer\n        boundClaimsType\n        boundClaims {\n          name\n          value\n        }\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "94783ffa055cd31ff586c2be565d5902";
+(node as any).hash = "72dc4a5ed07f3b62ffcc18cd91af8c4e";
 
 export default node;

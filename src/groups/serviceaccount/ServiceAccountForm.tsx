@@ -1,9 +1,6 @@
-import { Button, useTheme } from '@mui/material';
+import { Box, Button, TextField, Typography, useTheme } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import { nanoid } from 'nanoid';
 import { MutationError } from '../../common/error';
 import ServiceAccountFormTrustPolicy from './ServiceAccountFormTrustPolicy';
@@ -64,7 +61,7 @@ function ServiceAccountForm({ data, onChange, editMode, error }: Props) {
             </Alert>}
             <Typography sx={{ marginTop: 2 }} variant="subtitle1" gutterBottom>Details</Typography>
             <Divider light />
-            <Box marginTop={2} marginBottom={2}>
+            <Box marginTop={2} mb={2}>
                 <TextField
                     disabled={editMode}
                     size="small" fullWidth
@@ -93,7 +90,7 @@ function ServiceAccountForm({ data, onChange, editMode, error }: Props) {
                     '& > *': { marginBottom: 2 },
                 }
             }}>
-                <Box marginBottom={1}>
+                <Box mb={1}>
                     <Typography variant="subtitle1">Trusted Identity Providers</Typography>
                     <Typography variant="caption" color="textSecondary">
                         Tokens issued by the following identity providers will be able to login to this service account provided that the bound claims match the token claims

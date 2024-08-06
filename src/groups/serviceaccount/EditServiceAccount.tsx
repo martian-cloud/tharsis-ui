@@ -45,9 +45,10 @@ function EditServiceAccount(props: Props) {
                 createdBy
                 oidcTrustPolicies {
                     issuer
+                    boundClaimsType
                     boundClaims {
-                    name
-                    value
+                        name
+                        value
                     }
                 }
             }
@@ -65,9 +66,10 @@ function EditServiceAccount(props: Props) {
                     createdBy
                     oidcTrustPolicies {
                         issuer
+                        boundClaimsType
                         boundClaims {
-                        name
-                        value
+                            name
+                            value
                         }
                     }
                 }

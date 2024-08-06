@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e0f770355aa91e4a99c791ca44ec81ef>>
+ * @generated SignedSource<<b908cd0c1ee65e527c1f33d189958ed1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+export type BoundClaimsType = "GLOB" | "STRING" | "%future added value";
 export type ServiceAccountDetailsQuery$variables = {
   id: string;
 };
@@ -26,6 +27,7 @@ export type ServiceAccountDetailsQuery$data = {
         readonly name: string;
         readonly value: string;
       }>;
+      readonly boundClaimsType: BoundClaimsType;
       readonly issuer: string;
     }>;
     readonly resourcePath: string;
@@ -131,6 +133,13 @@ v2 = [
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "boundClaimsType",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "JWTClaim",
             "kind": "LinkedField",
             "name": "boundClaims",
@@ -172,16 +181,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "fac1b171adfc9bf68ec29cfb9df408c5",
+    "cacheID": "8972a5dda929afa12be864e21e7104e2",
     "id": null,
     "metadata": {},
     "name": "ServiceAccountDetailsQuery",
     "operationKind": "query",
-    "text": "query ServiceAccountDetailsQuery(\n  $id: String!\n) {\n  serviceAccount(id: $id) {\n    metadata {\n      createdAt\n    }\n    id\n    name\n    description\n    resourcePath\n    createdBy\n    oidcTrustPolicies {\n      issuer\n      boundClaims {\n        name\n        value\n      }\n    }\n  }\n}\n"
+    "text": "query ServiceAccountDetailsQuery(\n  $id: String!\n) {\n  serviceAccount(id: $id) {\n    metadata {\n      createdAt\n    }\n    id\n    name\n    description\n    resourcePath\n    createdBy\n    oidcTrustPolicies {\n      issuer\n      boundClaimsType\n      boundClaims {\n        name\n        value\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8474fda2312d63245baa64cfbb1bf1b8";
+(node as any).hash = "8b2da3c5dcb21291019a582e68ddb405";
 
 export default node;

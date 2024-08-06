@@ -45,9 +45,10 @@ function NewServiceAccount(props: Props) {
                     createdBy
                     oidcTrustPolicies {
                         issuer
+                        boundClaimsType
                         boundClaims {
-                        name
-                        value
+                            name
+                            value
                         }
                     }
                 }
@@ -64,7 +65,7 @@ function NewServiceAccount(props: Props) {
     const [formData, setFormData] = useState<FormData>({
         name: '',
         description: '',
-        oidcTrustPolicies: [{ _id: nanoid(), issuer: '', boundClaims: [] }]
+        oidcTrustPolicies: [{ _id: nanoid(), issuer: '', boundClaimsType: 'STRING', boundClaims: [] }]
     });
 
     const onSave = () => {

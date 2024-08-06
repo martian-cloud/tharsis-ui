@@ -1,14 +1,20 @@
-import { Divider, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import React, { Suspense, useContext } from 'react';
+import { Box, CircularProgress, Link, ListItemButton, Paper, ToggleButton, Typography, useTheme } from '@mui/material';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunchOutlined';
 import graphql from 'babel-plugin-relay/macro';
-import { PreloadedQuery, usePaginationFragment, usePreloadedQuery } from 'react-relay';
-import ActivityEventList from '../activity/ActivityEventList';
-import { HomeActivityFragment_activity$key } from './__generated__/HomeActivityFragment_activity.graphql';
+import config from '../common/config';
+import { useSearchParams } from 'react-router-dom';
+import { PreloadedQuery, useFragment, usePreloadedQuery } from 'react-relay/hooks';
 import { HomeQuery } from './__generated__/HomeQuery.graphql';
+import { HomeFragment_activity$key } from './__generated__/HomeFragment_activity.graphql';
+import { UserContext } from '../UserContext';
+import HomeDrawer from './HomeDrawer';
+import HomeActivityFeed from './HomeActivityFeed';
+import HomeRunList from './HomeRunList';
 
 const query = graphql`
-    query HomeQuery($first: Int, $last: Int, $after: String, $before: String) {
-      ...HomeActivityFragment_activity
+    query HomeQuery {
+      ...HomeFragment_activity
     }
 `;
 
@@ -17,46 +23,105 @@ interface Props {
 }
 
 function Home(props: Props) {
+    const theme = useTheme();
+    const user = useContext(UserContext);
     const queryData = usePreloadedQuery<HomeQuery>(query, props.queryRef);
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const { data, loadNext, hasNext } = usePaginationFragment<HomeQuery, HomeActivityFragment_activity$key>(
+    // This filter will only show the current users activity when true
+    const showMyActivity = searchParams.get('filter') === 'myActivity';
+
+    const data = useFragment<HomeFragment_activity$key>(
         graphql`
-      fragment HomeActivityFragment_activity on Query
-      @refetchable(queryName: "HomeActivityPaginationQuery") {
+      fragment HomeFragment_activity on Query {
         activityEvents(
-            after: $after
-            before: $before
-            first: $first
-            last: $last
-            sort: CREATED_DESC
-        ) @connection(key: "HomeActivity_activityEvents") {
-            edges {
-                node {
-                    id
-                }
-            }
-            ...ActivityEventListFragment_connection
+            first: 0
+        ) {
+            totalCount
         }
       }
     `, queryData);
 
-    const eventCount = data.activityEvents?.edges?.length || 0;
-
     return (
-        <Box maxWidth={1200} margin="auto" padding={2} flex={1}>
-            {eventCount > 0 && <Box>
-                <Typography variant="h6" mb={1} fontWeight={600}>Activity</Typography>
-                <Divider light />
-                <ActivityEventList fragmentRef={data.activityEvents} loadNext={loadNext} hasNext={hasNext} />
-            </Box>}
-            {eventCount === 0 && <Box sx={{ marginTop: 4 }} display="flex" justifyContent="center">
-                <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ maxWidth: 600 }}>
-                    <Typography variant="h6">Welcome to Tharsis!</Typography>
-                    <Typography color="textSecondary" align="center" sx={{ marginBottom: 2 }}>
-                        Get started using Tharsis to manage your Terraform deployments
-                    </Typography>
+        <Box display="flex">
+            <HomeDrawer />
+            <Box component="main" sx={{ flexGrow: 1 }}>
+                <Box sx={{
+                    maxWidth: 1400,
+                    margin: 'auto',
+                    display: 'flex',
+                    [theme.breakpoints.down('lg')]: {
+                        flexDirection: 'column-reverse',
+                        alignItems: 'flex-start',
+                        '& > *': { mb: 2 }
+                    }
+                }}>
+                    {data.activityEvents.totalCount === 0 && <Box flex={1} mt={4} display="flex" justifyContent="center">
+                        <Box
+                            sx={{
+                                p: 4,
+                                maxWidth: 600,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
+                            <Typography variant="h6">Welcome to Tharsis!</Typography>
+                            <Typography color="textSecondary" align="center" sx={{ marginBottom: 2 }}>
+                                Get started using Tharsis to manage your Terraform deployments
+                            </Typography>
+                        </Box>
+                    </Box>}
+                    {data.activityEvents.totalCount > 0 && <React.Fragment>
+                        <Box padding={`${theme.spacing(2)} ${theme.spacing(3)}`} flex={1}>
+                            <Box display="flex" justifyContent="space-between" alignItems="center">
+                                <Typography variant="h6" fontWeight={600} mb={1}>Activity</Typography>
+                                <ToggleButton
+                                    onChange={() => setSearchParams(!showMyActivity ? { filter: 'myActivity' } : {}, { replace: true })}
+                                    color="secondary"
+                                    selected={showMyActivity}
+                                    size="small"
+                                    value="myActivity">
+                                    My Activity
+                                </ToggleButton>
+                            </Box>
+                            <Suspense fallback={<Box
+                                sx={{
+                                    width: '100%',
+                                    height: `calc(100vh - 64px)`,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                <CircularProgress />
+                            </Box>}>
+                                <HomeActivityFeed username={showMyActivity ? user.username : undefined} />
+                            </Suspense>
+                        </Box>
+                        <Box sx={{
+                            padding: 2,
+                            width: '100%',
+                            [theme.breakpoints.up('lg')]: {
+                                width: 400,
+                                maxWidth: 400,
+                            }
+                        }}>
+                            <Paper sx={{ mb: 3 }}>
+                                <ListItemButton component={Link} target='_blank' rel='noopener noreferrer' href={config.docsUrl}>
+                                    <RocketLaunchIcon sx={{ mr: 2 }} />
+                                    <Box>
+                                        <Typography variant="subtitle1" fontWeight={600}>Getting Started</Typography>
+                                        <Typography variant="body2">Learn how to use Tharsis</Typography>
+                                    </Box>
+                                </ListItemButton>
+                            </Paper>
+                            <Paper sx={{ padding: 2 }}>
+                                <HomeRunList />
+                            </Paper>
+                        </Box>
+                    </React.Fragment>}
                 </Box>
-            </Box>}
+            </Box>
         </Box>
     );
 }

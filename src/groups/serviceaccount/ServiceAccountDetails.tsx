@@ -89,14 +89,15 @@ function ServiceAccountDetails(props: Props) {
                 createdBy
                 oidcTrustPolicies {
                     issuer
+                    boundClaimsType
                     boundClaims {
-                    name
-                    value
+                        name
+                        value
                     }
                 }
             }
         }
-    `, { id: serviceAccountId });
+    `, { id: serviceAccountId }, { fetchPolicy: 'store-and-network' });
 
     const [commit, commitInFlight] = useMutation<ServiceAccountDetailsDeleteMutation>(graphql`
         mutation ServiceAccountDetailsDeleteMutation($input: DeleteServiceAccountInput!, $connections: [ID!]!) {
@@ -222,11 +223,12 @@ function ServiceAccountDetails(props: Props) {
                                     <TableRow>
                                         <TableCell>Issuer URL</TableCell>
                                         <TableCell>Bound Claims</TableCell>
+                                        <TableCell>Wildcard Match Enabled</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {data.serviceAccount.oidcTrustPolicies.map(trustPolicy => (<TableRow
-                                        key={trustPolicy.issuer}
+                                    {data.serviceAccount.oidcTrustPolicies.map((trustPolicy, index) => (<TableRow
+                                        key={index}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 }, height: 64 }}>
                                         <TableCell>{trustPolicy.issuer}</TableCell>
                                         <TableCell>
@@ -253,6 +255,7 @@ function ServiceAccountDetails(props: Props) {
                                                 ))}
                                             </Box>
                                         </TableCell>
+                                        <TableCell>{trustPolicy.boundClaimsType === 'GLOB' ? 'Yes' : 'No'}</TableCell>
                                     </TableRow>))}
                                 </TableBody>
                             </Table>
