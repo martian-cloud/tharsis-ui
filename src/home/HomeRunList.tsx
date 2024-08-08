@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Box, Link, List, ListItem, Typography, useTheme } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
 import { useLazyLoadQuery, usePaginationFragment, useSubscription } from 'react-relay/hooks';
@@ -38,6 +38,7 @@ const runSubscription = graphql` subscription HomeRunListSubscription($input: Ru
 
 function HomeRunList() {
     const theme = useTheme();
+    const [displayCount, setDisplayCount] = useState<number>(INITIAL_ITEM_COUNT);
     const queryData = useLazyLoadQuery<HomeRunListQuery>(query, { first: INITIAL_ITEM_COUNT }, { fetchPolicy: 'store-and-network' });
 
     const { data, loadNext, hasNext } = usePaginationFragment<HomeRunListPaginationQuery, HomeRunListFragment_runs$key>(
@@ -106,7 +107,9 @@ function HomeRunList() {
 
     useSubscription(runSubscriptionConfig);
 
-    const edgeCount = data?.runs?.edges?.length ?? 0;
+    const edges = data?.runs?.edges ?? [];
+    const displayedEdges = edges.slice(0, displayCount);
+    const edgeCount = displayedEdges.length;
 
     return (
         <Box>
@@ -117,18 +120,23 @@ function HomeRunList() {
                 </Typography>
             </Box>}
             {edgeCount > 0 && <List>
-                {data?.runs?.edges?.map((edge: any, index: number) => <HomeRunListItem
+                {displayedEdges.map((edge: any, index: number) => <HomeRunListItem
                     key={edge.node.id}
                     last={index === (edgeCount - 1)}
                     fragmentRef={edge.node} />
                 )}
-                {hasNext && <ListItem>
+                {(hasNext || edges.length > displayCount) && <ListItem>
                     <Link
                         variant="body2"
                         color="textSecondary"
                         sx={{ cursor: 'pointer' }}
                         underline="hover"
-                        onClick={() => loadNext(INITIAL_ITEM_COUNT)}
+                        onClick={() => {
+                            if (edges.length < displayCount + INITIAL_ITEM_COUNT) {
+                                loadNext(INITIAL_ITEM_COUNT);
+                            }
+                            setDisplayCount(displayCount + INITIAL_ITEM_COUNT);
+                        }}
                     >
                         Show more
                     </Link>
