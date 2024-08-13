@@ -126,7 +126,7 @@ function WorkspaceDetails(props: Props) {
 
   return (
     <Box display="flex">
-      <WorkspaceDetailsDrawer groupName={data.name} workspacePath={workspacePath} route={route} />
+      <WorkspaceDetailsDrawer workspaceName={data.name} workspacePath={workspacePath} route={route} />
       <Box component="main" flexGrow={1}>
         <Suspense fallback={<Box
           sx={{

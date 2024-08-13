@@ -4,6 +4,7 @@ import MemberIcon from '@mui/icons-material/PeopleOutline';
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
 import StateVersionIcon from '@mui/icons-material/InsertDriveFileOutlined'
 import VariableIcon from '@mui/icons-material/WindowOutlined';
+import UserIcon from '@mui/icons-material/PersonOutline';
 import {
     SourceMerge as VCSProviderIcon,
     RocketLaunchOutline as RunIcon,
@@ -30,4 +31,5 @@ export {
     TerraformIcon,
     VCSProviderIcon,
     RunnerIcon,
+    UserIcon
 };

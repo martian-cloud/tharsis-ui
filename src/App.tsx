@@ -11,70 +11,91 @@ import AuthServiceContext from './auth/AuthServiceContext';
 import AuthenticationService from './auth/AuthenticationService';
 
 interface Props {
-  authService: AuthenticationService
-  environment: any
+    authService: AuthenticationService
+    environment: any
 }
 
 // TODO: In a future story this will be configurable via settings
 const mode = 'dark' as any
 
-const theme = createTheme({
-  palette: {
-    mode,
-    primary: {
-      main: mode === 'dark' ? teal[300] : teal[500]
-    },
-    secondary: {
-      main: '#29b6f6'
-    },
-    info: {
-      main: 'rgba(255,255,255,0.7)'
+declare module '@mui/material/Chip' {
+    interface ChipPropsSizeOverrides {
+        xs: true;
     }
-  },
-  typography: {
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
+}
+
+const theme = createTheme({
+    palette: {
+        mode,
+        primary: {
+            main: mode === 'dark' ? teal[300] : teal[500]
+        },
+        secondary: {
+            main: '#29b6f6'
+        },
+        info: {
+            main: 'rgba(255,255,255,0.7)'
+        }
+    },
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+    },
+    components: {
+        MuiChip: {
+            variants: [
+                {
+                    props: { size: 'xs' },
+                    style: {
+                        fontSize: '0.75rem',
+                        lineHeight: '1rem',
+                        height: '20px',
+                        borderRadius: '0.25rem'
+                    }
+                }
+            ]
+        }
+    }
 });
 
 function App(props: Props) {
-  // Add dismiss action to all snackbars
-  const notistackRef = React.createRef<SnackbarProvider>();
-  const onClickDismiss = (key: any) => () => {
-    notistackRef.current?.closeSnackbar(key);
-  }
+    // Add dismiss action to all snackbars
+    const notistackRef = React.createRef<SnackbarProvider>();
+    const onClickDismiss = (key: any) => () => {
+        notistackRef.current?.closeSnackbar(key);
+    }
 
-  return (
-    <BrowserRouter>
-      <RelayEnvironmentProvider environment={props.environment}>
-        <AuthServiceContext.Provider value={props.authService}>
-          <ThemeProvider theme={theme}>
-            <SnackbarProvider
-              ref={notistackRef}
-              action={(key) => (
-                <Button onClick={onClickDismiss(key)} color="inherit">
-                  Dismiss
-                </Button>
-              )}
-            >
-              <CssBaseline />
-              <Root />
-            </SnackbarProvider>
-          </ThemeProvider>
-        </AuthServiceContext.Provider>
-      </RelayEnvironmentProvider>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <RelayEnvironmentProvider environment={props.environment}>
+                <AuthServiceContext.Provider value={props.authService}>
+                    <ThemeProvider theme={theme}>
+                        <SnackbarProvider
+                            ref={notistackRef}
+                            action={(key) => (
+                                <Button onClick={onClickDismiss(key)} color="inherit">
+                                    Dismiss
+                                </Button>
+                            )}
+                        >
+                            <CssBaseline />
+                            <Root />
+                        </SnackbarProvider>
+                    </ThemeProvider>
+                </AuthServiceContext.Provider>
+            </RelayEnvironmentProvider>
+        </BrowserRouter>
+    );
 }
 
 export default App;

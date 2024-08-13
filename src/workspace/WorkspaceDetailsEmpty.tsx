@@ -36,19 +36,19 @@ function WorkspaceDetailsEmpty(props: Props) {
 
             <Typography variant="h6" color="textSecondary" sx={{ marginBottom: 2 }}>Get started using the CLI</Typography>
 
-            <Box>
+            <Box mb={2}>
                 <Typography variant="subtitle1">Login using your SSO credentials</Typography>
                 <Paper>
-                    <Box component="pre" padding={2} marginTop={0}>
+                    <Box component="pre" padding={2} marginTop={0} marginBottom={0}>
                         tharsis sso login
                     </Box>
                 </Paper>
             </Box>
 
-            <Box>
+            <Box mb={2}>
                 <Typography variant="subtitle1">Apply a local configuration version</Typography>
                 <Paper>
-                    <Box component="pre" padding={2} marginTop={0}>
+                    <Box component="pre" padding={2} marginTop={0} marginBottom={0} whiteSpace="pre-line">
                         tharsis apply --directory-path &lt;path-to-configuration-version&gt; {data.fullPath}
                     </Box>
                 </Paper>
@@ -57,7 +57,7 @@ function WorkspaceDetailsEmpty(props: Props) {
             <Box>
                 <Typography variant="subtitle1">Apply a module from a module registry</Typography>
                 <Paper>
-                    <Box component="pre" padding={2} marginTop={0}>
+                    <Box component="pre" padding={2} marginTop={0} marginBottom={0} whiteSpace="pre-line">
                         tharsis apply --module-source &lt;module-source-path&gt; {data.fullPath}
                     </Box>
                 </Paper>

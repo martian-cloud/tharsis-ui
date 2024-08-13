@@ -7,6 +7,7 @@ import AdminDetailsDrawer from "./AdminAreaDetailsDrawer";
 import { AdminAreaEntryPointFragment_me$key } from "./__generated__/AdminAreaEntryPointFragment_me.graphql";
 import { AdminAreaQuery } from "./__generated__/AdminAreaQuery.graphql";
 import AdminAreaRunners from "./runners/AdminAreaRunners";
+import AdminAreaUsers from "./users/AdminAreaUsers";
 
 const query = graphql`
      query AdminAreaQuery {
@@ -48,7 +49,7 @@ function AdminArea({ queryRef }: Props) {
 
     useEffect(() => {
         if (location.pathname === '/admin') {
-            navigate('runners', { replace: true })
+            navigate('users', { replace: true })
         }
     }, [location]);
 
@@ -70,7 +71,8 @@ function AdminArea({ queryRef }: Props) {
                     </Box>}>
                         <Box maxWidth={1200} margin="auto" padding={2}>
                             <Routes>
-                                <Route index path={`runners/*`} element={<AdminAreaRunners />} />
+                                <Route index path={`users/*`} element={<AdminAreaUsers />} />
+                                <Route path={`runners/*`} element={<AdminAreaRunners />} />
                             </Routes>
                         </Box>
                     </Suspense>
