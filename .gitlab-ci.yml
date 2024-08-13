@@ -5,9 +5,16 @@ include:
   - template: Jobs/SAST-IaC.gitlab-ci.yml
   - template: Jobs/Secret-Detection.gitlab-ci.yml
   - template: DAST.gitlab-ci.yml
-  - component: gitlab.com/infor-cloud/gitlab-components/software-bill-of-materials/generate-sbom-npm@1.1.0
+  - component: gitlab.com/infor-cloud/gitlab-components/software-bill-of-materials/generate-sbom-npm@1.1.2
     inputs:
       stage: post
+      module_path: "."
+      main: cmd/tharsis
+      assert_licenses: true
+      std: true
+      go_arch: amd64
+      go_os: windows
+      cgo_enabled: "0"
       verbose: true
     rules:
       - if: $CI_COMMIT_TAG
