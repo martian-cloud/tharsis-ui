@@ -112,7 +112,7 @@ populate_npm_cache:
     - when: never
 
 npm-sbom (package.json):
-  script:
+  before_script:
     - echo "Generating SBOM for package.json"
   cache:
     <<: *cache-template
