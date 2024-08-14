@@ -14,22 +14,6 @@ include:
     rules:
       - if: $CI_COMMIT_TAG
 
-# Define the alias
-.cache-template: &cache-template
-  paths:
-    - node_modules/
-  key:
-    files:
-      - .gitlab-ci.yml
-      - package-lock.json
-    prefix: node_modules
-
-# Referencing the alias in npm-sbom
-npm-sbom:
-  cache:
-    <<: *cache-template
-    policy: pull
-
 stages:
   - pre-build
   - test
@@ -126,6 +110,11 @@ populate_npm_cache:
         - package-lock.json
       when: always
     - when: never
+
+npm-sbom (package.json):
+  cache:
+    <<: *cache-template
+    policy: pull
 
 lint:
   extends: .node
