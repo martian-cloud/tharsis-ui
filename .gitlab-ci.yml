@@ -7,7 +7,7 @@ include:
   - template: DAST.gitlab-ci.yml
   - component: gitlab.com/infor-cloud/gitlab-components/software-bill-of-materials/generate-sbom-npm@1.2.0
     inputs:
-      stage: post
+      stage: .post
       package_manifest: "package.json"
       validate: true
       verbose: true
@@ -199,7 +199,7 @@ publish ui docker:
 #################################
 
 container_scanning:
-  stage: post
+  stage: .post
   variables:
     CS_IMAGE: "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:latest"
     GIT_STRATEGY: fetch
