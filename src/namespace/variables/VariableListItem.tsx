@@ -1,3 +1,4 @@
+import DeleteIcon from '@mui/icons-material/CloseOutlined';
 import EditIcon from '@mui/icons-material/EditOutlined';
 import LockIcon from '@mui/icons-material/LockOutlined';
 import { Chip, Stack } from '@mui/material';
@@ -5,11 +6,11 @@ import Button from '@mui/material/Button';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import graphql from 'babel-plugin-relay/macro';
-import DeleteIcon from '@mui/icons-material/CloseOutlined';
 import React from 'react';
+import { useFragment } from 'react-relay/hooks';
+import CopyButton from '../../common/CopyButton';
 import DataTableCell from '../../common/DataTableCell';
 import Link from '../../routes/Link';
-import { useFragment } from 'react-relay/hooks';
 import { VariableListItemFragment_variable$key } from './__generated__/VariableListItemFragment_variable.graphql';
 
 interface Props {
@@ -44,9 +45,20 @@ function VariableListItem(props: Props) {
         >
             <DataTableCell sx={{ fontWeight: 'bold', wordBreak: 'break-all' }}>
                 {data.key}
+                <CopyButton
+                    data={data.key}
+                    toolTip="Copy key"
+                />
             </DataTableCell>
-            <DataTableCell sx={{ wordBreak: 'break-all' }} mask={!showValues} >
-                {data.value !== null ? data.value : <LockIcon color="disabled" />}
+            <DataTableCell sx={{ wordBreak: 'break-all' }}>
+                {data.value === null && <LockIcon color="disabled" />}
+                {data.value !== null && <React.Fragment>
+                    {!showValues ? '********' : data.value}
+                    {(data.value !== '' || !showValues) && <CopyButton
+                        data={data.value}
+                        toolTip="Copy value"
+                    />}
+                </React.Fragment>}
             </DataTableCell>
             {data.category === 'terraform' && <TableCell>
                 <Chip size="small" label={data.hcl ? 'HCL' : 'String'} />

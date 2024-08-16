@@ -24,9 +24,9 @@ import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
 import { AccountLockOutline as ManagedIdentityIcon, RocketLaunchOutline as RunIcon } from 'mdi-material-ui';
 
 interface Props {
-  workspacePath: string
-  groupName: string
-  route: string
+    workspacePath: string
+    workspaceName: string
+    route: string
 }
 
 const DRAWER_WIDTH = 240;
@@ -59,7 +59,7 @@ const LIST_ITEMS = [
 ];
 
 function WorkspaceDetailsDrawer(props: Props) {
-    const { route, groupName, workspacePath } = props;
+    const { route, workspaceName, workspacePath } = props;
     const navigate = useNavigate();
     const theme = useTheme();
     const fullSize = useMediaQuery(theme.breakpoints.up('md'));
@@ -78,19 +78,19 @@ function WorkspaceDetailsDrawer(props: Props) {
                         onClick={() => navigate(`/groups/${workspacePath}`)}
                     >
                         <ListItemAvatar>
-                            <Avatar sx={{ width: 24, height: 24, bgcolor: teal[200] }} variant="rounded">{groupName[0].toUpperCase()}</Avatar>
+                            <Avatar sx={{ width: 24, height: 24, bgcolor: teal[200] }} variant="rounded">{workspaceName[0].toUpperCase()}</Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary={groupName} />
+                        {fullSize && <ListItemText sx={{ wordWrap: 'break-word' }} primary={workspaceName} />}
                     </ListItemButton>
                     {LIST_ITEMS.map(item => (
                         <ListItemButton
                             key={item.route}
                             selected={route === item.route}
                             onClick={() => navigate(`/groups/${workspacePath}/-/${item.route}`)}>
-                            <ListItemIcon>
+                            <ListItemIcon sx={{ mt: 0.5, mb: 0.5 }}>
                                 {item.icon}
                             </ListItemIcon>
-                            <ListItemText primary={item.label} />
+                            {fullSize && <ListItemText primary={item.label} />}
                         </ListItemButton>
                     ))}
                 </List>

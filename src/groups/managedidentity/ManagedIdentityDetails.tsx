@@ -15,16 +15,17 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import config from '../../common/config';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
+import { ManagedIdentityDetailsDeleteAliasMutation } from './__generated__/ManagedIdentityDetailsDeleteAliasMutation.graphql';
+import { ManagedIdentityDetailsDeleteMutation } from './__generated__/ManagedIdentityDetailsDeleteMutation.graphql';
+import { ManagedIdentityDetailsFragment_group$key } from './__generated__/ManagedIdentityDetailsFragment_group.graphql';
+import { ManagedIdentityDetailsQuery } from './__generated__/ManagedIdentityDetailsQuery.graphql';
 import ManagedIdentityAliases from './aliases/ManagedIdentityAliases';
 import { INITIAL_ITEM_COUNT } from './aliases/ManagedIdentityAliasesList';
 import { GetConnections } from './ManagedIdentityList';
 import ManagedIdentityTypeChip from './ManagedIdentityTypeChip';
-import ManagedIdentityRules from './rules/ManagedIdentityRules';
-import { ManagedIdentityDetailsDeleteMutation } from './__generated__/ManagedIdentityDetailsDeleteMutation.graphql';
-import { ManagedIdentityDetailsDeleteAliasMutation } from './__generated__/ManagedIdentityDetailsDeleteAliasMutation.graphql';
-import { ManagedIdentityDetailsFragment_group$key } from './__generated__/ManagedIdentityDetailsFragment_group.graphql';
-import { ManagedIdentityDetailsQuery } from './__generated__/ManagedIdentityDetailsQuery.graphql';
 import MoveManagedIdentityDialog from './MoveManagedIdentityDialog';
+import ManagedIdentityRules from './rules/ManagedIdentityRules';
+import ManagedIdentityWorkspaceList from './ManagedIdentityWorkspaceList';
 
 interface Props {
     fragmentRef: ManagedIdentityDetailsFragment_group$key
@@ -226,7 +227,7 @@ function ManagedIdentityDetails(props: Props) {
                     setShowDeleteConfirmationDialog(false);
 
                     if (data.deleteManagedIdentityAlias.problems.length) {
-                        enqueueSnackbar(data.deleteManagedIdentityAlias.problems.map(problem => problem.message).join('; '),  { variant: 'warning' });
+                        enqueueSnackbar(data.deleteManagedIdentityAlias.problems.map(problem => problem.message).join('; '), { variant: 'warning' });
                     } else {
                         navigate(`..`)
                     }
@@ -311,18 +312,19 @@ function ManagedIdentityDetails(props: Props) {
                         </Menu>
                     </Box>
                         :
-                    <Box>
-                        <Button
-                            variant="outlined"
-                            color="error"
-                            onClick={() => setShowDeleteConfirmationDialog(true)}
-                        >Delete Alias</Button>
-                    </Box>}
+                        <Box>
+                            <Button
+                                variant="outlined"
+                                color="error"
+                                onClick={() => setShowDeleteConfirmationDialog(true)}
+                            >Delete Alias</Button>
+                        </Box>}
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between", border: 1, borderTopLeftRadius: 4, borderTopRightRadius: 4, borderColor: 'divider' }}>
                     <Tabs value={tab} onChange={onTabChange}>
                         <Tab label="Details" value="details" />
                         <Tab label="Rules" value="rules" />
+                        <Tab label="Workspaces" value="workspaces" />
                         {!data.managedIdentity.isAlias && <Tab label="Aliases" value="aliases" />}
                     </Tabs>
                 </Box>
@@ -389,6 +391,9 @@ function ManagedIdentityDetails(props: Props) {
                             fragmentRef={data.managedIdentity}
                             groupPath={group.fullPath}
                         />
+                    </Box>}
+                    {tab === 'workspaces' && <Box>
+                        <ManagedIdentityWorkspaceList managedIdentityId={data.managedIdentity.id} />
                     </Box>}
                     {tab === 'aliases' && <Box>
                         <ManagedIdentityAliases

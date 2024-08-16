@@ -1,9 +1,10 @@
 import { Box, List, ListItemButton, ListItemIcon, ListItemText, styled, Toolbar } from "@mui/material";
 import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { RunnerIcon } from "../common/Icons";
+import { RunnerIcon, UserIcon } from "../common/Icons";
 
 const LIST_ITEMS = [
+    { route: 'users', label: 'Users', icon: <UserIcon /> },
     { route: 'runners', label: 'Runner Agents', icon: <RunnerIcon /> },
 ]
 
