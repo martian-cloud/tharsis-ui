@@ -20,7 +20,6 @@ stages:
   - test
   - publish
   - dast
-  - post
 
 # Only start pipelines on Merge Requests or the default branch
 workflow:
