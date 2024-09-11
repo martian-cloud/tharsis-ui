@@ -7,7 +7,7 @@ include:
   - template: DAST.gitlab-ci.yml
   - component: gitlab.com/infor-cloud/gitlab-components/software-bill-of-materials/generate-sbom-npm@1.2.0
     inputs:
-      stage: .post
+      stage: container_scanning
       package_manifest: "package.json"
       validate: true
       verbose: true
@@ -19,7 +19,8 @@ include:
       stage: .post
       remote_sbom_component_mapping_file_namespace_path: infor-cloud/martian-cloud/sbom-component-mapping
       remote_sbom_component_mapping_file_branch: main
-      remote_sbom_component_mapping_file_paths: ["mapping-node.json"]
+      remote_sbom_component_mapping_file_paths:
+        ["mapping-alpine.json", "mapping-node.json"]
       report_filenames:
         - "gl-sbom-report.cdx.json"
       needs: [container_scanning]
@@ -211,7 +212,7 @@ publish ui docker:
 #################################
 
 container_scanning:
-  stage: .post
+  stage: container_scanning
   variables:
     CS_IMAGE: "$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:latest"
     GIT_STRATEGY: fetch
