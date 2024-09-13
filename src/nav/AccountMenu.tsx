@@ -14,6 +14,7 @@ import AuthenticationService from '../auth/AuthenticationService';
 import Gravatar from '../common/Gravatar';
 import config from '../common/config';
 import { AccountMenuFragment$key } from './__generated__/AccountMenuFragment.graphql';
+import AboutDialog from './AboutDialog';
 
 interface Props {
     fragmentRef: AccountMenuFragment$key
@@ -23,6 +24,7 @@ function AccountMenu({ fragmentRef }: Props) {
     const navigate = useNavigate();
     const authService = useContext<AuthenticationService>(AuthServiceContext);
     const email = authService.getCurrentUser().email;
+    const [showAboutDialog, setShowAboutDialog] = useState(false);
     const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
 
     const data = useFragment<AccountMenuFragment$key>(
@@ -35,6 +37,7 @@ function AccountMenu({ fragmentRef }: Props) {
                     admin
                 }
             }
+            version
         }
         `, fragmentRef);
 
@@ -54,6 +57,11 @@ function AccountMenu({ fragmentRef }: Props) {
     function onShowAdminArea() {
         onMenuClose();
         navigate('admin');
+    }
+
+    function onShowAboutDialog() {
+        onMenuClose();
+        setShowAboutDialog(true);
     }
 
     const isAdmin = data.me?.admin;
@@ -80,7 +88,7 @@ function AccountMenu({ fragmentRef }: Props) {
                         <Typography>{data.me?.username}</Typography>
                     </Box>
                     <Divider />
-                    <List dense sx={{}}>
+                    <List dense>
                         {isAdmin && <ListItemButton>
                             <ListItemText onClick={onShowAdminArea}>
                                 Admin Area
@@ -106,12 +114,20 @@ function AccountMenu({ fragmentRef }: Props) {
                                 <ListItemText primary="Documentation" />
                             </ListItemButton>
                         </ListItem>
+                        <ListItemButton>
+                            <ListItemText onClick={onShowAboutDialog}>About Tharsis</ListItemText>
+                        </ListItemButton>
                         <ListItemButton onClick={() => (authService.signOut())}>
                             <ListItemText primary="Sign Out" />
                         </ListItemButton>
                     </List>
                 </div>
             </Popover>
+            {showAboutDialog && <AboutDialog
+                backendVersion={data.version}
+                frontendVersion={config.version}
+                onClose={() => setShowAboutDialog(false)}
+            />}
         </div>
     );
 }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e372f54266e1e55aa4245e823f1722c9>>
+ * @generated SignedSource<<9a893cc6023e30940a6faef18931bb12>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type AccountMenuFragment$data = {
     readonly admin?: boolean;
     readonly username?: string;
   } | null;
+  readonly version: string;
   readonly " $fragmentType": "AccountMenuFragment";
 };
 export type AccountMenuFragment$key = {
@@ -59,12 +60,19 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "version",
+      "storageKey": null
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
 
-(node as any).hash = "a31c25d900c804193acf52bd6debcc11";
+(node as any).hash = "71e2ef92a1ec3369daf73aad5516f691";
 
 export default node;

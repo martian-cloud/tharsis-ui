@@ -1415,6 +1415,7 @@ type Query {
   terraformProviderVersionMirror(groupPath: String!, registryHostname: String!, registryNamespace: String!, type: String!, version: String!): TerraformProviderVersionMirror
   terraformProviders(after: String, before: String, first: Int, last: Int, search: String, sort: TerraformProviderSort): TerraformProviderConnection!
   users(after: String, before: String, first: Int, last: Int, search: String, sort: UserSort): UserConnection!
+  version: String!
   workspace(fullPath: String!): Workspace
   workspaces(after: String, before: String, first: Int, groupPath: String, last: Int, search: String, sort: WorkspaceSort): WorkspaceConnection!
 }
