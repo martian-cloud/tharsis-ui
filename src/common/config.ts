@@ -28,10 +28,22 @@ function buildDocumentsUrl(): string {
     return urlSetting;
 }
 
+function buildVersion(): string {
+    const version = process.env.REACT_APP_THARSIS_UI_VERSION ? process.env.REACT_APP_THARSIS_UI_VERSION : (window as any).env.REACT_APP_THARSIS_UI_VERSION;
+    const defaultVersion = 'dev';
+
+    if (!version || version === '__THARSIS_UI_VERSION__') {
+        return defaultVersion;
+    }
+
+    return version;
+}
+
 const cfg = {
     apiUrl: buildGraphqlUrl('http'),
     wsUrl: buildGraphqlUrl('ws'),
-    docsUrl: buildDocumentsUrl()
+    docsUrl: buildDocumentsUrl(),
+    version: buildVersion()
 };
 
 export default cfg;
