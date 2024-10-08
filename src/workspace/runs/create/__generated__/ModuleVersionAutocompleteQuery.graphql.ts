@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0153558b2a92c75b66f7516448cf731c>>
+ * @generated SignedSource<<d27441badc69a20a3c5f42f06f5241b6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ export type ModuleVersionAutocompleteQuery$variables = {
   moduleName: string;
   registryNamespace: string;
   system: string;
+  versionSearch?: string | null;
 };
 export type ModuleVersionAutocompleteQuery$data = {
   readonly terraformModule: {
@@ -46,7 +47,12 @@ v2 = {
   "kind": "LocalArgument",
   "name": "system"
 },
-v3 = [
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "versionSearch"
+},
+v4 = [
   {
     "kind": "Variable",
     "name": "moduleName",
@@ -63,21 +69,31 @@ v3 = [
     "variableName": "system"
   }
 ],
-v4 = [
+v5 = [
   {
     "kind": "Literal",
     "name": "first",
     "value": 50
+  },
+  {
+    "kind": "Variable",
+    "name": "search",
+    "variableName": "versionSearch"
+  },
+  {
+    "kind": "Literal",
+    "name": "sort",
+    "value": "CREATED_AT_DESC"
   }
 ],
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "version",
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -89,7 +105,8 @@ return {
     "argumentDefinitions": [
       (v0/*: any*/),
       (v1/*: any*/),
-      (v2/*: any*/)
+      (v2/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -97,7 +114,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": "TerraformModule",
         "kind": "LinkedField",
         "name": "terraformModule",
@@ -105,7 +122,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v4/*: any*/),
+            "args": (v5/*: any*/),
             "concreteType": "TerraformModuleVersionConnection",
             "kind": "LinkedField",
             "name": "versions",
@@ -127,7 +144,7 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/)
+                      (v6/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -135,7 +152,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "versions(first:50)"
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -149,14 +166,15 @@ return {
     "argumentDefinitions": [
       (v1/*: any*/),
       (v0/*: any*/),
-      (v2/*: any*/)
+      (v2/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Operation",
     "name": "ModuleVersionAutocompleteQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": "TerraformModule",
         "kind": "LinkedField",
         "name": "terraformModule",
@@ -164,7 +182,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v4/*: any*/),
+            "args": (v5/*: any*/),
             "concreteType": "TerraformModuleVersionConnection",
             "kind": "LinkedField",
             "name": "versions",
@@ -186,8 +204,8 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
-                      (v6/*: any*/)
+                      (v6/*: any*/),
+                      (v7/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -195,25 +213,25 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "versions(first:50)"
+            "storageKey": null
           },
-          (v6/*: any*/)
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "0d3501bf24fd5f193c30812f3922804c",
+    "cacheID": "c7515eeb75072c11b2c2742ccedb3042",
     "id": null,
     "metadata": {},
     "name": "ModuleVersionAutocompleteQuery",
     "operationKind": "query",
-    "text": "query ModuleVersionAutocompleteQuery(\n  $registryNamespace: String!\n  $moduleName: String!\n  $system: String!\n) {\n  terraformModule(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system) {\n    versions(first: 50) {\n      edges {\n        node {\n          version\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ModuleVersionAutocompleteQuery(\n  $registryNamespace: String!\n  $moduleName: String!\n  $system: String!\n  $versionSearch: String\n) {\n  terraformModule(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system) {\n    versions(first: 50, search: $versionSearch, sort: CREATED_AT_DESC) {\n      edges {\n        node {\n          version\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "21eebc693ab20b0a3c927e6bb38d2d6d";
+(node as any).hash = "0c0c487d14612a94388a044b722fb7fb";
 
 export default node;

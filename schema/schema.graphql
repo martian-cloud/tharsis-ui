@@ -1890,7 +1890,7 @@ type TerraformModule implements Node {
   resourcePath: String!
   source: String!
   system: String!
-  versions(after: String, before: String, first: Int, last: Int, sort: TerraformModuleVersionSort): TerraformModuleVersionConnection!
+  versions(after: String, before: String, first: Int, last: Int, search: String, sort: TerraformModuleVersionSort): TerraformModuleVersionConnection!
 }
 
 type TerraformModuleAttestation implements Node {

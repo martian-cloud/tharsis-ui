@@ -16,10 +16,6 @@ interface Props {
     onSelected: (value: string | null) => void
 }
 
-function sortVersions(options: string[]) {
-    return options.sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))
-}
-
 function ModuleVersionAutocomplete({ registryNamespace, moduleName, system, value, onSelected }: Props) {
     const environment = useRelayEnvironment();
 
@@ -37,9 +33,9 @@ function ModuleVersionAutocomplete({ registryNamespace, moduleName, system, valu
                     fetchQuery<ModuleVersionAutocompleteQuery>(
                         environment,
                         graphql`
-                            query ModuleVersionAutocompleteQuery($registryNamespace: String!, $moduleName: String!, $system: String!) {
+                            query ModuleVersionAutocompleteQuery($registryNamespace: String!, $moduleName: String!, $system: String!, $versionSearch: String) {
                                 terraformModule(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system) {
-                                    versions(first: 50) {
+                                    versions(first: 50, search: $versionSearch, sort: CREATED_AT_DESC) {
                                         edges {
                                             node {
                                                 version
@@ -48,7 +44,7 @@ function ModuleVersionAutocomplete({ registryNamespace, moduleName, system, valu
                                     }
                                 }
                             }
-                        `, { registryNamespace, moduleName, system },
+                        `, { registryNamespace, moduleName, system, versionSearch: request.input },
                         { fetchPolicy: 'network-only' }
                     ).toPromise().then(async response => {
                         const options = response?.terraformModule?.versions.edges?.map(edge => edge?.node?.version as string);
@@ -75,7 +71,7 @@ function ModuleVersionAutocomplete({ registryNamespace, moduleName, system, valu
         return () => {
             active = false;
         }
-    }, [fetch]);
+    }, [fetch, inputValue]);
 
     return (
         <Autocomplete
@@ -86,7 +82,6 @@ function ModuleVersionAutocomplete({ registryNamespace, moduleName, system, valu
             isOptionEqualToValue={(option: string, value: string | null) => option === value}
             onInputChange={(event: React.SyntheticEvent<Element, Event>, newValue: string) => newValue ? setInputValue(newValue) : setInputValue('')}
             options={options ?? []}
-            filterOptions={sortVersions}
             loading={loading}
             renderInput={(params) =>
                 <TextField
