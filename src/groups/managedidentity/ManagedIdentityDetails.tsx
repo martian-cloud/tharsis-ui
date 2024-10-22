@@ -1,6 +1,6 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { LoadingButton } from '@mui/lab';
-import { ButtonGroup, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Menu, MenuItem, Paper, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { ButtonGroup, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Menu, MenuItem, Paper, Stack, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Tab from '@mui/material/Tab';
@@ -354,6 +354,26 @@ function ManagedIdentityDetails(props: Props) {
                         {data.managedIdentity.type === 'tharsis_federated' && <Box>
                             <FieldLabel>Service Account</FieldLabel>
                             <FieldValue>{payload.serviceAccountPath}</FieldValue>
+                            <Box mb={3}>
+                                <Typography gutterBottom sx={{ marginBottom: 0 }}>Hosts</Typography>
+                                <Box display="flex" flexWrap="wrap" sx={{
+                                    margin: '0 -4px -4px',
+                                    '& > *': {
+                                        margin: '4px'
+                                    },
+                                }}>
+                                    {payload.hosts?.length > 0 &&
+                                        <Stack direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap' }}>
+                                            {payload.hosts?.map((host: any) => <Chip key={host} color="secondary" label={host} />)}
+                                        </Stack>
+                                    }
+                                    {payload.hosts?.length === 0 &&
+                                        <Paper sx={{ p: 2 }}>
+                                            <Typography>No hosts have been specified for this managed identity</Typography>
+                                        </Paper>
+                                    }
+                                </Box>
+                            </Box>
                             <FieldLabel>Trusted Identity Provider</FieldLabel>
                             <Typography color="textSecondary">
                                 Add the identity provider settings below to your service account to allow this managed identity to use it
