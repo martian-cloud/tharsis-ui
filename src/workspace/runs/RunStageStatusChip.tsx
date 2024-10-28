@@ -9,15 +9,16 @@ interface Props {
 
 function RunStageStatusChip(props: Props) {
   const type = RunStageStatusTypes[props.status] ?? { label: 'unknown', color: grey[500] }
+  const StatusIcon = type.icon;
   return (
     <Chip
-      icon={type.icon}
+      icon={<StatusIcon />}
       size="small"
       variant="outlined"
       label={type.label}
-      sx={{ 
-        color: type.color, 
-        borderColor: type.color, 
+      sx={{
+        color: type.color,
+        borderColor: type.color,
         fontWeight: 500,
         '& .MuiChip-icon': {
           color: type.color,

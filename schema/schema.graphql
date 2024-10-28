@@ -1348,14 +1348,66 @@ type PageInfo {
 }
 
 type Plan implements Node {
+  changes: PlanChanges
   currentJob: Job
+  diffSize: Int!
   hasChanges: Boolean!
   id: ID!
   metadata: ResourceMetadata!
-  resourceAdditions: Int!
-  resourceChanges: Int!
-  resourceDestructions: Int!
+  resourceAdditions: Int! @deprecated(reason: "Field has been moved to the PlanSummary type and will be removed in an upcoming release")
+  resourceChanges: Int! @deprecated(reason: "Field has been moved to the PlanSummary type and will be removed in an upcoming release")
+  resourceDestructions: Int! @deprecated(reason: "Field has been moved to the PlanSummary type and will be removed in an upcoming release")
   status: PlanStatus!
+  summary: PlanSummary!
+}
+
+enum PlanChangeAction {
+  CREATE
+  CREATE_THEN_DELETE
+  DELETE
+  DELETE_THEN_CREATE
+  NOOP
+  READ
+  UPDATE
+}
+
+type PlanChangeWarning {
+  changeType: PlanChangeWarningType!
+  line: Int!
+  message: String!
+}
+
+enum PlanChangeWarningType {
+  after
+  before
+}
+
+type PlanChanges {
+  outputs: [PlanOutputChange!]!
+  resources: [PlanResourceChange!]!
+}
+
+type PlanOutputChange {
+  action: PlanChangeAction!
+  originalSource: String!
+  outputName: String!
+  unifiedDiff: String!
+  warnings: [PlanChangeWarning!]!
+}
+
+type PlanResourceChange {
+  action: PlanChangeAction!
+  address: String!
+  drifted: Boolean!
+  imported: Boolean!
+  mode: TerraformResourceMode!
+  moduleAddress: String!
+  originalSource: String!
+  providerName: String!
+  resourceName: String!
+  resourceType: String!
+  unifiedDiff: String!
+  warnings: [PlanChangeWarning!]!
 }
 
 enum PlanStatus {
@@ -1365,6 +1417,17 @@ enum PlanStatus {
   pending
   queued
   running
+}
+
+type PlanSummary {
+  outputAdditions: Int!
+  outputChanges: Int!
+  outputDestructions: Int!
+  resourceAdditions: Int!
+  resourceChanges: Int!
+  resourceDestructions: Int!
+  resourceDrift: Int!
+  resourceImports: Int!
 }
 
 type Problem {
@@ -2147,6 +2210,11 @@ enum TerraformProviderVersionSort {
   VERSION_DESC
 }
 
+enum TerraformResourceMode {
+  data
+  managed
+}
+
 """Time represented in ISO 8601"""
 scalar Time
 
@@ -2222,9 +2290,6 @@ input UpdatePlanInput {
   hasChanges: Boolean!
   id: ID!
   metadata: ResourceMetadataInput
-  resourceAdditions: Int!
-  resourceChanges: Int!
-  resourceDestructions: Int!
   status: PlanStatus!
 }
 

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dfc3deaf9e85ccc82b97fa46d77dec0c>>
+ * @generated SignedSource<<acc6dcf8924391eeca7ff557a0075664>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,11 +9,16 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type ApplyStatus = "canceled" | "created" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type JobStatus = "finished" | "pending" | "queued" | "running" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type RunDetailsPlanStageFragment_plan$data = {
+  readonly apply: {
+    readonly status: ApplyStatus;
+  } | null;
   readonly createdBy: string;
+  readonly id: string;
   readonly plan: {
     readonly currentJob: {
       readonly cancelRequested: boolean;
@@ -27,13 +32,13 @@ export type RunDetailsPlanStageFragment_plan$data = {
       };
       readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs">;
     } | null;
+    readonly diffSize: number;
+    readonly hasChanges: boolean;
     readonly metadata: {
       readonly createdAt: any;
     };
-    readonly resourceAdditions: number;
-    readonly resourceChanges: number;
-    readonly resourceDestructions: number;
     readonly status: PlanStatus;
+    readonly " $fragmentSpreads": FragmentRefs<"RunDetailsPlanSummaryFragment_plan">;
   };
   readonly " $fragmentSpreads": FragmentRefs<"ForceCancelRunAlertFragment_run" | "RunVariablesFragment_variables">;
   readonly " $fragmentType": "RunDetailsPlanStageFragment_plan";
@@ -48,6 +53,13 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "status",
   "storageKey": null
 };
@@ -57,6 +69,7 @@ return {
   "metadata": null,
   "name": "RunDetailsPlanStageFragment_plan",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -90,28 +103,21 @@ return {
           ],
           "storageKey": null
         },
+        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "resourceAdditions",
+          "name": "hasChanges",
           "storageKey": null
         },
         {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "resourceChanges",
+          "name": "diffSize",
           "storageKey": null
         },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "resourceDestructions",
-          "storageKey": null
-        },
-        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -120,14 +126,8 @@ return {
           "name": "currentJob",
           "plural": false,
           "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "id",
-              "storageKey": null
-            },
             (v0/*: any*/),
+            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -181,7 +181,24 @@ return {
             }
           ],
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "RunDetailsPlanSummaryFragment_plan"
         }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Apply",
+      "kind": "LinkedField",
+      "name": "apply",
+      "plural": false,
+      "selections": [
+        (v1/*: any*/)
       ],
       "storageKey": null
     },
@@ -201,6 +218,6 @@ return {
 };
 })();
 
-(node as any).hash = "1592be822c8cf937ad969c3c6aefd794";
+(node as any).hash = "a1560cf738c557176325e8553ec44fb5";
 
 export default node;
