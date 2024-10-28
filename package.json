@@ -32,7 +32,10 @@
     "nanoid": "^3.3.3",
     "notistack": "^2.0.3",
     "oidc-client": "^1.11.5",
+    "prism-themes": "^1.9.0",
+    "prismjs": "^1.29.0",
     "react": "18.2.0",
+    "react-diff-view": "^3.2.1",
     "react-dom": "18.2.0",
     "react-error-boundary": "^4.0.13",
     "react-infinite-scroll-component": "^6.1.0",
@@ -42,6 +45,7 @@
     "react-router": "^6.8.1",
     "react-router-dom": "^6.8.1",
     "react-syntax-highlighter": "^15.5.0",
+    "refractor": "^3.6.0",
     "relay-runtime": "^14.1.0",
     "remark-gfm": "^3.0.1",
     "subscriptions-transport-ws": "^0.11.0",
@@ -55,7 +59,7 @@
     "relay": "relay-compiler --watch",
     "update-schema": "graphql-codegen --config codegen.ts",
     "test": "react-scripts test",
-    "lint": "eslint ."
+    "lint": "eslint --max-warnings=0 ."
   },
   "relay": {
     "src": "./src/",
@@ -91,6 +95,7 @@
     "@types/react-relay": "^14.1.2",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-syntax-highlighter": "^15.5.2",
+    "@types/refractor": "^3.4.1",
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
     "babel-plugin-relay": "^16.0.0",

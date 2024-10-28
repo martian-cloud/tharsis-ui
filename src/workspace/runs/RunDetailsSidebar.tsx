@@ -19,12 +19,12 @@ import { RunDetailsSidebarFragment_details$key } from './__generated__/RunDetail
 import RunStageStatusTypes from './RunStageStatusTypes';
 
 interface Props {
-  fragmentRef: RunDetailsSidebarFragment_details$key
-  stage: string
-  open: boolean
-  temporary: boolean
-  onClose: () => void
-  onError: (error: MutationError) => void
+    fragmentRef: RunDetailsSidebarFragment_details$key
+    stage: string
+    open: boolean
+    temporary: boolean
+    onClose: () => void
+    onError: (error: MutationError) => void
 }
 
 export const SidebarWidth = 240;
@@ -32,21 +32,21 @@ export const SidebarWidth = 240;
 const RUN_FINALITY_STATES = ['planned_and_finished', 'applied', 'errored', 'canceled']
 
 const Drawer = styled(MuiDrawer)<DrawerProps>(() => ({
-  flexShrink: 0,
-  overflowX: 'hidden',
-  [`& .MuiDrawer-paper`]: {
+    flexShrink: 0,
     overflowX: 'hidden',
+    [`& .MuiDrawer-paper`]: {
+        overflowX: 'hidden',
+        width: SidebarWidth,
+        boxSizing: 'border-box'
+    },
     width: SidebarWidth,
-    boxSizing: 'border-box'
-  },
-  width: SidebarWidth,
 }));
 
 function RunDetailsSidebar(props: Props) {
-  const { stage, open, temporary, onClose, onError } = props;
+    const { stage, open, temporary, onClose, onError } = props;
 
-  const data = useFragment<RunDetailsSidebarFragment_details$key>(
-    graphql`
+    const data = useFragment<RunDetailsSidebarFragment_details$key>(
+        graphql`
     fragment RunDetailsSidebarFragment_details on Run
     {
         id
@@ -84,7 +84,7 @@ function RunDetailsSidebar(props: Props) {
     }
   `, props.fragmentRef)
 
-  const [commitCancelRun, commitCancelRunInFlight] = useMutation<RunDetailsSidebarCancelRunMutation>(graphql`
+    const [commitCancelRun, commitCancelRunInFlight] = useMutation<RunDetailsSidebarCancelRunMutation>(graphql`
         mutation RunDetailsSidebarCancelRunMutation($input: CancelRunInput!) {
             cancelRun(input: $input) {
                 run {
@@ -99,118 +99,121 @@ function RunDetailsSidebar(props: Props) {
         }
     `);
 
-  const cancelRun = () => {
-    commitCancelRun({
-      variables: {
-        input: {
-          runId: data.id
-        },
-      },
-      onCompleted: data => {
-        if (data.cancelRun.problems.length) {
-          onError({
-            severity: 'warning',
-            message: data.cancelRun.problems.map(problem => problem.message).join('; ')
-          });
-        }
-      },
-      onError: error => {
-        onError({
-          severity: 'error',
-          message: `Unexpected Error Occurred: ${error.message}`
-        });
-      }
-    })
-  }
+    const cancelRun = () => {
+        commitCancelRun({
+            variables: {
+                input: {
+                    runId: data.id
+                },
+            },
+            onCompleted: data => {
+                if (data.cancelRun.problems.length) {
+                    onError({
+                        severity: 'warning',
+                        message: data.cancelRun.problems.map(problem => problem.message).join('; ')
+                    });
+                }
+            },
+            onError: error => {
+                onError({
+                    severity: 'error',
+                    message: `Unexpected Error Occurred: ${error.message}`
+                });
+            }
+        })
+    }
 
-  return (
-    <Drawer
-      variant={temporary ? 'temporary' : 'permanent'}
-      open={open}
-      hideBackdrop={false}
-      anchor='right'
-      onClose={onClose}
-    >
-      <Toolbar />
-      <Box padding={2}>
-        <Box marginBottom={2} display="flex" alignItems="center" justifyContent="space-between">
-          <Typography variant="h6">Run Details</Typography>
-          {!RUN_FINALITY_STATES.includes(data.status) &&
-            !data.plan.currentJob?.cancelRequested &&
-            !data.apply?.currentJob?.cancelRequested &&
-            <LoadingButton loading={commitCancelRunInFlight} size="small" variant="outlined" color="error" onClick={cancelRun}>Cancel</LoadingButton>}
-        </Box>
-        <Box marginBottom={3}>
-          <Typography sx={{ marginBottom: 1 }}>Type</Typography>
-          {!data.isDestroy && data.apply && <Chip size="small" label="Apply" />}
-          {data.isDestroy && <Chip size="small" label="Destroy" sx={{ color: red[500] }} />}
-          {!data.apply && <Chip size="small" label="Speculative" />}
-        </Box>
-        <Box marginBottom={3}>
-          <Typography sx={{ marginBottom: 1 }}>Created</Typography>
-          <Box display="flex" alignItems="center">
-            <RelativeTimestamp variant="subtitle1" sx={{ marginRight: 1 }} timestamp={data.metadata.createdAt} />
-            <Tooltip title={data.createdBy}>
-              <Box>
-                <Gravatar width={20} height={20} email={data.createdBy} />
-              </Box>
-            </Tooltip>
-          </Box>
-        </Box>
-        {data.configurationVersion && <Box marginBottom={3}>
-          <Typography sx={{ marginBottom: 1 }}>Configuration Version</Typography>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Typography sx={{ wordBreak: 'break-all' }}>
-              {data.configurationVersion.id.substring(0, 8)}...
-            </Typography>
-            <IconButton sx={{ padding: 0 }} onClick={() => navigator.clipboard.writeText(data.configurationVersion?.id ?? '')}>
-              <CopyIcon sx={{ width: 16, height: 16 }} />
-            </IconButton>
-          </Stack>
-        </Box>}
-        {data.moduleSource && <Box marginBottom={3}>
-          <Typography sx={{ marginBottom: 1 }}>Module Source</Typography>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Tooltip title={data.moduleSource}>
-              <Typography sx={{ wordBreak: 'break-all' }}>
-                {`${data.moduleSource.substring(0, 16)}...`}
-              </Typography>
-            </Tooltip>
-            <IconButton sx={{ padding: '4px' }} onClick={() => navigator.clipboard.writeText(data.moduleSource ?? '')}>
-              <CopyIcon sx={{ width: 16, height: 16 }} />
-            </IconButton>
-          </Stack>
-        </Box>}
-        {data.moduleVersion && <Box marginBottom={3}>
-          <Typography sx={{ marginBottom: 1 }}>Module Version</Typography>
-          <Chip size="small" label={data.moduleVersion} />
-        </Box>}
-        {(data as any)[stage].currentJob?.runnerPath && <Box marginBottom={3}>
-          <Typography sx={{ marginBottom: 1 }}>Runner</Typography>
-          <Tooltip title={(data as any)[stage].currentJob.runnerPath} >
-            <Chip size="small" label={(data as any)[stage].currentJob.runnerPath} />
-          </Tooltip>
-        </Box>}
-        <Box marginBottom={3}>
-          <Typography sx={{ marginBottom: 1 }}>Stages</Typography>
-          <List>
-            <ListItem button selected={stage === 'plan'} component={LinkRouter} replace to={'plan'}>
-              <ListItemIcon>
-                {RunStageStatusTypes[data.plan.status].icon}
-              </ListItemIcon>
-              <ListItemText primary="Plan" />
-            </ListItem>
-            {data.apply && <ListItem button selected={stage === 'apply'} component={LinkRouter} replace to={'apply'}>
-              <ListItemIcon>
-                {RunStageStatusTypes[data.apply.status].icon}
-              </ListItemIcon>
-              <ListItemText primary="Apply" />
-            </ListItem>}
-          </List>
-        </Box>
-      </Box>
-    </Drawer>
-  );
+    const PlanStatusIcon = RunStageStatusTypes[data.plan.status].icon;
+    const ApplyStatusIcon = data.apply ? RunStageStatusTypes[data.apply.status].icon : null;
+
+    return (
+        <Drawer
+            variant={temporary ? 'temporary' : 'permanent'}
+            open={open}
+            hideBackdrop={false}
+            anchor='right'
+            onClose={onClose}
+        >
+            <Toolbar />
+            <Box padding={2}>
+                <Box marginBottom={2} display="flex" alignItems="center" justifyContent="space-between">
+                    <Typography variant="h6">Run Details</Typography>
+                    {!RUN_FINALITY_STATES.includes(data.status) &&
+                        !data.plan.currentJob?.cancelRequested &&
+                        !data.apply?.currentJob?.cancelRequested &&
+                        <LoadingButton loading={commitCancelRunInFlight} size="small" variant="outlined" color="error" onClick={cancelRun}>Cancel</LoadingButton>}
+                </Box>
+                <Box marginBottom={3}>
+                    <Typography sx={{ marginBottom: 1 }}>Type</Typography>
+                    {!data.isDestroy && data.apply && <Chip size="small" label="Apply" />}
+                    {data.isDestroy && <Chip size="small" label="Destroy" sx={{ color: red[500] }} />}
+                    {!data.apply && <Chip size="small" label="Speculative" />}
+                </Box>
+                <Box marginBottom={3}>
+                    <Typography sx={{ marginBottom: 1 }}>Created</Typography>
+                    <Box display="flex" alignItems="center">
+                        <RelativeTimestamp variant="subtitle1" sx={{ marginRight: 1 }} timestamp={data.metadata.createdAt} />
+                        <Tooltip title={data.createdBy}>
+                            <Box>
+                                <Gravatar width={20} height={20} email={data.createdBy} />
+                            </Box>
+                        </Tooltip>
+                    </Box>
+                </Box>
+                {data.configurationVersion && <Box marginBottom={3}>
+                    <Typography sx={{ marginBottom: 1 }}>Configuration Version</Typography>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                        <Typography sx={{ wordBreak: 'break-all' }}>
+                            {data.configurationVersion.id.substring(0, 8)}...
+                        </Typography>
+                        <IconButton sx={{ padding: 0 }} onClick={() => navigator.clipboard.writeText(data.configurationVersion?.id ?? '')}>
+                            <CopyIcon sx={{ width: 16, height: 16 }} />
+                        </IconButton>
+                    </Stack>
+                </Box>}
+                {data.moduleSource && <Box marginBottom={3}>
+                    <Typography sx={{ marginBottom: 1 }}>Module Source</Typography>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                        <Tooltip title={data.moduleSource}>
+                            <Typography sx={{ wordBreak: 'break-all' }}>
+                                {`${data.moduleSource.substring(0, 16)}...`}
+                            </Typography>
+                        </Tooltip>
+                        <IconButton sx={{ padding: '4px' }} onClick={() => navigator.clipboard.writeText(data.moduleSource ?? '')}>
+                            <CopyIcon sx={{ width: 16, height: 16 }} />
+                        </IconButton>
+                    </Stack>
+                </Box>}
+                {data.moduleVersion && <Box marginBottom={3}>
+                    <Typography sx={{ marginBottom: 1 }}>Module Version</Typography>
+                    <Chip size="small" label={data.moduleVersion} />
+                </Box>}
+                {(data as any)[stage].currentJob?.runnerPath && <Box marginBottom={3}>
+                    <Typography sx={{ marginBottom: 1 }}>Runner</Typography>
+                    <Tooltip title={(data as any)[stage].currentJob.runnerPath} >
+                        <Chip size="small" label={(data as any)[stage].currentJob.runnerPath} />
+                    </Tooltip>
+                </Box>}
+                <Box marginBottom={3}>
+                    <Typography sx={{ marginBottom: 1 }}>Stages</Typography>
+                    <List>
+                        <ListItem button selected={stage === 'plan'} component={LinkRouter} replace to={'plan'}>
+                            <ListItemIcon>
+                                <PlanStatusIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Plan" />
+                        </ListItem>
+                        {data.apply && <ListItem button selected={stage === 'apply'} component={LinkRouter} replace to={'apply'}>
+                            <ListItemIcon>
+                                <ApplyStatusIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Apply" />
+                        </ListItem>}
+                    </List>
+                </Box>
+            </Box>
+        </Drawer>
+    );
 }
 
 export default RunDetailsSidebar;

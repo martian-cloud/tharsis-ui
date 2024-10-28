@@ -92,14 +92,16 @@ function RunDetails(props: Props) {
                         <IconButton onClick={onToggleSidebar}><DoubleArrowIcon sx={{ transform: 'rotate(180deg)' }} /></IconButton>
                     </Box>}
                     <Routes>
-                        <Route index element={<RunDetailsPlanStage fragmentRef={queryData.run} />} />
-                        <Route path="plan" element={<RunDetailsPlanStage fragmentRef={queryData.run} />} />
+                        <Route index element={<RunDetailsPlanStage fragmentRef={queryData.run} onError={onError} />} />
+                        <Route path="plan" element={<RunDetailsPlanStage fragmentRef={queryData.run} onError={onError} />} />
                         <Route path="apply" element={<RunDetailsApplyStage fragmentRef={queryData.run} onError={onError} />} />
                     </Routes>
                 </Box>
             </Box>
         </Box>
-    ) : null;
+    ) : <Box>
+        <Typography mt={4} variant="h6" color="textSecondary" align="center">Run not found</Typography>
+    </Box>;
 }
 
 export default RunDetails;

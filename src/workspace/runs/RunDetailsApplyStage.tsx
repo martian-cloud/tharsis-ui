@@ -1,9 +1,9 @@
 import { LoadingButton } from '@mui/lab';
-import { Chip, Paper, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Divider, Paper, Tooltip, Typography, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { blue, green, red } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import graphql from 'babel-plugin-relay/macro';
 import humanizeDuration from 'humanize-duration';
 import moment from 'moment';
@@ -14,9 +14,11 @@ import Gravatar from '../../common/Gravatar';
 import RelativeTimestamp from '../../common/RelativeTimestamp';
 import { MutationError } from '../../common/error';
 import RocketLottieFileJson from '../../lotties/rocket-in-space-lottie.json';
+import Link from '../../routes/Link';
 import ForceCancelRunAlert from './ForceCancelRunAlert';
 import JobLogs from './JobLogs';
-import RunStageStatusChip from './RunStageStatusChip';
+import RunDetailsPlanSummary from './RunDetailsPlanSummary';
+import RunStageStatusTypes from './RunStageStatusTypes';
 import RunVariables from './RunVariables';
 import { RunDetailsApplyStageApplyRunMutation } from './__generated__/RunDetailsApplyStageApplyRunMutation.graphql';
 import { RunDetailsApplyStageFragment_apply$key } from './__generated__/RunDetailsApplyStageFragment_apply.graphql';
@@ -36,10 +38,13 @@ function RunDetailsApplyStage(props: Props) {
             id
             status
             plan {
-                resourceAdditions
-                resourceChanges
-                resourceDestructions
+                summary {
+                    resourceAdditions
+                    resourceChanges
+                    resourceDestructions
+                }
                 status
+                ...RunDetailsPlanSummaryFragment_plan
             }
             apply {
                 metadata {
@@ -115,6 +120,9 @@ function RunDetailsApplyStage(props: Props) {
     const duration = timestamps?.finishedAt ?
         moment.duration(moment(timestamps.finishedAt as moment.MomentInput).diff(moment(timestamps.runningAt as moment.MomentInput))) : null;
 
+    const applyStatusType = data.apply ? (RunStageStatusTypes[data.apply?.status] ?? { label: 'unknown', color: grey[500] }) : null;
+    const StatusIcon = applyStatusType?.icon;
+
     return (
         <Box>
             {data.apply?.currentJob?.cancelRequested && data.apply?.status !== 'canceled' && <ForceCancelRunAlert fragmentRef={data} />}
@@ -127,8 +135,7 @@ function RunDetailsApplyStage(props: Props) {
                         flexDirection: 'row',
                         alignItems: 'center',
                     }}>
-                    <RunStageStatusChip status={data.apply.status} />
-                    <Box display="flex" alignItems="center" marginLeft={2}>
+                    <Box display="flex" alignItems="center">
                         <Typography sx={{ paddingRight: '4px' }}>Apply triggered</Typography>
                         <RelativeTimestamp component="span" timestamp={data.apply.metadata.createdAt} />
                         <Typography sx={{ paddingLeft: '4px', paddingRight: '8px' }}>by</Typography>
@@ -144,54 +151,38 @@ function RunDetailsApplyStage(props: Props) {
                         </Typography>
                     </Box>
                 </Box>}
-                {duration && <Paper variant="outlined" sx={{ marginBottom: 2 }}>
-                    <Box
-                        sx={{
-                            padding: 2,
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            [theme.breakpoints.down('lg')]: {
-                                flexDirection: 'column',
-                                alignItems: 'flex-start',
-                                '& > *:not(:last-child)': {
-                                    marginBottom: 2
-                                },
-                            }
-                        }}>
-                        <Typography>Duration: {humanizeDuration(duration.asMilliseconds())}</Typography>
-                        {data.apply.status === 'finished' && <Stack direction="row" spacing={2}>
-                            <Stack direction="row" spacing={1}>
-                                <Chip
-                                    label={`${data.plan.resourceAdditions > 0 ? '+' : ''}${data.plan.resourceAdditions}`}
-                                    size="small"
-                                    variant="outlined"
-                                    sx={data.plan.resourceAdditions > 0 ? { color: green[500], borderColor: green[500] } : null}
-                                />
-                                <Typography>added</Typography>
-                            </Stack>
-                            <Stack direction="row" spacing={1}>
-                                <Chip
-                                    label={`${data.plan.resourceChanges > 0 ? '+' : ''}${data.plan.resourceChanges}`}
-                                    size="small"
-                                    variant="outlined"
-                                    sx={data.plan.resourceChanges > 0 ? { color: blue[500], borderColor: blue[500] } : null}
-                                />
-                                <Typography>changed</Typography>
-                            </Stack>
-                            <Stack direction="row" spacing={1}>
-                                <Chip
-                                    label={`${data.plan.resourceDestructions > 0 ? '+' : ''}${data.plan.resourceDestructions}`}
-                                    size="small"
-                                    variant="outlined"
-                                    sx={data.plan.resourceDestructions > 0 ? { color: red[500], borderColor: red[500] } : null}
-                                />
-                                <Typography>destroyed</Typography>
-                            </Stack>
-                        </Stack>}
+                <Paper variant="outlined" sx={{ marginBottom: 2, p: 2 }} >
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        [theme.breakpoints.down('md')]: {
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            '& > *:not(:last-child)': {
+                                marginBottom: 2
+                            },
+                        }
+                    }}>
+                        <Box display="flex" alignItems="center">
+                            <StatusIcon sx={{ width: 32, height: 32, mr: 2 }} />
+                            <Box>
+                                <Typography variant="h6">Apply {applyStatusType.label}</Typography>
+                                {duration && <Typography variant="body2" color="textSecondary">
+                                    Duration: {humanizeDuration(duration.asMilliseconds())}
+                                </Typography>}
+                            </Box>
+                        </Box>
                     </Box>
-                </Paper>}
+                    {data.apply.status === 'finished' && <React.Fragment>
+                        <Divider sx={{ ml: -2, mr: -2, mt: 2 }} />
+                        <RunDetailsPlanSummary fragmentRef={data.plan} ml={-2} mr={-2} />
+                        <Box mt={2}>
+                            <Link color="secondary" to={'../plan?tab=changes'}>View changes</Link>
+                        </Box>
+                    </React.Fragment>}
+                </Paper>
                 {data.apply.status === 'pending' && <Box display="flex" justifyContent="center" marginTop={6}>
                     <Box display="flex" flexDirection="column" alignItems="center">
                         <Lottie

@@ -24,6 +24,22 @@ declare module '@mui/material/Chip' {
     }
 }
 
+declare module '@mui/material/styles' {
+    interface TypographyVariants {
+        code: React.CSSProperties;
+    }
+
+    interface TypographyVariantsOptions {
+        code?: React.CSSProperties;
+    }
+}
+
+declare module '@mui/material/Typography' {
+    interface TypographyPropsVariantOverrides {
+        code: true;
+    }
+}
+
 const theme = createTheme({
     palette: {
         mode,
@@ -50,6 +66,10 @@ const theme = createTheme({
             '"Segoe UI Emoji"',
             '"Segoe UI Symbol"',
         ].join(','),
+        code: {
+            fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace',
+            fontSize: `0.85rem`
+        }
     },
     components: {
         MuiChip: {

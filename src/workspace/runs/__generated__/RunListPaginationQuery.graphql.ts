@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fd454fe87dc6e39e9440227874b44552>>
+ * @generated SignedSource<<f20e0ee0fa235aa9768ad80e9c746bd4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -98,7 +98,11 @@ v3 = {
   "kind": "ScalarField",
   "name": "status",
   "storageKey": null
-};
+},
+v4 = [
+  (v3/*: any*/),
+  (v2/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -193,31 +197,7 @@ return {
                     "kind": "LinkedField",
                     "name": "plan",
                     "plural": false,
-                    "selections": [
-                      (v3/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "resourceAdditions",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "resourceChanges",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "resourceDestructions",
-                        "storageKey": null
-                      },
-                      (v2/*: any*/)
-                    ],
+                    "selections": (v4/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -227,10 +207,7 @@ return {
                     "kind": "LinkedField",
                     "name": "apply",
                     "plural": false,
-                    "selections": [
-                      (v3/*: any*/),
-                      (v2/*: any*/)
-                    ],
+                    "selections": (v4/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -310,12 +287,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "628a43c870de956a06fd25e4c930d989",
+    "cacheID": "88596ec3d7476ddf6114d2efd1c10cbc",
     "id": null,
     "metadata": {},
     "name": "RunListPaginationQuery",
     "operationKind": "query",
-    "text": "query RunListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $workspaceId: String\n) {\n  ...RunListFragment_runs\n}\n\nfragment RunListFragment_runs on Query {\n  runs(after: $after, before: $before, first: $first, last: $last, workspaceId: $workspaceId, sort: CREATED_AT_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...RunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  plan {\n    status\n    resourceAdditions\n    resourceChanges\n    resourceDestructions\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n"
+    "text": "query RunListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $workspaceId: String\n) {\n  ...RunListFragment_runs\n}\n\nfragment RunListFragment_runs on Query {\n  runs(after: $after, before: $before, first: $first, last: $last, workspaceId: $workspaceId, sort: CREATED_AT_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...RunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n"
   }
 };
 })();

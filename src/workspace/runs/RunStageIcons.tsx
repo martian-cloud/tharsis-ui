@@ -11,17 +11,21 @@ interface Props {
 
 function RunStageIcons(props: Props) {
   const { runPath, planStatus, applyStatus } = props;
+
+  const PlanStatusIcon = RunStageStatusTypes[planStatus].icon;
+  const ApplyStatusIcon = applyStatus ? RunStageStatusTypes[applyStatus].icon : null;
+
   return (
     <Box display="flex">
       <Tooltip title={`Plan ${RunStageStatusTypes[planStatus].tooltip}`}>
         <RouterLink to={`${runPath}/plan`} style={{ lineHeight: 0 }}>
-          {RunStageStatusTypes[planStatus].icon}
+          <PlanStatusIcon />
         </RouterLink>
       </Tooltip>
 
       {!!applyStatus && <Tooltip title={`Apply ${RunStageStatusTypes[applyStatus].tooltip}`}>
         <RouterLink to={`${runPath}/apply`} style={{ lineHeight: 0 }}>
-          {RunStageStatusTypes[applyStatus].icon}
+          <ApplyStatusIcon />
         </RouterLink>
       </Tooltip>}
     </Box>

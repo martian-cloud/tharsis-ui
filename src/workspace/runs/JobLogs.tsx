@@ -99,7 +99,14 @@ function JobLogs(props: Props) {
 
     useEffect(() => {
         if (autoScroll) {
-            scrollToBottom();
+            // Use timeout here to account for any dom updates when a status change occurs
+            // to ensure that the scroll is done after the dom is updated
+            const timeoutId = setTimeout(() => {
+                scrollToBottom();
+            }, 200);
+
+            // Cleanup function
+            return () => clearTimeout(timeoutId);
         }
     }, [logs, autoScroll]);
 

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d18fc8184c09937148a4dc614db2bdf6>>
+ * @generated SignedSource<<afc647a7c1964275fb7146f1551b5015>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,9 +24,6 @@ export type RunListItemFragment_run$data = {
     readonly createdAt: any;
   };
   readonly plan: {
-    readonly resourceAdditions: number;
-    readonly resourceChanges: number;
-    readonly resourceDestructions: number;
     readonly status: PlanStatus;
   };
   readonly status: RunStatus;
@@ -44,7 +41,10 @@ var v0 = {
   "kind": "ScalarField",
   "name": "status",
   "storageKey": null
-};
+},
+v1 = [
+  (v0/*: any*/)
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -98,30 +98,7 @@ return {
       "kind": "LinkedField",
       "name": "plan",
       "plural": false,
-      "selections": [
-        (v0/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "resourceAdditions",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "resourceChanges",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "resourceDestructions",
-          "storageKey": null
-        }
-      ],
+      "selections": (v1/*: any*/),
       "storageKey": null
     },
     {
@@ -131,9 +108,7 @@ return {
       "kind": "LinkedField",
       "name": "apply",
       "plural": false,
-      "selections": [
-        (v0/*: any*/)
-      ],
+      "selections": (v1/*: any*/),
       "storageKey": null
     }
   ],
@@ -142,6 +117,6 @@ return {
 };
 })();
 
-(node as any).hash = "6873f5be07bf8ff761dda6ffc03605ca";
+(node as any).hash = "6375e43932e53e87229053eff711916f";
 
 export default node;

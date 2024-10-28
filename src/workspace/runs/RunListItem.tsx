@@ -30,9 +30,6 @@ function RunListItem(props: Props) {
             isDestroy
             plan {
                 status
-                resourceAdditions
-                resourceChanges
-                resourceDestructions
             }
             apply {
                 status

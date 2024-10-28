@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9806deff77e2f8052d48a3d3fbbff0a5>>
+ * @generated SignedSource<<502a011c7b88f6ac443c90d13ca22deb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -36,10 +36,13 @@ export type RunDetailsApplyStageFragment_apply$data = {
   } | null;
   readonly id: string;
   readonly plan: {
-    readonly resourceAdditions: number;
-    readonly resourceChanges: number;
-    readonly resourceDestructions: number;
     readonly status: PlanStatus;
+    readonly summary: {
+      readonly resourceAdditions: number;
+      readonly resourceChanges: number;
+      readonly resourceDestructions: number;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"RunDetailsPlanSummaryFragment_plan">;
   };
   readonly status: RunStatus;
   readonly " $fragmentSpreads": FragmentRefs<"ForceCancelRunAlertFragment_run" | "RunVariablesFragment_variables">;
@@ -84,25 +87,41 @@ return {
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "resourceAdditions",
+          "concreteType": "PlanSummary",
+          "kind": "LinkedField",
+          "name": "summary",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "resourceAdditions",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "resourceChanges",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "resourceDestructions",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         },
+        (v1/*: any*/),
         {
-          "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "resourceChanges",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "resourceDestructions",
-          "storageKey": null
-        },
-        (v1/*: any*/)
+          "kind": "FragmentSpread",
+          "name": "RunDetailsPlanSummaryFragment_plan"
+        }
       ],
       "storageKey": null
     },
@@ -223,6 +242,6 @@ return {
 };
 })();
 
-(node as any).hash = "19351a633fbcbd68e358b7cd991a0483";
+(node as any).hash = "9365489486735b9632e4947b7459f20b";
 
 export default node;
