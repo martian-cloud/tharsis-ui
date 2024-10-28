@@ -1,4 +1,4 @@
-import { Button, Chip, Paper } from '@mui/material';
+import { Button } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -38,32 +38,6 @@ const ManagedIdentityTypes = [
 function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Props) {
     const [ruleToEdit, setRuleToEdit] = useState<any>(null);
     const [showCreateNewRuleDialog, setShowCreateNewRuleDialog] = useState(false);
-
-    const [hostToAdd, setHostToAdd] = useState('');
-
-    const onAddHost = () => {
-        const hosts = data.payload.hosts || [];
-
-        onChange({
-            ...data,
-            payload: { ...data.payload, hosts: [...hosts, hostToAdd] }
-        });
-        setHostToAdd('');
-    };
-
-    const onDeleteHost = (host: any) => {
-        const hostsCopy = [...data.payload.hosts];
-
-        const hostIndex = hostsCopy.indexOf(host);
-        if (hostIndex !== -1) {
-            hostsCopy.splice(hostIndex, 1)
-        }
-
-        onChange({
-            ...data,
-            payload: { ...data.payload, hosts: hostsCopy }
-        });
-    };
 
     const onTypeChange = (type: string) => {
         if (!editMode) {
@@ -213,38 +187,6 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
                         Specify the full resource path for the service account that this managed identity will assume. The resource path
                         consists of the group path for the service account and the service account name.
                     </Typography>
-                    <Box mb={3} sx={{ marginTop: 2 }}>
-                        <Typography sx={{ mt: 2 }} variant="subtitle1" gutterBottom>Hosts</Typography>
-                        <Divider sx={{ mb: 2, opacity: 0.6 }} />
-                        <Paper sx={{ padding: 2, mb: 2 }} variant="outlined">
-                            <Typography gutterBottom color="textSecondary">
-                                Hosts are optional and are not necessary when using the Tharsis Terraform provider. If a host is specified, Tharsis will use the managed identity's service account to authenticate with the specified host.
-                            </Typography>
-                            <Paper sx={{ padding: 2, display: 'flex', alignItems: 'center', mb: 2 }}>
-                                <TextField
-                                    size="small"
-                                    margin="none"
-                                    sx={{ flex: 1, mr: 1 }}
-                                    fullWidth
-                                    value={hostToAdd}
-                                    placeholder="Enter host to add"
-                                    variant="standard"
-                                    color="secondary"
-                                    onChange={event => setHostToAdd(event.target.value)}
-                                />
-                                <Button
-                                    onClick={onAddHost}
-                                    disabled={hostToAdd === ''}
-                                    variant="outlined"
-                                    color="secondary">
-                                    Add Host
-                                </Button>
-                            </Paper>
-                            <Stack direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap' }}>
-                                {data.payload.hosts?.map((host: any) => <Chip key={host} color="secondary" label={host} onDelete={() => onDeleteHost(host)} />)}
-                            </Stack>
-                        </Paper>
-                    </Box>
                 </Box>}
             </Box>}
             {ruleToEdit && <EditManagedIdentityRuleDialog
