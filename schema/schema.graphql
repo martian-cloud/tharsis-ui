@@ -1044,6 +1044,17 @@ enum JobType {
   plan
 }
 
+input LockWorkspaceInput {
+  clientMutationId: String
+  workspacePath: String!
+}
+
+type LockWorkspacePayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  workspace: Workspace
+}
+
 type MaintenanceMode {
   createdBy: String!
   id: ID!
@@ -1226,6 +1237,7 @@ type Mutation {
   deleteWorkspaceVCSProviderLink(input: DeleteWorkspaceVCSProviderLinkInput!): DeleteWorkspaceVCSProviderLinkPayload!
   disableMaintenanceMode(input: DisableMaintenanceModeInput!): DisableMaintenanceModePayload!
   enableMaintenanceMode(input: EnableMaintenanceModeInput!): EnableMaintenanceModePayload!
+  lockWorkspace(input: LockWorkspaceInput!): LockWorkspacePayload!
   migrateGroup(input: MigrateGroupInput!): MigrateGroupPayload!
   moveManagedIdentity(input: MoveManagedIdentityInput!): MoveManagedIdentityPayload!
   removeUserFromTeam(input: RemoveUserFromTeamInput): RemoveUserFromTeamPayload!
@@ -1236,6 +1248,7 @@ type Mutation {
   setNamespaceVariables(input: SetNamespaceVariablesInput!): NamespaceVariableMutationPayload!
   unassignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
   unassignServiceAccountFromRunner(input: AssignServiceAccountToRunnerInput!): AssignServiceAccountToRunnerPayload!
+  unlockWorkspace(input: UnlockWorkspaceInput!): UnlockWorkspacePayload!
   updateApply(input: UpdateApplyInput!): UpdateApplyPayload!
   updateGroup(input: UpdateGroupInput!): UpdateGroupPayload!
   updateManagedIdentity(input: UpdateManagedIdentityInput!): UpdateManagedIdentityPayload!
@@ -2217,6 +2230,17 @@ enum TerraformResourceMode {
 
 """Time represented in ISO 8601"""
 scalar Time
+
+input UnlockWorkspaceInput {
+  clientMutationId: String
+  workspacePath: String!
+}
+
+type UnlockWorkspacePayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  workspace: Workspace
+}
 
 input UpdateApplyInput {
   clientMutationId: String

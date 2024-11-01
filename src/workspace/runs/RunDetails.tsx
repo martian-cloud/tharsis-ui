@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import graphql from 'babel-plugin-relay/macro';
-import React, { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useFragment, useLazyLoadQuery } from 'react-relay/hooks';
 import { Route, Routes, useParams } from 'react-router-dom';
 import { MutationError } from '../../common/error';
@@ -14,6 +14,7 @@ import RunDetailsPlanStage from './RunDetailsPlanStage';
 import RunDetailsSidebar, { SidebarWidth } from './RunDetailsSidebar';
 import { RunDetailsFragment_details$key } from './__generated__/RunDetailsFragment_details.graphql';
 import { RunDetailsQuery } from './__generated__/RunDetailsQuery.graphql';
+import Link from '../../routes/Link';
 
 const RUN_STAGE_NAMES = {
     plan: 'Plan',
@@ -47,8 +48,13 @@ function RunDetails(props: Props) {
     const queryData = useLazyLoadQuery<RunDetailsQuery>(graphql`
         query RunDetailsQuery($id: String!) {
             run(id: $id) {
+                status
                 apply {
                     status
+                }
+                workspace {
+                    fullPath
+                    locked
                 }
                 ...RunDetailsSidebarFragment_details
                 ...RunDetailsPlanStageFragment_plan
@@ -65,6 +71,8 @@ function RunDetails(props: Props) {
         setError(error);
     };
 
+    const runQueued = useMemo(() => queryData.run?.status == 'plan_queued' || queryData.run?.status == 'apply_queued', [queryData.run?.status]);
+
     return queryData.run ? (
         <Box>
             <RunDetailsSidebar
@@ -77,6 +85,9 @@ function RunDetails(props: Props) {
             />
             <Box>
                 <Box paddingRight={!mobile ? `${SidebarWidth}px` : 0}>
+                    {runQueued && queryData.run.workspace.locked && <Alert severity="warning" variant="outlined" sx={{ marginBottom: 2 }}>
+                        This workspace is currently <strong>locked</strong>. A lock prevents new runs from starting and modifying the state version. To unlock, visit the <strong>State Settings</strong> section on the <Link to={`/groups/${queryData.run.workspace.fullPath}/-/settings`}>Settings</Link> page.
+                    </Alert>}
                     <NamespaceBreadcrumbs
                         namespacePath={data.fullPath}
                         childRoutes={[

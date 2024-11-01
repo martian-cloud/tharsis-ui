@@ -7,6 +7,7 @@ import WorkspaceGeneralSettings from './WorkspaceGeneralSettings';
 import WorkspaceRunSettings from './WorkspaceRunSettings';
 import WorkspaceAdvancedSettings from './WorkspaceAdvancedSettings';
 import WorkspaceVCSProviderSettings from './vcsprovider/WorkspaceVCSProviderSettings';
+import WorkspaceStateSettings from './WorkspaceStateSettings';
 
 export const StyledDivider = styled(
     Divider
@@ -31,6 +32,7 @@ function WorkspaceSettings(props: Props) {
             ...WorkspaceRunSettingsFragment_workspace
             ...WorkspaceAdvancedSettingsFragment_workspace
             ...WorkspaceVCSProviderSettingsFragment_workspace
+            ...WorkspaceStateSettingsFragment_workspace
         }
     `, props.fragmentRef
     )
@@ -38,19 +40,21 @@ function WorkspaceSettings(props: Props) {
     return (
         <Box>
             <NamespaceBreadcrumbs
-            namespacePath={data.fullPath}
-            childRoutes={[{ title: "settings", path: 'settings' }]} />
+                namespacePath={data.fullPath}
+                childRoutes={[{ title: "settings", path: 'settings' }]} />
             <Typography marginBottom={4} variant="h5" gutterBottom>Workspace Settings</Typography>
-            <StyledDivider/>
-            <WorkspaceGeneralSettings fragmentRef={data}/>
+            <StyledDivider />
+            <WorkspaceGeneralSettings fragmentRef={data} />
             <StyledDivider />
             <WorkspaceRunSettings fragmentRef={data} />
+            <StyledDivider />
+            <WorkspaceStateSettings fragmentRef={data} />
             <StyledDivider />
             <WorkspaceVCSProviderSettings fragmentRef={data} />
             <StyledDivider />
             <WorkspaceAdvancedSettings fragmentRef={data} />
         </Box>
     );
-  }
+}
 
-  export default WorkspaceSettings;
+export default WorkspaceSettings;
