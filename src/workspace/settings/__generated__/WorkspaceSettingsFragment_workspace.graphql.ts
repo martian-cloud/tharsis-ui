@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<57e6b337c8f4bb5ef28c5aabd7a76821>>
+ * @generated SignedSource<<19cbfaf48bdb082980376fc849c829ad>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type WorkspaceSettingsFragment_workspace$data = {
   readonly description: string;
   readonly fullPath: string;
   readonly name: string;
-  readonly " $fragmentSpreads": FragmentRefs<"WorkspaceAdvancedSettingsFragment_workspace" | "WorkspaceGeneralSettingsFragment_workspace" | "WorkspaceRunSettingsFragment_workspace" | "WorkspaceVCSProviderSettingsFragment_workspace">;
+  readonly " $fragmentSpreads": FragmentRefs<"WorkspaceAdvancedSettingsFragment_workspace" | "WorkspaceGeneralSettingsFragment_workspace" | "WorkspaceRunSettingsFragment_workspace" | "WorkspaceStateSettingsFragment_workspace" | "WorkspaceVCSProviderSettingsFragment_workspace">;
   readonly " $fragmentType": "WorkspaceSettingsFragment_workspace";
 };
 export type WorkspaceSettingsFragment_workspace$key = {
@@ -68,12 +68,17 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "WorkspaceVCSProviderSettingsFragment_workspace"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "WorkspaceStateSettingsFragment_workspace"
     }
   ],
   "type": "Workspace",
   "abstractKey": null
 };
 
-(node as any).hash = "f2cf3dec4b6a2538cb5f233d19b69b7a";
+(node as any).hash = "261f7582346f064ca4472bc7e049a439";
 
 export default node;
