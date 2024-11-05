@@ -10,35 +10,35 @@ import planDiffColors from './plandiff/RunDetailsPlanDiffColors';
 
 const planSummaryLabels = {
     resourceAdditions: {
-        label: 'Resource Additions',
+        label: (value: number, completed: boolean) => `Resource${value === 1 ? '' : 's'} ${!completed ? 'will be' : ''} added`,
         info: 'Number of resources that will be added'
     },
     resourceChanges: {
-        label: 'Resource Updates',
+        label: (value: number, completed: boolean) => `Resource${value === 1 ? '' : 's'} ${!completed ? 'will be' : ''} updated`,
         info: 'Number of resources that will be updated'
     },
     resourceDestructions: {
-        label: 'Resource Destructions',
+        label: (value: number, completed: boolean) => `Resource${value === 1 ? '' : 's'} ${!completed ? 'will be' : ''} destroyed`,
         info: 'Number of resources that will be deleted'
     },
     resourceImports: {
-        label: 'Resource Imports',
+        label: (value: number, completed: boolean) => `Resource${value === 1 ? '' : 's'} ${!completed ? 'will be' : ''} imported`,
         info: 'Number of resources that will be imported'
     },
     resourceDrift: {
-        label: 'Drifted Resources',
+        label: (value: number) => `Resource${value === 1 ? '' : 's'} drifted`,
         info: 'Number of resources that have drifted'
     },
     outputAdditions: {
-        label: 'Output Additions',
+        label: (value: number, completed: boolean) => `Output${value === 1 ? '' : 's'} ${!completed ? 'will be' : ''} added`,
         info: 'Number of outputs that will be added'
     },
     outputChanges: {
-        label: 'Output Updates',
+        label: (value: number, completed: boolean) => `Output${value === 1 ? '' : 's'} ${!completed ? 'will be' : ''} updated`,
         info: 'Number of outputs that will be updated'
     },
     outputDestructions: {
-        label: 'Output Destructions',
+        label: (value: number, completed: boolean) => `Output${value === 1 ? '' : 's'} ${!completed ? 'will be' : ''} removed`,
         info: 'Number of outputs that will be deleted'
     }
 };
@@ -98,10 +98,11 @@ function SummaryRowCol({ children, sx }: { children: React.ReactNode, sx?: SxPro
 interface Props {
     ml?: number
     mr?: number
+    completed: boolean
     fragmentRef: RunDetailsPlanSummaryFragment_plan$key
 }
 
-function RunDetailsPlanStageSummary({ fragmentRef, ml, mr }: Props) {
+function RunDetailsPlanStageSummary({ fragmentRef, ml, mr, completed }: Props) {
     const data = useFragment<RunDetailsPlanSummaryFragment_plan$key>(
         graphql`
         fragment RunDetailsPlanSummaryFragment_plan on Plan
@@ -120,18 +121,20 @@ function RunDetailsPlanStageSummary({ fragmentRef, ml, mr }: Props) {
       `, fragmentRef);
 
     const planSummaryItems = useMemo(() => Object.keys(data.summary)
-        .filter(key => data.summary[key as keyof typeof data.summary] > 0)
+        .filter(key => data.summary[key as keyof typeof data.summary] > 0 && (key !== 'resourceDrift' || !completed))
         .sort()
         .map(key => {
             const value = data.summary[key as keyof typeof data.summary];
+            const { label } = planSummaryLabels[key as keyof typeof planSummaryLabels];
+
             return {
                 key,
                 value,
-                label: planSummaryLabels[key as keyof typeof planSummaryLabels].label,
+                label: label(value, completed),
                 info: planSummaryLabels[key as keyof typeof planSummaryLabels].info,
                 color: planSummaryColors[key as keyof typeof planSummaryColors]
             };
-        }), [data.summary]);
+        }), [data.summary, completed]);
 
     return (
         <Box ml={ml} mr={mr} display="flex">

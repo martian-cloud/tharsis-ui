@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<acc6dcf8924391eeca7ff557a0075664>>
+ * @generated SignedSource<<3603a38fad4efb4a3c2627480560cb86>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -33,12 +33,19 @@ export type RunDetailsPlanStageFragment_plan$data = {
       readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs">;
     } | null;
     readonly diffSize: number;
+    readonly errorMessage: string | null;
     readonly hasChanges: boolean;
     readonly metadata: {
       readonly createdAt: any;
     };
     readonly status: PlanStatus;
     readonly " $fragmentSpreads": FragmentRefs<"RunDetailsPlanSummaryFragment_plan">;
+  };
+  readonly workspace: {
+    readonly locked: boolean;
+    readonly metadata: {
+      readonly updatedAt: any;
+    };
   };
   readonly " $fragmentSpreads": FragmentRefs<"ForceCancelRunAlertFragment_run" | "RunVariablesFragment_variables">;
   readonly " $fragmentType": "RunDetailsPlanStageFragment_plan";
@@ -80,6 +87,42 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "Workspace",
+      "kind": "LinkedField",
+      "name": "workspace",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "locked",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ResourceMetadata",
+          "kind": "LinkedField",
+          "name": "metadata",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "updatedAt",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Plan",
       "kind": "LinkedField",
       "name": "plan",
@@ -104,6 +147,13 @@ return {
           "storageKey": null
         },
         (v1/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "errorMessage",
+          "storageKey": null
+        },
         {
           "alias": null,
           "args": null,
@@ -218,6 +268,6 @@ return {
 };
 })();
 
-(node as any).hash = "a1560cf738c557176325e8553ec44fb5";
+(node as any).hash = "a224fff7ce009058190fe663a6c53443";
 
 export default node;

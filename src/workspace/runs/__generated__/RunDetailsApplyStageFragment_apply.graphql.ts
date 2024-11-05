@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<502a011c7b88f6ac443c90d13ca22deb>>
+ * @generated SignedSource<<ec4e08d95f9ed42df7521a06e6b7ba23>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,6 +28,7 @@ export type RunDetailsApplyStageFragment_apply$data = {
       };
       readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs">;
     } | null;
+    readonly errorMessage: string | null;
     readonly metadata: {
       readonly createdAt: any;
     };
@@ -156,6 +157,13 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
+          "name": "errorMessage",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
           "name": "triggeredBy",
           "storageKey": null
         },
@@ -242,6 +250,6 @@ return {
 };
 })();
 
-(node as any).hash = "9365489486735b9632e4947b7459f20b";
+(node as any).hash = "96717058baeee718dd60ebc92ff54cf0";
 
 export default node;

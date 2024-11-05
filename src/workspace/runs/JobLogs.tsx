@@ -1,5 +1,5 @@
 import AutoScrollIcon from '@mui/icons-material/ArrowCircleDown';
-import { Box, LinearProgress, Paper, ToggleButton, Tooltip, Typography } from '@mui/material';
+import { Box, darken, LinearProgress, Paper, ToggleButton, Tooltip, Typography, useTheme } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
 import moment from 'moment';
 import { useEffect, useMemo, useState } from 'react';
@@ -18,6 +18,7 @@ const subscription = graphql`subscription JobLogsSubscription($input: JobLogStre
 
 interface Props {
     fragmentRef: JobLogsFragment_logs$key
+    enableAutoScrollByDefault?: boolean
 }
 
 const bytes = (str: string) => {
@@ -28,6 +29,7 @@ const bytes = (str: string) => {
 const LOG_CHUNK_SIZE_BYTES = 1024 * 1024;
 
 function JobLogs(props: Props) {
+    const theme = useTheme();
     const data = useFragment<JobLogsFragment_logs$key>(
         graphql`
         fragment JobLogsFragment_logs on Job
@@ -45,7 +47,7 @@ function JobLogs(props: Props) {
     const [actualLogSize, setActualLogSize] = useState(data.logSize);
     const [lastLogEventSize, setLastLogEventSize] = useState(data.logSize);
     const [loading, setLoading] = useState<boolean>(false);
-    const [autoScroll, setAutoScroll] = useState(data.status !== 'finished');
+    const [autoScroll, setAutoScroll] = useState(props.enableAutoScrollByDefault);
     const environment = useRelayEnvironment();
 
     const config = useMemo<GraphQLSubscriptionConfig<JobLogsSubscription>>(() => ({
@@ -144,7 +146,16 @@ function JobLogs(props: Props) {
                 </Box>
             </Paper>
             {data.status === 'finished' && loadedPercent < 100 && <LinearProgress variant="determinate" value={loadedPercent} />}
-            <LogViewer logs={logs} />
+            <LogViewer
+                logs={logs}
+                sx={{
+                    backgroundColor: darken(theme.palette.background.default, 0.5),
+                    paddingTop: 1,
+                    paddingBottom: 2,
+                    paddingRight: 1,
+                    minHeight: 120
+                }}
+            />
         </Box>
     );
 }
