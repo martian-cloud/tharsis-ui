@@ -18,6 +18,7 @@ import RocketLottieFileJson from '../../lotties/rocket-in-space-lottie.json';
 import Link from '../../routes/Link';
 import ForceCancelRunAlert from './ForceCancelRunAlert';
 import JobLogs from './JobLogs';
+import RunDetailsErrorSummary from './RunDetailsErrorSummary';
 import RunDetailsPlanSummary from './RunDetailsPlanSummary';
 import RunStageStatusTypes from './RunStageStatusTypes';
 import RunVariables from './RunVariables';
@@ -42,11 +43,18 @@ function RunDetailsPlanStage(props: Props) {
         {
             id
             createdBy
+            workspace {
+                locked
+                metadata {
+                    updatedAt
+                }
+            }
             plan {
                 metadata {
                     createdAt
                 }
                 status
+                errorMessage
                 hasChanges
                 diffSize
                 currentJob {
@@ -75,7 +83,7 @@ function RunDetailsPlanStage(props: Props) {
         mutation RunDetailsPlanStageApplyRunMutation($input: ApplyRunInput!) {
             applyRun(input: $input) {
                 run {
-                    ...RunDetailsApplyStageFragment_apply
+                    ...RunDetailsPlanStageFragment_plan
                 }
                 problems {
                     message
@@ -184,13 +192,17 @@ function RunDetailsPlanStage(props: Props) {
                         </LoadingButton>
                     </Box>}
                 </Box>
+                {data.plan.status === 'errored' && !!data.plan.errorMessage && <React.Fragment>
+                    <Divider sx={{ ml: -2, mr: -2, mt: 2 }} />
+                    <RunDetailsErrorSummary errorMessage={data.plan.errorMessage} ml={-2} mr={-2} mb={-2} />
+                </React.Fragment>}
                 {data.plan.status === 'finished' && <React.Fragment>
                     <Divider sx={{ ml: -2, mr: -2, mt: 2 }} />
                     {!data.plan.hasChanges && <Typography mt={2} variant="body2">
                         This plan does not contain any changes to apply
                     </Typography>}
                     {data.plan.hasChanges && <React.Fragment>
-                        <RunDetailsPlanSummary fragmentRef={data.plan} ml={-2} mr={-2} />
+                        <RunDetailsPlanSummary fragmentRef={data.plan} ml={-2} mr={-2} completed={false} />
                         <Box mt={2}>
                             <Link color="secondary" to={'?tab=changes'}>View changes</Link>
                         </Box>

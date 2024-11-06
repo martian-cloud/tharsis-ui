@@ -1,4 +1,4 @@
-import { Box, darken, useTheme } from '@mui/material';
+import { Box, SxProps, Theme, useTheme } from '@mui/material';
 import grey from '@mui/material/colors/grey';
 import Anser from 'anser';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -7,12 +7,15 @@ import Link from '../../routes/Link';
 
 interface Props {
     logs: string
+    hideLineNumbers?: boolean
+    sx?: SxProps<Theme>
 }
 
 interface LogLineProps {
     log: string
     lineNumber: number
     selected?: boolean
+    hideLineNumber?: boolean
 }
 
 function buildLogTextStyle(entry: Anser.AnserJsonEntry) {
@@ -23,7 +26,7 @@ function buildLogTextStyle(entry: Anser.AnserJsonEntry) {
     };
 }
 
-function LogLine({ log, lineNumber, selected }: LogLineProps) {
+function LogLine({ log, lineNumber, selected, hideLineNumber }: LogLineProps) {
     const theme = useTheme();
     const ref = useRef<HTMLDivElement>();
     const [autoScroll, setAutoscroll] = useState(true);
@@ -45,8 +48,8 @@ function LogLine({ log, lineNumber, selected }: LogLineProps) {
         }
     }, [selected, autoScroll]);
 
-    return <Box ref={ref} sx={{ padding: '1px 8px 1px 56px' }}>
-        <Link
+    return <Box ref={ref} sx={{ padding: `1px 0px 1px ${hideLineNumber ? '0px' : '56px'}` }}>
+        {!hideLineNumber && <Link
             id={`L${lineNumber}`}
             preventScrollReset
             sx={{
@@ -68,49 +71,54 @@ function LogLine({ log, lineNumber, selected }: LogLineProps) {
             onClick={() => setAutoscroll(false)}
         >
             {lineNumber}
-        </Link>
+        </Link>}
         {parts}
     </Box>;
 }
 
 const MemorizedLogLine = React.memo(LogLine);
 
-function LogViewer({ logs }: Props) {
+function LogViewer({ logs, sx, hideLineNumbers }: Props) {
     const theme = useTheme();
     const [searchParams] = useSearchParams();
 
     const [selectedLine, setSelectedLine] = useState<number | undefined>();
 
     useEffect(() => {
+        if (hideLineNumbers) {
+            // Line selection is not supported when line numbers are hidden
+            return;
+        }
         const selectedLineParam = searchParams.get('line');
         if (selectedLineParam) {
             setSelectedLine(parseInt(selectedLineParam));
         }
     }, [searchParams]);
 
-    const logLines = useMemo(() => logs.split(/\r?\n/).filter(l => l !== ''), [logs]);
+    const logLines = useMemo(() => {
+        const lines = logs.split(/\r?\n/);
+        return (lines.length === 1 && lines[0] === '') ? [] : lines;
+    }, [logs]);
 
     return (
         <Box
             sx={{
                 fontSize: '13px',
                 fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace !important',
-                backgroundColor: darken(theme.palette.background.default, 0.5),
                 color: theme.palette.text.primary,
                 wordBreak: 'break-all',
                 whiteSpace: 'pre-wrap',
-                marginTop: 0,
-                paddingTop: 1,
-                paddingBottom: 2,
-                minHeight: 120,
+                mt: 0,
+                mb: 0,
                 height: '100%',
                 overflowY: 'auto',
+                ...sx
             }}
             component="pre"
         >
             {logLines.map((l, index) => {
                 const lineNumber = index + 1;
-                return <MemorizedLogLine key={`L${lineNumber}`} log={l} lineNumber={lineNumber} selected={lineNumber === selectedLine} />;
+                return <MemorizedLogLine key={`L${lineNumber}`} log={l} lineNumber={lineNumber} selected={lineNumber === selectedLine} hideLineNumber={hideLineNumbers} />;
             })}
         </Box>
     );

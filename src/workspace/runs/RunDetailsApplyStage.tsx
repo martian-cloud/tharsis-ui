@@ -17,6 +17,7 @@ import RocketLottieFileJson from '../../lotties/rocket-in-space-lottie.json';
 import Link from '../../routes/Link';
 import ForceCancelRunAlert from './ForceCancelRunAlert';
 import JobLogs from './JobLogs';
+import RunDetailsErrorSummary from './RunDetailsErrorSummary';
 import RunDetailsPlanSummary from './RunDetailsPlanSummary';
 import RunStageStatusTypes from './RunStageStatusTypes';
 import RunVariables from './RunVariables';
@@ -51,6 +52,7 @@ function RunDetailsApplyStage(props: Props) {
                     createdAt
                 }
                 status
+                errorMessage
                 triggeredBy
                 currentJob {
                   id
@@ -175,9 +177,13 @@ function RunDetailsApplyStage(props: Props) {
                             </Box>
                         </Box>
                     </Box>
+                    {data.apply.status === 'errored' && !!data.apply.errorMessage && <React.Fragment>
+                        <Divider sx={{ ml: -2, mr: -2, mt: 2 }} />
+                        <RunDetailsErrorSummary errorMessage={data.apply.errorMessage} ml={-2} mr={-2} mb={-2} />
+                    </React.Fragment>}
                     {data.apply.status === 'finished' && <React.Fragment>
                         <Divider sx={{ ml: -2, mr: -2, mt: 2 }} />
-                        <RunDetailsPlanSummary fragmentRef={data.plan} ml={-2} mr={-2} />
+                        <RunDetailsPlanSummary fragmentRef={data.plan} ml={-2} mr={-2} completed={true} />
                         <Box mt={2}>
                             <Link color="secondary" to={'../plan?tab=changes'}>View changes</Link>
                         </Box>
@@ -215,7 +221,7 @@ function RunDetailsApplyStage(props: Props) {
                         </Tabs>
                     </Box>
                     {tab === 'logs' && <Box>
-                        <JobLogs fragmentRef={data.apply.currentJob} />
+                        <JobLogs fragmentRef={data.apply.currentJob} enableAutoScrollByDefault={data.apply.status === 'running'} />
                     </Box>}
                     {tab === 'variables' && <Box marginTop={2}>
                         <RunVariables fragmentRef={data} />

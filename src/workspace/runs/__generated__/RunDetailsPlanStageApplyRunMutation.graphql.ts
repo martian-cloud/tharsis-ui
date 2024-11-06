@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fffa16eca837131db5fb2ec05c32aae7>>
+ * @generated SignedSource<<f5b05b91cbabebb55f837031d404c551>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,7 +27,7 @@ export type RunDetailsPlanStageApplyRunMutation$data = {
       readonly type: ProblemType;
     }>;
     readonly run: {
-      readonly " $fragmentSpreads": FragmentRefs<"RunDetailsApplyStageFragment_apply">;
+      readonly " $fragmentSpreads": FragmentRefs<"RunDetailsPlanStageFragment_plan">;
     } | null;
   };
 };
@@ -123,7 +123,7 @@ return {
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "RunDetailsApplyStageFragment_apply"
+                "name": "RunDetailsPlanStageFragment_plan"
               }
             ],
             "storageKey": null
@@ -159,93 +159,63 @@ return {
             "plural": false,
             "selections": [
               (v3/*: any*/),
-              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Plan",
+                "kind": "ScalarField",
+                "name": "createdBy",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Workspace",
                 "kind": "LinkedField",
-                "name": "plan",
+                "name": "workspace",
                 "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "PlanSummary",
+                    "kind": "ScalarField",
+                    "name": "locked",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ResourceMetadata",
                     "kind": "LinkedField",
-                    "name": "summary",
+                    "name": "metadata",
                     "plural": false,
                     "selections": [
                       {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "resourceAdditions",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "resourceChanges",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "resourceDestructions",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "resourceImports",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "resourceDrift",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "outputAdditions",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "outputChanges",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "outputDestructions",
+                        "name": "updatedAt",
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
                   },
-                  (v4/*: any*/),
-                  (v3/*: any*/)
+                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "fullPath",
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Apply",
+                "concreteType": "Plan",
                 "kind": "LinkedField",
-                "name": "apply",
+                "name": "plan",
                 "plural": false,
                 "selections": [
                   {
@@ -271,7 +241,21 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "triggeredBy",
+                    "name": "errorMessage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasChanges",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "diffSize",
                     "storageKey": null
                   },
                   {
@@ -365,6 +349,86 @@ return {
                     ],
                     "storageKey": null
                   },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PlanSummary",
+                    "kind": "LinkedField",
+                    "name": "summary",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "resourceAdditions",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "resourceChanges",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "resourceDestructions",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "resourceImports",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "resourceDrift",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "outputAdditions",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "outputChanges",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "outputDestructions",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Apply",
+                "kind": "LinkedField",
+                "name": "apply",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -421,25 +485,6 @@ return {
                 "kind": "ScalarField",
                 "name": "forceCancelAvailableAt",
                 "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Workspace",
-                "kind": "LinkedField",
-                "name": "workspace",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "fullPath",
-                    "storageKey": null
-                  },
-                  (v3/*: any*/)
-                ],
-                "storageKey": null
               }
             ],
             "storageKey": null
@@ -451,16 +496,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f51aaa888687f319691054c7fe9e2615",
+    "cacheID": "471f55f3ef43c0afd83de193cc3ef66b",
     "id": null,
     "metadata": {},
     "name": "RunDetailsPlanStageApplyRunMutation",
     "operationKind": "mutation",
-    "text": "mutation RunDetailsPlanStageApplyRunMutation(\n  $input: ApplyRunInput!\n) {\n  applyRun(input: $input) {\n    run {\n      ...RunDetailsApplyStageFragment_apply\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment ForceCancelRunAlertFragment_run on Run {\n  forceCancelAvailableAt\n  ...ForceCancelRunButtonFragment_run\n}\n\nfragment ForceCancelRunButtonDialogFragment_run on Run {\n  workspace {\n    fullPath\n    id\n  }\n}\n\nfragment ForceCancelRunButtonFragment_run on Run {\n  id\n  ...ForceCancelRunButtonDialogFragment_run\n}\n\nfragment JobLogsFragment_logs on Job {\n  id\n  status\n  logLastUpdatedAt\n  logSize\n  logs(startOffset: 0, limit: 51200)\n}\n\nfragment RunDetailsApplyStageFragment_apply on Run {\n  id\n  status\n  plan {\n    summary {\n      resourceAdditions\n      resourceChanges\n      resourceDestructions\n    }\n    status\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    metadata {\n      createdAt\n    }\n    status\n    triggeredBy\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...JobLogsFragment_logs\n    }\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanSummaryFragment_plan on Plan {\n  summary {\n    resourceAdditions\n    resourceChanges\n    resourceDestructions\n    resourceImports\n    resourceDrift\n    outputAdditions\n    outputChanges\n    outputDestructions\n  }\n}\n\nfragment RunVariableListItemFragment_variable on RunVariable {\n  key\n  category\n  hcl\n  value\n  namespacePath\n}\n\nfragment RunVariablesFragment_variables on Run {\n  variables {\n    key\n    category\n    namespacePath\n    ...RunVariableListItemFragment_variable\n  }\n}\n"
+    "text": "mutation RunDetailsPlanStageApplyRunMutation(\n  $input: ApplyRunInput!\n) {\n  applyRun(input: $input) {\n    run {\n      ...RunDetailsPlanStageFragment_plan\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment ForceCancelRunAlertFragment_run on Run {\n  forceCancelAvailableAt\n  ...ForceCancelRunButtonFragment_run\n}\n\nfragment ForceCancelRunButtonDialogFragment_run on Run {\n  workspace {\n    fullPath\n    id\n  }\n}\n\nfragment ForceCancelRunButtonFragment_run on Run {\n  id\n  ...ForceCancelRunButtonDialogFragment_run\n}\n\nfragment JobLogsFragment_logs on Job {\n  id\n  status\n  logLastUpdatedAt\n  logSize\n  logs(startOffset: 0, limit: 51200)\n}\n\nfragment RunDetailsPlanStageFragment_plan on Run {\n  id\n  createdBy\n  workspace {\n    locked\n    metadata {\n      updatedAt\n    }\n    id\n  }\n  plan {\n    metadata {\n      createdAt\n    }\n    status\n    errorMessage\n    hasChanges\n    diffSize\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...JobLogsFragment_logs\n    }\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    status\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanSummaryFragment_plan on Plan {\n  summary {\n    resourceAdditions\n    resourceChanges\n    resourceDestructions\n    resourceImports\n    resourceDrift\n    outputAdditions\n    outputChanges\n    outputDestructions\n  }\n}\n\nfragment RunVariableListItemFragment_variable on RunVariable {\n  key\n  category\n  hcl\n  value\n  namespacePath\n}\n\nfragment RunVariablesFragment_variables on Run {\n  variables {\n    key\n    category\n    namespacePath\n    ...RunVariableListItemFragment_variable\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "cddb22253d2a128aefeb0bbeb635e14d";
+(node as any).hash = "4e7122aad420016419e2d1896f9bea80";
 
 export default node;

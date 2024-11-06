@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Typography, darken } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -7,8 +7,8 @@ import graphql from 'babel-plugin-relay/macro';
 import moment from 'moment';
 import { Suspense, useEffect, useState } from "react";
 import { fetchQuery, useLazyLoadQuery, useRelayEnvironment } from 'react-relay/hooks';
-import { RunnerSessionErrorLogDialogQuery } from "./__generated__/RunnerSessionErrorLogDialogQuery.graphql";
 import LogViewer from '../workspace/runs/LogViewer';
+import { RunnerSessionErrorLogDialogQuery } from "./__generated__/RunnerSessionErrorLogDialogQuery.graphql";
 
 const query = graphql`
     query  RunnerSessionErrorLogDialogQuery($id: String!, $startOffset: Int!, $limit: Int!) {
@@ -93,6 +93,7 @@ interface ErrorLogDialogContentProps {
 function ErrorLogDialogContent(props: ErrorLogDialogContentProps) {
     const queryData = useLazyLoadQuery<RunnerSessionErrorLogDialogQuery>(query, { id: props.sessionId, startOffset: 0, limit: 51200 }, { fetchPolicy: 'network-only' });
 
+    const theme = useTheme();
     const [errorCount, setErrorCount] = useState(0);
     const [logs, setLogs] = useState('');
     const [currentLogSize, setCurrentLogSize] = useState(0);
@@ -161,7 +162,16 @@ function ErrorLogDialogContent(props: ErrorLogDialogContentProps) {
             </Paper>
             <Box display="flex" flexDirection="column" flex={1} position="relative">
                 <Box position="absolute" top={0} left={0} width="100%" height="100%">
-                    <LogViewer logs={logs} />
+                    <LogViewer
+                        logs={logs}
+                        sx={{
+                            backgroundColor: darken(theme.palette.background.default, 0.5),
+                            paddingTop: 1,
+                            paddingBottom: 1,
+                            paddingRight: 1,
+                            minHeight: 120
+                        }}
+                    />
                 </Box>
             </Box>
         </Box>

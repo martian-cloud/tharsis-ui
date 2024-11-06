@@ -133,6 +133,7 @@ type AddUserToTeamPayload {
 type Apply implements Node {
   comment: String!
   currentJob: Job
+  errorMessage: String
   id: ID!
   metadata: ResourceMetadata!
   status: ApplyStatus!
@@ -1364,6 +1365,7 @@ type Plan implements Node {
   changes: PlanChanges
   currentJob: Job
   diffSize: Int!
+  errorMessage: String
   hasChanges: Boolean!
   id: ID!
   metadata: ResourceMetadata!
@@ -2244,6 +2246,7 @@ type UnlockWorkspacePayload {
 
 input UpdateApplyInput {
   clientMutationId: String
+  errorMessage: String
   id: ID!
   metadata: ResourceMetadataInput
   status: ApplyStatus!
@@ -2311,6 +2314,7 @@ input UpdateNamespaceVariableInput {
 
 input UpdatePlanInput {
   clientMutationId: String
+  errorMessage: String
   hasChanges: Boolean!
   id: ID!
   metadata: ResourceMetadataInput
