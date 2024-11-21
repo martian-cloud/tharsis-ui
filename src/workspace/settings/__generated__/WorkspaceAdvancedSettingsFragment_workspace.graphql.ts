@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2810f3f737f668cbb2872ed6fefeb37a>>
+ * @generated SignedSource<<53fc7c30421b030d39a1a569f0473de8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type WorkspaceAdvancedSettingsFragment_workspace$data = {
   readonly fullPath: string;
   readonly name: string;
-  readonly " $fragmentSpreads": FragmentRefs<"WorkspaceAdvancedSettingsDeleteDialogFragment_workspace">;
+  readonly " $fragmentSpreads": FragmentRefs<"MigrateWorkspaceDialogFragment_workspace" | "WorkspaceAdvancedSettingsDeleteDialogFragment_workspace">;
   readonly " $fragmentType": "WorkspaceAdvancedSettingsFragment_workspace";
 };
 export type WorkspaceAdvancedSettingsFragment_workspace$key = {
@@ -45,12 +45,17 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "WorkspaceAdvancedSettingsDeleteDialogFragment_workspace"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "MigrateWorkspaceDialogFragment_workspace"
     }
   ],
   "type": "Workspace",
   "abstractKey": null
 };
 
-(node as any).hash = "c2d38e4b27ed72aaf41749861a4bd110";
+(node as any).hash = "043de061c4ea607ad7f59a8116c890d6";
 
 export default node;

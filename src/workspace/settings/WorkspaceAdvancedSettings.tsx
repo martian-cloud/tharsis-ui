@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import graphql from 'babel-plugin-relay/macro'
+import MigrateWorkspaceDialog from './MigrateWorkspaceDialog';
 import { WorkspaceAdvancedSettingsFragment_workspace$key } from './__generated__/WorkspaceAdvancedSettingsFragment_workspace.graphql'
 import { WorkspaceAdvancedSettingsDeleteMutation } from './__generated__/WorkspaceAdvancedSettingsDeleteMutation.graphql'
 import { WorkspaceAdvancedSettingsDeleteDialogFragment_workspace$key } from './__generated__/WorkspaceAdvancedSettingsDeleteDialogFragment_workspace.graphql'
@@ -83,6 +84,7 @@ function DeleteConfirmationDialog(props: ConfirmationDialogProps) {
 
 function WorkspaceAdvancedSettings(props: Props) {
     const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = useState<boolean>(false);
+    const [showMigrateWorkspaceDialog, setShowMigrateWorkspaceDialog] = useState<boolean>(false);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
@@ -93,6 +95,7 @@ function WorkspaceAdvancedSettings(props: Props) {
             name
             fullPath
             ...WorkspaceAdvancedSettingsDeleteDialogFragment_workspace
+            ...MigrateWorkspaceDialogFragment_workspace
         }
     `, props.fragmentRef
     )
@@ -143,10 +146,22 @@ function WorkspaceAdvancedSettings(props: Props) {
     return (
         <Box>
             <Typography marginBottom={2} variant="h6" gutterBottom>Advanced Settings</Typography>
+            <Box sx={{ mb: 4 }}>
+                <Typography variant="subtitle1" gutterBottom>Migrate Workspace</Typography>
+                <Typography marginBottom={2} variant="subtitle2">Migrate workspace to another group</Typography>
+                <Alert sx={{ mb: 2 }} severity="warning">Migrating a workspace may result in changes to its configuration if any assigned resources are not available in the new group.</Alert>
+                <Button
+                    variant="outlined"
+                    color="warning"
+                    onClick={() => setShowMigrateWorkspaceDialog(true)}
+                >Migrate Workspace</Button>
+            </Box>
+            <Typography variant="subtitle1" gutterBottom>Delete Workspace</Typography>
             <Alert sx={{ mb: 2 }} severity="error">Deleting a workspace is a permanent action that cannot be undone.</Alert>
             <Box>
                 <Button variant="outlined" color="error" onClick={() => setShowDeleteConfirmationDialog(true)}>Delete Workspace</Button>
             </Box>
+            {showMigrateWorkspaceDialog && <MigrateWorkspaceDialog onClose={() => setShowMigrateWorkspaceDialog(false)} fragmentRef={data} />}
             <DeleteConfirmationDialog
                 fragmentRef={data}
                 deleteInProgress={commitDeleteInFlight}

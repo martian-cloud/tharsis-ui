@@ -8,6 +8,7 @@ import ActivityEventListItem from '../ActivityEventListItem';
 import { ActivityEventWorkspaceTargetFragment_event$key } from './__generated__/ActivityEventWorkspaceTargetFragment_event.graphql';
 
 const ACTION_TEXT = {
+    MIGRATE: 'migrated from',
     CREATE_MEMBERSHIP: 'added to',
     CREATE: 'created',
     DELETE_CHILD_RESOURCE: 'deleted',
@@ -94,6 +95,9 @@ function ActivityEventWorkspaceTarget({ fragmentRef }: Props) {
                       }
                     }
                 }
+                ...on ActivityEventMigrateWorkspacePayload {
+                    previousGroupPath
+                }
             }
             ...ActivityEventListItemFragment_event
         }
@@ -115,6 +119,8 @@ function ActivityEventWorkspaceTarget({ fragmentRef }: Props) {
         primary = <React.Fragment>{MEMBER_TYPES[payload?.member?.__typename] || 'Unknown member type'} <Typography component="span" sx={{ fontWeight: 500 }}>{getMemberIdentifier(payload?.member)}</Typography> removed from workspace {namespaceLink}</React.Fragment>;
     } else if (data.action === 'DELETE_CHILD_RESOURCE') {
         primary = <React.Fragment>{RESOURCE_TYPES[payload.type] || 'Unknown resource type'} with name <Typography component="span" sx={{ fontWeight: 500 }}>{payload.name}</Typography> deleted from workspace {namespaceLink}</React.Fragment>;
+    } else if ('MIGRATE' === data.action) {
+        primary = <React.Fragment>Workspace {namespaceLink} {actionText} <Typography component="span" sx={{ fontWeight: 500 }}>{payload?.previousGroupPath}</Typography></React.Fragment>;
     }
 
     return (
