@@ -61,11 +61,15 @@ type ActivityEventMigrateGroupPayload {
   previousGroupPath: String!
 }
 
+type ActivityEventMigrateWorkspacePayload {
+  previousGroupPath: String!
+}
+
 type ActivityEventMoveManagedIdentityPayload {
   previousGroupPath: String!
 }
 
-union ActivityEventPayload = ActivityEventAddTeamMemberPayload | ActivityEventCreateNamespaceMembershipPayload | ActivityEventDeleteChildResourcePayload | ActivityEventMigrateGroupPayload | ActivityEventMoveManagedIdentityPayload | ActivityEventRemoveNamespaceMembershipPayload | ActivityEventRemoveTeamMemberPayload | ActivityEventUpdateNamespaceMembershipPayload | ActivityEventUpdateTeamMemberPayload
+union ActivityEventPayload = ActivityEventAddTeamMemberPayload | ActivityEventCreateNamespaceMembershipPayload | ActivityEventDeleteChildResourcePayload | ActivityEventMigrateGroupPayload | ActivityEventMigrateWorkspacePayload | ActivityEventMoveManagedIdentityPayload | ActivityEventRemoveNamespaceMembershipPayload | ActivityEventRemoveTeamMemberPayload | ActivityEventUpdateNamespaceMembershipPayload | ActivityEventUpdateTeamMemberPayload
 
 type ActivityEventRemoveNamespaceMembershipPayload {
   member: Member
@@ -353,6 +357,7 @@ input CreateRunInput {
   moduleSource: String
   moduleVersion: String
   refresh: Boolean
+  refreshOnly: Boolean
   speculative: Boolean
   targetAddresses: [String!]
   terraformVersion: String
@@ -1164,6 +1169,18 @@ type MigrateGroupPayload {
   problems: [Problem!]!
 }
 
+input MigrateWorkspaceInput {
+  clientMutationId: String
+  newGroupPath: String!
+  workspacePath: String!
+}
+
+type MigrateWorkspacePayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  workspace: Workspace
+}
+
 input MoveManagedIdentityInput {
   clientMutationId: String
   managedIdentityId: ID!
@@ -1240,6 +1257,7 @@ type Mutation {
   enableMaintenanceMode(input: EnableMaintenanceModeInput!): EnableMaintenanceModePayload!
   lockWorkspace(input: LockWorkspaceInput!): LockWorkspacePayload!
   migrateGroup(input: MigrateGroupInput!): MigrateGroupPayload!
+  migrateWorkspace(input: MigrateWorkspaceInput!): MigrateWorkspacePayload!
   moveManagedIdentity(input: MoveManagedIdentityInput!): MoveManagedIdentityPayload!
   removeUserFromTeam(input: RemoveUserFromTeamInput): RemoveUserFromTeamPayload!
   resetVCSProviderOAuthToken(input: ResetVCSProviderOAuthTokenInput!): ResetVCSProviderOAuthTokenPayload!
@@ -1583,6 +1601,7 @@ type Run implements Node {
   moduleVersion: String
   plan: Plan!
   refresh: Boolean!
+  refreshOnly: Boolean!
   speculative: Boolean!
   stateVersion: StateVersion
   status: RunStatus!

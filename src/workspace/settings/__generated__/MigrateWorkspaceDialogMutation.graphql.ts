@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4c4f21ba3f414f4ced516618bb5b4a5c>>
+ * @generated SignedSource<<3f2a9c9fdf24173f6d6e0fafefd4e37e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,46 +10,31 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
-export type VariableCategory = "environment" | "terraform" | "%future added value";
-export type CreateRunInput = {
+export type MigrateWorkspaceInput = {
   clientMutationId?: string | null;
-  comment?: string | null;
-  configurationVersionId?: string | null;
-  isDestroy?: boolean | null;
-  moduleSource?: string | null;
-  moduleVersion?: string | null;
-  refresh?: boolean | null;
-  refreshOnly?: boolean | null;
-  speculative?: boolean | null;
-  targetAddresses?: ReadonlyArray<string> | null;
-  terraformVersion?: string | null;
-  variables?: ReadonlyArray<RunVariableInput> | null;
+  newGroupPath: string;
   workspacePath: string;
 };
-export type RunVariableInput = {
-  category: VariableCategory;
-  hcl: boolean;
-  key: string;
-  value: string;
+export type MigrateWorkspaceDialogMutation$variables = {
+  input: MigrateWorkspaceInput;
 };
-export type CreateRun_RunMutation$variables = {
-  input: CreateRunInput;
-};
-export type CreateRun_RunMutation$data = {
-  readonly createRun: {
+export type MigrateWorkspaceDialogMutation$data = {
+  readonly migrateWorkspace: {
     readonly problems: ReadonlyArray<{
       readonly field: ReadonlyArray<string> | null;
       readonly message: string;
       readonly type: ProblemType;
     }>;
-    readonly run: {
+    readonly workspace: {
+      readonly fullPath: string;
+      readonly groupPath: string;
       readonly id: string;
     } | null;
   };
 };
-export type CreateRun_RunMutation = {
-  response: CreateRun_RunMutation$data;
-  variables: CreateRun_RunMutation$variables;
+export type MigrateWorkspaceDialogMutation = {
+  response: MigrateWorkspaceDialogMutation$data;
+  variables: MigrateWorkspaceDialogMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -70,17 +55,17 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "RunMutationPayload",
+    "concreteType": "MigrateWorkspacePayload",
     "kind": "LinkedField",
-    "name": "createRun",
+    "name": "migrateWorkspace",
     "plural": false,
     "selections": [
       {
         "alias": null,
         "args": null,
-        "concreteType": "Run",
+        "concreteType": "Workspace",
         "kind": "LinkedField",
-        "name": "run",
+        "name": "workspace",
         "plural": false,
         "selections": [
           {
@@ -88,6 +73,20 @@ v1 = [
             "args": null,
             "kind": "ScalarField",
             "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "fullPath",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "groupPath",
             "storageKey": null
           }
         ],
@@ -134,7 +133,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CreateRun_RunMutation",
+    "name": "MigrateWorkspaceDialogMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -143,20 +142,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CreateRun_RunMutation",
+    "name": "MigrateWorkspaceDialogMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "4a639a7ddac4c4d3f4e28f51fec39c17",
+    "cacheID": "39ceeb8de89412343eafc58f150da0cd",
     "id": null,
     "metadata": {},
-    "name": "CreateRun_RunMutation",
+    "name": "MigrateWorkspaceDialogMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateRun_RunMutation(\n  $input: CreateRunInput!\n) {\n  createRun(input: $input) {\n    run {\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
+    "text": "mutation MigrateWorkspaceDialogMutation(\n  $input: MigrateWorkspaceInput!\n) {\n  migrateWorkspace(input: $input) {\n    workspace {\n      id\n      fullPath\n      groupPath\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9985e431870f2b2c7b9df04360dab311";
+(node as any).hash = "9dba2f3b1712e7abda4b9daebfee0219";
 
 export default node;
