@@ -114,6 +114,23 @@ function AccountMenu({ fragmentRef }: Props) {
                                 <ListItemText primary="Documentation" />
                             </ListItemButton>
                         </ListItem>
+                        {config.supportUrl !== '' && <ListItem secondaryAction={
+                            <IconButton LinkComponent={Link}
+                                edge='end'
+                                href={config.supportUrl}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                disableRipple
+                            >
+                                <Launch fontSize='small' />
+                            </IconButton>
+                        }
+                            disablePadding
+                        >
+                            <ListItemButton LinkComponent={Link} href={config.supportUrl} target='_blank' rel='noopener noreferrer' dense>
+                                <ListItemText primary="Support" />
+                            </ListItemButton>
+                        </ListItem>}
                         <ListItemButton>
                             <ListItemText onClick={onShowAboutDialog}>About Tharsis</ListItemText>
                         </ListItemButton>

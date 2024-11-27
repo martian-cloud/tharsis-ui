@@ -1,6 +1,7 @@
 import React, { Suspense, useContext } from 'react';
 import { Box, CircularProgress, Link, ListItemButton, Paper, ToggleButton, Typography, useTheme } from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunchOutlined';
+import HelpIcon from '@mui/icons-material/HelpOutline';
 import graphql from 'babel-plugin-relay/macro';
 import config from '../common/config';
 import { useSearchParams } from 'react-router-dom';
@@ -115,6 +116,15 @@ function Home(props: Props) {
                                     </Box>
                                 </ListItemButton>
                             </Paper>
+                            {config.supportUrl !== '' && <Paper sx={{ mb: 3 }}>
+                                <ListItemButton component={Link} target='_blank' rel='noopener noreferrer' href={config.supportUrl}>
+                                    <HelpIcon sx={{ mr: 2 }} />
+                                    <Box>
+                                        <Typography variant="subtitle1" fontWeight={600}>Need assistance?</Typography>
+                                        <Typography variant="body2">Contact our support team or report an issue</Typography>
+                                    </Box>
+                                </ListItemButton>
+                            </Paper>}
                             <Paper sx={{ padding: 2 }}>
                                 <HomeRunList />
                             </Paper>

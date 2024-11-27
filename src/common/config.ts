@@ -39,11 +39,22 @@ function buildVersion(): string {
     return version;
 }
 
+function buildSupportUrl(): string {
+    const urlSetting = process.env.REACT_APP_THARSIS_SUPPORT_URL ? process.env.REACT_APP_THARSIS_SUPPORT_URL : (window as any).env.THARSIS_SUPPORT_URL;
+
+    if (!urlSetting || urlSetting === '__THARSIS_SUPPORT_URL__') {
+        return '';
+    }
+
+    return urlSetting;
+}
+
 const cfg = {
     apiUrl: buildGraphqlUrl('http'),
     wsUrl: buildGraphqlUrl('ws'),
     docsUrl: buildDocumentsUrl(),
-    version: buildVersion()
+    version: buildVersion(),
+    supportUrl: buildSupportUrl(),
 };
 
 export default cfg;
