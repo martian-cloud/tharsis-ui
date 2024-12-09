@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9a893cc6023e30940a6faef18931bb12>>
+ * @generated SignedSource<<1501b73eb3060def6c79bb8b5cbed97e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,11 @@ export type AccountMenuFragment$data = {
     readonly admin?: boolean;
     readonly username?: string;
   } | null;
-  readonly version: string;
+  readonly version: {
+    readonly apiVersion: string;
+    readonly dbMigrationDirty: boolean;
+    readonly dbMigrationVersion: string;
+  };
   readonly " $fragmentType": "AccountMenuFragment";
 };
 export type AccountMenuFragment$key = {
@@ -64,8 +68,33 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
+      "concreteType": "Version",
+      "kind": "LinkedField",
       "name": "version",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "apiVersion",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "dbMigrationVersion",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "dbMigrationDirty",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -73,6 +102,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "71e2ef92a1ec3369daf73aad5516f691";
+(node as any).hash = "144958753006dc56fdf0e24507b3a1c8";
 
 export default node;

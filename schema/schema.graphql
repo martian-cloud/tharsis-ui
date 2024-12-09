@@ -1511,7 +1511,7 @@ type Query {
   terraformProviderVersionMirror(groupPath: String!, registryHostname: String!, registryNamespace: String!, type: String!, version: String!): TerraformProviderVersionMirror
   terraformProviders(after: String, before: String, first: Int, last: Int, search: String, sort: TerraformProviderSort): TerraformProviderConnection!
   users(after: String, before: String, first: Int, last: Int, search: String, sort: UserSort): UserConnection!
-  version: String!
+  version: Version!
   workspace(fullPath: String!): Workspace
   workspaces(after: String, before: String, first: Int, groupPath: String, last: Int, search: String, sort: WorkspaceSort): WorkspaceConnection!
 }
@@ -2619,6 +2619,12 @@ enum VCSProviderType {
 enum VariableCategory {
   environment
   terraform
+}
+
+type Version {
+  apiVersion: String!
+  dbMigrationDirty: Boolean!
+  dbMigrationVersion: String!
 }
 
 type Workspace implements Namespace & Node {
