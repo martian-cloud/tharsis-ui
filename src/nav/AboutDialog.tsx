@@ -1,12 +1,14 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText, Typography } from "@mui/material";
 
 interface Props {
     frontendVersion: string;
     backendVersion: string;
+    dbMigrationVersion: string;
+    dbMigrationDirty: boolean;
     onClose: () => void;
 }
 
-function AboutDialog({ frontendVersion, backendVersion, onClose }: Props) {
+function AboutDialog({ frontendVersion, backendVersion, dbMigrationVersion, dbMigrationDirty, onClose }: Props) {
     const stripPrefix = (version: string) => {
         const prefix = 'v'
         return version.startsWith(prefix) ? version.slice(prefix.length) : version;
@@ -25,9 +27,26 @@ function AboutDialog({ frontendVersion, backendVersion, onClose }: Props) {
                 <Typography gutterBottom variant="subtitle2">
                     A remote Terraform backend that provides state management and a full execution environment for running Terraform modules.
                 </Typography>
-                <Box mt={2}>
-                    <Typography gutterBottom variant="body2">Frontend {stripPrefix(frontendVersion)}</Typography>
-                    <Typography gutterBottom variant="body2">Backend {stripPrefix(backendVersion)}</Typography>
+                <Box>
+                    <List sx={{ padding: 0 }}>
+                        <ListItem sx={{ padding: 0 }}>
+                            <ListItemText primary="Frontend" secondary={stripPrefix(frontendVersion)} />
+                        </ListItem>
+                        <ListItem sx={{ padding: 0 }}>
+                            <ListItemText primary="Backend" secondary={stripPrefix(backendVersion)} />
+                        </ListItem>
+                        <ListItem sx={{ padding: 0 }}>
+                            <ListItemText
+                                primary="Database Migration"
+                                secondary={
+                                    <>
+                                        {dbMigrationVersion}
+                                        {dbMigrationDirty && <strong> (dirty)</strong>}
+                                    </>
+                                }
+                            />
+                        </ListItem>
+                    </List>
                 </Box>
             </DialogContent>
             <DialogActions>
