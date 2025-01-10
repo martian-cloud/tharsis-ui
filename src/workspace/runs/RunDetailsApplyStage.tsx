@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Divider, Paper, Tooltip, Typography, useTheme } from '@mui/material';
+import { Divider, Link as MuiLink, Paper, Tooltip, Typography, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -21,6 +21,8 @@ import RunDetailsErrorSummary from './RunDetailsErrorSummary';
 import RunDetailsPlanSummary from './RunDetailsPlanSummary';
 import RunStageStatusTypes from './RunStageStatusTypes';
 import RunVariables from './RunVariables';
+import RunJobDialog from './RunJobDialog';
+import { RunJobDialog_currentJob$key } from './__generated__/RunJobDialog_currentJob.graphql';
 import { RunDetailsApplyStageApplyRunMutation } from './__generated__/RunDetailsApplyStageApplyRunMutation.graphql';
 import { RunDetailsApplyStageFragment_apply$key } from './__generated__/RunDetailsApplyStageFragment_apply.graphql';
 
@@ -31,6 +33,7 @@ interface Props {
 
 function RunDetailsApplyStage(props: Props) {
     const theme = useTheme();
+    const [jobDialogOpen, setJobDialogOpen] = useState(false);
 
     const data = useFragment<RunDetailsApplyStageFragment_apply$key>(
         graphql`
@@ -65,6 +68,7 @@ function RunDetailsApplyStage(props: Props) {
                     finishedAt
                   }
                   ...JobLogsFragment_logs
+                  ...RunJobDialog_currentJob
                 }
             }
             ...RunVariablesFragment_variables
@@ -213,6 +217,19 @@ function RunDetailsApplyStage(props: Props) {
                         </Box>
                     </Box>
                 </Box>}
+                {(data.apply && data.apply.currentJob && data.apply.status !== 'pending') && <Paper variant="outlined" sx={{ padding: 2, marginBottom: 2 }}>
+                <Typography variant="body2" component="div">This apply has
+                        <MuiLink
+                            component="button"
+                            color="secondary"
+                            underline="hover"
+                            onClick={() => setJobDialogOpen(true)}
+                            variant="body2"
+                            sx={{ marginLeft: '4px', fontWeight: 600 }}
+                        >1 job
+                    </MuiLink>
+                </Typography>
+            </Paper>}
                 {data.apply.currentJob && data.apply.status !== 'pending' && <Box>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs value={tab} onChange={onTabChange}>
@@ -257,6 +274,10 @@ function RunDetailsApplyStage(props: Props) {
                     </React.Fragment>}
                 </Box>
             </Box>}
+            {jobDialogOpen && <RunJobDialog
+                fragmentRef={data.apply?.currentJob as RunJobDialog_currentJob$key}
+                onClose={() => setJobDialogOpen(false)}
+            />}
         </Box>
     );
 }

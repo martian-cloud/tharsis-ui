@@ -47,7 +47,9 @@ function NewGroupRunner({ fragmentRef }: Props) {
     const [formData, setFormData] = useState<FormData>({
         name: '',
         description: '',
-        disabled: false
+        disabled: false,
+        tags: [],
+        runUntaggedJobs: false
     });
 
     const onSave = () => {
@@ -57,7 +59,9 @@ function NewGroupRunner({ fragmentRef }: Props) {
                     name: formData.name,
                     description: formData.description,
                     groupPath: group.fullPath,
-                    disabled: formData.disabled
+                    disabled: formData.disabled,
+                    runUntaggedJobs: formData.runUntaggedJobs,
+                    tags: formData.tags
                 },
                 connections: GetConnections(group.id)
             },

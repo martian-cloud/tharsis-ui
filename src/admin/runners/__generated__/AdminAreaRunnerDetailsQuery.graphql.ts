@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<276f870e84b7d80e685108857ac8c201>>
+ * @generated SignedSource<<b8950294dbcc117c11d1e6e0040e5f73>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -147,6 +147,20 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "tags",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "runUntaggedJobs",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "ResourceMetadata",
                 "kind": "LinkedField",
                 "name": "metadata",
@@ -262,12 +276,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "26bf070232bb161da50d902af48cf4cc",
+    "cacheID": "41eaf905b83e5ffbdbb97f73ef53c380",
     "id": null,
     "metadata": {},
     "name": "AdminAreaRunnerDetailsQuery",
     "operationKind": "query",
-    "text": "query AdminAreaRunnerDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on Runner {\n      id\n      name\n      ...RunnerDetailsFragment_runner\n    }\n    id\n  }\n}\n\nfragment AssignedServiceAccountListFragment_runner on Runner {\n  id\n  resourcePath\n}\n\nfragment RunnerDetailsFragment_runner on Runner {\n  id\n  name\n  type\n  disabled\n  description\n  createdBy\n  metadata {\n    createdAt\n  }\n  assignedServiceAccounts(first: 0) {\n    totalCount\n  }\n  sessions(first: 1, sort: LAST_CONTACTED_AT_DESC) {\n    edges {\n      node {\n        active\n        lastContacted\n        id\n      }\n    }\n  }\n  ...AssignedServiceAccountListFragment_runner\n}\n"
+    "text": "query AdminAreaRunnerDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on Runner {\n      id\n      name\n      ...RunnerDetailsFragment_runner\n    }\n    id\n  }\n}\n\nfragment AssignedServiceAccountListFragment_runner on Runner {\n  id\n  resourcePath\n}\n\nfragment RunnerDetailsFragment_runner on Runner {\n  id\n  name\n  type\n  disabled\n  description\n  createdBy\n  tags\n  runUntaggedJobs\n  metadata {\n    createdAt\n  }\n  assignedServiceAccounts(first: 0) {\n    totalCount\n  }\n  sessions(first: 1, sort: LAST_CONTACTED_AT_DESC) {\n    edges {\n      node {\n        active\n        lastContacted\n        id\n      }\n    }\n  }\n  ...AssignedServiceAccountListFragment_runner\n}\n"
   }
 };
 })();

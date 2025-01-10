@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<998b180ef4665e77e2bcaa03e0de2b68>>
+ * @generated SignedSource<<e8d7ad9643bf273e054c940f690cd849>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,35 +11,47 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
-export type UpdateGroupInput = {
+export type UpdateWorkspaceInput = {
   clientMutationId?: string | null;
   description?: string | null;
-  groupPath?: string | null;
   id?: string | null;
+  maxJobDuration?: number | null;
   metadata?: ResourceMetadataInput | null;
+  preventDestroyPlan?: boolean | null;
+  runnerTags?: NamespaceRunnerTagsInput | null;
+  terraformVersion?: string | null;
+  workspacePath?: string | null;
 };
 export type ResourceMetadataInput = {
   version: string;
 };
-export type EditGroupMutation$variables = {
-  input: UpdateGroupInput;
+export type NamespaceRunnerTagsInput = {
+  inherit: boolean;
+  tags?: ReadonlyArray<string> | null;
 };
-export type EditGroupMutation$data = {
-  readonly updateGroup: {
-    readonly group: {
-      readonly id: string;
-      readonly " $fragmentSpreads": FragmentRefs<"GroupListItemFragment_group">;
-    } | null;
+export type WorkspaceRunnerSettingsMutation$variables = {
+  input: UpdateWorkspaceInput;
+};
+export type WorkspaceRunnerSettingsMutation$data = {
+  readonly updateWorkspace: {
     readonly problems: ReadonlyArray<{
       readonly field: ReadonlyArray<string> | null;
       readonly message: string;
       readonly type: ProblemType;
     }>;
+    readonly workspace: {
+      readonly id: string;
+      readonly runnerTags: {
+        readonly inherited: boolean;
+        readonly value: ReadonlyArray<string>;
+      };
+      readonly " $fragmentSpreads": FragmentRefs<"WorkspaceRunnerSettingsFragment_workspace">;
+    } | null;
   };
 };
-export type EditGroupMutation = {
-  response: EditGroupMutation$data;
-  variables: EditGroupMutation$variables;
+export type WorkspaceRunnerSettingsMutation = {
+  response: WorkspaceRunnerSettingsMutation$data;
+  variables: WorkspaceRunnerSettingsMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -65,6 +77,20 @@ v2 = {
   "storageKey": null
 },
 v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "inherited",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "value",
+  "storageKey": null
+},
+v5 = {
   "alias": null,
   "args": null,
   "concreteType": "Problem",
@@ -95,56 +121,53 @@ v3 = {
     }
   ],
   "storageKey": null
-},
-v4 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 0
-  }
-],
-v5 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "totalCount",
-    "storageKey": null
-  }
-];
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "EditGroupMutation",
+    "name": "WorkspaceRunnerSettingsMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateGroupPayload",
+        "concreteType": "UpdateWorkspacePayload",
         "kind": "LinkedField",
-        "name": "updateGroup",
+        "name": "updateWorkspace",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Group",
+            "concreteType": "Workspace",
             "kind": "LinkedField",
-            "name": "group",
+            "name": "workspace",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
+                "alias": null,
+                "args": null,
+                "concreteType": "NamespaceRunnerTags",
+                "kind": "LinkedField",
+                "name": "runnerTags",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "GroupListItemFragment_group"
+                "name": "WorkspaceRunnerSettingsFragment_workspace"
               }
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
@@ -156,38 +179,40 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "EditGroupMutation",
+    "name": "WorkspaceRunnerSettingsMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateGroupPayload",
+        "concreteType": "UpdateWorkspacePayload",
         "kind": "LinkedField",
-        "name": "updateGroup",
+        "name": "updateWorkspace",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Group",
+            "concreteType": "Workspace",
             "kind": "LinkedField",
-            "name": "group",
+            "name": "workspace",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "ResourceMetadata",
+                "concreteType": "NamespaceRunnerTags",
                 "kind": "LinkedField",
-                "name": "metadata",
+                "name": "runnerTags",
                 "plural": false,
                 "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "updatedAt",
+                    "name": "namespacePath",
                     "storageKey": null
                   }
                 ],
@@ -197,63 +222,29 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "description",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
                 "name": "fullPath",
                 "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": (v4/*: any*/),
-                "concreteType": "GroupConnection",
-                "kind": "LinkedField",
-                "name": "descendentGroups",
-                "plural": false,
-                "selections": (v5/*: any*/),
-                "storageKey": "descendentGroups(first:0)"
-              },
-              {
-                "alias": null,
-                "args": (v4/*: any*/),
-                "concreteType": "WorkspaceConnection",
-                "kind": "LinkedField",
-                "name": "workspaces",
-                "plural": false,
-                "selections": (v5/*: any*/),
-                "storageKey": "workspaces(first:0)"
               }
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "15d51c580cbe2a383585014c3d2a28ce",
+    "cacheID": "39f90fbe1bf29f85241d2a80010969ce",
     "id": null,
     "metadata": {},
-    "name": "EditGroupMutation",
+    "name": "WorkspaceRunnerSettingsMutation",
     "operationKind": "mutation",
-    "text": "mutation EditGroupMutation(\n  $input: UpdateGroupInput!\n) {\n  updateGroup(input: $input) {\n    group {\n      id\n      ...GroupListItemFragment_group\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment GroupListItemFragment_group on Group {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  fullPath\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  workspaces(first: 0) {\n    totalCount\n  }\n}\n"
+    "text": "mutation WorkspaceRunnerSettingsMutation(\n  $input: UpdateWorkspaceInput!\n) {\n  updateWorkspace(input: $input) {\n    workspace {\n      id\n      runnerTags {\n        inherited\n        value\n      }\n      ...WorkspaceRunnerSettingsFragment_workspace\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment RunnerSettingsForm_runnerTags on NamespaceRunnerTags {\n  inherited\n  namespacePath\n  value\n}\n\nfragment WorkspaceRunnerSettingsFragment_workspace on Workspace {\n  fullPath\n  runnerTags {\n    inherited\n    namespacePath\n    value\n    ...RunnerSettingsForm_runnerTags\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "36c8fd999a1eb4d7064271a05e6695c4";
+(node as any).hash = "f8523994e72ad37ae195c6ef8e0101c8";
 
 export default node;

@@ -22,6 +22,8 @@ function EditAdminAreaRunner() {
                     name
                     description
                     disabled
+                    tags
+                    runUntaggedJobs
                 }
             }
         }
@@ -49,6 +51,8 @@ function EditAdminAreaRunner() {
         name: runner.name,
         description: runner.description,
         disabled: runner.disabled,
+        tags: runner.tags,
+        runUntaggedJobs: runner.runUntaggedJobs
     });
 
     const onUpdate = () => {
@@ -59,6 +63,8 @@ function EditAdminAreaRunner() {
                         id: runner.id,
                         description: formData.description,
                         disabled: formData.disabled,
+                        tags: formData.tags,
+                        runUntaggedJobs: formData.runUntaggedJobs
                     }
                 },
                 onCompleted: data => {

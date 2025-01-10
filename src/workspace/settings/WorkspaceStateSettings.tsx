@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
-import { Alert, Box, Typography } from '@mui/material';
+import { Alert, Box, Collapse } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { MutationError } from '../../common/error';
 import LockWorkspaceSetting from './LockWorkspaceSetting';
 import { useFragment, useMutation } from 'react-relay'
 import { useSnackbar } from 'notistack';
 import graphql from 'babel-plugin-relay/macro';
+import SettingsToggleButton from '../../common/SettingsToggleButton';
 import { WorkspaceStateSettingsFragment_workspace$key } from './__generated__/WorkspaceStateSettingsFragment_workspace.graphql';
 import { WorkspaceStateSettingsLockWorkspaceMutation } from './__generated__/WorkspaceStateSettingsLockWorkspaceMutation.graphql';
 import { WorkspaceStateSettingsUnlockWorkspaceMutation } from './__generated__/WorkspaceStateSettingsUnlockWorkspaceMutation.graphql';
@@ -36,6 +37,7 @@ function WorkspaceStateSettings(props: Props) {
     const [stateSettings, setStateSettings] = useState<StateSettings>({
         locked: data.locked,
     })
+    const [showSettings, setShowSettings] = useState<boolean>(false);
 
     const [lockWorkspaceCommit, lockWorkspaceIsInFlight] = useMutation<WorkspaceStateSettingsLockWorkspaceMutation>(
         graphql`
@@ -137,8 +139,6 @@ function WorkspaceStateSettings(props: Props) {
         })
     }
 
-
-
     const onUpdate = () => {
         if (stateSettings.locked) {
             lockWorkspace()
@@ -161,27 +161,39 @@ function WorkspaceStateSettings(props: Props) {
             {error && <Alert sx={{ mb: 2 }} severity={error.severity}>
                 {error.message}
             </Alert>}
-            <Typography marginBottom={2} variant="h6" gutterBottom>State Settings</Typography>
-            <LockWorkspaceSetting
-                locked={stateSettings.locked}
-                onChange={(event: any) => {
-                    onChange({ ...stateSettings, locked: event.target.checked })
-                }}
+            <SettingsToggleButton
+                title="State Settings"
+                showSettings={showSettings}
+                onToggle={() => setShowSettings(!showSettings)}
             />
-            <Box>
-                <LoadingButton
-                    size="small"
-                    disabled={disableSave}
-                    loading={isInFlight}
-                    variant="outlined"
-                    color="primary"
-                    onClick={onUpdate}
-                >
-                    Save changes
-                </LoadingButton>
-            </Box>
-        </Box >
-    )
+            <Collapse
+                in={showSettings}
+                timeout="auto"
+                unmountOnExit
+            >
+                <Box>
+                    <LockWorkspaceSetting
+                        locked={stateSettings.locked}
+                        onChange={(event: any) => {
+                            onChange({ ...stateSettings, locked: event.target.checked })
+                        }}
+                    />
+                    <Box>
+                        <LoadingButton
+                            size="small"
+                            disabled={disableSave}
+                            loading={isInFlight}
+                            variant="outlined"
+                            color="primary"
+                            onClick={onUpdate}
+                        >
+                            Save changes
+                        </LoadingButton>
+                    </Box>
+                </Box>
+            </Collapse>
+        </Box>
+    );
 }
 
 export default WorkspaceStateSettings;

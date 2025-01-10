@@ -1,29 +1,29 @@
 import LoadingButton from '@mui/lab/LoadingButton';
-import Box from '@mui/material/Box';
 import { Breadcrumbs } from '@mui/material';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Link from '../routes/Link'
 import Typography from '@mui/material/Typography';
-import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
 import graphql from 'babel-plugin-relay/macro';
 import React, { useState } from 'react';
 import { useMutation } from "react-relay/hooks";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { MutationError } from '../common/error';
-import GroupForm, { FormData } from './GroupForm';
+import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
+import Link from '../routes/Link';
 import { NewGroupMutation } from './__generated__/NewGroupMutation.graphql';
+import GroupForm, { FormData } from './GroupForm';
 import { GetConnections } from './GroupList';
-import { GetConnections as GetTopLevelConnections } from './tree/GroupTreeContainer'
+import { GetConnections as GetTopLevelConnections } from './tree/GroupTreeContainer';
 
 function NewGroup() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const parentGroupPath = searchParams.get('parent');
-    const [error, setError] = React.useState<MutationError>()
+    const [error, setError] = React.useState<MutationError>();
     const [formData, setFormData] = useState<FormData>({
         name: '',
-        description: '',
+        description: ''
     });
 
     const [commit, isInFlight] = useMutation<NewGroupMutation>(graphql`
@@ -99,7 +99,8 @@ function NewGroup() {
                 </Breadcrumbs>
             }
             <Typography sx={{ paddingBottom: 2 }} variant="h5">New Group</Typography>
-            <GroupForm data={formData}
+            <GroupForm
+                data={formData}
                 onChange={(data: FormData) => setFormData(data)}
                 error={error} />
             <Divider light />
@@ -120,4 +121,4 @@ function NewGroup() {
     );
 }
 
-export default NewGroup
+export default NewGroup;

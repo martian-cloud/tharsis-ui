@@ -1,7 +1,7 @@
 import { ArrowDropUp } from '@mui/icons-material';
 import { default as ArrowDropDown, default as ArrowDropDownIcon } from '@mui/icons-material/ArrowDropDown';
 import { LoadingButton } from '@mui/lab';
-import { Alert, Box, Button, ButtonGroup, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Link, Menu, MenuItem, Tab, Tabs, Typography, useTheme } from "@mui/material";
+import { Alert, Box, Button, ButtonGroup, Chip, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Link, Menu, MenuItem, Stack, Tab, Tabs, Typography, useTheme } from "@mui/material";
 import { green } from "@mui/material/colors";
 import graphql from 'babel-plugin-relay/macro';
 import moment from 'moment';
@@ -87,6 +87,8 @@ function RunnerDetails({ fragmentRef, getConnections }: Props) {
             disabled
             description
             createdBy
+            tags
+            runUntaggedJobs
             metadata {
                 createdAt
             }
@@ -290,6 +292,17 @@ function RunnerDetails({ fragmentRef, getConnections }: Props) {
                 {tab === 'details' && <Box sx={{ border: 1, borderTop: 0, borderBottomLeftRadius: 4, borderBottomRightRadius: 4, borderColor: 'divider', padding: 2 }}>
                     <Typography mb={0.25}>Type</Typography>
                     <Typography mb={2} color="textSecondary">{runner.type[0].toUpperCase() + runner.type.slice(1).toLowerCase()}</Typography>
+                    <Box mb={2}>
+                        <Typography mb={1}>Tags</Typography>
+                        {runner.tags.length > 0 && <Stack direction="row" spacing={1}>
+                            {runner.tags.map(tag => <Chip key={tag} size="small" color="secondary" label={tag} />)}
+                        </Stack>}
+                        {runner.tags.length === 0 && <Typography color="textSecondary">No Tags</Typography>}
+                    </Box>
+                    <Box mb={2}>
+                        <Typography mb={1}>Run Untagged Jobs</Typography>
+                        <Typography color="textSecondary">{runner.runUntaggedJobs ? 'Yes' : 'No'}</Typography>
+                    </Box>
                     <Typography mb={0.25}>Status</Typography>
                     <RunnerChip disabled={runner.disabled} />
                     <Box mt={4}>

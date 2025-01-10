@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Alert, Box, TextField, Typography } from '@mui/material'
+import { useState } from 'react'
+import { Alert, Box, Collapse, TextField, Typography } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton';
 import { MutationError } from '../../common/error';
 import { useFragment, useMutation } from 'react-relay';
@@ -7,13 +7,15 @@ import graphql from 'babel-plugin-relay/macro'
 import { useSnackbar } from 'notistack';
 import { GroupGeneralSettingsFragment_group$key } from './__generated__/GroupGeneralSettingsFragment_group.graphql'
 import { GroupGeneralSettingsUpdateMutation } from './__generated__/GroupGeneralSettingsUpdateMutation.graphql'
+import SettingsToggleButton from '../../common/SettingsToggleButton';
 
 interface Props {
     fragmentRef: GroupGeneralSettingsFragment_group$key
 }
 
 function GroupGeneralSettings(props: Props) {
-     const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
+    const [showSettings, setShowSettings] = useState<boolean>(false);
 
     const data = useFragment(
         graphql`
@@ -86,28 +88,51 @@ const onUpdate = () => {
             {error && <Alert sx={{ mb: 2 }} severity={error.severity}>
                 {error.message}
             </Alert>}
-            <Typography marginBottom={2} variant="h6" gutterBottom>General Settings</Typography>
-            <Box>
-                <TextField disabled={true} size="small" fullWidth label="Name" value={data.name} onChange={event => setInputForm({ ...inputForm, name: event.target.value })}
-                />
-                <TextField size="small" margin='normal' fullWidth label="Description" value={inputForm.description} onChange={event => setInputForm({ ...inputForm, description: event.target.value })}
-                />
-            </Box>
-            <Box>
-                <LoadingButton
-                    sx={{ mt: 1 }}
-                    size="small"
-                    disabled={data.description === inputForm.description}
-                    loading={isInFlight}
-                    variant="outlined"
-                    color="primary"
-                    onClick={onUpdate}
+            <SettingsToggleButton
+                title="General Settings"
+                showSettings={showSettings}
+                onToggle={() => setShowSettings(!showSettings)}
+            />
+            <Collapse
+                in={showSettings}
+                timeout="auto"
+                unmountOnExit
+            >
+                <Box>
+                    <Typography mt={2} mb={2} variant="subtitle1" gutterBottom>Details</Typography>
+                    <TextField
+                        disabled
+                        size="small"
+                        fullWidth
+                        label="Name"
+                        value={data.name}
+                        onChange={event => setInputForm({ ...inputForm, name: event.target.value })}
+                    />
+                    <TextField
+                        size="small"
+                        margin='normal'
+                        fullWidth
+                        label="Description"
+                        value={inputForm.description}
+                        onChange={event => setInputForm({ ...inputForm, description: event.target.value })}
+                    />
+                </Box>
+                <Box>
+                    <LoadingButton
+                        sx={{ mt: 1 }}
+                        size="small"
+                        disabled={data.description === inputForm.description}
+                        loading={isInFlight}
+                        variant="outlined"
+                        color="primary"
+                        onClick={onUpdate}
                     >
-                    Save changes
-                </LoadingButton>
-            </Box>
+                        Save changes
+                    </LoadingButton>
+                </Box>
+            </Collapse>
         </Box>
-    )
+    );
 }
 
 export default GroupGeneralSettings

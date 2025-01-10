@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { CircularProgress, Divider, Paper, Tooltip, Typography, useTheme } from '@mui/material';
+import { CircularProgress, Divider, Link as MuiLink, Paper, Tooltip, Typography, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -22,6 +23,8 @@ import RunDetailsErrorSummary from './RunDetailsErrorSummary';
 import RunDetailsPlanSummary from './RunDetailsPlanSummary';
 import RunStageStatusTypes from './RunStageStatusTypes';
 import RunVariables from './RunVariables';
+import RunJobDialog from './RunJobDialog';
+import { RunJobDialog_currentJob$key } from './__generated__/RunJobDialog_currentJob.graphql';
 import { RunDetailsPlanStageApplyRunMutation } from './__generated__/RunDetailsPlanStageApplyRunMutation.graphql';
 import { RunDetailsPlanStageFragment_plan$key } from './__generated__/RunDetailsPlanStageFragment_plan.graphql';
 import RunDetailsPlanDiffViewer, { MaxDiffSize } from './plandiff/RunDetailsPlanDiffViewer';
@@ -36,6 +39,7 @@ function RunDetailsPlanStage(props: Props) {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const tab = searchParams.get('tab') ?? 'logs';
+    const [jobDialogOpen, setJobDialogOpen] = useState(false);
 
     const data = useFragment<RunDetailsPlanStageFragment_plan$key>(
         graphql`
@@ -68,6 +72,7 @@ function RunDetailsPlanStage(props: Props) {
                     finishedAt
                   }
                   ...JobLogsFragment_logs
+                  ...RunJobDialog_currentJob
                 }
                 ...RunDetailsPlanSummaryFragment_plan
             }
@@ -233,6 +238,19 @@ function RunDetailsPlanStage(props: Props) {
                     </Box>
                 </Box>
             </Box>}
+            {data.plan.currentJob && data.plan.status !== 'pending' && <Paper variant="outlined" sx={{ padding: 2, marginBottom: 2 }}>
+                <Typography variant="body2" component="div">This plan has
+                    <MuiLink
+                        component="button"
+                        color="secondary"
+                        underline="hover"
+                        onClick={() => setJobDialogOpen(true)}
+                        variant="body2"
+                        sx={{ marginLeft: '4px', fontWeight: 600 }}
+                    >1 Job
+                    </MuiLink>
+                </Typography>
+            </Paper>}
             {data.plan.currentJob && data.plan.status !== 'pending' && <Box>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={tab} onChange={onTabChange}>
@@ -293,6 +311,10 @@ function RunDetailsPlanStage(props: Props) {
                     </Paper>}
                 </Box>}
             </Box>}
+            {jobDialogOpen && <RunJobDialog
+                fragmentRef={data.plan?.currentJob as RunJobDialog_currentJob$key}
+                onClose={() => setJobDialogOpen(false)}
+            />}
         </Box>
     );
 }

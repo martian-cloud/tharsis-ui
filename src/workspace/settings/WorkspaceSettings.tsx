@@ -8,6 +8,7 @@ import WorkspaceRunSettings from './WorkspaceRunSettings';
 import WorkspaceAdvancedSettings from './WorkspaceAdvancedSettings';
 import WorkspaceVCSProviderSettings from './vcsprovider/WorkspaceVCSProviderSettings';
 import WorkspaceStateSettings from './WorkspaceStateSettings';
+import WorkspaceRunnerSettings from './WorkspaceRunnerSettings';
 
 export const StyledDivider = styled(
     Divider
@@ -29,6 +30,7 @@ function WorkspaceSettings(props: Props) {
             description
             fullPath
             ...WorkspaceGeneralSettingsFragment_workspace
+            ...WorkspaceRunnerSettingsFragment_workspace
             ...WorkspaceRunSettingsFragment_workspace
             ...WorkspaceAdvancedSettingsFragment_workspace
             ...WorkspaceVCSProviderSettingsFragment_workspace
@@ -45,6 +47,8 @@ function WorkspaceSettings(props: Props) {
             <Typography marginBottom={4} variant="h5" gutterBottom>Workspace Settings</Typography>
             <StyledDivider />
             <WorkspaceGeneralSettings fragmentRef={data} />
+            <StyledDivider />
+            <WorkspaceRunnerSettings fragmentRef={data} />
             <StyledDivider />
             <WorkspaceRunSettings fragmentRef={data} />
             <StyledDivider />

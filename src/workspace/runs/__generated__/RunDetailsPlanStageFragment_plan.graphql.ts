@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3603a38fad4efb4a3c2627480560cb86>>
+ * @generated SignedSource<<4bba8a7547082f9540ffbe5f6f6d32ad>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,7 +30,7 @@ export type RunDetailsPlanStageFragment_plan$data = {
         readonly queuedAt: any | null;
         readonly runningAt: any | null;
       };
-      readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs">;
+      readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs" | "RunJobDialog_currentJob">;
     } | null;
     readonly diffSize: number;
     readonly errorMessage: string | null;
@@ -228,6 +228,11 @@ return {
               "args": null,
               "kind": "FragmentSpread",
               "name": "JobLogsFragment_logs"
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "RunJobDialog_currentJob"
             }
           ],
           "storageKey": null
@@ -268,6 +273,6 @@ return {
 };
 })();
 
-(node as any).hash = "a224fff7ce009058190fe663a6c53443";
+(node as any).hash = "c0d68cc71881b51b8a99c912223c76c6";
 
 export default node;

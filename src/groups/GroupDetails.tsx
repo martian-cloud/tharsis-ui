@@ -15,7 +15,6 @@ import NamespaceMemberships from '../namespace/members/NamespaceMemberships';
 import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
 import TabLink from '../routes/TabLink';
 import ListSkeleton from '../skeletons/ListSkeleton';
-import EditGroup from './EditGroup';
 import GroupSettings from './settings/GroupSettings'
 import GroupDetailsDrawer from './GroupDetailsDrawer';
 import GroupList from './GroupList';
@@ -93,7 +92,6 @@ function GroupDetails(props: Props) {
             ...VCSProvidersFragment_group
             ...VariablesFragment_variables
             ...NamespaceMembershipsFragment_memberships
-            ...EditGroupFragment_group
             ...GPGKeysFragment_group
             ...NamespaceActivityFragment_activity
             ...GroupSettingsFragment_group
@@ -130,7 +128,6 @@ function GroupDetails(props: Props) {
                             <Route path={`${groupPath}/-/members/*`} element={<NamespaceMemberships fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/keys/*`} element={<GPGKeys fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/settings/*`} element={<GroupSettings fragmentRef={data} />} />
-                            <Route path={`${groupPath}/-/edit`} element={<EditGroup fragmentRef={data} />} />
                         </Routes>
                     </Box>
                 </Suspense>
