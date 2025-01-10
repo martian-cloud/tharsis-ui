@@ -4,8 +4,9 @@ import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs'
 import graphql from 'babel-plugin-relay/macro'
 import { useFragment } from 'react-relay/hooks';
 import GroupGeneralSettings from './GroupGeneralSettings';
-import { GroupSettingsFragment_group$key } from './__generated__/GroupSettingsFragment_group.graphql'
+import GroupRunnerSettings from './GroupRunnerSettings';
 import GroupAdvancedSettings from './GroupAdvancedSettings';
+import { GroupSettingsFragment_group$key } from './__generated__/GroupSettingsFragment_group.graphql'
 
 interface Props {
     fragmentRef: GroupSettingsFragment_group$key
@@ -26,6 +27,7 @@ function GroupSettings(props: Props) {
             fullPath
             ...GroupGeneralSettingsFragment_group
             ...GroupAdvancedSettingsFragment_group
+            ...GroupRunnerSettingsFragment_group
         }
     `, props.fragmentRef
     )
@@ -33,13 +35,15 @@ function GroupSettings(props: Props) {
     return (
         <Box>
             <NamespaceBreadcrumbs
-            namespacePath={data.fullPath}
-            childRoutes={[
-                { title: "settings", path: 'settings' },
+                namespacePath={data.fullPath}
+                childRoutes={[
+                    { title: "settings", path: 'settings' },
                 ]} />
             <Typography marginBottom={4} variant="h5" gutterBottom>Group Settings</Typography>
             <StyledDivider />
             <GroupGeneralSettings fragmentRef={data} />
+            <StyledDivider />
+            <GroupRunnerSettings fragmentRef={data}/>
             <StyledDivider />
             <GroupAdvancedSettings fragmentRef={data} />
         </Box>

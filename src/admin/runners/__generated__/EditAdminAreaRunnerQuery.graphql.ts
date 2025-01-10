@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<702b637479302d911e22e3c15d068cfe>>
+ * @generated SignedSource<<d8388c5b5220478228bd6df75ab6718f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,8 @@ export type EditAdminAreaRunnerQuery$data = {
     readonly disabled?: boolean;
     readonly id?: string;
     readonly name?: string;
+    readonly runUntaggedJobs?: boolean;
+    readonly tags?: ReadonlyArray<string>;
   } | null;
 };
 export type EditAdminAreaRunnerQuery = {
@@ -67,6 +69,20 @@ v5 = {
   "kind": "ScalarField",
   "name": "disabled",
   "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "tags",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "runUntaggedJobs",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -89,7 +105,9 @@ return {
               (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
-              (v5/*: any*/)
+              (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/)
             ],
             "type": "Runner",
             "abstractKey": null
@@ -128,7 +146,9 @@ return {
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
-              (v5/*: any*/)
+              (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/)
             ],
             "type": "Runner",
             "abstractKey": null
@@ -139,16 +159,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bdb918e654be3d09baeaebdee3172398",
+    "cacheID": "09639579411a05eb3a193c0ee26c0cbd",
     "id": null,
     "metadata": {},
     "name": "EditAdminAreaRunnerQuery",
     "operationKind": "query",
-    "text": "query EditAdminAreaRunnerQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on Runner {\n      id\n      name\n      description\n      disabled\n    }\n    id\n  }\n}\n"
+    "text": "query EditAdminAreaRunnerQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on Runner {\n      id\n      name\n      description\n      disabled\n      tags\n      runUntaggedJobs\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7a0dfd060f886593e00f589410be94ea";
+(node as any).hash = "0ac8313b659a7e6e32225c09ea2eb5e7";
 
 export default node;

@@ -79,10 +79,11 @@ function NewWorkspace(){
                     title: 'new', path: `/workspaces/-/new?parent=${parentGroupPath}`
                 }]}/>
             <Typography sx={{ paddingBottom: 2}}variant="h5">New Workspace</Typography>
-            <WorkspaceForm data={formData}
+            <WorkspaceForm
+                data={formData}
                 onChange={(data: FormData) => setFormData(data)}
-                error={error}/>
-
+                error={error}
+            />
             <Divider light />
             <Box marginTop={2}>
                 <LoadingButton

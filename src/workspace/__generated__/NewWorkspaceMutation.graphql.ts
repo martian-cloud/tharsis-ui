@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f6bd31a246c997f0c2486c02c34ecbac>>
+ * @generated SignedSource<<dcdc19128ead0f13ab09e0d6853c37c5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,12 @@ export type CreateWorkspaceInput = {
   maxJobDuration?: number | null;
   name: string;
   preventDestroyPlan?: boolean | null;
+  runnerTags?: NamespaceRunnerTagsInput | null;
   terraformVersion?: string | null;
+};
+export type NamespaceRunnerTagsInput = {
+  inherit: boolean;
+  tags?: ReadonlyArray<string> | null;
 };
 export type NewWorkspaceMutation$variables = {
   connections: ReadonlyArray<string>;

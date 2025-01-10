@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bfbaba274442a878505cbbb8bc24ef47>>
+ * @generated SignedSource<<69ac15cc15f159e6abdaab1a821859c7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,11 +17,16 @@ export type UpdateWorkspaceInput = {
   maxJobDuration?: number | null;
   metadata?: ResourceMetadataInput | null;
   preventDestroyPlan?: boolean | null;
+  runnerTags?: NamespaceRunnerTagsInput | null;
   terraformVersion?: string | null;
   workspacePath?: string | null;
 };
 export type ResourceMetadataInput = {
   version: string;
+};
+export type NamespaceRunnerTagsInput = {
+  inherit: boolean;
+  tags?: ReadonlyArray<string> | null;
 };
 export type WorkspaceRunSettingsUpdateMutation$variables = {
   input: UpdateWorkspaceInput;

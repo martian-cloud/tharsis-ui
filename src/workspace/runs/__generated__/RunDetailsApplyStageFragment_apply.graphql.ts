@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ec4e08d95f9ed42df7521a06e6b7ba23>>
+ * @generated SignedSource<<4441905b2644688d5243e0e89d738732>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,7 +26,7 @@ export type RunDetailsApplyStageFragment_apply$data = {
         readonly queuedAt: any | null;
         readonly runningAt: any | null;
       };
-      readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs">;
+      readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs" | "RunJobDialog_currentJob">;
     } | null;
     readonly errorMessage: string | null;
     readonly metadata: {
@@ -227,6 +227,11 @@ return {
               "args": null,
               "kind": "FragmentSpread",
               "name": "JobLogsFragment_logs"
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "RunJobDialog_currentJob"
             }
           ],
           "storageKey": null
@@ -250,6 +255,6 @@ return {
 };
 })();
 
-(node as any).hash = "96717058baeee718dd60ebc92ff54cf0";
+(node as any).hash = "39fe23948aa48311956e1f4678d4b954";
 
 export default node;

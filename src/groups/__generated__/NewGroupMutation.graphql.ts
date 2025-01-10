@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<27c5ecd97b368090c343678901aa4662>>
+ * @generated SignedSource<<02472506b02c79a063ad17ba45761608>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,11 @@ export type CreateGroupInput = {
   description: string;
   name: string;
   parentPath?: string | null;
+  runnerTags?: NamespaceRunnerTagsInput | null;
+};
+export type NamespaceRunnerTagsInput = {
+  inherit: boolean;
+  tags?: ReadonlyArray<string> | null;
 };
 export type NewGroupMutation$variables = {
   connections: ReadonlyArray<string>;

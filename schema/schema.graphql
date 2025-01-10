@@ -257,6 +257,7 @@ input CreateGroupInput {
   description: String!
   name: String!
   parentPath: String
+  runnerTags: NamespaceRunnerTagsInput
 }
 
 type CreateGroupPayload {
@@ -371,6 +372,8 @@ input CreateRunnerInput {
   disabled: Boolean
   groupPath: String!
   name: String!
+  runUntaggedJobs: Boolean!
+  tags: [String!]!
 }
 
 type CreateRunnerPayload {
@@ -582,6 +585,7 @@ input CreateWorkspaceInput {
   maxJobDuration: Int
   name: String!
   preventDestroyPlan: Boolean
+  runnerTags: NamespaceRunnerTagsInput
   terraformVersion: String
 }
 
@@ -927,6 +931,7 @@ type Group implements Namespace & Node {
   metadata: ResourceMetadata!
   name: String!
   parent: Group
+  runnerTags: NamespaceRunnerTags!
   runners(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, sort: RunnerSort): RunnerConnection!
   serviceAccounts(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, search: String, sort: ServiceAccountSort): ServiceAccountConnection!
   terraformProviderMirrors(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, sort: TerraformProviderVersionMirrorSort): TerraformProviderVersionMirrorConnection!
@@ -980,6 +985,7 @@ type Job implements Node {
   runner: Runner
   runnerPath: String
   status: JobStatus!
+  tags: [String!]!
   timestamps: JobTimestamps!
   type: JobType!
   workspace: Workspace!
@@ -1298,6 +1304,7 @@ interface Namespace {
   memberships: [NamespaceMembership!]!
   metadata: ResourceMetadata!
   name: String!
+  runnerTags: NamespaceRunnerTags
   serviceAccounts(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, search: String): ServiceAccountConnection!
   variables: [NamespaceVariable!]!
 }
@@ -1332,6 +1339,17 @@ type NamespaceMembershipMutationPayload {
 enum NamespaceMembershipSort {
   UPDATED_AT_ASC
   UPDATED_AT_DESC
+}
+
+type NamespaceRunnerTags {
+  inherited: Boolean!
+  namespacePath: String!
+  value: [String!]!
+}
+
+input NamespaceRunnerTagsInput {
+  inherit: Boolean!
+  tags: [String!]
 }
 
 type NamespaceVariable implements Node {
@@ -1685,7 +1703,9 @@ type Runner implements Node {
   metadata: ResourceMetadata!
   name: String!
   resourcePath: String!
+  runUntaggedJobs: Boolean!
   sessions(after: String, before: String, first: Int, last: Int, sort: RunnerSessionSort): RunnerSessionConnection!
+  tags: [String!]!
   type: RunnerType!
 }
 
@@ -2283,6 +2303,7 @@ input UpdateGroupInput {
   groupPath: String
   id: String
   metadata: ResourceMetadataInput
+  runnerTags: NamespaceRunnerTagsInput
 }
 
 type UpdateGroupPayload {
@@ -2379,6 +2400,8 @@ input UpdateRunnerInput {
   disabled: Boolean
   id: ID!
   metadata: ResourceMetadataInput
+  runUntaggedJobs: Boolean
+  tags: [String!]
 }
 
 type UpdateRunnerPayload {
@@ -2490,6 +2513,7 @@ input UpdateWorkspaceInput {
   maxJobDuration: Int
   metadata: ResourceMetadataInput
   preventDestroyPlan: Boolean
+  runnerTags: NamespaceRunnerTagsInput
   terraformVersion: String
   workspacePath: String
 }
@@ -2646,6 +2670,7 @@ type Workspace implements Namespace & Node {
   metadata: ResourceMetadata!
   name: String!
   preventDestroyPlan: Boolean!
+  runnerTags: NamespaceRunnerTags!
   serviceAccounts(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, search: String): ServiceAccountConnection!
   stateVersions(after: String, before: String, first: Int, last: Int, sort: StateVersionSort): StateVersionConnection!
   terraformVersion: String!

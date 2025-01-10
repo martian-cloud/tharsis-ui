@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Alert, Box, Button, Dialog, DialogActions, DialogTitle, DialogContent, IconButton, Typography } from '@mui/material'
+import { Alert, Box, Button, Collapse, Dialog, DialogActions, DialogTitle, DialogContent, IconButton, Typography } from '@mui/material'
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import { useFragment } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import { Link as RouterLink } from 'react-router-dom';
+import SettingsToggleButton from '../../../common/SettingsToggleButton';
 import EditVCSProviderLink from './EditVCSProviderLink';
 import NewVCSProviderLink from './NewVCSProviderLink';
 import { WorkspaceVCSProviderSettingsFragment_workspace$key } from './__generated__/WorkspaceVCSProviderSettingsFragment_workspace.graphql';
@@ -74,8 +75,9 @@ function WebhooksDialog(props: WebhooksDialogProps){
 }
 
 function WorkspaceVCSProviderSettings({ fragmentRef }: Props) {
-    const [webhookObj, setWebhookObj] = useState<WebhooksData | null>(null)
-    const [openDialog, setOpenDialog] = useState<boolean>(false)
+    const [webhookObj, setWebhookObj] = useState<WebhooksData | null>(null);
+    const [openDialog, setOpenDialog] = useState<boolean>(false);
+    const [showSettings, setShowSettings] = useState<boolean>(false);
 
     const data = useFragment<WorkspaceVCSProviderSettingsFragment_workspace$key>(
         graphql`
@@ -108,35 +110,47 @@ function WorkspaceVCSProviderSettings({ fragmentRef }: Props) {
 
     return (
         <Box>
-            <Typography marginBottom={2} variant="h6" gutterBottom>VCS Provider Link Settings</Typography>
-            {data.workspaceVcsProviderLink && <EditVCSProviderLink fragmentRef={data} handleWebhookDialog={(confirm: boolean, data: WebhooksData) => handleWebhookDialog(confirm, data)} />}
-            {!data.workspaceVcsProviderLink && data.vcsProviders.edges && data.vcsProviders.edges.length > 0 && <NewVCSProviderLink fragmentRef={data}
-                handleWebhookDialog={(confirm: boolean, data: WebhooksData) => handleWebhookDialog(confirm, data)} />}
-            {!data.workspaceVcsProviderLink && data.vcsProviders.edges && data.vcsProviders.edges.length === 0 && <Box>
-                <Box sx={{ marginTop: 2, display: "flex", marginBottom: 2 }}>
-                    <Box display="flex" flexDirection="column">
-                        <Typography variant="subtitle1" gutterBottom>
-                            This workspace is not linked to a VCS Provider and there are no inherited VCS Providers. Get started by creating a VCS Provider in this group.
-                        </Typography>
-                        <Box marginTop={2}>
-                            <Button sx={{ minWidth: 200 }}
-                                component={RouterLink}
-                                variant="outlined"
-                                to={`../${data.groupPath}/-/vcs_providers/new`}
-                            >
-                                New VCS Provider
-                            </Button>
+            <SettingsToggleButton
+                title="VCS Provider Link Settings"
+                showSettings={showSettings}
+                onToggle={() => setShowSettings(!showSettings)}
+            />
+            <Collapse
+                in={showSettings}
+                timeout="auto"
+                unmountOnExit
+            >
+                <Box>
+                    {data.workspaceVcsProviderLink && <EditVCSProviderLink fragmentRef={data} handleWebhookDialog={(confirm: boolean, data: WebhooksData) => handleWebhookDialog(confirm, data)} />}
+                    {!data.workspaceVcsProviderLink && data.vcsProviders.edges && data.vcsProviders.edges.length > 0 && <NewVCSProviderLink fragmentRef={data}
+                        handleWebhookDialog={(confirm: boolean, data: WebhooksData) => handleWebhookDialog(confirm, data)} />}
+                    {!data.workspaceVcsProviderLink && data.vcsProviders.edges && data.vcsProviders.edges.length === 0 && <Box>
+                        <Box sx={{ marginTop: 2, display: "flex", marginBottom: 2 }}>
+                            <Box display="flex" flexDirection="column">
+                                <Typography variant="subtitle1" gutterBottom>
+                                    This workspace is not linked to a VCS Provider and there are no inherited VCS Providers. Get started by creating a VCS Provider in this group.
+                                </Typography>
+                                <Box marginTop={2}>
+                                    <Button sx={{ minWidth: 200 }}
+                                        component={RouterLink}
+                                        variant="outlined"
+                                        to={`../${data.groupPath}/-/vcs_providers/new`}
+                                    >
+                                        New VCS Provider
+                                    </Button>
+                                </Box>
+                            </Box>
                         </Box>
-                    </Box>
+                    </Box>}
                 </Box>
-            </Box>}
+            </Collapse>
             <WebhooksDialog
                 webhooksData={webhookObj}
                 open={openDialog}
                 onClose={() => setOpenDialog(false)}
             />
         </Box>
-    )
+    );
 }
 
-export default WorkspaceVCSProviderSettings
+export default WorkspaceVCSProviderSettings;

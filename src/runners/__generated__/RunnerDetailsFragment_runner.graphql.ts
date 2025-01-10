@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0e3846387699606efbcc6f597e91306a>>
+ * @generated SignedSource<<f80a9405a5953b33e30d0b6e9cef6ad2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,6 +23,7 @@ export type RunnerDetailsFragment_runner$data = {
     readonly createdAt: any;
   };
   readonly name: string;
+  readonly runUntaggedJobs: boolean;
   readonly sessions: {
     readonly edges: ReadonlyArray<{
       readonly node: {
@@ -31,6 +32,7 @@ export type RunnerDetailsFragment_runner$data = {
       } | null;
     } | null> | null;
   };
+  readonly tags: ReadonlyArray<string>;
   readonly type: RunnerType;
   readonly " $fragmentSpreads": FragmentRefs<"AssignedServiceAccountListFragment_runner">;
   readonly " $fragmentType": "RunnerDetailsFragment_runner";
@@ -86,6 +88,20 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "createdBy",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "tags",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "runUntaggedJobs",
       "storageKey": null
     },
     {
@@ -198,6 +214,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "393a309f1e5eb929ab0e3b1d2b1f315f";
+(node as any).hash = "128052a461b5040c702bca8ee45ef603";
 
 export default node;

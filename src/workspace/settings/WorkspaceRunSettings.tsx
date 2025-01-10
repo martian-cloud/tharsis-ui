@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, Box, Typography } from '@mui/material'
+import { Alert, Box, Collapse } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton';
 import { MutationError } from '../../common/error';
 import MaxJobDurationSetting from './MaxJobDurationSetting'
@@ -7,6 +7,7 @@ import TerraformCLIVersionSetting from './TerraformCLIVersionSetting'
 import PreventDestroyRunSetting from './PreventDestroyRunSetting'
 import { useFragment, useMutation } from 'react-relay'
 import { useSnackbar } from 'notistack';
+import SettingsToggleButton from '../../common/SettingsToggleButton';
 import graphql from 'babel-plugin-relay/macro'
 import { WorkspaceRunSettingsFragment_workspace$key } from './__generated__/WorkspaceRunSettingsFragment_workspace.graphql'
 import { WorkspaceRunSettingsUpdateMutation } from './__generated__/WorkspaceRunSettingsUpdateMutation.graphql'
@@ -23,6 +24,7 @@ interface RunSettings {
 
 function WorkspaceRunSettings(props: Props) {
     const { enqueueSnackbar } = useSnackbar();
+    const [showSettings, setShowSettings] = useState<boolean>(false);
 
     const data = useFragment(
         graphql`
@@ -121,39 +123,50 @@ function WorkspaceRunSettings(props: Props) {
             {error && <Alert sx={{ mb: 2 }} severity={error.severity}>
                 {error.message}
             </Alert>}
-            <Typography marginBottom={2} variant="h6" gutterBottom>Run Settings</Typography>
-            <MaxJobDurationSetting
-                fragmentRef={data}
-                data={runSettings.maxJobDuration}
-                onChange={(event: any) => onChange({...runSettings, maxJobDuration: event.target.value})
-                }
+            <SettingsToggleButton
+                title="Run Settings"
+                showSettings={showSettings}
+                onToggle={() => setShowSettings(!showSettings)}
             />
-            <TerraformCLIVersionSetting
-                data={runSettings.terraformVersion}
-                onChange={(event: any) => {
-                    onChange({...runSettings, terraformVersion: event.target.value})
-                }}
-            />
-            <PreventDestroyRunSetting
-                data={runSettings.preventDestroyPlan}
-                onChange={(event: any) => {
-                    onChange({...runSettings, preventDestroyPlan: event.target.checked})
-                }}
-            />
-             <Box>
-                <LoadingButton
-                    size="small"
-                    disabled={disableSave}
-                    loading={isInFlight}
-                    variant="outlined"
-                    color="primary"
-                    onClick={onUpdate}
-                    >
-                    Save changes
-                </LoadingButton>
-            </Box>
+            <Collapse
+                in={showSettings}
+                timeout="auto"
+            >
+                <Box>
+                    <MaxJobDurationSetting
+                        fragmentRef={data}
+                        data={runSettings.maxJobDuration}
+                        onChange={(event: any) => onChange({ ...runSettings, maxJobDuration: event.target.value })
+                        }
+                    />
+                    <TerraformCLIVersionSetting
+                        data={runSettings.terraformVersion}
+                        onChange={(event: any) => {
+                            onChange({ ...runSettings, terraformVersion: event.target.value })
+                        }}
+                    />
+                    <PreventDestroyRunSetting
+                        data={runSettings.preventDestroyPlan}
+                        onChange={(event: any) => {
+                            onChange({ ...runSettings, preventDestroyPlan: event.target.checked })
+                        }}
+                    />
+                    <Box>
+                        <LoadingButton
+                            size="small"
+                            disabled={disableSave}
+                            loading={isInFlight}
+                            variant="outlined"
+                            color="primary"
+                            onClick={onUpdate}
+                        >
+                            Save changes
+                        </LoadingButton>
+                    </Box>
+                </Box>
+            </Collapse>
         </Box>
-    )
+    );
 }
 
-export default WorkspaceRunSettings
+export default WorkspaceRunSettings;

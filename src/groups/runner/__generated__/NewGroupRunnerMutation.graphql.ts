@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<64d0f8c00037f2c61043878555c4d1be>>
+ * @generated SignedSource<<ca5564f9f300fbe57d0c2bfae627ae20>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,8 @@ export type CreateRunnerInput = {
   disabled?: boolean | null;
   groupPath: string;
   name: string;
+  runUntaggedJobs: boolean;
+  tags: ReadonlyArray<string>;
 };
 export type NewGroupRunnerMutation$variables = {
   connections: ReadonlyArray<string>;
