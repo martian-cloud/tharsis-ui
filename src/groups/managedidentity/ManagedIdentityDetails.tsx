@@ -354,7 +354,9 @@ function ManagedIdentityDetails(props: Props) {
                         {data.managedIdentity.type === 'tharsis_federated' && <Box>
                             <FieldLabel>Service Account</FieldLabel>
                             <FieldValue>{payload.serviceAccountPath}</FieldValue>
-                            <FieldLabel>Trusted Identity Provider</FieldLabel>
+                            <FieldLabel>Use Service Account for Terraform CLI</FieldLabel>
+                            <Typography color="textSecondary">{payload.useServiceAccountForTerraformCLI ? 'Yes' : 'No'}</Typography>
+                            <FieldLabel marginTop={2}>Trusted Identity Provider</FieldLabel>
                             <Typography color="textSecondary">
                                 Add the identity provider settings below to your service account to allow this managed identity to use it
                             </Typography>
