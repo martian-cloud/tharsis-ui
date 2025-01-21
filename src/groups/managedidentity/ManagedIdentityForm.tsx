@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -49,7 +49,7 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
         }
     };
 
-    const onPayloadFieldChange = (field: string, val: string) => {
+    const onPayloadFieldChange = (field: string, val: string | boolean) => {
         onChange({
             ...data,
             payload: { ...data.payload, [field]: val }
@@ -174,19 +174,35 @@ function ManagedIdentityForm({ groupPath, data, onChange, editMode, error }: Pro
                     />
                 </Box>}
                 {data.type === 'tharsis_federated' && <Box marginTop={2}>
-                    <TextField
-                        autoComplete="off"
-                        size="small"
-                        fullWidth
-                        label="Service Account"
-                        placeholder="group-path/service-account-name"
-                        value={data.payload.serviceAccountPath}
-                        onChange={event => onPayloadFieldChange('serviceAccountPath', event.target.value)}
-                    />
-                    <Typography color="textSecondary" variant="caption" mt={1}>
-                        Specify the full resource path for the service account that this managed identity will assume. The resource path
-                        consists of the group path for the service account and the service account name.
-                    </Typography>
+                    <Box marginBottom={2}>
+                        <TextField
+                            autoComplete="off"
+                            size="small"
+                            fullWidth
+                            label="Service Account"
+                            placeholder="group-path/service-account-name"
+                            value={data.payload.serviceAccountPath}
+                            onChange={event => onPayloadFieldChange('serviceAccountPath', event.target.value)}
+                        />
+                        <Typography color="textSecondary" variant="caption" mt={1}>
+                            Specify the full resource path for the service account that this managed identity will assume. The resource path
+                            consists of the group path for the service account and the service account name.
+                        </Typography>
+                    </Box>
+
+                    <Box marginBottom={2}>
+                        <FormControlLabel
+                            control={<Checkbox
+                                color="secondary"
+                                checked={data.payload.useServiceAccountForTerraformCLI ?? false}
+                                onChange={(event) => onPayloadFieldChange('useServiceAccountForTerraformCLI', event.target.checked)}
+                            />}
+                            label="Use Service Account for Terraform CLI"
+                        />
+                        <Typography color="textSecondary">
+                            By default the service account will only be used for the Tharsis Terraform Provider, by enabling the Terraform CLI authentication setting, it'll also be used for accessing the Terraform registry and for the remote state data source.
+                        </Typography>
+                    </Box>
                 </Box>}
             </Box>}
             {ruleToEdit && <EditManagedIdentityRuleDialog
