@@ -1,9 +1,7 @@
 import LockIcon from '@mui/icons-material/LockOutlined';
-import { Chip } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import graphql from 'babel-plugin-relay/macro';
-import React from 'react';
 import { useFragment } from 'react-relay/hooks';
 import DataTableCell from '../../common/DataTableCell';
 import Link from '../../routes/Link';
@@ -21,7 +19,6 @@ function StateVersionInputVariableListItem(props: Props) {
         fragment StateVersionInputVariableListItemFragment_variable on RunVariable
         {
             key
-            hcl
             value
             namespacePath
         }
@@ -37,9 +34,6 @@ function StateVersionInputVariableListItem(props: Props) {
             <DataTableCell sx={{ wordBreak: 'break-all' }} mask={!showValues} >
                 {data.value !== null ? data.value : <LockIcon color="disabled" />}
             </DataTableCell>
-            <TableCell>
-                <Chip size="small" label={data.hcl ? 'HCL' : 'String'} />
-            </TableCell>
             <TableCell sx={{ wordBreak: 'break-all' }}>
                 {data.namespacePath && <Link
                     to={`/groups/${data.namespacePath}/-/variables`}

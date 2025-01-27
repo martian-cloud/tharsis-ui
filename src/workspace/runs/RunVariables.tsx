@@ -133,9 +133,6 @@ function RunVariables(props: Props) {
                             <TableCell>
                                 <Typography color="textSecondary">Value</Typography>
                             </TableCell>
-                            {variableCategory === 'terraform' && <TableCell>
-                                <Typography color="textSecondary">Type</Typography>
-                            </TableCell>}
                             <TableCell>
                                 <Typography color="textSecondary">Source</Typography>
                             </TableCell>

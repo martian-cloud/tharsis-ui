@@ -331,7 +331,7 @@ input CreateNamespaceMembershipInput {
 input CreateNamespaceVariableInput {
   category: VariableCategory!
   clientMutationId: String
-  hcl: Boolean!
+  hcl: Boolean
   key: String!
   namespacePath: String!
   value: String!
@@ -1354,7 +1354,7 @@ input NamespaceRunnerTagsInput {
 
 type NamespaceVariable implements Node {
   category: VariableCategory!
-  hcl: Boolean!
+  hcl: Boolean @deprecated(reason: "HCL field will be determined automatically, to be removed in a future release")
   id: ID!
   key: String!
   metadata: ResourceMetadata!
@@ -1363,7 +1363,7 @@ type NamespaceVariable implements Node {
 }
 
 input NamespaceVariableInput {
-  hcl: Boolean!
+  hcl: Boolean
   key: String!
   value: String!
 }
@@ -1678,7 +1678,7 @@ input RunSubscriptionInput {
 
 type RunVariable {
   category: VariableCategory!
-  hcl: Boolean!
+  hcl: Boolean @deprecated(reason: "HCL field will be determined automatically, to be removed in a future release")
   key: String!
   namespacePath: String
   value: String
@@ -1686,7 +1686,7 @@ type RunVariable {
 
 input RunVariableInput {
   category: VariableCategory!
-  hcl: Boolean!
+  hcl: Boolean
   key: String!
   value: String!
 }
@@ -2346,7 +2346,7 @@ input UpdateNamespaceMembershipInput {
 
 input UpdateNamespaceVariableInput {
   clientMutationId: String
-  hcl: Boolean!
+  hcl: Boolean
   id: String!
   key: String!
   value: String!

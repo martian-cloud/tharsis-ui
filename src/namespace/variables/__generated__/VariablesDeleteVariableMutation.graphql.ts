@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<98d4f30d43bcbf80a469b517902df297>>
+ * @generated SignedSource<<8ff3f0a23e84fd9d0ab4634aab6ffc8a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -200,13 +200,6 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "hcl",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
                     "name": "value",
                     "storageKey": null
                   },
@@ -248,12 +241,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f4893545955b6bde0121220c8f53715c",
+    "cacheID": "9aba563bdf732c3c274ab3506886ef62",
     "id": null,
     "metadata": {},
     "name": "VariablesDeleteVariableMutation",
     "operationKind": "mutation",
-    "text": "mutation VariablesDeleteVariableMutation(\n  $input: DeleteNamespaceVariableInput!\n) {\n  deleteNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  hcl\n  value\n  namespacePath\n  metadata {\n    updatedAt\n  }\n}\n"
+    "text": "mutation VariablesDeleteVariableMutation(\n  $input: DeleteNamespaceVariableInput!\n) {\n  deleteNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  value\n  namespacePath\n  metadata {\n    updatedAt\n  }\n}\n"
   }
 };
 })();

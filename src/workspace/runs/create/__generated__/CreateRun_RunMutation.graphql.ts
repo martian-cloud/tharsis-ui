@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4c4f21ba3f414f4ced516618bb5b4a5c>>
+ * @generated SignedSource<<9a79043202351bf6a0dfe2af9dbf2d07>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,7 +28,7 @@ export type CreateRunInput = {
 };
 export type RunVariableInput = {
   category: VariableCategory;
-  hcl: boolean;
+  hcl?: boolean | null;
   key: string;
   value: string;
 };

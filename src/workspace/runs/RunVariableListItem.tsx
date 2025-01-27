@@ -1,8 +1,6 @@
-import { Chip } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import graphql from 'babel-plugin-relay/macro';
-import React from 'react';
 import { useFragment } from 'react-relay/hooks';
 import Link from '../../routes/Link';
 import LockIcon from '@mui/icons-material/LockOutlined';
@@ -21,7 +19,6 @@ function RunVariableListItem(props: Props) {
         {
             key
             category
-            hcl
             value
             namespacePath
         }
@@ -37,9 +34,6 @@ function RunVariableListItem(props: Props) {
             <TableCell sx={{ wordBreak: 'break-all' }}>
                 {showValues ? (data.value !== null ? data.value : <LockIcon color="disabled" />) : '************'}
             </TableCell>
-            {data.category === 'terraform' && <TableCell>
-                <Chip size="small" label={data.hcl ? 'HCL' : 'String'} />
-            </TableCell>}
             <TableCell sx={{ wordBreak: 'break-all' }}>
                 {data.namespacePath && <Link
                     to={`/groups/${data.namespacePath}/-/variables`}

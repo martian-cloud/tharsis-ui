@@ -108,7 +108,6 @@ function Variables(props: Props) {
         setVariableToEdit({
             key: '',
             value: '',
-            hcl: false,
             category: variableCategory
         });
     };
@@ -231,7 +230,6 @@ function Variables(props: Props) {
                             namespacePath={data.fullPath}
                             variables={filteredVariables}
                             showValues={showValues}
-                            variableCategory={variableCategory}
                             onEditVariable={onEditVariable}
                             onDeleteVariable={(variable: any) => setVariableToDelete(variable)}
                         />
