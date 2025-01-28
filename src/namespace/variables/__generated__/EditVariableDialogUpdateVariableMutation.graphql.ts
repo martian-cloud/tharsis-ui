@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3781dca1c85a9ff62dfc06f57c48421c>>
+ * @generated SignedSource<<fb0d326dd1a0c87779b88ef363843bb0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateNamespaceVariableInput = {
   clientMutationId?: string | null;
-  hcl: boolean;
+  hcl?: boolean | null;
   id: string;
   key: string;
   value: string;
@@ -203,13 +203,6 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "hcl",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
                     "name": "value",
                     "storageKey": null
                   },
@@ -251,12 +244,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2fc92ab0ac987f12430cab97781910f2",
+    "cacheID": "5339ed18bf05ad9e63a0004751a2060d",
     "id": null,
     "metadata": {},
     "name": "EditVariableDialogUpdateVariableMutation",
     "operationKind": "mutation",
-    "text": "mutation EditVariableDialogUpdateVariableMutation(\n  $input: UpdateNamespaceVariableInput!\n) {\n  updateNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  hcl\n  value\n  namespacePath\n  metadata {\n    updatedAt\n  }\n}\n"
+    "text": "mutation EditVariableDialogUpdateVariableMutation(\n  $input: UpdateNamespaceVariableInput!\n) {\n  updateNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  value\n  namespacePath\n  metadata {\n    updatedAt\n  }\n}\n"
   }
 };
 })();

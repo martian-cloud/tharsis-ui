@@ -1,9 +1,7 @@
-import { Chip } from '@mui/material';
 import LockIcon from '@mui/icons-material/LockOutlined';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import graphql from 'babel-plugin-relay/macro';
-import React from 'react';
 import { useFragment } from 'react-relay/hooks';
 import DataTableCell from '../../common/DataTableCell';
 import Link from '../../routes/Link';
@@ -23,7 +21,6 @@ function InheritedVariableListItem(props: Props) {
             id
             key
             category
-            hcl
             value
             namespacePath
         }
@@ -39,9 +36,6 @@ function InheritedVariableListItem(props: Props) {
             <DataTableCell sx={{ wordBreak: 'break-all' }} mask={!showValues} >
                 {data.value !== null ? data.value : <LockIcon color="disabled" />}
             </DataTableCell>
-            {data.category === 'terraform' && <TableCell>
-                <Chip size="small" label={data.hcl ? 'HCL' : 'String'} />
-            </TableCell>}
             <TableCell>
                 <Link
                     to={`/groups/${data.namespacePath}/-/variables`}

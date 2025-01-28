@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1894e26d417e2c99d0d424130d3e883f>>
+ * @generated SignedSource<<59115739a4bd5776b1e72e8404f224c4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,6 @@ export type VariableCategory = "environment" | "terraform" | "%future added valu
 import { FragmentRefs } from "relay-runtime";
 export type InheritedVariableListItemFragment_variable$data = {
   readonly category: VariableCategory;
-  readonly hcl: boolean;
   readonly id: string;
   readonly key: string;
   readonly namespacePath: string;
@@ -56,13 +55,6 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "hcl",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
       "name": "value",
       "storageKey": null
     },
@@ -78,6 +70,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "c4c4fe17bbe18a19d04511384a94c911";
+(node as any).hash = "3dd47fb935dd69b7bbe3098d277ff61c";
 
 export default node;

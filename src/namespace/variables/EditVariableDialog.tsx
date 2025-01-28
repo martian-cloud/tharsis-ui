@@ -4,10 +4,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -84,7 +80,6 @@ function EditVariableDialog(props: Props) {
                         id: editedVariable.id,
                         key: editedVariable.key,
                         value: editedVariable.value,
-                        hcl: editedVariable.hcl
                     },
                 },
                 onCompleted: data => {
@@ -112,7 +107,6 @@ function EditVariableDialog(props: Props) {
                         category: editedVariable.category,
                         key: editedVariable.key,
                         value: editedVariable.value,
-                        hcl: editedVariable.hcl
                     },
                 },
                 onCompleted: data => {
@@ -137,10 +131,6 @@ function EditVariableDialog(props: Props) {
 
     const onFieldChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setEditedVariable({ ...editedVariable, [event.target.name]: event.target.value });
-    };
-
-    const onTypeChange = (event: SelectChangeEvent) => {
-        setEditedVariable({ ...editedVariable, hcl: event.target.value !== 'string' });
     };
 
     return editedVariable ? (
@@ -193,24 +183,6 @@ function EditVariableDialog(props: Props) {
                     onChange={onFieldChange}
                     autoComplete="off"
                 />
-                {editedVariable.category === 'terraform' && <Box>
-                    <Box>
-                        <FormControl margin="normal" sx={{ minWidth: 120 }} size="small">
-                            <InputLabel id="variable-type">Type</InputLabel>
-                            <Select
-                                labelId="variable-type"
-                                id="variable-type"
-                                value={editedVariable.hcl ? 'hcl' : 'string'}
-                                label="Type"
-                                onChange={onTypeChange}
-                            >
-                                <MenuItem value={'string'}>String</MenuItem>
-                                <MenuItem value={'hcl'}>HCL</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                    <Typography variant="caption">Select the HashiCorp Configuration Language (HCL) type for non-string variables</Typography>
-                </Box>}
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose} color="inherit">

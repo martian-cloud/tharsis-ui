@@ -1,7 +1,7 @@
 import DeleteIcon from '@mui/icons-material/CloseOutlined';
 import EditIcon from '@mui/icons-material/EditOutlined';
 import LockIcon from '@mui/icons-material/LockOutlined';
-import { Chip, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
@@ -30,7 +30,6 @@ function VariableListItem(props: Props) {
             id
             key
             category
-            hcl
             value
             namespacePath
             metadata {
@@ -60,9 +59,6 @@ function VariableListItem(props: Props) {
                     />}
                 </React.Fragment>}
             </DataTableCell>
-            {data.category === 'terraform' && <TableCell>
-                <Chip size="small" label={data.hcl ? 'HCL' : 'String'} />
-            </TableCell>}
             <TableCell>
                 {data.namespacePath === namespacePath ? 'Direct Variable' : <Link
                     to={`/groups/${data.namespacePath}/-/variables`}

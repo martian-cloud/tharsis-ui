@@ -88,9 +88,6 @@ function StateVersionInputVariables(props: Props) {
                                 <Typography color="textSecondary">Value</Typography>
                             </TableCell>
                             <TableCell>
-                                <Typography color="textSecondary">Type</Typography>
-                            </TableCell>
-                            <TableCell>
                                 <Typography color="textSecondary">Source</Typography>
                             </TableCell>
                         </TableRow>
