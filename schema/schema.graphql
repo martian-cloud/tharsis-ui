@@ -1290,6 +1290,7 @@ type Mutation {
   updateTerraformModule(input: UpdateTerraformModuleInput): UpdateTerraformModulePayload!
   updateTerraformModuleAttestation(input: UpdateTerraformModuleAttestationInput): UpdateTerraformModuleAttestationPayload!
   updateTerraformProvider(input: UpdateTerraformProviderInput): UpdateTerraformProviderPayload!
+  updateUserAdminStatus(input: UpdateUserAdminStatusInput!): UpdateUserAdminStatusPayload!
   updateVCSProvider(input: UpdateVCSProviderInput!): UpdateVCSProviderPayload!
   updateWorkspace(input: UpdateWorkspaceInput!): UpdateWorkspacePayload!
   updateWorkspaceVCSProviderLink(input: UpdateWorkspaceVCSProviderLinkInput!): UpdateWorkspaceVCSProviderLinkPayload!
@@ -2489,6 +2490,17 @@ type UpdateTerraformProviderPayload {
   clientMutationId: String
   problems: [Problem!]!
   provider: TerraformProvider
+}
+
+input UpdateUserAdminStatusInput {
+  admin: Boolean!
+  userId: String!
+}
+
+type UpdateUserAdminStatusPayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  user: User
 }
 
 input UpdateVCSProviderInput {

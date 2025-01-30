@@ -145,6 +145,7 @@ function AdminAreaUsersList() {
                                         <TableCell>Name</TableCell>
                                         <TableCell>SCIM</TableCell>
                                         <TableCell>Created</TableCell>
+                                        <TableCell></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
