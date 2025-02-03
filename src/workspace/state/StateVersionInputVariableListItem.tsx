@@ -6,6 +6,7 @@ import { useFragment } from 'react-relay/hooks';
 import DataTableCell from '../../common/DataTableCell';
 import Link from '../../routes/Link';
 import { StateVersionInputVariableListItemFragment_variable$key } from './__generated__/StateVersionInputVariableListItemFragment_variable.graphql';
+import { Chip } from '@mui/material';
 
 interface Props {
     fragmentRef: StateVersionInputVariableListItemFragment_variable$key;
@@ -20,7 +21,9 @@ function StateVersionInputVariableListItem(props: Props) {
         {
             key
             value
+            category
             namespacePath
+            includedInTfConfig
         }
       `, props.fragmentRef);
 
@@ -30,6 +33,7 @@ function StateVersionInputVariableListItem(props: Props) {
         >
             <DataTableCell sx={{ wordBreak: 'break-all' }}>
                 {data.key}
+                {data.category === 'terraform' && data.includedInTfConfig === false && <Chip sx={{ ml: 1 }} color="warning" size="xs" label="Not used" />}
             </DataTableCell>
             <DataTableCell sx={{ wordBreak: 'break-all' }} mask={!showValues} >
                 {data.value !== null ? data.value : <LockIcon color="disabled" />}

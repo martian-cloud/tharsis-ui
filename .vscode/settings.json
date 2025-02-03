@@ -1,7 +1,12 @@
 // Place your settings in this file to overwrite the default settings
 {
-  "cSpell.userWords": ["Tharsis", "tharsis"],
-  "cSpell.enableFiletypes": ["terraform"],
+  "cSpell.userWords": [
+    "Tharsis",
+    "tharsis"
+  ],
+  "cSpell.enabledFileTypes": {
+    "terraform": true,
+  },
   "editor.formatOnSave": true,
   "files.eol": "\n",
   "files.insertFinalNewline": true,
@@ -10,7 +15,10 @@
   "go.autocompleteUnimportedPackages": true,
   "go.lintOnSave": "package",
   "go.lintTool": "golangci-lint",
-  "go.lintFlags": ["-E", "revive,gosec"],
+  "go.lintFlags": [
+    "-E",
+    "revive,gosec"
+  ],
   "go.toolsManagement.autoUpdate": true,
   "go.useLanguageServer": true,
   "gopls": {
@@ -20,7 +28,6 @@
       "gc_details": true
     },
     "ui.diagnostic.analyses": {
-      "fieldalignment": true,
       "nilness": true,
       "shadow": true,
       "unusedparams": true,

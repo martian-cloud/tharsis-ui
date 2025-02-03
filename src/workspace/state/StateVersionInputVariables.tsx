@@ -10,9 +10,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import graphql from 'babel-plugin-relay/macro';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useFragment } from 'react-relay/hooks';
 import SearchInput from '../../common/SearchInput';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Dropdown } from '@mui/base/Dropdown';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import StateVersionInputVariableListItem from './StateVersionInputVariableListItem';
 import { StateVersionInputVariablesFragment_variables$key } from './__generated__/StateVersionInputVariablesFragment_variables.graphql';
 
@@ -35,11 +38,14 @@ function StateVersionInputVariables(props: Props) {
                 key
                 category
                 namespacePath
+                includedInTfConfig
                 ...StateVersionInputVariableListItemFragment_variable
             }
         }
       `, fragmentRef);
 
+    const [showAllVariables, setShowAllVariables] = useState(false);
+    const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
     const [showValues, setShowValues] = useState(false);
     const [search, setSearch] = useState('');
 
@@ -47,26 +53,68 @@ function StateVersionInputVariables(props: Props) {
         setSearch(event.target.value.toLowerCase());
     };
 
-    const variables = data.variables.filter((v: any) => v.category === 'terraform');
-    const filteredVariables = search ? variables.filter(variableSearchFilter(search)) : variables;
+    function onMenuOpen(event: React.MouseEvent<HTMLButtonElement>) {
+        setMenuAnchorEl(event.currentTarget);
+    }
+
+    function onMenuClose() {
+        setMenuAnchorEl(null);
+    }
+
+    const variables = useMemo(() => {
+        return data.variables.filter((v: any) => {
+            const categoryMatch = v.category === 'terraform';
+            if (showAllVariables) {
+                return categoryMatch;
+            }
+            return categoryMatch && (v.includedInTfConfig ?? true);
+        });
+    }, [data.variables, showAllVariables])
+
+    const filteredVariables = useMemo(() => {
+        return search ? variables.filter(variableSearchFilter(search)) : variables;
+    }, [variables, search])
 
     return (
         <Box>
-            {variables.length > 0 && <Stack direction="row" spacing={2}>
-                <SearchInput
-                    fullWidth
-                    placeholder="search for variables"
-                    onChange={onSearchChange}
-                />
-                <Button
-                    size="small"
-                    color="info"
-                    sx={{ width: 150 }}
-                    onClick={() => setShowValues(!showValues)}
-                >
-                    {showValues ? 'Hide Values' : 'Show Values'}
-                </Button>
-            </Stack>}
+            {variables.length > 0 && <Box display="flex">
+                <Stack direction="row" spacing={2} sx={{ flex: 1 }}>
+                    <SearchInput
+                        fullWidth
+                        placeholder="search for variables"
+                        onChange={onSearchChange}
+                    />
+                    <Button
+                        size="small"
+                        color="info"
+                        sx={{ width: 150 }}
+                        onClick={() => setShowValues(!showValues)}
+                    >
+                        {showValues ? 'Hide Values' : 'Show Values'}
+                    </Button>
+                </Stack>
+                <Dropdown>
+                    <IconButton
+                        color="info"
+                        aria-label="more options menu"
+                        aria-haspopup="menu"
+                        onClick={onMenuOpen}
+                    >
+                        <MoreVertIcon />
+                    </IconButton>
+                    <Menu
+                        id="variable-list-more-options-menu"
+                        anchorEl={menuAnchorEl}
+                        open={Boolean(menuAnchorEl)}
+                        onClose={onMenuClose}
+                    >
+                        <MenuItem
+                            onClick={() => setShowAllVariables(!showAllVariables)}>
+                            {showAllVariables ? 'Hide Unused Variables' : 'Show All Variables'}
+                        </MenuItem>
+                    </Menu>
+                </Dropdown>
+            </Box>}
             {(filteredVariables.length === 0 && search !== '') && <Typography sx={{ padding: 2, marginTop: 4 }} align="center" color="textSecondary">
                 No variables matching search <strong>{search}</strong>
             </Typography>}

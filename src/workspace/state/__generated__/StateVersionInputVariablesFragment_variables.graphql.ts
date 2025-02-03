@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fe405d95c4c649edd5c6f5c0e677dad2>>
+ * @generated SignedSource<<5c9d6ffb8560f2bce89629134642a14b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ import { FragmentRefs } from "relay-runtime";
 export type StateVersionInputVariablesFragment_variables$data = {
   readonly variables: ReadonlyArray<{
     readonly category: VariableCategory;
+    readonly includedInTfConfig: boolean | null;
     readonly key: string;
     readonly namespacePath: string | null;
     readonly " $fragmentSpreads": FragmentRefs<"StateVersionInputVariableListItemFragment_variable">;
@@ -61,6 +62,13 @@ const node: ReaderFragment = {
           "storageKey": null
         },
         {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "includedInTfConfig",
+          "storageKey": null
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "StateVersionInputVariableListItemFragment_variable"
@@ -73,6 +81,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "445d69b454f909682701354327379a7d";
+(node as any).hash = "38a5b2156b290a0dd75bc263b9c4d70a";
 
 export default node;

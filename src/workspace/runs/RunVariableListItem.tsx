@@ -5,6 +5,7 @@ import { useFragment } from 'react-relay/hooks';
 import Link from '../../routes/Link';
 import LockIcon from '@mui/icons-material/LockOutlined';
 import { RunVariableListItemFragment_variable$key } from './__generated__/RunVariableListItemFragment_variable.graphql';
+import { Chip } from '@mui/material';
 
 interface Props {
     fragmentRef: RunVariableListItemFragment_variable$key
@@ -21,6 +22,7 @@ function RunVariableListItem(props: Props) {
             category
             value
             namespacePath
+            includedInTfConfig
         }
       `, props.fragmentRef);
 
@@ -30,6 +32,7 @@ function RunVariableListItem(props: Props) {
         >
             <TableCell sx={{ fontWeight: 'bold', wordBreak: 'break-all' }}>
                 {data.key}
+                {data.category === 'terraform' && data.includedInTfConfig === false && <Chip sx={{ ml: 1 }} color="warning" size="xs" label="Not used" />}
             </TableCell>
             <TableCell sx={{ wordBreak: 'break-all' }}>
                 {showValues ? (data.value !== null ? data.value : <LockIcon color="disabled" />) : '************'}

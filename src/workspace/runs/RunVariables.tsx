@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import RunVariableListItem from './RunVariableListItem';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'react-relay/hooks';
@@ -18,6 +18,9 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { darken, useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Dropdown } from '@mui/base/Dropdown';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 
 interface Props {
     fragmentRef: RunVariablesFragment_variables$key
@@ -40,12 +43,15 @@ function RunVariables(props: Props) {
                 key
                 category
                 namespacePath
+                includedInTfConfig
                 ...RunVariableListItemFragment_variable
             }
         }
       `, fragmentRef)
 
     const [showValues, setShowValues] = useState(false);
+    const [showAllVariables, setShowAllVariables] = useState(false);
+    const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
     const [variableCategory, setVariableCategory] = useState('terraform');
     const [search, setSearch] = useState('');
 
@@ -59,8 +65,27 @@ function RunVariables(props: Props) {
         setSearch(event.target.value.toLowerCase());
     };
 
-    const variables = data.variables.filter((v: any) => v.category === variableCategory);
-    const filteredVariables = search ? variables.filter(variableSearchFilter(search)) : variables;
+    function onMenuOpen(event: React.MouseEvent<HTMLButtonElement>) {
+        setMenuAnchorEl(event.currentTarget);
+    }
+
+    function onMenuClose() {
+        setMenuAnchorEl(null);
+    }
+
+    const variables = useMemo(() => {
+        return data.variables.filter((v: any) => {
+            const categoryMatch = v.category === variableCategory;
+            if (showAllVariables) {
+                return categoryMatch;
+            }
+            return categoryMatch && (v.includedInTfConfig ?? true);
+        });
+    }, [data.variables, variableCategory, showAllVariables])
+
+    const filteredVariables = useMemo(() => {
+        return search ? variables.filter(variableSearchFilter(search)) : variables;
+    }, [variables, search])
 
     return (
         <Box>
@@ -88,27 +113,51 @@ function RunVariables(props: Props) {
                     <ToggleButton value="terraform" size="small">Terraform</ToggleButton>
                     <ToggleButton value="environment" size="small">Environment</ToggleButton>
                 </ToggleButtonGroup>
-                <Stack direction="row" spacing={2}>
-                    <TextField
-                        size="small"
-                        margin='none'
-                        placeholder="search for variables"
-                        InputProps={{
-                            sx: { background: darken(theme.palette.background.default, 0.5) }
-                        }}
-                        sx={{ width: 300, height: '100%' }}
-                        onChange={onSearchChange}
-                        autoComplete="off"
-                    />
-                    <Button
-                        size="small"
-                        color="info"
-                        sx={{ height: '100%' }}
-                        onClick={() => setShowValues(!showValues)}
-                    >
-                        {showValues ? 'Hide Values' : 'Show Values'}
-                    </Button>
-                </Stack>
+                <Box display="flex">
+                    <Stack direction="row" spacing={2}>
+                        <TextField
+                            size="small"
+                            margin='none'
+                            placeholder="search for variables"
+                            InputProps={{
+                                sx: { background: darken(theme.palette.background.default, 0.5) }
+                            }}
+                            sx={{ width: 300, height: '100%' }}
+                            onChange={onSearchChange}
+                            autoComplete="off"
+                        />
+                        <Button
+                            size="small"
+                            color="info"
+                            sx={{ height: '100%' }}
+                            onClick={() => setShowValues(!showValues)}
+                        >
+                            {showValues ? 'Hide Values' : 'Show Values'}
+                        </Button>
+                    </Stack>
+                    <Dropdown>
+                        <IconButton
+                            color="info"
+                            size="small"
+                            aria-label="more options menu"
+                            aria-haspopup="menu"
+                            onClick={onMenuOpen}
+                        >
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                            id="variable-list-more-options-menu"
+                            anchorEl={menuAnchorEl}
+                            open={Boolean(menuAnchorEl)}
+                            onClose={onMenuClose}
+                        >
+                            <MenuItem
+                                onClick={() => setShowAllVariables(!showAllVariables)}>
+                                {showAllVariables ? 'Hide Unused Variables' : 'Show All Variables'}
+                            </MenuItem>
+                        </Menu>
+                    </Dropdown>
+                </Box>
             </Box>
             {(filteredVariables.length === 0 && search !== '') && <Typography sx={{ padding: 2 }} align="center" color="textSecondary">
                 No variables matching search
