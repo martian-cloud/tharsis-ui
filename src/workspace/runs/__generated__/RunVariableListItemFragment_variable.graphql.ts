@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9e19ad455235f3e0a07547d82bec1845>>
+ * @generated SignedSource<<7362ee9f16d4f19cdbe1e04673e465f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ export type VariableCategory = "environment" | "terraform" | "%future added valu
 import { FragmentRefs } from "relay-runtime";
 export type RunVariableListItemFragment_variable$data = {
   readonly category: VariableCategory;
+  readonly includedInTfConfig: boolean | null;
   readonly key: string;
   readonly namespacePath: string | null;
   readonly value: string | null;
@@ -56,12 +57,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "namespacePath",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "includedInTfConfig",
+      "storageKey": null
     }
   ],
   "type": "RunVariable",
   "abstractKey": null
 };
 
-(node as any).hash = "05911e0381ebdd720aa55ca91e3043f2";
+(node as any).hash = "82bfe58d916b6ee2755d32b150083b94";
 
 export default node;

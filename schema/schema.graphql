@@ -1271,6 +1271,7 @@ type Mutation {
   saveJobLogs(input: SaveJobLogsInput!): SaveJobLogsPayload!
   serviceAccountCreateToken(input: ServiceAccountCreateTokenInput!): ServiceAccountCreateTokenPayload!
   setNamespaceVariables(input: SetNamespaceVariablesInput!): NamespaceVariableMutationPayload!
+  setVariablesIncludedInTFConfig(input: SetVariablesIncludedInTFConfigInput!): SetVariablesIncludedInTFConfigPayload!
   unassignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
   unassignServiceAccountFromRunner(input: AssignServiceAccountToRunnerInput!): AssignServiceAccountToRunnerPayload!
   unlockWorkspace(input: UnlockWorkspaceInput!): UnlockWorkspacePayload!
@@ -1680,6 +1681,7 @@ input RunSubscriptionInput {
 type RunVariable {
   category: VariableCategory!
   hcl: Boolean @deprecated(reason: "HCL field will be determined automatically, to be removed in a future release")
+  includedInTfConfig: Boolean
   key: String!
   namespacePath: String
   value: String
@@ -1868,6 +1870,17 @@ input SetNamespaceVariablesInput {
   clientMutationId: String
   namespacePath: String!
   variables: [NamespaceVariableInput!]!
+}
+
+input SetVariablesIncludedInTFConfigInput {
+  runId: String!
+  variableKeys: [String!]!
+}
+
+type SetVariablesIncludedInTFConfigPayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  run: Run
 }
 
 type StateVersion implements Node {
