@@ -53,6 +53,9 @@
     "web-vitals": "^2.1.4",
     "ws": "^7.5.10"
   },
+  "overrides": {
+    "serialize-javascript": "6.0.2"
+  },
   "scripts": {
     "start": "dotenv react-scripts start",
     "build": "dotenv react-scripts build",

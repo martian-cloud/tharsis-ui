@@ -23,6 +23,7 @@ const RESOURCE_TYPES = {
     MANAGED_IDENTITY: 'Managed identity',
     SERVICE_ACCOUNT: 'Service account',
     GPG_KEY: 'GPG key',
+    TERRAFORM_MODULE: 'Terraform module',
     TERRAFORM_PROVIDER: 'Terraform provider',
     VARIABLE: 'Variable',
     VCS_PROVIDER: 'VCS Provider',
@@ -40,7 +41,7 @@ function getMemberIdentifier(member: any) {
     if (!member) {
         return 'n/a';
     }
-    switch(member.__typename) {
+    switch (member.__typename) {
         case 'User':
             return member.username;
         case 'ServiceAccount':
