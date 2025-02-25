@@ -25,6 +25,7 @@ import RunJobDialog from './RunJobDialog';
 import { RunJobDialog_currentJob$key } from './__generated__/RunJobDialog_currentJob.graphql';
 import { RunDetailsApplyStageApplyRunMutation } from './__generated__/RunDetailsApplyStageApplyRunMutation.graphql';
 import { RunDetailsApplyStageFragment_apply$key } from './__generated__/RunDetailsApplyStageFragment_apply.graphql';
+import NoRunnerAlert from './NoRunnerAlert';
 
 interface Props {
     fragmentRef: RunDetailsApplyStageFragment_apply$key
@@ -67,6 +68,7 @@ function RunDetailsApplyStage(props: Props) {
                     runningAt
                     finishedAt
                   }
+                  ...NoRunnerAlertFragment_job
                   ...JobLogsFragment_logs
                   ...RunJobDialog_currentJob
                 }
@@ -132,6 +134,7 @@ function RunDetailsApplyStage(props: Props) {
     return (
         <Box>
             {data.apply?.currentJob?.cancelRequested && data.apply?.status !== 'canceled' && <ForceCancelRunAlert fragmentRef={data} />}
+            {data.apply?.currentJob && <NoRunnerAlert fragmentRef={data.apply.currentJob} sx={{ mb: 2 }} />}
             {data.apply && data.apply.status !== 'created' && data.apply.triggeredBy && <Box>
                 {data.apply.status !== 'pending' && <Box
                     sx={{

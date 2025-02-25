@@ -1,5 +1,5 @@
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
-import { Alert, IconButton, Typography } from '@mui/material';
+import { Alert, AlertTitle, IconButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -113,10 +113,13 @@ function RunDetails(props: Props) {
                             { title: `${runId.substring(0, 8)}...`, path: runId }
                         ]}
                     />
-                    {displayLockWarning && <Alert severity="warning" variant="outlined" sx={{ marginBottom: 2 }}>
-                        This workspace is currently <strong>locked</strong>, a lock prevents new runs from starting. If the workspace was manually locked,
-                        it can be unlocked within the <strong>State Settings</strong> section on the <Link to={`/groups/${queryData.run.workspace.fullPath}/-/settings`}>Settings</Link> page.
-                    </Alert>}
+                    {displayLockWarning &&
+                        <Alert severity="warning" variant="outlined" sx={{ marginBottom: 2 }}>
+                            <AlertTitle>Workspace is currently locked</AlertTitle>
+                            A lock prevents new runs from starting. If the workspace was manually locked,
+                            it can be unlocked within the <strong>State Settings</strong> section on the
+                            <Link to={`/groups/${queryData?.run?.workspace.fullPath}/-/settings`}>Settings</Link> page.
+                        </Alert>}
                     {error && <Alert sx={{ marginBottom: 2 }} severity={error.severity}>
                         {error.message}
                     </Alert>}

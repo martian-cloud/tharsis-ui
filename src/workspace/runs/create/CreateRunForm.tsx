@@ -68,7 +68,7 @@ function CreateRunForm({ error, data, onChange, fragmentRef }: Props) {
                                 options: DEFAULT_RUN_OPTIONS[source.name]
                             })
                         }}>
-                        <Typography variant="subtitle1">{source.title}</Typography>
+                        <Typography variant="subtitle1" align="center">{source.title}</Typography>
                         <Typography variant="caption" align="center">
                             {source.description}
                         </Typography>

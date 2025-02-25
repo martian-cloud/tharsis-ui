@@ -28,6 +28,7 @@ import { RunJobDialog_currentJob$key } from './__generated__/RunJobDialog_curren
 import { RunDetailsPlanStageApplyRunMutation } from './__generated__/RunDetailsPlanStageApplyRunMutation.graphql';
 import { RunDetailsPlanStageFragment_plan$key } from './__generated__/RunDetailsPlanStageFragment_plan.graphql';
 import RunDetailsPlanDiffViewer, { MaxDiffSize } from './plandiff/RunDetailsPlanDiffViewer';
+import NoRunnerAlert from './NoRunnerAlert';
 
 interface Props {
     fragmentRef: RunDetailsPlanStageFragment_plan$key
@@ -71,6 +72,7 @@ function RunDetailsPlanStage(props: Props) {
                     runningAt
                     finishedAt
                   }
+                  ...NoRunnerAlertFragment_job
                   ...JobLogsFragment_logs
                   ...RunJobDialog_currentJob
                 }
@@ -146,6 +148,7 @@ function RunDetailsPlanStage(props: Props) {
     return (
         <Box>
             {data.plan.currentJob?.cancelRequested && data.plan.status !== 'canceled' && <ForceCancelRunAlert fragmentRef={data} />}
+            {data.plan.currentJob && <NoRunnerAlert fragmentRef={data.plan.currentJob} sx={{ mb: 2 }} />}
             {data.plan.status !== 'pending' && <Box
                 sx={{
                     paddingTop: 1,

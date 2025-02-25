@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4bba8a7547082f9540ffbe5f6f6d32ad>>
+ * @generated SignedSource<<25ffc15ec63254d315c7b0e02d162792>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,7 +30,7 @@ export type RunDetailsPlanStageFragment_plan$data = {
         readonly queuedAt: any | null;
         readonly runningAt: any | null;
       };
-      readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs" | "RunJobDialog_currentJob">;
+      readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs" | "NoRunnerAlertFragment_job" | "RunJobDialog_currentJob">;
     } | null;
     readonly diffSize: number;
     readonly errorMessage: string | null;
@@ -227,6 +227,11 @@ return {
             {
               "args": null,
               "kind": "FragmentSpread",
+              "name": "NoRunnerAlertFragment_job"
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
               "name": "JobLogsFragment_logs"
             },
             {
@@ -273,6 +278,6 @@ return {
 };
 })();
 
-(node as any).hash = "c0d68cc71881b51b8a99c912223c76c6";
+(node as any).hash = "50145ce21ff659ec55b98d790af5f35f";
 
 export default node;
