@@ -867,6 +867,17 @@ type DeleteWorkspaceVCSProviderLinkPayload {
   vcsProviderLink: WorkspaceVCSProviderLink
 }
 
+input DestroyWorkspaceInput {
+  clientMutationId: String
+  workspacePath: String!
+}
+
+type DestroyWorkspacePayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  run: Run
+}
+
 input DisableMaintenanceModeInput {
   clientMutationId: String
 }
@@ -983,6 +994,7 @@ type Job implements Node {
   metadata: ResourceMetadata!
   run: Run!
   runner: Runner
+  runnerAvailabilityStatus: RunnerAvailabilityStatus!
   runnerPath: String
   status: JobStatus!
   tags: [String!]!
@@ -1259,6 +1271,7 @@ type Mutation {
   deleteVCSProvider(input: DeleteVCSProviderInput!): DeleteVCSProviderPayload!
   deleteWorkspace(input: DeleteWorkspaceInput!): DeleteWorkspacePayload!
   deleteWorkspaceVCSProviderLink(input: DeleteWorkspaceVCSProviderLinkInput!): DeleteWorkspaceVCSProviderLinkPayload!
+  destroyWorkspace(input: DestroyWorkspaceInput!): DestroyWorkspacePayload!
   disableMaintenanceMode(input: DisableMaintenanceModeInput!): DisableMaintenanceModePayload!
   enableMaintenanceMode(input: EnableMaintenanceModeInput!): EnableMaintenanceModePayload!
   lockWorkspace(input: LockWorkspaceInput!): LockWorkspacePayload!
@@ -1710,6 +1723,13 @@ type Runner implements Node {
   sessions(after: String, before: String, first: Int, last: Int, sort: RunnerSessionSort): RunnerSessionConnection!
   tags: [String!]!
   type: RunnerType!
+}
+
+enum RunnerAvailabilityStatus {
+  ASSIGNED
+  AVAILABLE
+  INACTIVE
+  NONE
 }
 
 type RunnerConnection {

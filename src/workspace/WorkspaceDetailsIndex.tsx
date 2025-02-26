@@ -9,22 +9,20 @@ import React, { useState } from 'react';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import RelativeTimestamp from '../common/RelativeTimestamp';
+import TabContent from '../common/TabContent';
 import { MutationError } from '../common/error';
 import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
 import Link from '../routes/Link';
 import WorkspaceDetailsCurrentJob from './WorkspaceDetailsCurrentJob';
 import WorkspaceDetailsEmpty from './WorkspaceDetailsEmpty';
-import StateVersionFile from './state/StateVersionFile';
 import { WorkspaceDetailsIndexFragment_workspace$key } from './__generated__/WorkspaceDetailsIndexFragment_workspace.graphql';
+import { WorkspaceDetailsIndex_DestroyWorkspaceMutation } from './__generated__/WorkspaceDetailsIndex_DestroyWorkspaceMutation.graphql';
 import RunStatusChip from './runs/RunStatusChip';
-import { CreateRunMutation, VCSRunMutation } from './runs/create/CreateRun';
-import { CreateRun_RunMutation } from './runs/create/__generated__/CreateRun_RunMutation.graphql';
-import { CreateRun_VCSRunMutation } from './runs/create/__generated__/CreateRun_VCSRunMutation.graphql';
 import StateVersionDependencies from './state/StateVersionDependencies';
+import StateVersionFile from './state/StateVersionFile';
 import StateVersionInputVariables from './state/StateVersionInputVariables';
 import StateVersionOutputs from './state/StateVersionOutputs';
 import StateVersionResources from './state/StateVersionResources';
-import TabContent from '../common/TabContent';
 
 interface Props {
     fragmentRef: WorkspaceDetailsIndexFragment_workspace$key
@@ -44,11 +42,13 @@ function DestroyRunConfirmationDialog({ deleteInProgress, onClose, open }: Confi
             maxWidth="sm"
             open={open}
         >
-            <DialogTitle>Destroy Run</DialogTitle>
+            <DialogTitle>Destroy Workspace</DialogTitle>
             <DialogContent >
                 <Alert sx={{ mb: 2 }} severity="warning">
                     <AlertTitle>Warning</AlertTitle>
-                    Initiating a destroy run will <strong><ins>permanently</ins></strong> remove all resources for the given project, including infrastructure, data, and any configurations associated with those resources. The created plan will have to be applied manually.
+                    Initiating a destroy workspace run will <strong><ins>permanently</ins></strong> destroy all resources managed by this workspace.
+                    This operation will use the same module or configuration version that created the current workspace state. Any variables used in
+                    the most recent successful apply operation will automatically be included. The created plan will have to be applied manually.
                 </Alert>
             </DialogContent>
             <DialogActions>
@@ -133,60 +133,34 @@ function WorkspaceDetailsIndex(props: Props) {
       }
     `, fragmentRef);
 
-    const [commitDestroyVCSRun, destroyVCSRunIsInFlight] = useMutation<CreateRun_VCSRunMutation>(VCSRunMutation)
-
-    const [commitDestroyRun, destroyRunIsInFlight] = useMutation<CreateRun_RunMutation>(CreateRunMutation)
-
-    const onDestroyVCSRun = () => {
-        commitDestroyVCSRun({
-            variables: {
-                input: {
-                    workspacePath: data.fullPath,
-                    isDestroy: true
+    const [commitDestroyWorkspace, destroyWorkspaceIsInFlight] = useMutation<WorkspaceDetailsIndex_DestroyWorkspaceMutation>(graphql`
+        mutation WorkspaceDetailsIndex_DestroyWorkspaceMutation($input: DestroyWorkspaceInput!) {
+            destroyWorkspace (input: $input) {
+                run {
+                    id
                 }
-            },
-            onCompleted: data => {
-                if (data.createVCSRun.problems.length) {
-                    setError({
-                        severity: 'warning',
-                        message: data.createVCSRun.problems.map(problem => problem.message).join('; ')
-                    });
-                } else if (!data.createVCSRun) {
-                    setError({
-                        severity: 'error',
-                        message: "Unexpected error occurred"
-                    });
-                } else {
-                    setShowDestroyRunConfirmationDialog(false)
+                problems {
+                    message
+                    field
+                    type
                 }
-            },
-            onError: error => {
-                setError({
-                    severity: 'error',
-                    message: `Unexpected error occurred: ${error.message}`
-                });
             }
-        })
-    };
+        }`)
 
     const onDestroyRun = () => {
-        commitDestroyRun({
+        commitDestroyWorkspace({
             variables: {
                 input: {
                     workspacePath: data.fullPath,
-                    configurationVersionId: data.currentStateVersion?.run?.configurationVersion?.id,
-                    moduleSource: data.currentStateVersion?.run?.moduleSource,
-                    moduleVersion: data.currentStateVersion?.run?.moduleVersion,
-                    isDestroy: true
                 }
             },
             onCompleted: data => {
-                if (data.createRun.problems.length) {
+                if (data.destroyWorkspace.problems.length) {
                     setError({
                         severity: 'warning',
-                        message: data.createRun.problems.map(problem => problem.message).join('; ')
+                        message: data.destroyWorkspace.problems.map(problem => problem.message).join('; ')
                     });
-                } else if (!data.createRun) {
+                } else if (!data.destroyWorkspace) {
                     setError({
                         severity: 'error',
                         message: "Unexpected error occurred"
@@ -206,13 +180,9 @@ function WorkspaceDetailsIndex(props: Props) {
 
     const onDestroyConfirmationDialogClosed = (confirm?: boolean) => {
         if (confirm) {
-            if (data.currentStateVersion?.run?.configurationVersion && data.currentStateVersion.run.configurationVersion.vcsEvent) {
-                onDestroyVCSRun()
-            } else {
-                onDestroyRun()
-            }
+            onDestroyRun();
         }
-        setShowDestroyRunConfirmationDialog(false)
+        setShowDestroyRunConfirmationDialog(false);
     };
 
     const onTabChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -357,7 +327,7 @@ function WorkspaceDetailsIndex(props: Props) {
             </React.Fragment>}
             <DestroyRunConfirmationDialog
                 open={showDestroyRunConfirmationDialog}
-                deleteInProgress={destroyVCSRunIsInFlight || destroyRunIsInFlight}
+                deleteInProgress={destroyWorkspaceIsInFlight}
                 onClose={onDestroyConfirmationDialogClosed}
             />
         </Box>
