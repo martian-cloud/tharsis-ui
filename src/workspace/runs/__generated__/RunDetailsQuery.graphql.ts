@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6375585ae52cdf6755026dda83d50bca>>
+ * @generated SignedSource<<61b9f243592ef2af0620cdfb858de5ad>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -182,6 +182,26 @@ v9 = {
           "name": "finishedAt",
           "storageKey": null
         }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "runnerAvailabilityStatus",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Workspace",
+      "kind": "LinkedField",
+      "name": "workspace",
+      "plural": false,
+      "selections": [
+        (v4/*: any*/),
+        (v7/*: any*/)
       ],
       "storageKey": null
     },
@@ -591,12 +611,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "94f84aa9cd533686f304a0eba8211bad",
+    "cacheID": "48a66d5c66193a54a746201e8f1a5ea9",
     "id": null,
     "metadata": {},
     "name": "RunDetailsQuery",
     "operationKind": "query",
-    "text": "query RunDetailsQuery(\n  $id: String!\n) {\n  run(id: $id) {\n    status\n    plan {\n      status\n      id\n    }\n    apply {\n      status\n      id\n    }\n    workspace {\n      fullPath\n      locked\n      metadata {\n        updatedAt\n      }\n      id\n    }\n    ...RunDetailsSidebarFragment_details\n    ...RunDetailsPlanStageFragment_plan\n    ...RunDetailsApplyStageFragment_apply\n    id\n  }\n}\n\nfragment ForceCancelRunAlertFragment_run on Run {\n  forceCancelAvailableAt\n  ...ForceCancelRunButtonFragment_run\n}\n\nfragment ForceCancelRunButtonDialogFragment_run on Run {\n  workspace {\n    fullPath\n    id\n  }\n}\n\nfragment ForceCancelRunButtonFragment_run on Run {\n  id\n  ...ForceCancelRunButtonDialogFragment_run\n}\n\nfragment JobLogsFragment_logs on Job {\n  id\n  status\n  logLastUpdatedAt\n  logSize\n  logs(startOffset: 0, limit: 51200)\n}\n\nfragment RunDetailsApplyStageFragment_apply on Run {\n  id\n  status\n  plan {\n    summary {\n      resourceAdditions\n      resourceChanges\n      resourceDestructions\n    }\n    status\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    metadata {\n      createdAt\n    }\n    status\n    errorMessage\n    triggeredBy\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...JobLogsFragment_logs\n      ...RunJobDialog_currentJob\n    }\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanStageFragment_plan on Run {\n  id\n  createdBy\n  workspace {\n    locked\n    metadata {\n      updatedAt\n    }\n    id\n  }\n  plan {\n    metadata {\n      createdAt\n    }\n    status\n    errorMessage\n    hasChanges\n    diffSize\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...JobLogsFragment_logs\n      ...RunJobDialog_currentJob\n    }\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    status\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanSummaryFragment_plan on Plan {\n  summary {\n    resourceAdditions\n    resourceChanges\n    resourceDestructions\n    resourceImports\n    resourceDrift\n    outputAdditions\n    outputChanges\n    outputDestructions\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  moduleSource\n  moduleVersion\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n\nfragment RunJobDialog_currentJob on Job {\n  id\n  status\n  tags\n  runner {\n    id\n    name\n    type\n    groupPath\n  }\n  runnerPath\n  metadata {\n    createdAt\n  }\n  timestamps {\n    pendingAt\n    runningAt\n    finishedAt\n  }\n}\n\nfragment RunVariableListItemFragment_variable on RunVariable {\n  key\n  category\n  value\n  namespacePath\n  includedInTfConfig\n}\n\nfragment RunVariablesFragment_variables on Run {\n  variables {\n    key\n    category\n    namespacePath\n    includedInTfConfig\n    ...RunVariableListItemFragment_variable\n  }\n}\n"
+    "text": "query RunDetailsQuery(\n  $id: String!\n) {\n  run(id: $id) {\n    status\n    plan {\n      status\n      id\n    }\n    apply {\n      status\n      id\n    }\n    workspace {\n      fullPath\n      locked\n      metadata {\n        updatedAt\n      }\n      id\n    }\n    ...RunDetailsSidebarFragment_details\n    ...RunDetailsPlanStageFragment_plan\n    ...RunDetailsApplyStageFragment_apply\n    id\n  }\n}\n\nfragment ForceCancelRunAlertFragment_run on Run {\n  forceCancelAvailableAt\n  ...ForceCancelRunButtonFragment_run\n}\n\nfragment ForceCancelRunButtonDialogFragment_run on Run {\n  workspace {\n    fullPath\n    id\n  }\n}\n\nfragment ForceCancelRunButtonFragment_run on Run {\n  id\n  ...ForceCancelRunButtonDialogFragment_run\n}\n\nfragment JobLogsFragment_logs on Job {\n  id\n  status\n  logLastUpdatedAt\n  logSize\n  logs(startOffset: 0, limit: 51200)\n}\n\nfragment NoRunnerAlertFragment_job on Job {\n  runnerAvailabilityStatus\n  workspace {\n    fullPath\n    id\n  }\n}\n\nfragment RunDetailsApplyStageFragment_apply on Run {\n  id\n  status\n  plan {\n    summary {\n      resourceAdditions\n      resourceChanges\n      resourceDestructions\n    }\n    status\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    metadata {\n      createdAt\n    }\n    status\n    errorMessage\n    triggeredBy\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...NoRunnerAlertFragment_job\n      ...JobLogsFragment_logs\n      ...RunJobDialog_currentJob\n    }\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanStageFragment_plan on Run {\n  id\n  createdBy\n  workspace {\n    locked\n    metadata {\n      updatedAt\n    }\n    id\n  }\n  plan {\n    metadata {\n      createdAt\n    }\n    status\n    errorMessage\n    hasChanges\n    diffSize\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...NoRunnerAlertFragment_job\n      ...JobLogsFragment_logs\n      ...RunJobDialog_currentJob\n    }\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    status\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanSummaryFragment_plan on Plan {\n  summary {\n    resourceAdditions\n    resourceChanges\n    resourceDestructions\n    resourceImports\n    resourceDrift\n    outputAdditions\n    outputChanges\n    outputDestructions\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  moduleSource\n  moduleVersion\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n\nfragment RunJobDialog_currentJob on Job {\n  id\n  status\n  tags\n  runner {\n    id\n    name\n    type\n    groupPath\n  }\n  runnerPath\n  metadata {\n    createdAt\n  }\n  timestamps {\n    pendingAt\n    runningAt\n    finishedAt\n  }\n}\n\nfragment RunVariableListItemFragment_variable on RunVariable {\n  key\n  category\n  value\n  namespacePath\n  includedInTfConfig\n}\n\nfragment RunVariablesFragment_variables on Run {\n  variables {\n    key\n    category\n    namespacePath\n    includedInTfConfig\n    ...RunVariableListItemFragment_variable\n  }\n}\n"
   }
 };
 })();

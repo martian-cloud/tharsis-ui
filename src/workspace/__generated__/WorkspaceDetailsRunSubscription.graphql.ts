@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<032b336c5a30a4d907147065a56ad301>>
+ * @generated SignedSource<<b8ebf35439150c67a684aacefb26be27>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -88,6 +88,13 @@ v5 = {
 v6 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "fullPath",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
   "concreteType": "Job",
   "kind": "LinkedField",
   "name": "currentJob",
@@ -145,6 +152,26 @@ v6 = {
           "name": "finishedAt",
           "storageKey": null
         }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "runnerAvailabilityStatus",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Workspace",
+      "kind": "LinkedField",
+      "name": "workspace",
+      "plural": false,
+      "selections": [
+        (v6/*: any*/),
+        (v3/*: any*/)
       ],
       "storageKey": null
     },
@@ -224,7 +251,7 @@ v6 = {
   ],
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -337,8 +364,8 @@ return {
                   (v5/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  (v6/*: any*/),
                   (v7/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -434,8 +461,8 @@ return {
                   (v5/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  (v6/*: any*/),
                   (v7/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -506,13 +533,7 @@ return {
                     "storageKey": null
                   },
                   (v3/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "fullPath",
-                    "storageKey": null
-                  }
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -578,12 +599,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "93f3f496c266e1719764f45ed7a32ff1",
+    "cacheID": "d22857373ed3993f7a62cbb50ffedc4c",
     "id": null,
     "metadata": {},
     "name": "WorkspaceDetailsRunSubscription",
     "operationKind": "subscription",
-    "text": "subscription WorkspaceDetailsRunSubscription(\n  $input: RunSubscriptionInput!\n) {\n  workspaceRunEvents(input: $input) {\n    action\n    run {\n      id\n      ...RunListItemFragment_run\n      ...RunDetailsSidebarFragment_details\n      ...RunDetailsPlanStageFragment_plan\n      ...RunDetailsApplyStageFragment_apply\n    }\n  }\n}\n\nfragment ForceCancelRunAlertFragment_run on Run {\n  forceCancelAvailableAt\n  ...ForceCancelRunButtonFragment_run\n}\n\nfragment ForceCancelRunButtonDialogFragment_run on Run {\n  workspace {\n    fullPath\n    id\n  }\n}\n\nfragment ForceCancelRunButtonFragment_run on Run {\n  id\n  ...ForceCancelRunButtonDialogFragment_run\n}\n\nfragment JobLogsFragment_logs on Job {\n  id\n  status\n  logLastUpdatedAt\n  logSize\n  logs(startOffset: 0, limit: 51200)\n}\n\nfragment RunDetailsApplyStageFragment_apply on Run {\n  id\n  status\n  plan {\n    summary {\n      resourceAdditions\n      resourceChanges\n      resourceDestructions\n    }\n    status\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    metadata {\n      createdAt\n    }\n    status\n    errorMessage\n    triggeredBy\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...JobLogsFragment_logs\n      ...RunJobDialog_currentJob\n    }\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanStageFragment_plan on Run {\n  id\n  createdBy\n  workspace {\n    locked\n    metadata {\n      updatedAt\n    }\n    id\n  }\n  plan {\n    metadata {\n      createdAt\n    }\n    status\n    errorMessage\n    hasChanges\n    diffSize\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...JobLogsFragment_logs\n      ...RunJobDialog_currentJob\n    }\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    status\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanSummaryFragment_plan on Plan {\n  summary {\n    resourceAdditions\n    resourceChanges\n    resourceDestructions\n    resourceImports\n    resourceDrift\n    outputAdditions\n    outputChanges\n    outputDestructions\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  moduleSource\n  moduleVersion\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n\nfragment RunJobDialog_currentJob on Job {\n  id\n  status\n  tags\n  runner {\n    id\n    name\n    type\n    groupPath\n  }\n  runnerPath\n  metadata {\n    createdAt\n  }\n  timestamps {\n    pendingAt\n    runningAt\n    finishedAt\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n\nfragment RunVariableListItemFragment_variable on RunVariable {\n  key\n  category\n  value\n  namespacePath\n  includedInTfConfig\n}\n\nfragment RunVariablesFragment_variables on Run {\n  variables {\n    key\n    category\n    namespacePath\n    includedInTfConfig\n    ...RunVariableListItemFragment_variable\n  }\n}\n"
+    "text": "subscription WorkspaceDetailsRunSubscription(\n  $input: RunSubscriptionInput!\n) {\n  workspaceRunEvents(input: $input) {\n    action\n    run {\n      id\n      ...RunListItemFragment_run\n      ...RunDetailsSidebarFragment_details\n      ...RunDetailsPlanStageFragment_plan\n      ...RunDetailsApplyStageFragment_apply\n    }\n  }\n}\n\nfragment ForceCancelRunAlertFragment_run on Run {\n  forceCancelAvailableAt\n  ...ForceCancelRunButtonFragment_run\n}\n\nfragment ForceCancelRunButtonDialogFragment_run on Run {\n  workspace {\n    fullPath\n    id\n  }\n}\n\nfragment ForceCancelRunButtonFragment_run on Run {\n  id\n  ...ForceCancelRunButtonDialogFragment_run\n}\n\nfragment JobLogsFragment_logs on Job {\n  id\n  status\n  logLastUpdatedAt\n  logSize\n  logs(startOffset: 0, limit: 51200)\n}\n\nfragment NoRunnerAlertFragment_job on Job {\n  runnerAvailabilityStatus\n  workspace {\n    fullPath\n    id\n  }\n}\n\nfragment RunDetailsApplyStageFragment_apply on Run {\n  id\n  status\n  plan {\n    summary {\n      resourceAdditions\n      resourceChanges\n      resourceDestructions\n    }\n    status\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    metadata {\n      createdAt\n    }\n    status\n    errorMessage\n    triggeredBy\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...NoRunnerAlertFragment_job\n      ...JobLogsFragment_logs\n      ...RunJobDialog_currentJob\n    }\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanStageFragment_plan on Run {\n  id\n  createdBy\n  workspace {\n    locked\n    metadata {\n      updatedAt\n    }\n    id\n  }\n  plan {\n    metadata {\n      createdAt\n    }\n    status\n    errorMessage\n    hasChanges\n    diffSize\n    currentJob {\n      id\n      status\n      cancelRequested\n      timestamps {\n        queuedAt\n        pendingAt\n        runningAt\n        finishedAt\n      }\n      ...NoRunnerAlertFragment_job\n      ...JobLogsFragment_logs\n      ...RunJobDialog_currentJob\n    }\n    ...RunDetailsPlanSummaryFragment_plan\n    id\n  }\n  apply {\n    status\n    id\n  }\n  ...RunVariablesFragment_variables\n  ...ForceCancelRunAlertFragment_run\n}\n\nfragment RunDetailsPlanSummaryFragment_plan on Plan {\n  summary {\n    resourceAdditions\n    resourceChanges\n    resourceDestructions\n    resourceImports\n    resourceDrift\n    outputAdditions\n    outputChanges\n    outputDestructions\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  moduleSource\n  moduleVersion\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n\nfragment RunJobDialog_currentJob on Job {\n  id\n  status\n  tags\n  runner {\n    id\n    name\n    type\n    groupPath\n  }\n  runnerPath\n  metadata {\n    createdAt\n  }\n  timestamps {\n    pendingAt\n    runningAt\n    finishedAt\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n\nfragment RunVariableListItemFragment_variable on RunVariable {\n  key\n  category\n  value\n  namespacePath\n  includedInTfConfig\n}\n\nfragment RunVariablesFragment_variables on Run {\n  variables {\n    key\n    category\n    namespacePath\n    includedInTfConfig\n    ...RunVariableListItemFragment_variable\n  }\n}\n"
   }
 };
 })();
