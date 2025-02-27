@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7362ee9f16d4f19cdbe1e04673e465f3>>
+ * @generated SignedSource<<1766d131611c1ded097f36a382077c14>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,9 @@ export type RunVariableListItemFragment_variable$data = {
   readonly includedInTfConfig: boolean | null;
   readonly key: string;
   readonly namespacePath: string | null;
+  readonly sensitive: boolean;
   readonly value: string | null;
+  readonly versionId: string | null;
   readonly " $fragmentType": "RunVariableListItemFragment_variable";
 };
 export type RunVariableListItemFragment_variable$key = {
@@ -62,6 +64,20 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "sensitive",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "versionId",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "includedInTfConfig",
       "storageKey": null
     }
@@ -70,6 +86,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "82bfe58d916b6ee2755d32b150083b94";
+(node as any).hash = "3c0c0d362359e22829912b6b5ab20a0a";
 
 export default node;

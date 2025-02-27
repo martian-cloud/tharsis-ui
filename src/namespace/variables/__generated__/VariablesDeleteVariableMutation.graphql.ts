@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8ff3f0a23e84fd9d0ab4634aab6ffc8a>>
+ * @generated SignedSource<<c54e0b5df277eab88ad859667bb52359>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -200,6 +200,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "sensitive",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "value",
                     "storageKey": null
                   },
@@ -208,6 +215,13 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "namespacePath",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "latestVersionId",
                     "storageKey": null
                   },
                   {
@@ -241,12 +255,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9aba563bdf732c3c274ab3506886ef62",
+    "cacheID": "b920450742c42da5c168f6274ac4e44d",
     "id": null,
     "metadata": {},
     "name": "VariablesDeleteVariableMutation",
     "operationKind": "mutation",
-    "text": "mutation VariablesDeleteVariableMutation(\n  $input: DeleteNamespaceVariableInput!\n) {\n  deleteNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  value\n  namespacePath\n  metadata {\n    updatedAt\n  }\n}\n"
+    "text": "mutation VariablesDeleteVariableMutation(\n  $input: DeleteNamespaceVariableInput!\n) {\n  deleteNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  sensitive\n  value\n  namespacePath\n  latestVersionId\n  metadata {\n    updatedAt\n  }\n}\n"
   }
 };
 })();

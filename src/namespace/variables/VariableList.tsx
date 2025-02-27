@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,22 +11,17 @@ interface Props {
     variables: any[]
     namespacePath: string
     showValues: boolean
+    onShowHistory: (variable: any) => void;
     onEditVariable: (variable: any) => void
     onDeleteVariable: (variable: any) => void
 }
 
 function VariableList(props: Props) {
-    const { variables, namespacePath, showValues, onEditVariable, onDeleteVariable } = props;
+    const { variables, namespacePath, showValues, onEditVariable, onDeleteVariable, onShowHistory } = props;
 
     return (
         <TableContainer>
-            <Table sx={{ tableLayout: 'fixed' }}>
-                <colgroup>
-                    <Box component="col" />
-                    <Box component="col" />
-                    <Box component="col" />
-                    <Box component="col" sx={{ width: '150px' }} />
-                </colgroup>
+            <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>
@@ -50,6 +44,7 @@ function VariableList(props: Props) {
                         showValues={showValues}
                         onEdit={onEditVariable}
                         onDelete={onDeleteVariable}
+                        onShowHistory={onShowHistory}
                     />)}
                 </TableBody>
             </Table>

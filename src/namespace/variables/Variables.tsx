@@ -19,6 +19,7 @@ import EditVariableDialog from './EditVariableDialog';
 import VariableList from './VariableList';
 import { VariablesDeleteVariableMutation } from './__generated__/VariablesDeleteVariableMutation.graphql';
 import { VariablesFragment_variables$key } from './__generated__/VariablesFragment_variables.graphql';
+import VariableHistoryDialog from './VariableHistoryDialog';
 
 interface ConfirmationDialogProps {
     variable: any
@@ -99,6 +100,7 @@ function Variables(props: Props) {
     const [search, setSearch] = useState('');
     const [variableToEdit, setVariableToEdit] = useState<any>(null);
     const [variableToDelete, setVariableToDelete] = useState<any>(null);
+    const [variableToShowHistory, setVariableToShowHistory] = useState<any>(null);
 
     const onEditVariable = (variable: any) => {
         setVariableToEdit(variable);
@@ -232,10 +234,15 @@ function Variables(props: Props) {
                             showValues={showValues}
                             onEditVariable={onEditVariable}
                             onDeleteVariable={(variable: any) => setVariableToDelete(variable)}
+                            onShowHistory={(variable: any) => setVariableToShowHistory(variable)}
                         />
                     </Box>}
                 </Box>} />
             </Routes>
+            {variableToShowHistory && <VariableHistoryDialog
+                variableId={variableToShowHistory.id}
+                onClose={() => setVariableToShowHistory(null)}
+            />}
             {variableToEdit && <EditVariableDialog variable={variableToEdit} namespacePath={data.fullPath} onClose={() => setVariableToEdit(null)} />}
             <DeleteConfirmationDialog
                 keepMounted

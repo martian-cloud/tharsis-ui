@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fb0d326dd1a0c87779b88ef363843bb0>>
+ * @generated SignedSource<<152a18638c8979f69751b4e8a80a47b7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -203,6 +203,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "sensitive",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "value",
                     "storageKey": null
                   },
@@ -211,6 +218,13 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "namespacePath",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "latestVersionId",
                     "storageKey": null
                   },
                   {
@@ -244,12 +258,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5339ed18bf05ad9e63a0004751a2060d",
+    "cacheID": "47e3deeec77fb394123984205bccdd2e",
     "id": null,
     "metadata": {},
     "name": "EditVariableDialogUpdateVariableMutation",
     "operationKind": "mutation",
-    "text": "mutation EditVariableDialogUpdateVariableMutation(\n  $input: UpdateNamespaceVariableInput!\n) {\n  updateNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  value\n  namespacePath\n  metadata {\n    updatedAt\n  }\n}\n"
+    "text": "mutation EditVariableDialogUpdateVariableMutation(\n  $input: UpdateNamespaceVariableInput!\n) {\n  updateNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  sensitive\n  value\n  namespacePath\n  latestVersionId\n  metadata {\n    updatedAt\n  }\n}\n"
   }
 };
 })();

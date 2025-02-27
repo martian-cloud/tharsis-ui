@@ -109,7 +109,10 @@ function StateVersionInputVariables(props: Props) {
                         onClose={onMenuClose}
                     >
                         <MenuItem
-                            onClick={() => setShowAllVariables(!showAllVariables)}>
+                            onClick={() => {
+                                setShowAllVariables(!showAllVariables);
+                                onMenuClose();
+                            }}>
                             {showAllVariables ? 'Hide Unused Variables' : 'Show All Variables'}
                         </MenuItem>
                     </Menu>
