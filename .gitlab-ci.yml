@@ -149,8 +149,8 @@ package:
   extends: .node
   stage: test
   variables:
-    KUBERNETES_MEMORY_REQUEST: 4Gi
-    KUBERNETES_MEMORY_LIMIT: 4Gi
+    KUBERNETES_MEMORY_REQUEST: 6Gi
+    KUBERNETES_MEMORY_LIMIT: 6Gi
     KUBERNETES_NODE_SELECTOR_FAMILY: "node.kubernetes.io/instance-type=c6a.xlarge"
   script:
     - npm run build
