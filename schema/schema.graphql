@@ -334,6 +334,7 @@ input CreateNamespaceVariableInput {
   hcl: Boolean
   key: String!
   namespacePath: String!
+  sensitive: Boolean
   value: String!
 }
 
@@ -1372,14 +1373,18 @@ type NamespaceVariable implements Node {
   hcl: Boolean @deprecated(reason: "HCL field will be determined automatically, to be removed in a future release")
   id: ID!
   key: String!
+  latestVersionId: String!
   metadata: ResourceMetadata!
   namespacePath: String!
+  sensitive: Boolean!
   value: String
+  versions(after: String, before: String, first: Int, last: Int, sort: NamespaceVariableVersionSort): NamespaceVariableVersionConnection!
 }
 
 input NamespaceVariableInput {
   hcl: Boolean
   key: String!
+  sensitive: Boolean
   value: String!
 }
 
@@ -1387,6 +1392,30 @@ type NamespaceVariableMutationPayload {
   clientMutationId: String
   namespace: Namespace
   problems: [Problem!]!
+}
+
+type NamespaceVariableVersion implements Node {
+  hcl: Boolean @deprecated(reason: "HCL field will be determined automatically, to be removed in a future release")
+  id: ID!
+  key: String!
+  metadata: ResourceMetadata!
+  value: String
+}
+
+type NamespaceVariableVersionConnection {
+  edges: [NamespaceVariableVersionEdge]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type NamespaceVariableVersionEdge {
+  cursor: String!
+  node: NamespaceVariableVersion
+}
+
+enum NamespaceVariableVersionSort {
+  CREATED_AT_ASC
+  CREATED_AT_DESC
 }
 
 interface Node {
@@ -1525,6 +1554,7 @@ type Query {
   managedIdentity(id: String, path: String): ManagedIdentity
   me: MeResponse
   namespace(fullPath: String!): Namespace
+  namespaceVariableVersion(id: String!, includeSensitiveValue: Boolean): NamespaceVariableVersion
   node(id: String!): Node
   resourceLimits: [ResourceLimit!]!
   role(name: String!): Role
@@ -1635,6 +1665,7 @@ type Run implements Node {
   plan: Plan!
   refresh: Boolean!
   refreshOnly: Boolean!
+  sensitiveVariableValues: [RunVariableSensitiveValue!]!
   speculative: Boolean!
   stateVersion: StateVersion
   status: RunStatus!
@@ -1697,7 +1728,9 @@ type RunVariable {
   includedInTfConfig: Boolean
   key: String!
   namespacePath: String
+  sensitive: Boolean!
   value: String
+  versionId: String
 }
 
 input RunVariableInput {
@@ -1705,6 +1738,11 @@ input RunVariableInput {
   hcl: Boolean
   key: String!
   value: String!
+}
+
+type RunVariableSensitiveValue {
+  value: String!
+  versionId: String!
 }
 
 type Runner implements Node {

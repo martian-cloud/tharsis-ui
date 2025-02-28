@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1d4a26d26d4c3afa0da6a2dff836ff04>>
+ * @generated SignedSource<<33362fbdd698eefa773111250579252f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,7 @@ export type CreateNamespaceVariableInput = {
   hcl?: boolean | null;
   key: string;
   namespacePath: string;
+  sensitive?: boolean | null;
   value: string;
 };
 export type EditVariableDialogCreateVariableMutation$variables = {
@@ -205,6 +206,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "sensitive",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "value",
                     "storageKey": null
                   },
@@ -213,6 +221,13 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "namespacePath",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "latestVersionId",
                     "storageKey": null
                   },
                   {
@@ -246,12 +261,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cd425c13c5b36d2c5be76e220b7da385",
+    "cacheID": "920fd1e20191e127555bef8a3a4b78e9",
     "id": null,
     "metadata": {},
     "name": "EditVariableDialogCreateVariableMutation",
     "operationKind": "mutation",
-    "text": "mutation EditVariableDialogCreateVariableMutation(\n  $input: CreateNamespaceVariableInput!\n) {\n  createNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  value\n  namespacePath\n  metadata {\n    updatedAt\n  }\n}\n"
+    "text": "mutation EditVariableDialogCreateVariableMutation(\n  $input: CreateNamespaceVariableInput!\n) {\n  createNamespaceVariable(input: $input) {\n    namespace {\n      __typename\n      id\n      variables {\n        ...VariableListItemFragment_variable\n        id\n      }\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  sensitive\n  value\n  namespacePath\n  latestVersionId\n  metadata {\n    updatedAt\n  }\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b229d21315a3f47ff146806011f53bb0>>
+ * @generated SignedSource<<170eca16cc366f5d85cbbabf5856e5b1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,10 +15,12 @@ export type VariableListItemFragment_variable$data = {
   readonly category: VariableCategory;
   readonly id: string;
   readonly key: string;
+  readonly latestVersionId: string;
   readonly metadata: {
     readonly updatedAt: any;
   };
   readonly namespacePath: string;
+  readonly sensitive: boolean;
   readonly value: string | null;
   readonly " $fragmentType": "VariableListItemFragment_variable";
 };
@@ -58,6 +60,13 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "sensitive",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "value",
       "storageKey": null
     },
@@ -66,6 +75,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "namespacePath",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "latestVersionId",
       "storageKey": null
     },
     {
@@ -91,6 +107,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "1fa5bbf8e642eca8236d7c0c874d3bdd";
+(node as any).hash = "c2cea86d899ff72000865bbcb9e175a4";
 
 export default node;

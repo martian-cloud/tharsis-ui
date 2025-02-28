@@ -1,4 +1,4 @@
-import { Alert, Typography } from '@mui/material';
+import { Alert, Checkbox, Chip, FormControlLabel, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -10,11 +10,12 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import graphql from 'babel-plugin-relay/macro';
 import moment from 'moment';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMutation } from 'react-relay';
 import { MutationError } from '../../common/error';
 import { EditVariableDialogCreateVariableMutation } from './__generated__/EditVariableDialogCreateVariableMutation.graphql';
 import { EditVariableDialogUpdateVariableMutation } from './__generated__/EditVariableDialogUpdateVariableMutation.graphql';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 interface Props {
     variable: any;
@@ -30,7 +31,7 @@ function EditVariableDialog(props: Props) {
     const [error, setError] = useState<MutationError | null>();
     const [editedVariable, setEditedVariable] = useState<any>(null);
 
-    const [commitUpdateVariable] = useMutation<EditVariableDialogUpdateVariableMutation>(graphql`
+    const [commitUpdateVariable, updateInFlight] = useMutation<EditVariableDialogUpdateVariableMutation>(graphql`
         mutation EditVariableDialogUpdateVariableMutation($input: UpdateNamespaceVariableInput!) {
             updateNamespaceVariable(input: $input) {
                 namespace {
@@ -48,7 +49,7 @@ function EditVariableDialog(props: Props) {
         }
     `);
 
-    const [commitCreateVariable] = useMutation<EditVariableDialogCreateVariableMutation>(graphql`
+    const [commitCreateVariable, createInFlight] = useMutation<EditVariableDialogCreateVariableMutation>(graphql`
         mutation EditVariableDialogCreateVariableMutation($input: CreateNamespaceVariableInput!) {
             createNamespaceVariable(input: $input) {
                 namespace {
@@ -67,7 +68,7 @@ function EditVariableDialog(props: Props) {
     `);
 
     useEffect(() => {
-        setEditedVariable({ ...variable });
+        setEditedVariable({ ...variable, value: variable.value ?? '' });
         setError(null);
     }, [variable]);
 
@@ -105,6 +106,7 @@ function EditVariableDialog(props: Props) {
                     input: {
                         namespacePath: namespacePath,
                         category: editedVariable.category,
+                        sensitive: editedVariable.sensitive,
                         key: editedVariable.key,
                         value: editedVariable.value,
                     },
@@ -133,6 +135,12 @@ function EditVariableDialog(props: Props) {
         setEditedVariable({ ...editedVariable, [event.target.name]: event.target.value });
     };
 
+    const onSensitiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEditedVariable({ ...editedVariable, sensitive: event.target.checked });
+    }
+
+    const editMode = useMemo(() => !!editedVariable?.id, [editedVariable?.id]);
+
     return editedVariable ? (
         <Dialog
             fullWidth
@@ -149,17 +157,32 @@ function EditVariableDialog(props: Props) {
             >
                 <Box>
                     <Typography variant="h6">
-                        {editedVariable.id ? 'Edit' : 'New'} {editedVariable.category === 'terraform' ? 'Terraform' : 'Environment'} Variable
+                        {editMode ? 'Edit' : 'New'} {editedVariable.category === 'terraform' ? 'Terraform' : 'Environment'} Variable
                     </Typography>
                     {editedVariable.metadata && <Typography variant="body2" color="textSecondary">
                         last updated {moment(editedVariable.metadata.updatedAt as moment.MomentInput).fromNow()}
                     </Typography>}
+                    {editedVariable.sensitive && editMode && <Chip color="warning" sx={{ mt: 0.5 }} size="xs" label="Sensitive" />}
                 </Box>
             </Box>
             <DialogContent>
                 {error && <Alert sx={{ marginBottom: 1 }} severity={error.severity}>
                     {error.message}
                 </Alert>}
+                {!editMode && <FormControlLabel
+                    sx={{ mb: 2 }}
+                    control={<Checkbox
+                        color="warning"
+                        checked={editedVariable.sensitive}
+                        onChange={onSensitiveChange}
+                    />}
+                    label={<Box>
+                        <Typography variant="body1">Sensitive</Typography>
+                        <Typography variant="body2" color="textSecondary">
+                            Any variable that contains sensitive information such as passwords or API keys should be marked as sensitive.
+                        </Typography>
+                    </Box>}
+                />}
                 <TextField
                     label="Key"
                     name="key"
@@ -188,9 +211,9 @@ function EditVariableDialog(props: Props) {
                 <Button onClick={onClose} color="inherit">
                     Cancel
                 </Button>
-                <Button onClick={saveVariable} variant="contained">
+                <LoadingButton loading={createInFlight || updateInFlight} onClick={saveVariable} variant="contained">
                     Save
-                </Button>
+                </LoadingButton>
             </DialogActions>
         </Dialog>
     ) : null;
