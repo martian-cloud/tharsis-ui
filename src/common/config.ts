@@ -29,7 +29,7 @@ function buildDocumentsUrl(): string {
 }
 
 function buildVersion(): string {
-    const version = process.env.REACT_APP_THARSIS_UI_VERSION ? process.env.REACT_APP_THARSIS_UI_VERSION : (window as any).env.REACT_APP_THARSIS_UI_VERSION;
+    const version = process.env.REACT_APP_THARSIS_UI_VERSION ? process.env.REACT_APP_THARSIS_UI_VERSION : (window as any).env.THARSIS_UI_VERSION;
     const defaultVersion = 'dev';
 
     if (!version || version === '__THARSIS_UI_VERSION__') {
