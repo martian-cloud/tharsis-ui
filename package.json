@@ -54,7 +54,10 @@
     "ws": "^7.5.10"
   },
   "overrides": {
-    "serialize-javascript": "6.0.2"
+    "serialize-javascript": "6.0.2",
+    "prismjs": "^1.30.0",
+    "@babel/helpers": "^7.26.10",
+    "@babel/runtime": "^7.26.10"
   },
   "scripts": {
     "start": "dotenv react-scripts start",
