@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3e258de19a98be3c23445f648db54cc9>>
+ * @generated SignedSource<<efb6ca60aaf7f91d91a3342d31c68af5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,9 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleVersionDetailsIndexFragment_details$data = {
+  readonly configurationDetails: {
+    readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionDocsFragment_configurationDetails">;
+  } | null;
   readonly id: string;
   readonly module: {
     readonly id: string;
@@ -113,6 +116,28 @@ return {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "path",
+          "value": "root"
+        }
+      ],
+      "concreteType": "TerraformModuleConfigurationDetails",
+      "kind": "LinkedField",
+      "name": "configurationDetails",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "TerraformModuleVersionDocsFragment_configurationDetails"
+        }
+      ],
+      "storageKey": "configurationDetails(path:\"root\")"
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "TerraformModuleVersionAttestListFragment_attestations"
@@ -128,6 +153,6 @@ return {
 };
 })();
 
-(node as any).hash = "30b05728c47e49e4ad6c2559f257199a";
+(node as any).hash = "912b2903908615e5c5c27e002adb01e1";
 
 export default node;

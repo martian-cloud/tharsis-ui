@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<33da98d5336225a4b9563c2c6700409f>>
+ * @generated SignedSource<<490662acb43f829559e86fb76043790d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,11 +12,13 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleVersionDetailsSidebarFragment_details$data = {
   readonly createdBy: string;
+  readonly id: string;
   readonly latest: boolean;
   readonly metadata: {
     readonly createdAt: any;
   };
   readonly module: {
+    readonly groupPath: string;
     readonly id: string;
     readonly name: string;
     readonly private: boolean;
@@ -24,6 +26,7 @@ export type TerraformModuleVersionDetailsSidebarFragment_details$data = {
     readonly repositoryUrl: string;
     readonly system: string;
   };
+  readonly shaSum: string;
   readonly version: string;
   readonly " $fragmentType": "TerraformModuleVersionDetailsSidebarFragment_details";
 };
@@ -32,12 +35,21 @@ export type TerraformModuleVersionDetailsSidebarFragment_details$key = {
   readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionDetailsSidebarFragment_details">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "TerraformModuleVersionDetailsSidebarFragment_details",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -57,6 +69,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "latest",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "shaSum",
       "storageKey": null
     },
     {
@@ -85,13 +104,7 @@ const node: ReaderFragment = {
       "name": "module",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "id",
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -126,6 +139,13 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "repositoryUrl",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "groupPath",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -134,7 +154,8 @@ const node: ReaderFragment = {
   "type": "TerraformModuleVersion",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "2667611636211b9bbf86df3449fb3ac2";
+(node as any).hash = "1cd78a51aa43f391e6b3c4490407ee8d";
 
 export default node;

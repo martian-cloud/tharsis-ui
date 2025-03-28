@@ -1,4 +1,4 @@
-import { Alert, Box, Divider, Stack, styled, Typography } from "@mui/material";
+import { Alert, Box, Divider, Stack, Typography } from "@mui/material";
 import { MutationError } from '../../../common/error';
 import PanelButton from "../../../common/PanelButton";
 import ConfigurationVersionSource, { ConfigVersionRunDataOptions, DefaultConfigVersionRunDataOptions } from "./ConfigurationVersionSource";
@@ -6,15 +6,6 @@ import ModuleSource, { DefaultModuleRunDataOptions, ModuleRunDataOptions } from 
 import VCSWorkspaceLinkSource, { DefaultVCSRunDataOptions, VCSRunDataOptions } from "./VCSWorkspaceLinkSource";
 import { ModuleSourceFragment_workspace$key } from "./__generated__/ModuleSourceFragment_workspace.graphql";
 import { VCSWorkspaceLinkSourceFragment_workspace$key } from "./__generated__/VCSWorkspaceLinkSourceFragment_workspace.graphql";
-
-export const StyledCode = styled('code')(() => ({
-    padding: "2px 4px",
-    color: "white",
-    backgroundColor: "#333238",
-    borderRadius: "4px",
-    fontFamily: "ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace",
-    fontSize: "90%"
-}));
 
 export type RunFormData = {
     source: string;

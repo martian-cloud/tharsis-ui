@@ -1,7 +1,7 @@
 import { Box, Divider, Stack, IconButton, Paper, TextField, Typography } from '@mui/material'
 import CopyIcon from '@mui/icons-material/ContentCopy';
-import { FormData } from './VCSProviderForm'
-import { StyledCode } from '../../workspace/settings/vcsprovider/VCSProviderLinkForm';
+import { FormData } from './VCSProviderForm';
+import { StyledCode } from '../../common/StyledCode';
 import cfg from '../../common/config';
 
 interface Props {

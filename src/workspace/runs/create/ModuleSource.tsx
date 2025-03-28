@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Divider, Stack, TextField, Typography } from "@mui/material";
 import PanelButton from "../../../common/PanelButton";
-import { StyledCode } from "./CreateRunForm";
+import { StyledCode } from "../../../common/StyledCode";
 import ModuleAutocomplete, { ModuleOption } from "./ModuleAutocomplete";
 import ModuleVersionAutocomplete from "./ModuleVersionAutocomplete";
 import { useFragment } from "react-relay/hooks";

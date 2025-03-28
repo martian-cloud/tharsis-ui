@@ -1,4 +1,4 @@
-import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Box, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import Link from '@mui/material/Link';
 import Paper from "@mui/material/Paper";
 import { Variant } from '@mui/material/styles/createTypography';
@@ -43,8 +43,16 @@ function MarkdownHeading({ ...props }: any) {
 
 function MarkdownTable({ ...props }: any) {
     return (
-        <TableContainer sx={{ margin: '16px 0' }} component={Paper}>
-            <Table size="small">{props.children}</Table>
+        <TableContainer
+            sx={{
+                margin: '16px 0',
+                maxWidth: '100%'
+            }}
+            component={Paper}
+        >
+            <Table size="small">
+                {props.children}
+            </Table>
         </TableContainer>
     );
 }
@@ -76,15 +84,35 @@ function MarkdownCode({ inline, className, children, ...props }: any) {
             children={String(children).replace(/\n$/, '')}
             style={prismTheme}
             language={match[1]}
-            PreTag="div"
             wrapLongLines
+            lineProps={{
+                style: {
+                    wordBreak: 'break-word',
+                    whiteSpace: 'pre-wrap',
+                    fontSize: '0.875rem'
+                }
+            }}
             {...props}
         />
     ) : (
         <code className={className} {...props}>
             {children}
         </code>
-    )
+    );
+}
+
+function MarkdownImage({ ...props }: any) {
+    return (
+        <Box
+            component="img"
+            sx={{
+                maxWidth: '100%',
+                height: 'auto',
+                display: 'block'
+            }}
+            {...props}
+        />
+    );
 }
 
 const components = {
@@ -103,8 +131,9 @@ const components = {
     tr: MarkdownTableRow,
     td: MarkdownTableCell,
     th: MarkdownTableCell,
+    img: MarkdownImage
 };
 
 export default function Markdown(props: Options) {
-    return <ReactMarkdown components={components} {...props} />;
+    return <ReactMarkdown skipHtml components={components} {...props} />;
 }
