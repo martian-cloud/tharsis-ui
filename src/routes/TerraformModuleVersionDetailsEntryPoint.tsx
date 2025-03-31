@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useQueryLoader } from 'react-relay/hooks';
 import { useParams } from 'react-router-dom';
-import TerraformModuleDetails from '../modules/TerraformModuleVersionDetails';
+import TerraformModuleVersionDetails from '../modules/TerraformModuleVersionDetails';
 import { INITIAL_ITEM_COUNT } from '../modules/TerraformModuleVersionAttestList';
 import TerraformModuleVersionDetailsQuery, { TerraformModuleVersionDetailsQuery as TerraformModuleVersionDetailsQueryType } from "../modules/__generated__/TerraformModuleVersionDetailsQuery.graphql";
 
@@ -17,7 +17,7 @@ function TerraformModuleVersionDetailsEntryPoint() {
         );
     }, [loadQuery, registryNamespace, moduleName, version])
 
-    return queryRef != null ? <TerraformModuleDetails queryRef={queryRef} /> : null
+    return queryRef != null ? <TerraformModuleVersionDetails queryRef={queryRef} /> : null
 }
 
 export default TerraformModuleVersionDetailsEntryPoint;

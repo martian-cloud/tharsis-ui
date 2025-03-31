@@ -1,8 +1,9 @@
-import { Alert, Box, Button, Chip, FormControlLabel, Paper, styled, Switch, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Chip, FormControlLabel, Paper, Switch, TextField, Typography } from "@mui/material";
 import graphql from 'babel-plugin-relay/macro';
 import { useState } from "react";
 import { useFragment } from "react-relay";
 import { MutationError } from "../../../common/error";
+import { StyledCode } from "../../../common/StyledCode";
 import VCSProviderAutocomplete, { VCSProviderOption } from "./VCSProviderAutocomplete";
 import { VCSProviderLinkFormFragment_workspace$key } from "./__generated__/VCSProviderLinkFormFragment_workspace.graphql";
 
@@ -27,15 +28,6 @@ interface Props {
     fragmentRef: VCSProviderLinkFormFragment_workspace$key
     error?: MutationError
 }
-
-export const StyledCode = styled('code')(() => ({
-    padding: "2px 4px",
-    color: "white",
-    backgroundColor: "#333238",
-    borderRadius: "4px",
-    fontFamily: "ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace",
-    fontSize: "90%"
-}));
 
 function VCSProviderLinkForm(props: Props) {
     const { viewMode, data, onChange, error } = props
