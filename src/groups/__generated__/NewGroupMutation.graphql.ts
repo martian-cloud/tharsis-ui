@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<02472506b02c79a063ad17ba45761608>>
+ * @generated SignedSource<<fd8f9036a8770e0efb65755a8bfd6dfc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,9 +14,14 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type CreateGroupInput = {
   clientMutationId?: string | null;
   description: string;
+  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null;
   name: string;
   parentPath?: string | null;
   runnerTags?: NamespaceRunnerTagsInput | null;
+};
+export type NamespaceDriftDetectionEnabledInput = {
+  enabled?: boolean | null;
+  inherit: boolean;
 };
 export type NamespaceRunnerTagsInput = {
   inherit: boolean;

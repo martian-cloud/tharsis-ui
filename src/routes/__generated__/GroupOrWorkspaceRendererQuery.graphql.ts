@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<87f0ce9d84e689d4428868e33c70b118>>
+ * @generated SignedSource<<d726c96e0378aa9d45e189073772d636>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -97,17 +97,24 @@ v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "namespacePath",
+  "name": "inherited",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "value",
+  "name": "namespacePath",
   "storageKey": null
 },
 v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "value",
+  "storageKey": null
+},
+v13 = {
   "alias": null,
   "args": null,
   "concreteType": "NamespaceRunnerTags",
@@ -115,47 +122,55 @@ v12 = {
   "name": "runnerTags",
   "plural": false,
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "inherited",
-      "storageKey": null
-    },
     (v10/*: any*/),
-    (v11/*: any*/)
+    (v11/*: any*/),
+    (v12/*: any*/)
   ],
-  "storageKey": null
-},
-v13 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "key",
   "storageKey": null
 },
 v14 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "category",
+  "concreteType": "NamespaceDriftDetectionEnabled",
+  "kind": "LinkedField",
+  "name": "driftDetectionEnabled",
+  "plural": false,
+  "selections": [
+    (v10/*: any*/),
+    (v12/*: any*/),
+    (v11/*: any*/)
+  ],
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "sensitive",
+  "name": "key",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "updatedAt",
+  "name": "category",
   "storageKey": null
 },
 v17 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "sensitive",
+  "storageKey": null
+},
+v18 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "updatedAt",
+  "storageKey": null
+},
+v19 = {
   "alias": null,
   "args": null,
   "concreteType": "ResourceMetadata",
@@ -163,32 +178,32 @@ v17 = {
   "name": "metadata",
   "plural": false,
   "selections": [
-    (v16/*: any*/)
+    (v18/*: any*/)
   ],
   "storageKey": null
 },
-v18 = [
-  (v5/*: any*/),
-  (v3/*: any*/)
-],
-v19 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "resourcePath",
-  "storageKey": null
-},
 v20 = [
+  (v5/*: any*/),
   (v3/*: any*/)
 ],
 v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "resourcePath",
+  "storageKey": null
+},
+v22 = [
+  (v3/*: any*/)
+],
+v23 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "createdAt",
   "storageKey": null
 },
-v22 = {
+v24 = {
   "alias": null,
   "args": null,
   "concreteType": "ResourceMetadata",
@@ -196,12 +211,12 @@ v22 = {
   "name": "metadata",
   "plural": false,
   "selections": [
-    (v21/*: any*/),
-    (v16/*: any*/)
+    (v23/*: any*/),
+    (v18/*: any*/)
   ],
   "storageKey": null
 },
-v23 = {
+v25 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -213,11 +228,11 @@ v23 = {
       "plural": true,
       "selections": [
         (v3/*: any*/),
-        (v13/*: any*/),
-        (v14/*: any*/),
         (v15/*: any*/),
+        (v16/*: any*/),
+        (v17/*: any*/),
+        (v12/*: any*/),
         (v11/*: any*/),
-        (v10/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -225,7 +240,7 @@ v23 = {
           "name": "latestVersionId",
           "storageKey": null
         },
-        (v17/*: any*/)
+        (v19/*: any*/)
       ],
       "storageKey": null
     },
@@ -271,14 +286,14 @@ v23 = {
             },
             {
               "kind": "InlineFragment",
-              "selections": (v18/*: any*/),
+              "selections": (v20/*: any*/),
               "type": "Team",
               "abstractKey": null
             },
             {
               "kind": "InlineFragment",
               "selections": [
-                (v19/*: any*/),
+                (v21/*: any*/),
                 (v5/*: any*/),
                 (v3/*: any*/)
               ],
@@ -287,14 +302,14 @@ v23 = {
             },
             {
               "kind": "InlineFragment",
-              "selections": (v20/*: any*/),
+              "selections": (v22/*: any*/),
               "type": "Node",
               "abstractKey": "__isNode"
             }
           ],
           "storageKey": null
         },
-        (v22/*: any*/),
+        (v24/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -302,10 +317,10 @@ v23 = {
           "kind": "LinkedField",
           "name": "role",
           "plural": false,
-          "selections": (v18/*: any*/),
+          "selections": (v20/*: any*/),
           "storageKey": null
         },
-        (v19/*: any*/)
+        (v21/*: any*/)
       ],
       "storageKey": null
     }
@@ -313,49 +328,49 @@ v23 = {
   "type": "Namespace",
   "abstractKey": "__isNamespace"
 },
-v24 = {
+v26 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
-v25 = {
+v27 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "status",
   "storageKey": null
 },
-v26 = {
+v28 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "createdBy",
   "storageKey": null
 },
-v27 = {
+v29 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "isDestroy",
   "storageKey": null
 },
-v28 = {
+v30 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "moduleSource",
   "storageKey": null
 },
-v29 = {
+v31 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "moduleVersion",
   "storageKey": null
 },
-v30 = {
+v32 = {
   "alias": null,
   "args": null,
   "concreteType": "ResourceMetadata",
@@ -363,11 +378,11 @@ v30 = {
   "name": "metadata",
   "plural": false,
   "selections": [
-    (v21/*: any*/)
+    (v23/*: any*/)
   ],
   "storageKey": null
 },
-v31 = {
+v33 = {
   "alias": null,
   "args": null,
   "concreteType": "Plan",
@@ -375,13 +390,13 @@ v31 = {
   "name": "plan",
   "plural": false,
   "selections": [
-    (v25/*: any*/),
-    (v30/*: any*/),
+    (v27/*: any*/),
+    (v32/*: any*/),
     (v3/*: any*/)
   ],
   "storageKey": null
 },
-v32 = {
+v34 = {
   "alias": null,
   "args": null,
   "concreteType": "Apply",
@@ -389,7 +404,7 @@ v32 = {
   "name": "apply",
   "plural": false,
   "selections": [
-    (v25/*: any*/),
+    (v27/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -397,12 +412,12 @@ v32 = {
       "name": "triggeredBy",
       "storageKey": null
     },
-    (v22/*: any*/),
+    (v24/*: any*/),
     (v3/*: any*/)
   ],
   "storageKey": null
 },
-v33 = {
+v35 = {
   "kind": "Literal",
   "name": "includeInherited",
   "value": true
@@ -498,8 +513,9 @@ return {
                 "selections": (v9/*: any*/),
                 "storageKey": "descendentGroups(first:0)"
               },
-              (v12/*: any*/),
-              (v23/*: any*/)
+              (v13/*: any*/),
+              (v14/*: any*/),
+              (v25/*: any*/)
             ],
             "type": "Group",
             "abstractKey": null
@@ -519,13 +535,32 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "concreteType": "WorkspaceAssessment",
+                "kind": "LinkedField",
+                "name": "assessment",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasDrift",
+                    "storageKey": null
+                  },
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "Job",
                 "kind": "LinkedField",
                 "name": "currentJob",
                 "plural": false,
                 "selections": [
                   (v3/*: any*/),
-                  (v24/*: any*/),
+                  (v26/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -535,12 +570,12 @@ return {
                     "plural": false,
                     "selections": [
                       (v3/*: any*/),
-                      (v25/*: any*/),
-                      (v26/*: any*/),
                       (v27/*: any*/),
                       (v28/*: any*/),
                       (v29/*: any*/),
                       (v30/*: any*/),
+                      (v31/*: any*/),
+                      (v32/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -548,11 +583,11 @@ return {
                         "kind": "LinkedField",
                         "name": "configurationVersion",
                         "plural": false,
-                        "selections": (v20/*: any*/),
+                        "selections": (v22/*: any*/),
                         "storageKey": null
                       },
-                      (v31/*: any*/),
-                      (v32/*: any*/)
+                      (v33/*: any*/),
+                      (v34/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -577,9 +612,9 @@ return {
                     "plural": true,
                     "selections": [
                       (v5/*: any*/),
-                      (v11/*: any*/),
-                      (v24/*: any*/),
-                      (v15/*: any*/),
+                      (v12/*: any*/),
+                      (v26/*: any*/),
+                      (v17/*: any*/),
                       (v3/*: any*/)
                     ],
                     "storageKey": null
@@ -600,7 +635,7 @@ return {
                         "name": "provider",
                         "storageKey": null
                       },
-                      (v24/*: any*/),
+                      (v26/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -642,7 +677,7 @@ return {
                         "plural": false,
                         "selections": [
                           (v3/*: any*/),
-                          (v17/*: any*/)
+                          (v19/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -662,7 +697,7 @@ return {
                             "kind": "LinkedField",
                             "name": "currentStateVersion",
                             "plural": false,
-                            "selections": (v20/*: any*/),
+                            "selections": (v22/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -671,7 +706,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v30/*: any*/),
+                  (v32/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -688,9 +723,9 @@ return {
                         "name": "variables",
                         "plural": true,
                         "selections": [
-                          (v13/*: any*/),
-                          (v14/*: any*/),
-                          (v10/*: any*/),
+                          (v15/*: any*/),
+                          (v16/*: any*/),
+                          (v11/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -698,8 +733,8 @@ return {
                             "name": "includedInTfConfig",
                             "storageKey": null
                           },
-                          (v11/*: any*/),
-                          (v15/*: any*/),
+                          (v12/*: any*/),
+                          (v17/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -711,12 +746,12 @@ return {
                         "storageKey": null
                       },
                       (v3/*: any*/),
-                      (v25/*: any*/),
-                      (v26/*: any*/),
                       (v27/*: any*/),
                       (v28/*: any*/),
                       (v29/*: any*/),
                       (v30/*: any*/),
+                      (v31/*: any*/),
+                      (v32/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -734,7 +769,7 @@ return {
                             "name": "vcsEvent",
                             "plural": false,
                             "selections": [
-                              (v25/*: any*/),
+                              (v27/*: any*/),
                               (v3/*: any*/)
                             ],
                             "storageKey": null
@@ -742,8 +777,8 @@ return {
                         ],
                         "storageKey": null
                       },
-                      (v31/*: any*/),
-                      (v32/*: any*/)
+                      (v33/*: any*/),
+                      (v34/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -754,7 +789,7 @@ return {
                 "alias": null,
                 "args": [
                   (v7/*: any*/),
-                  (v33/*: any*/)
+                  (v35/*: any*/)
                 ],
                 "concreteType": "ManagedIdentityConnection",
                 "kind": "LinkedField",
@@ -772,11 +807,11 @@ return {
                 "plural": true,
                 "selections": [
                   (v3/*: any*/),
-                  (v17/*: any*/),
+                  (v19/*: any*/),
                   (v5/*: any*/),
                   (v6/*: any*/),
-                  (v24/*: any*/),
-                  (v19/*: any*/)
+                  (v26/*: any*/),
+                  (v21/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -796,8 +831,8 @@ return {
                     "name": "branch",
                     "storageKey": null
                   },
-                  (v30/*: any*/),
-                  (v26/*: any*/),
+                  (v32/*: any*/),
+                  (v28/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -851,7 +886,7 @@ return {
                       (v3/*: any*/),
                       (v5/*: any*/),
                       (v6/*: any*/),
-                      (v24/*: any*/),
+                      (v26/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -865,7 +900,7 @@ return {
                 ],
                 "storageKey": null
               },
-              (v12/*: any*/),
+              (v13/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -880,6 +915,7 @@ return {
                 "name": "terraformVersion",
                 "storageKey": null
               },
+              (v14/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -895,7 +931,7 @@ return {
                     "name": "first",
                     "value": 10
                   },
-                  (v33/*: any*/)
+                  (v35/*: any*/)
                 ],
                 "concreteType": "VCSProviderConnection",
                 "kind": "LinkedField",
@@ -917,7 +953,7 @@ return {
                         "kind": "LinkedField",
                         "name": "node",
                         "plural": false,
-                        "selections": (v20/*: any*/),
+                        "selections": (v22/*: any*/),
                         "storageKey": null
                       }
                     ],
@@ -933,7 +969,7 @@ return {
                 "name": "locked",
                 "storageKey": null
               },
-              (v23/*: any*/)
+              (v25/*: any*/)
             ],
             "type": "Workspace",
             "abstractKey": null
@@ -944,12 +980,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0b153111b0ccf205033741355ee7ddec",
+    "cacheID": "9ab19d2462229509d56370a0555aaac8",
     "id": null,
     "metadata": {},
     "name": "GroupOrWorkspaceRendererQuery",
     "operationKind": "query",
-    "text": "query GroupOrWorkspaceRendererQuery(\n  $fullPath: String!\n) {\n  namespace(fullPath: $fullPath) {\n    __typename\n    id\n    fullPath\n    ... on Group {\n      ...GroupDetailsFragment_group\n    }\n    ... on Workspace {\n      ...WorkspaceDetailsFragment_workspace\n    }\n  }\n}\n\nfragment AssignedManagedIdentityListFragment_assignedManagedIdentities on Workspace {\n  id\n  fullPath\n  managedIdentities(includeInherited: true, first: 0) {\n    totalCount\n  }\n  assignedManagedIdentities {\n    id\n    ...AssignedManagedIdentityListItemFragment_managedIdentity\n  }\n}\n\nfragment AssignedManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  resourcePath\n}\n\nfragment CreateRunFragment_workspace on Workspace {\n  id\n  fullPath\n  workspaceVcsProviderLink {\n    id\n  }\n  ...ModuleSourceFragment_workspace\n  ...VCSWorkspaceLinkSourceFragment_workspace\n}\n\nfragment EditGroupRunnerFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment EditManagedIdentityFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment EditServiceAccountFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment EditVCSProviderFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment EditVCSProviderLinkFragment_workspace on Workspace {\n  fullPath\n  workspaceVcsProviderLink {\n    id\n    metadata {\n      createdAt\n    }\n    createdBy\n    repositoryPath\n    autoSpeculativePlan\n    webhookDisabled\n    moduleDirectory\n    branch\n    tagRegex\n    globPatterns\n    vcsProvider {\n      id\n      name\n      description\n      type\n      autoCreateWebhooks\n    }\n  }\n  ...VCSProviderLinkFormFragment_workspace\n}\n\nfragment EditVCSProviderOAuthCredentialsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment GPGKeyListFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment GPGKeysFragment_group on Group {\n  ...GPGKeyListFragment_group\n  ...NewGPGKeyFragment_group\n}\n\nfragment GroupAdvancedSettingsDeleteDialogFragment_group on Group {\n  name\n  fullPath\n}\n\nfragment GroupAdvancedSettingsFragment_group on Group {\n  name\n  fullPath\n  ...GroupAdvancedSettingsDeleteDialogFragment_group\n  ...MigrateGroupDialogFragment_group\n}\n\nfragment GroupDetailsFragment_group on Group {\n  id\n  fullPath\n  name\n  ...GroupDetailsIndexFragment_group\n  ...ManagedIdentitiesFragment_group\n  ...GroupRunnersFragment_group\n  ...ServiceAccountsFragment_group\n  ...VCSProvidersFragment_group\n  ...VariablesFragment_variables\n  ...NamespaceMembershipsFragment_memberships\n  ...GPGKeysFragment_group\n  ...NamespaceActivityFragment_activity\n  ...GroupSettingsFragment_group\n}\n\nfragment GroupDetailsIndexFragment_group on Group {\n  name\n  description\n  fullPath\n  workspaces(first: 0) {\n    totalCount\n  }\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  ...MigrateGroupDialogFragment_group\n}\n\nfragment GroupGeneralSettingsFragment_group on Group {\n  name\n  description\n  fullPath\n}\n\nfragment GroupRunnerDetailsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment GroupRunnerSettingsFragment_group on Group {\n  fullPath\n  runnerTags {\n    inherited\n    namespacePath\n    value\n    ...RunnerSettingsForm_runnerTags\n  }\n}\n\nfragment GroupRunnersFragment_group on Group {\n  ...GroupRunnersListFragment_group\n  ...NewGroupRunnerFragment_group\n  ...EditGroupRunnerFragment_group\n  ...GroupRunnerDetailsFragment_group\n}\n\nfragment GroupRunnersListFragment_group on Group {\n  id\n}\n\nfragment GroupSettingsFragment_group on Group {\n  fullPath\n  ...GroupGeneralSettingsFragment_group\n  ...GroupAdvancedSettingsFragment_group\n  ...GroupRunnerSettingsFragment_group\n}\n\nfragment ManagedIdentitiesFragment_group on Group {\n  ...ManagedIdentityListFragment_group\n  ...NewManagedIdentityFragment_group\n  ...EditManagedIdentityFragment_group\n  ...ManagedIdentityDetailsFragment_group\n}\n\nfragment ManagedIdentityDetailsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment ManagedIdentityListFragment_group on Group {\n  fullPath\n}\n\nfragment MaxJobDurationSettingFragment_workspace on Workspace {\n  maxJobDuration\n}\n\nfragment MigrateGroupDialogFragment_group on Group {\n  name\n  fullPath\n}\n\nfragment MigrateWorkspaceDialogFragment_workspace on Workspace {\n  name\n  fullPath\n  groupPath\n}\n\nfragment ModuleSourceFragment_workspace on Workspace {\n  fullPath\n}\n\nfragment NamespaceActivityFragment_activity on Namespace {\n  __isNamespace: __typename\n  __typename\n  fullPath\n}\n\nfragment NamespaceMembershipListFragment_memberships on Namespace {\n  __isNamespace: __typename\n  fullPath\n  memberships {\n    id\n    member {\n      __typename\n      ... on User {\n        username\n        email\n      }\n      ... on Team {\n        name\n      }\n      ... on ServiceAccount {\n        resourcePath\n        name\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...NamespaceMembershipListItemFragment_membership\n  }\n}\n\nfragment NamespaceMembershipListItemFragment_membership on NamespaceMembership {\n  metadata {\n    createdAt\n    updatedAt\n  }\n  id\n  role {\n    name\n    id\n  }\n  resourcePath\n  member {\n    __typename\n    ... on User {\n      id\n      username\n      email\n    }\n    ... on Team {\n      id\n      name\n    }\n    ... on ServiceAccount {\n      id\n      name\n      resourcePath\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment NamespaceMembershipsFragment_memberships on Namespace {\n  __isNamespace: __typename\n  ...NamespaceMembershipsIndexFragment_memberships\n  ...NewNamespaceMembershipFragment_memberships\n}\n\nfragment NamespaceMembershipsIndexFragment_memberships on Namespace {\n  __isNamespace: __typename\n  fullPath\n  ...NamespaceMembershipListFragment_memberships\n}\n\nfragment NewGPGKeyFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewGroupRunnerFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewManagedIdentityFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewNamespaceMembershipFragment_memberships on Namespace {\n  __isNamespace: __typename\n  fullPath\n}\n\nfragment NewServiceAccountFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewVCSProviderFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewVCSProviderLinkFragment_workspace on Workspace {\n  fullPath\n  ...VCSProviderLinkFormFragment_workspace\n}\n\nfragment RunDetailsFragment_details on Workspace {\n  id\n  fullPath\n}\n\nfragment RunnerSettingsForm_runnerTags on NamespaceRunnerTags {\n  inherited\n  namespacePath\n  value\n}\n\nfragment RunsFragment_runs on Workspace {\n  fullPath\n  ...RunsIndexFragment_runs\n  ...CreateRunFragment_workspace\n  ...RunDetailsFragment_details\n}\n\nfragment RunsIndexFragment_runs on Workspace {\n  id\n  fullPath\n}\n\nfragment ServiceAccountDetailsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment ServiceAccountListFragment_group on Group {\n  fullPath\n}\n\nfragment ServiceAccountsFragment_group on Group {\n  ...ServiceAccountListFragment_group\n  ...ServiceAccountDetailsFragment_group\n  ...NewServiceAccountFragment_group\n  ...EditServiceAccountFragment_group\n}\n\nfragment StateVersionDependenciesFragment_dependencies on StateVersion {\n  dependencies {\n    workspacePath\n    ...StateVersionDependencyListItemFragment_dependency\n  }\n}\n\nfragment StateVersionDependencyListItemFragment_dependency on StateVersionDependency {\n  workspacePath\n  stateVersion {\n    id\n    metadata {\n      updatedAt\n    }\n  }\n  workspace {\n    id\n    currentStateVersion {\n      id\n    }\n  }\n}\n\nfragment StateVersionDetailsFragment_details on Workspace {\n  id\n  fullPath\n}\n\nfragment StateVersionFileFragment_stateVersion on StateVersion {\n  id\n}\n\nfragment StateVersionInputVariableListItemFragment_variable on RunVariable {\n  key\n  value\n  category\n  namespacePath\n  sensitive\n  versionId\n  includedInTfConfig\n}\n\nfragment StateVersionInputVariablesFragment_variables on Run {\n  variables {\n    key\n    category\n    namespacePath\n    includedInTfConfig\n    ...StateVersionInputVariableListItemFragment_variable\n  }\n}\n\nfragment StateVersionOutputListItemFragment_output on StateVersionOutput {\n  name\n  value\n  type\n  sensitive\n}\n\nfragment StateVersionOutputsFragment_outputs on StateVersion {\n  outputs {\n    name\n    ...StateVersionOutputListItemFragment_output\n    id\n  }\n}\n\nfragment StateVersionResourceListItemFragment_resource on StateVersionResource {\n  name\n  type\n  provider\n  mode\n  module\n}\n\nfragment StateVersionResourcesFragment_resources on StateVersion {\n  resources {\n    name\n    provider\n    type\n    ...StateVersionResourceListItemFragment_resource\n  }\n}\n\nfragment StateVersionsFragment_stateVersions on Workspace {\n  fullPath\n  ...StateVersionDetailsFragment_details\n}\n\nfragment VCSProviderDetailsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment VCSProviderLinkFormFragment_workspace on Workspace {\n  fullPath\n  workspaceVcsProviderLink {\n    id\n    repositoryPath\n    branch\n    moduleDirectory\n    tagRegex\n    globPatterns\n    autoSpeculativePlan\n    webhookDisabled\n    vcsProvider {\n      id\n      name\n      description\n      type\n      autoCreateWebhooks\n    }\n  }\n}\n\nfragment VCSProviderListFragment_group on Group {\n  fullPath\n}\n\nfragment VCSProvidersFragment_group on Group {\n  ...VCSProviderListFragment_group\n  ...NewVCSProviderFragment_group\n  ...EditVCSProviderFragment_group\n  ...VCSProviderDetailsFragment_group\n  ...EditVCSProviderOAuthCredentialsFragment_group\n}\n\nfragment VCSWorkspaceLinkSourceFragment_workspace on Workspace {\n  workspaceVcsProviderLink {\n    branch\n    id\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  sensitive\n  value\n  namespacePath\n  latestVersionId\n  metadata {\n    updatedAt\n  }\n}\n\nfragment VariablesFragment_variables on Namespace {\n  __isNamespace: __typename\n  id\n  fullPath\n  variables {\n    id\n    key\n    category\n    ...VariableListItemFragment_variable\n  }\n}\n\nfragment WorkspaceAdvancedSettingsDeleteDialogFragment_workspace on Workspace {\n  name\n  fullPath\n}\n\nfragment WorkspaceAdvancedSettingsFragment_workspace on Workspace {\n  name\n  fullPath\n  ...WorkspaceAdvancedSettingsDeleteDialogFragment_workspace\n  ...MigrateWorkspaceDialogFragment_workspace\n}\n\nfragment WorkspaceDetailsCurrentJobFragment_workspace on Workspace {\n  id\n  fullPath\n  currentJob {\n    id\n    type\n    run {\n      id\n      status\n      createdBy\n      isDestroy\n      moduleSource\n      moduleVersion\n      metadata {\n        createdAt\n      }\n      configurationVersion {\n        id\n      }\n      plan {\n        status\n        metadata {\n          createdAt\n        }\n        id\n      }\n      apply {\n        status\n        triggeredBy\n        metadata {\n          createdAt\n          updatedAt\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment WorkspaceDetailsEmptyFragment_workspace on Workspace {\n  id\n  fullPath\n}\n\nfragment WorkspaceDetailsFragment_workspace on Workspace {\n  id\n  name\n  description\n  fullPath\n  ...WorkspaceDetailsIndexFragment_workspace\n  ...AssignedManagedIdentityListFragment_assignedManagedIdentities\n  ...RunsFragment_runs\n  ...StateVersionsFragment_stateVersions\n  ...VariablesFragment_variables\n  ...NamespaceMembershipsFragment_memberships\n  ...WorkspaceSettingsFragment_workspace\n  ...NamespaceActivityFragment_activity\n}\n\nfragment WorkspaceDetailsIndexFragment_workspace on Workspace {\n  id\n  name\n  description\n  fullPath\n  preventDestroyPlan\n  ...WorkspaceDetailsEmptyFragment_workspace\n  ...WorkspaceDetailsCurrentJobFragment_workspace\n  currentJob {\n    id\n  }\n  currentStateVersion {\n    id\n    ...StateVersionOutputsFragment_outputs\n    ...StateVersionResourcesFragment_resources\n    ...StateVersionDependenciesFragment_dependencies\n    ...StateVersionFileFragment_stateVersion\n    metadata {\n      createdAt\n    }\n    run {\n      ...StateVersionInputVariablesFragment_variables\n      id\n      status\n      createdBy\n      isDestroy\n      moduleSource\n      moduleVersion\n      metadata {\n        createdAt\n      }\n      configurationVersion {\n        id\n        vcsEvent {\n          status\n          id\n        }\n      }\n      plan {\n        status\n        metadata {\n          createdAt\n        }\n        id\n      }\n      apply {\n        status\n        triggeredBy\n        metadata {\n          createdAt\n          updatedAt\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment WorkspaceGeneralSettingsFragment_workspace on Workspace {\n  name\n  description\n  fullPath\n}\n\nfragment WorkspaceRunSettingsFragment_workspace on Workspace {\n  name\n  description\n  fullPath\n  maxJobDuration\n  terraformVersion\n  preventDestroyPlan\n  ...MaxJobDurationSettingFragment_workspace\n}\n\nfragment WorkspaceRunnerSettingsFragment_workspace on Workspace {\n  fullPath\n  runnerTags {\n    inherited\n    namespacePath\n    value\n    ...RunnerSettingsForm_runnerTags\n  }\n}\n\nfragment WorkspaceSettingsFragment_workspace on Workspace {\n  name\n  description\n  fullPath\n  ...WorkspaceGeneralSettingsFragment_workspace\n  ...WorkspaceRunnerSettingsFragment_workspace\n  ...WorkspaceRunSettingsFragment_workspace\n  ...WorkspaceAdvancedSettingsFragment_workspace\n  ...WorkspaceVCSProviderSettingsFragment_workspace\n  ...WorkspaceStateSettingsFragment_workspace\n}\n\nfragment WorkspaceStateSettingsFragment_workspace on Workspace {\n  fullPath\n  locked\n}\n\nfragment WorkspaceVCSProviderSettingsFragment_workspace on Workspace {\n  workspaceVcsProviderLink {\n    id\n  }\n  fullPath\n  groupPath\n  vcsProviders(first: 10, includeInherited: true) {\n    edges {\n      node {\n        id\n      }\n    }\n  }\n  ...EditVCSProviderLinkFragment_workspace\n  ...NewVCSProviderLinkFragment_workspace\n}\n"
+    "text": "query GroupOrWorkspaceRendererQuery(\n  $fullPath: String!\n) {\n  namespace(fullPath: $fullPath) {\n    __typename\n    id\n    fullPath\n    ... on Group {\n      ...GroupDetailsFragment_group\n    }\n    ... on Workspace {\n      ...WorkspaceDetailsFragment_workspace\n    }\n  }\n}\n\nfragment AssignedManagedIdentityListFragment_assignedManagedIdentities on Workspace {\n  id\n  fullPath\n  managedIdentities(includeInherited: true, first: 0) {\n    totalCount\n  }\n  assignedManagedIdentities {\n    id\n    ...AssignedManagedIdentityListItemFragment_managedIdentity\n  }\n}\n\nfragment AssignedManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  type\n  resourcePath\n}\n\nfragment CreateRunFragment_workspace on Workspace {\n  id\n  fullPath\n  workspaceVcsProviderLink {\n    id\n  }\n  ...ModuleSourceFragment_workspace\n  ...VCSWorkspaceLinkSourceFragment_workspace\n}\n\nfragment DriftDetectionSettingsFormFragment_driftDetectionEnabled on NamespaceDriftDetectionEnabled {\n  inherited\n  namespacePath\n  value\n}\n\nfragment EditGroupRunnerFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment EditManagedIdentityFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment EditServiceAccountFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment EditVCSProviderFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment EditVCSProviderLinkFragment_workspace on Workspace {\n  fullPath\n  workspaceVcsProviderLink {\n    id\n    metadata {\n      createdAt\n    }\n    createdBy\n    repositoryPath\n    autoSpeculativePlan\n    webhookDisabled\n    moduleDirectory\n    branch\n    tagRegex\n    globPatterns\n    vcsProvider {\n      id\n      name\n      description\n      type\n      autoCreateWebhooks\n    }\n  }\n  ...VCSProviderLinkFormFragment_workspace\n}\n\nfragment EditVCSProviderOAuthCredentialsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment GPGKeyListFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment GPGKeysFragment_group on Group {\n  ...GPGKeyListFragment_group\n  ...NewGPGKeyFragment_group\n}\n\nfragment GroupAdvancedSettingsDeleteDialogFragment_group on Group {\n  name\n  fullPath\n}\n\nfragment GroupAdvancedSettingsFragment_group on Group {\n  name\n  fullPath\n  ...GroupAdvancedSettingsDeleteDialogFragment_group\n  ...MigrateGroupDialogFragment_group\n}\n\nfragment GroupDetailsFragment_group on Group {\n  id\n  fullPath\n  name\n  ...GroupDetailsIndexFragment_group\n  ...ManagedIdentitiesFragment_group\n  ...GroupRunnersFragment_group\n  ...ServiceAccountsFragment_group\n  ...VCSProvidersFragment_group\n  ...VariablesFragment_variables\n  ...NamespaceMembershipsFragment_memberships\n  ...GPGKeysFragment_group\n  ...NamespaceActivityFragment_activity\n  ...GroupSettingsFragment_group\n}\n\nfragment GroupDetailsIndexFragment_group on Group {\n  name\n  description\n  fullPath\n  workspaces(first: 0) {\n    totalCount\n  }\n  descendentGroups(first: 0) {\n    totalCount\n  }\n  ...MigrateGroupDialogFragment_group\n}\n\nfragment GroupDriftDetectionSettingsFragment_group on Group {\n  fullPath\n  driftDetectionEnabled {\n    inherited\n    value\n    ...DriftDetectionSettingsFormFragment_driftDetectionEnabled\n  }\n}\n\nfragment GroupGeneralSettingsFragment_group on Group {\n  name\n  description\n  fullPath\n}\n\nfragment GroupRunnerDetailsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment GroupRunnerSettingsFragment_group on Group {\n  fullPath\n  runnerTags {\n    inherited\n    namespacePath\n    value\n    ...RunnerSettingsForm_runnerTags\n  }\n}\n\nfragment GroupRunnersFragment_group on Group {\n  ...GroupRunnersListFragment_group\n  ...NewGroupRunnerFragment_group\n  ...EditGroupRunnerFragment_group\n  ...GroupRunnerDetailsFragment_group\n}\n\nfragment GroupRunnersListFragment_group on Group {\n  id\n}\n\nfragment GroupSettingsFragment_group on Group {\n  fullPath\n  ...GroupGeneralSettingsFragment_group\n  ...GroupAdvancedSettingsFragment_group\n  ...GroupRunnerSettingsFragment_group\n  ...GroupDriftDetectionSettingsFragment_group\n}\n\nfragment ManagedIdentitiesFragment_group on Group {\n  ...ManagedIdentityListFragment_group\n  ...NewManagedIdentityFragment_group\n  ...EditManagedIdentityFragment_group\n  ...ManagedIdentityDetailsFragment_group\n}\n\nfragment ManagedIdentityDetailsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment ManagedIdentityListFragment_group on Group {\n  fullPath\n}\n\nfragment MaxJobDurationSettingFragment_workspace on Workspace {\n  maxJobDuration\n}\n\nfragment MigrateGroupDialogFragment_group on Group {\n  name\n  fullPath\n}\n\nfragment MigrateWorkspaceDialogFragment_workspace on Workspace {\n  name\n  fullPath\n  groupPath\n}\n\nfragment ModuleSourceFragment_workspace on Workspace {\n  fullPath\n}\n\nfragment NamespaceActivityFragment_activity on Namespace {\n  __isNamespace: __typename\n  __typename\n  fullPath\n}\n\nfragment NamespaceMembershipListFragment_memberships on Namespace {\n  __isNamespace: __typename\n  fullPath\n  memberships {\n    id\n    member {\n      __typename\n      ... on User {\n        username\n        email\n      }\n      ... on Team {\n        name\n      }\n      ... on ServiceAccount {\n        resourcePath\n        name\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...NamespaceMembershipListItemFragment_membership\n  }\n}\n\nfragment NamespaceMembershipListItemFragment_membership on NamespaceMembership {\n  metadata {\n    createdAt\n    updatedAt\n  }\n  id\n  role {\n    name\n    id\n  }\n  resourcePath\n  member {\n    __typename\n    ... on User {\n      id\n      username\n      email\n    }\n    ... on Team {\n      id\n      name\n    }\n    ... on ServiceAccount {\n      id\n      name\n      resourcePath\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment NamespaceMembershipsFragment_memberships on Namespace {\n  __isNamespace: __typename\n  ...NamespaceMembershipsIndexFragment_memberships\n  ...NewNamespaceMembershipFragment_memberships\n}\n\nfragment NamespaceMembershipsIndexFragment_memberships on Namespace {\n  __isNamespace: __typename\n  fullPath\n  ...NamespaceMembershipListFragment_memberships\n}\n\nfragment NewGPGKeyFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewGroupRunnerFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewManagedIdentityFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewNamespaceMembershipFragment_memberships on Namespace {\n  __isNamespace: __typename\n  fullPath\n}\n\nfragment NewServiceAccountFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewVCSProviderFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment NewVCSProviderLinkFragment_workspace on Workspace {\n  fullPath\n  ...VCSProviderLinkFormFragment_workspace\n}\n\nfragment RunDetailsFragment_details on Workspace {\n  id\n  fullPath\n}\n\nfragment RunnerSettingsForm_runnerTags on NamespaceRunnerTags {\n  inherited\n  namespacePath\n  value\n}\n\nfragment RunsFragment_runs on Workspace {\n  fullPath\n  ...RunsIndexFragment_runs\n  ...CreateRunFragment_workspace\n  ...RunDetailsFragment_details\n}\n\nfragment RunsIndexFragment_runs on Workspace {\n  id\n  fullPath\n}\n\nfragment ServiceAccountDetailsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment ServiceAccountListFragment_group on Group {\n  fullPath\n}\n\nfragment ServiceAccountsFragment_group on Group {\n  ...ServiceAccountListFragment_group\n  ...ServiceAccountDetailsFragment_group\n  ...NewServiceAccountFragment_group\n  ...EditServiceAccountFragment_group\n}\n\nfragment StateVersionDependenciesFragment_dependencies on StateVersion {\n  dependencies {\n    workspacePath\n    ...StateVersionDependencyListItemFragment_dependency\n  }\n}\n\nfragment StateVersionDependencyListItemFragment_dependency on StateVersionDependency {\n  workspacePath\n  stateVersion {\n    id\n    metadata {\n      updatedAt\n    }\n  }\n  workspace {\n    id\n    currentStateVersion {\n      id\n    }\n  }\n}\n\nfragment StateVersionDetailsFragment_details on Workspace {\n  id\n  fullPath\n}\n\nfragment StateVersionFileFragment_stateVersion on StateVersion {\n  id\n}\n\nfragment StateVersionInputVariableListItemFragment_variable on RunVariable {\n  key\n  value\n  category\n  namespacePath\n  sensitive\n  versionId\n  includedInTfConfig\n}\n\nfragment StateVersionInputVariablesFragment_variables on Run {\n  variables {\n    key\n    category\n    namespacePath\n    includedInTfConfig\n    ...StateVersionInputVariableListItemFragment_variable\n  }\n}\n\nfragment StateVersionOutputListItemFragment_output on StateVersionOutput {\n  name\n  value\n  type\n  sensitive\n}\n\nfragment StateVersionOutputsFragment_outputs on StateVersion {\n  outputs {\n    name\n    ...StateVersionOutputListItemFragment_output\n    id\n  }\n}\n\nfragment StateVersionResourceListItemFragment_resource on StateVersionResource {\n  name\n  type\n  provider\n  mode\n  module\n}\n\nfragment StateVersionResourcesFragment_resources on StateVersion {\n  resources {\n    name\n    provider\n    type\n    ...StateVersionResourceListItemFragment_resource\n  }\n}\n\nfragment StateVersionsFragment_stateVersions on Workspace {\n  fullPath\n  ...StateVersionDetailsFragment_details\n}\n\nfragment VCSProviderDetailsFragment_group on Group {\n  id\n  fullPath\n}\n\nfragment VCSProviderLinkFormFragment_workspace on Workspace {\n  fullPath\n  workspaceVcsProviderLink {\n    id\n    repositoryPath\n    branch\n    moduleDirectory\n    tagRegex\n    globPatterns\n    autoSpeculativePlan\n    webhookDisabled\n    vcsProvider {\n      id\n      name\n      description\n      type\n      autoCreateWebhooks\n    }\n  }\n}\n\nfragment VCSProviderListFragment_group on Group {\n  fullPath\n}\n\nfragment VCSProvidersFragment_group on Group {\n  ...VCSProviderListFragment_group\n  ...NewVCSProviderFragment_group\n  ...EditVCSProviderFragment_group\n  ...VCSProviderDetailsFragment_group\n  ...EditVCSProviderOAuthCredentialsFragment_group\n}\n\nfragment VCSWorkspaceLinkSourceFragment_workspace on Workspace {\n  workspaceVcsProviderLink {\n    branch\n    id\n  }\n}\n\nfragment VariableListItemFragment_variable on NamespaceVariable {\n  id\n  key\n  category\n  sensitive\n  value\n  namespacePath\n  latestVersionId\n  metadata {\n    updatedAt\n  }\n}\n\nfragment VariablesFragment_variables on Namespace {\n  __isNamespace: __typename\n  id\n  fullPath\n  variables {\n    id\n    key\n    category\n    ...VariableListItemFragment_variable\n  }\n}\n\nfragment WorkspaceAdvancedSettingsDeleteDialogFragment_workspace on Workspace {\n  name\n  fullPath\n}\n\nfragment WorkspaceAdvancedSettingsFragment_workspace on Workspace {\n  name\n  fullPath\n  ...WorkspaceAdvancedSettingsDeleteDialogFragment_workspace\n  ...MigrateWorkspaceDialogFragment_workspace\n}\n\nfragment WorkspaceDetailsCurrentJobFragment_workspace on Workspace {\n  id\n  fullPath\n  currentJob {\n    id\n    type\n    run {\n      id\n      status\n      createdBy\n      isDestroy\n      moduleSource\n      moduleVersion\n      metadata {\n        createdAt\n      }\n      configurationVersion {\n        id\n      }\n      plan {\n        status\n        metadata {\n          createdAt\n        }\n        id\n      }\n      apply {\n        status\n        triggeredBy\n        metadata {\n          createdAt\n          updatedAt\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment WorkspaceDetailsEmptyFragment_workspace on Workspace {\n  id\n  fullPath\n}\n\nfragment WorkspaceDetailsFragment_workspace on Workspace {\n  id\n  name\n  description\n  fullPath\n  ...WorkspaceDetailsIndexFragment_workspace\n  ...AssignedManagedIdentityListFragment_assignedManagedIdentities\n  ...RunsFragment_runs\n  ...StateVersionsFragment_stateVersions\n  ...VariablesFragment_variables\n  ...NamespaceMembershipsFragment_memberships\n  ...WorkspaceSettingsFragment_workspace\n  ...NamespaceActivityFragment_activity\n}\n\nfragment WorkspaceDetailsIndexFragment_workspace on Workspace {\n  id\n  name\n  description\n  fullPath\n  preventDestroyPlan\n  assessment {\n    hasDrift\n    id\n  }\n  ...WorkspaceDetailsEmptyFragment_workspace\n  ...WorkspaceDetailsCurrentJobFragment_workspace\n  currentJob {\n    id\n  }\n  currentStateVersion {\n    id\n    ...StateVersionOutputsFragment_outputs\n    ...StateVersionResourcesFragment_resources\n    ...StateVersionDependenciesFragment_dependencies\n    ...StateVersionFileFragment_stateVersion\n    metadata {\n      createdAt\n    }\n    run {\n      ...StateVersionInputVariablesFragment_variables\n      id\n      status\n      createdBy\n      isDestroy\n      moduleSource\n      moduleVersion\n      metadata {\n        createdAt\n      }\n      configurationVersion {\n        id\n        vcsEvent {\n          status\n          id\n        }\n      }\n      plan {\n        status\n        metadata {\n          createdAt\n        }\n        id\n      }\n      apply {\n        status\n        triggeredBy\n        metadata {\n          createdAt\n          updatedAt\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment WorkspaceDriftDetectionSettingsFragment_workspace on Workspace {\n  fullPath\n  driftDetectionEnabled {\n    inherited\n    value\n    ...DriftDetectionSettingsFormFragment_driftDetectionEnabled\n  }\n}\n\nfragment WorkspaceGeneralSettingsFragment_workspace on Workspace {\n  name\n  description\n  fullPath\n}\n\nfragment WorkspaceRunSettingsFragment_workspace on Workspace {\n  name\n  description\n  fullPath\n  maxJobDuration\n  terraformVersion\n  preventDestroyPlan\n  ...MaxJobDurationSettingFragment_workspace\n}\n\nfragment WorkspaceRunnerSettingsFragment_workspace on Workspace {\n  fullPath\n  runnerTags {\n    inherited\n    namespacePath\n    value\n    ...RunnerSettingsForm_runnerTags\n  }\n}\n\nfragment WorkspaceSettingsFragment_workspace on Workspace {\n  name\n  description\n  fullPath\n  ...WorkspaceGeneralSettingsFragment_workspace\n  ...WorkspaceRunnerSettingsFragment_workspace\n  ...WorkspaceRunSettingsFragment_workspace\n  ...WorkspaceDriftDetectionSettingsFragment_workspace\n  ...WorkspaceAdvancedSettingsFragment_workspace\n  ...WorkspaceVCSProviderSettingsFragment_workspace\n  ...WorkspaceStateSettingsFragment_workspace\n}\n\nfragment WorkspaceStateSettingsFragment_workspace on Workspace {\n  fullPath\n  locked\n}\n\nfragment WorkspaceVCSProviderSettingsFragment_workspace on Workspace {\n  workspaceVcsProviderLink {\n    id\n  }\n  fullPath\n  groupPath\n  vcsProviders(first: 10, includeInherited: true) {\n    edges {\n      node {\n        id\n      }\n    }\n  }\n  ...EditVCSProviderLinkFragment_workspace\n  ...NewVCSProviderLinkFragment_workspace\n}\n"
   }
 };
 })();

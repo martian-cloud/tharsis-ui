@@ -160,6 +160,17 @@ enum ApplyStatus {
   running
 }
 
+input AssessWorkspaceInput {
+  clientMutationId: String
+  workspacePath: String!
+}
+
+type AssessWorkspacePayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  run: Run
+}
+
 input AssignManagedIdentityInput {
   clientMutationId: String
   managedIdentityId: String
@@ -255,6 +266,7 @@ type CreateGPGKeyPayload {
 input CreateGroupInput {
   clientMutationId: String
   description: String!
+  driftDetectionEnabled: NamespaceDriftDetectionEnabledInput
   name: String!
   parentPath: String
   runnerTags: NamespaceRunnerTagsInput
@@ -582,6 +594,7 @@ type CreateVCSRunPayload {
 input CreateWorkspaceInput {
   clientMutationId: String
   description: String!
+  driftDetectionEnabled: NamespaceDriftDetectionEnabledInput
   groupPath: String!
   maxJobDuration: Int
   name: String!
@@ -935,6 +948,7 @@ type Group implements Namespace & Node {
   createdBy: String!
   descendentGroups(after: String, before: String, first: Int, last: Int, sort: GroupSort): GroupConnection!
   description: String!
+  driftDetectionEnabled: NamespaceDriftDetectionEnabled!
   fullPath: String!
   gpgKeys(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, sort: GPGKeySort): GPGKeyConnection!
   id: ID!
@@ -1216,6 +1230,7 @@ type MoveManagedIdentityPayload {
 type Mutation {
   addUserToTeam(input: AddUserToTeamInput): AddUserToTeamPayload!
   applyRun(input: ApplyRunInput!): RunMutationPayload!
+  assessWorkspace(input: AssessWorkspaceInput!): AssessWorkspacePayload!
   assignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
   assignServiceAccountToRunner(input: AssignServiceAccountToRunnerInput!): AssignServiceAccountToRunnerPayload!
   cancelRun(input: CancelRunInput!): RunMutationPayload!
@@ -1314,15 +1329,27 @@ type Mutation {
 interface Namespace {
   activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, username: String): ActivityEventConnection!
   description: String!
+  driftDetectionEnabled: NamespaceDriftDetectionEnabled!
   fullPath: String!
   id: ID!
   managedIdentities(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, search: String, sort: ManagedIdentitySort): ManagedIdentityConnection!
   memberships: [NamespaceMembership!]!
   metadata: ResourceMetadata!
   name: String!
-  runnerTags: NamespaceRunnerTags
+  runnerTags: NamespaceRunnerTags!
   serviceAccounts(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, search: String): ServiceAccountConnection!
   variables: [NamespaceVariable!]!
+}
+
+type NamespaceDriftDetectionEnabled {
+  inherited: Boolean!
+  namespacePath: String!
+  value: Boolean!
+}
+
+input NamespaceDriftDetectionEnabledInput {
+  enabled: Boolean
+  inherit: Boolean!
 }
 
 type NamespaceMembership implements Node {
@@ -1560,7 +1587,7 @@ type Query {
   role(name: String!): Role
   roles(after: String, before: String, first: Int, last: Int, search: String, sort: RoleSort): RoleConnection!
   run(id: String!): Run
-  runs(after: String, before: String, first: Int, last: Int, sort: RunSort, workspaceId: String, workspacePath: String): RunConnection!
+  runs(after: String, before: String, first: Int, last: Int, sort: RunSort, workspaceAssessment: Boolean, workspaceId: String, workspacePath: String): RunConnection!
   serviceAccount(id: String!): ServiceAccount
   sharedRunners(after: String, before: String, first: Int, last: Int, sort: ServiceAccountSort): RunnerConnection!
   team(name: String!): Team
@@ -1650,6 +1677,7 @@ enum RoleSort {
 
 type Run implements Node {
   apply: Apply
+  assessment: Boolean!
   comment: String!
   configurationVersion: ConfigurationVersion
   createdBy: String!
@@ -2372,6 +2400,7 @@ type UpdateApplyPayload {
 input UpdateGroupInput {
   clientMutationId: String
   description: String
+  driftDetectionEnabled: NamespaceDriftDetectionEnabledInput
   groupPath: String
   id: String
   metadata: ResourceMetadataInput
@@ -2592,6 +2621,7 @@ type UpdateVCSProviderPayload {
 input UpdateWorkspaceInput {
   clientMutationId: String
   description: String
+  driftDetectionEnabled: NamespaceDriftDetectionEnabledInput
   id: String
   maxJobDuration: Int
   metadata: ResourceMetadataInput
@@ -2736,12 +2766,14 @@ type Version {
 
 type Workspace implements Namespace & Node {
   activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, username: String): ActivityEventConnection!
+  assessment: WorkspaceAssessment
   assignedManagedIdentities: [ManagedIdentity!]!
   createdBy: String!
   currentJob: Job
   currentStateVersion: StateVersion
   description: String!
   dirtyState: Boolean!
+  driftDetectionEnabled: NamespaceDriftDetectionEnabled!
   fullPath: String!
   group: Group!
   groupPath: String!
@@ -2761,6 +2793,15 @@ type Workspace implements Namespace & Node {
   vcsEvents(after: String, before: String, first: Int, last: Int, sort: VCSEventSort): VCSEventConnection!
   vcsProviders(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, search: String): VCSProviderConnection!
   workspaceVcsProviderLink: WorkspaceVCSProviderLink
+}
+
+type WorkspaceAssessment implements Node {
+  completedAt: Time
+  hasDrift: Boolean!
+  id: ID!
+  metadata: ResourceMetadata!
+  run: Run
+  startedAt: Time!
 }
 
 type WorkspaceConnection {

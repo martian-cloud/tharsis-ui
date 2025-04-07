@@ -1,11 +1,11 @@
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import StateIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { LoadingButton } from "@mui/lab";
-import { Alert, AlertTitle, Avatar, Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { Alert, AlertTitle, Avatar, Box, Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
 import { CubeOutline as ModuleIcon } from 'mdi-material-ui';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import RelativeTimestamp from '../common/RelativeTimestamp';
@@ -23,6 +23,9 @@ import StateVersionFile from './state/StateVersionFile';
 import StateVersionInputVariables from './state/StateVersionInputVariables';
 import StateVersionOutputs from './state/StateVersionOutputs';
 import StateVersionResources from './state/StateVersionResources';
+import WorkspaceDetailsDriftViewer from './WorkspaceDetailsDriftViewer';
+
+const DRIFT_ALERT_DESCRIPTION = "This workspace has drifted from its configuration; this can happen if the resources were modified outside of Tharsis, or if the infrastructure was changed directly through the cloud provider console."
 
 interface Props {
     fragmentRef: WorkspaceDetailsIndexFragment_workspace$key
@@ -83,6 +86,9 @@ function WorkspaceDetailsIndex(props: Props) {
         description
         fullPath
         preventDestroyPlan
+        assessment {
+            hasDrift
+        }
         ...WorkspaceDetailsEmptyFragment_workspace
         ...WorkspaceDetailsCurrentJobFragment_workspace
         currentJob {
@@ -227,6 +233,16 @@ function WorkspaceDetailsIndex(props: Props) {
                 )}
             </Box>
 
+            {data.assessment?.hasDrift &&
+                <Alert
+                    sx={{ mb: 2 }}
+                    variant="outlined"
+                    severity='warning'>
+                    <AlertTitle>Drift detected</AlertTitle>
+                    {DRIFT_ALERT_DESCRIPTION}
+                </Alert>
+            }
+
             {data.currentJob && <Box marginBottom={2}>
                 <WorkspaceDetailsCurrentJob fragmentRef={data} />
             </Box>}
@@ -305,6 +321,7 @@ function WorkspaceDetailsIndex(props: Props) {
                         <Tab label="Input Variables" value="inputs" />
                         <Tab label="Outputs" value="outputs" />
                         <Tab label="Dependencies" value="dependencies" />
+                        <Tab label="Drift" value="drift" />
                         <Tab label="State File" value="stateFile" />
                     </Tabs>
                 </Box>
@@ -321,6 +338,32 @@ function WorkspaceDetailsIndex(props: Props) {
                 </React.Fragment>}
                 {tab === 'outputs' && <StateVersionOutputs fragmentRef={data.currentStateVersion} />}
                 {tab === 'dependencies' && <StateVersionDependencies fragmentRef={data.currentStateVersion} />}
+                {tab === 'drift' &&
+                    (data.assessment?.hasDrift ?
+                        <Suspense
+                            fallback={<Box
+                                sx={{
+                                    minHeight: 400,
+                                    width: '100%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <CircularProgress />
+                            </Box>}>
+                            <WorkspaceDetailsDriftViewer workspaceId={data.id} />
+                        </Suspense>
+                        :
+                        <Paper variant="outlined" sx={{ marginTop: 4, display: 'flex', justifyContent: 'center' }}>
+                            <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+                                <Typography color="textSecondary" align="center">
+                                    No drift detected for this workspace
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    )
+                }
                 {tab === 'stateFile' && <TabContent>
                     <StateVersionFile fragmentRef={data.currentStateVersion} />
                 </TabContent>}

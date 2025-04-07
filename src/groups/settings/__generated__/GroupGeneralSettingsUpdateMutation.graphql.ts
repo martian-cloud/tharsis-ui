@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<49ca48aa6c78079ffad7481c4bad8264>>
+ * @generated SignedSource<<b056bc47e73e02786f8c2b15517880b1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,10 +14,15 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type UpdateGroupInput = {
   clientMutationId?: string | null;
   description?: string | null;
+  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null;
   groupPath?: string | null;
   id?: string | null;
   metadata?: ResourceMetadataInput | null;
   runnerTags?: NamespaceRunnerTagsInput | null;
+};
+export type NamespaceDriftDetectionEnabledInput = {
+  enabled?: boolean | null;
+  inherit: boolean;
 };
 export type ResourceMetadataInput = {
   version: string;

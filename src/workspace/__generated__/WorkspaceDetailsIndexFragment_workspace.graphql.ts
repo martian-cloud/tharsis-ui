@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<67f381a001cdc8fcada058c8e7e66a8b>>
+ * @generated SignedSource<<2e3613aeff673896827718bdbef5ac1f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,9 @@ export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queu
 export type RunStatus = "applied" | "apply_queued" | "applying" | "canceled" | "errored" | "pending" | "plan_queued" | "planned" | "planned_and_finished" | "planning" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type WorkspaceDetailsIndexFragment_workspace$data = {
+  readonly assessment: {
+    readonly hasDrift: boolean;
+  } | null;
   readonly currentJob: {
     readonly id: string;
   } | null;
@@ -136,6 +139,24 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "preventDestroyPlan",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "WorkspaceAssessment",
+      "kind": "LinkedField",
+      "name": "assessment",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "hasDrift",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -321,6 +342,6 @@ return {
 };
 })();
 
-(node as any).hash = "4f8f09d6e4347f3327f8c5b4f09f5c3d";
+(node as any).hash = "33295c8d6a2b89bf1ed03d565011d0cd";
 
 export default node;
