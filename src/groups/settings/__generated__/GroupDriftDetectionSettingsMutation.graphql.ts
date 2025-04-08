@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a959b4175c15aa7f7c752c6294a9f29>>
+ * @generated SignedSource<<6bead23830e311d8bc5843e4fa4f2608>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -31,18 +31,15 @@ export type NamespaceRunnerTagsInput = {
   inherit: boolean;
   tags?: ReadonlyArray<string> | null;
 };
-export type GroupRunnerSettingsMutation$variables = {
+export type GroupDriftDetectionSettingsMutation$variables = {
   input: UpdateGroupInput;
 };
-export type GroupRunnerSettingsMutation$data = {
+export type GroupDriftDetectionSettingsMutation$data = {
   readonly updateGroup: {
     readonly group: {
-      readonly id: string;
-      readonly runnerTags: {
-        readonly inherited: boolean;
-        readonly value: ReadonlyArray<string>;
+      readonly driftDetectionEnabled: {
+        readonly " $fragmentSpreads": FragmentRefs<"DriftDetectionSettingsFormFragment_driftDetectionEnabled">;
       };
-      readonly " $fragmentSpreads": FragmentRefs<"GroupRunnerSettingsFragment_group">;
     } | null;
     readonly problems: ReadonlyArray<{
       readonly field: ReadonlyArray<string> | null;
@@ -51,9 +48,9 @@ export type GroupRunnerSettingsMutation$data = {
     }>;
   };
 };
-export type GroupRunnerSettingsMutation = {
-  response: GroupRunnerSettingsMutation$data;
-  variables: GroupRunnerSettingsMutation$variables;
+export type GroupDriftDetectionSettingsMutation = {
+  response: GroupDriftDetectionSettingsMutation$data;
+  variables: GroupDriftDetectionSettingsMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -72,27 +69,6 @@ v1 = [
   }
 ],
 v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "inherited",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "value",
-  "storageKey": null
-},
-v5 = {
   "alias": null,
   "args": null,
   "concreteType": "Problem",
@@ -129,7 +105,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "GroupRunnerSettingsMutation",
+    "name": "GroupDriftDetectionSettingsMutation",
     "selections": [
       {
         "alias": null,
@@ -147,29 +123,26 @@ return {
             "name": "group",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "NamespaceRunnerTags",
+                "concreteType": "NamespaceDriftDetectionEnabled",
                 "kind": "LinkedField",
-                "name": "runnerTags",
+                "name": "driftDetectionEnabled",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "DriftDetectionSettingsFormFragment_driftDetectionEnabled"
+                  }
                 ],
                 "storageKey": null
-              },
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "GroupRunnerSettingsFragment_group"
               }
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
@@ -181,7 +154,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "GroupRunnerSettingsMutation",
+    "name": "GroupDriftDetectionSettingsMutation",
     "selections": [
       {
         "alias": null,
@@ -199,22 +172,33 @@ return {
             "name": "group",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "NamespaceRunnerTags",
+                "concreteType": "NamespaceDriftDetectionEnabled",
                 "kind": "LinkedField",
-                "name": "runnerTags",
+                "name": "driftDetectionEnabled",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
-                  (v4/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "inherited",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
                     "name": "namespacePath",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "value",
                     "storageKey": null
                   }
                 ],
@@ -224,29 +208,29 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "fullPath",
+                "name": "id",
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "14a1d34bb15bdb7fb3f2302b45e70d52",
+    "cacheID": "e8410333f81ccbd15e06bb28b7829408",
     "id": null,
     "metadata": {},
-    "name": "GroupRunnerSettingsMutation",
+    "name": "GroupDriftDetectionSettingsMutation",
     "operationKind": "mutation",
-    "text": "mutation GroupRunnerSettingsMutation(\n  $input: UpdateGroupInput!\n) {\n  updateGroup(input: $input) {\n    group {\n      id\n      runnerTags {\n        inherited\n        value\n      }\n      ...GroupRunnerSettingsFragment_group\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment GroupRunnerSettingsFragment_group on Group {\n  fullPath\n  runnerTags {\n    inherited\n    namespacePath\n    value\n    ...RunnerSettingsForm_runnerTags\n  }\n}\n\nfragment RunnerSettingsForm_runnerTags on NamespaceRunnerTags {\n  inherited\n  namespacePath\n  value\n}\n"
+    "text": "mutation GroupDriftDetectionSettingsMutation(\n  $input: UpdateGroupInput!\n) {\n  updateGroup(input: $input) {\n    group {\n      driftDetectionEnabled {\n        ...DriftDetectionSettingsFormFragment_driftDetectionEnabled\n      }\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment DriftDetectionSettingsFormFragment_driftDetectionEnabled on NamespaceDriftDetectionEnabled {\n  inherited\n  namespacePath\n  value\n}\n"
   }
 };
 })();
 
-(node as any).hash = "552bb60cdf29f0c6aedc0fffeeccbda3";
+(node as any).hash = "71fa5ee2d45ae16e6473c6e0c0332760";
 
 export default node;

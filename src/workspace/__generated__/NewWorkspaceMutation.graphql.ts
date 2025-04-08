@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dcdc19128ead0f13ab09e0d6853c37c5>>
+ * @generated SignedSource<<56af4e05f17e31c2d59c4931e966173f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,12 +13,17 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type CreateWorkspaceInput = {
   clientMutationId?: string | null;
   description: string;
+  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null;
   groupPath: string;
   maxJobDuration?: number | null;
   name: string;
   preventDestroyPlan?: boolean | null;
   runnerTags?: NamespaceRunnerTagsInput | null;
   terraformVersion?: string | null;
+};
+export type NamespaceDriftDetectionEnabledInput = {
+  enabled?: boolean | null;
+  inherit: boolean;
 };
 export type NamespaceRunnerTagsInput = {
   inherit: boolean;

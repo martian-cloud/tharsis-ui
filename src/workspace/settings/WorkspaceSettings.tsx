@@ -5,6 +5,7 @@ import { useFragment } from 'react-relay/hooks';
 import { WorkspaceSettingsFragment_workspace$key } from './__generated__/WorkspaceSettingsFragment_workspace.graphql';
 import WorkspaceGeneralSettings from './WorkspaceGeneralSettings';
 import WorkspaceRunSettings from './WorkspaceRunSettings';
+import WorkspaceDriftDetectionSettings from './WorkspaceDriftDetectionSettings';
 import WorkspaceAdvancedSettings from './WorkspaceAdvancedSettings';
 import WorkspaceVCSProviderSettings from './vcsprovider/WorkspaceVCSProviderSettings';
 import WorkspaceStateSettings from './WorkspaceStateSettings';
@@ -32,6 +33,7 @@ function WorkspaceSettings(props: Props) {
             ...WorkspaceGeneralSettingsFragment_workspace
             ...WorkspaceRunnerSettingsFragment_workspace
             ...WorkspaceRunSettingsFragment_workspace
+            ...WorkspaceDriftDetectionSettingsFragment_workspace
             ...WorkspaceAdvancedSettingsFragment_workspace
             ...WorkspaceVCSProviderSettingsFragment_workspace
             ...WorkspaceStateSettingsFragment_workspace
@@ -51,6 +53,8 @@ function WorkspaceSettings(props: Props) {
             <WorkspaceRunnerSettings fragmentRef={data} />
             <StyledDivider />
             <WorkspaceRunSettings fragmentRef={data} />
+            <StyledDivider />
+            <WorkspaceDriftDetectionSettings fragmentRef={data} />
             <StyledDivider />
             <WorkspaceStateSettings fragmentRef={data} />
             <StyledDivider />

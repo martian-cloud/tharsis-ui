@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a959b4175c15aa7f7c752c6294a9f29>>
+ * @generated SignedSource<<1831c0ebb50dc373ad19cfdffa8c9b26>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,14 +11,17 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
-export type UpdateGroupInput = {
+export type UpdateWorkspaceInput = {
   clientMutationId?: string | null;
   description?: string | null;
   driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null;
-  groupPath?: string | null;
   id?: string | null;
+  maxJobDuration?: number | null;
   metadata?: ResourceMetadataInput | null;
+  preventDestroyPlan?: boolean | null;
   runnerTags?: NamespaceRunnerTagsInput | null;
+  terraformVersion?: string | null;
+  workspacePath?: string | null;
 };
 export type NamespaceDriftDetectionEnabledInput = {
   enabled?: boolean | null;
@@ -31,29 +34,26 @@ export type NamespaceRunnerTagsInput = {
   inherit: boolean;
   tags?: ReadonlyArray<string> | null;
 };
-export type GroupRunnerSettingsMutation$variables = {
-  input: UpdateGroupInput;
+export type WorkspaceDriftDetectionSettingsMutation$variables = {
+  input: UpdateWorkspaceInput;
 };
-export type GroupRunnerSettingsMutation$data = {
-  readonly updateGroup: {
-    readonly group: {
-      readonly id: string;
-      readonly runnerTags: {
-        readonly inherited: boolean;
-        readonly value: ReadonlyArray<string>;
-      };
-      readonly " $fragmentSpreads": FragmentRefs<"GroupRunnerSettingsFragment_group">;
-    } | null;
+export type WorkspaceDriftDetectionSettingsMutation$data = {
+  readonly updateWorkspace: {
     readonly problems: ReadonlyArray<{
       readonly field: ReadonlyArray<string> | null;
       readonly message: string;
       readonly type: ProblemType;
     }>;
+    readonly workspace: {
+      readonly driftDetectionEnabled: {
+        readonly " $fragmentSpreads": FragmentRefs<"DriftDetectionSettingsFormFragment_driftDetectionEnabled">;
+      };
+    } | null;
   };
 };
-export type GroupRunnerSettingsMutation = {
-  response: GroupRunnerSettingsMutation$data;
-  variables: GroupRunnerSettingsMutation$variables;
+export type WorkspaceDriftDetectionSettingsMutation = {
+  response: WorkspaceDriftDetectionSettingsMutation$data;
+  variables: WorkspaceDriftDetectionSettingsMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -72,27 +72,6 @@ v1 = [
   }
 ],
 v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "inherited",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "value",
-  "storageKey": null
-},
-v5 = {
   "alias": null,
   "args": null,
   "concreteType": "Problem",
@@ -129,47 +108,44 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "GroupRunnerSettingsMutation",
+    "name": "WorkspaceDriftDetectionSettingsMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateGroupPayload",
+        "concreteType": "UpdateWorkspacePayload",
         "kind": "LinkedField",
-        "name": "updateGroup",
+        "name": "updateWorkspace",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Group",
+            "concreteType": "Workspace",
             "kind": "LinkedField",
-            "name": "group",
+            "name": "workspace",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "NamespaceRunnerTags",
+                "concreteType": "NamespaceDriftDetectionEnabled",
                 "kind": "LinkedField",
-                "name": "runnerTags",
+                "name": "driftDetectionEnabled",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "DriftDetectionSettingsFormFragment_driftDetectionEnabled"
+                  }
                 ],
                 "storageKey": null
-              },
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "GroupRunnerSettingsFragment_group"
               }
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
@@ -181,40 +157,51 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "GroupRunnerSettingsMutation",
+    "name": "WorkspaceDriftDetectionSettingsMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateGroupPayload",
+        "concreteType": "UpdateWorkspacePayload",
         "kind": "LinkedField",
-        "name": "updateGroup",
+        "name": "updateWorkspace",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Group",
+            "concreteType": "Workspace",
             "kind": "LinkedField",
-            "name": "group",
+            "name": "workspace",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "NamespaceRunnerTags",
+                "concreteType": "NamespaceDriftDetectionEnabled",
                 "kind": "LinkedField",
-                "name": "runnerTags",
+                "name": "driftDetectionEnabled",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
-                  (v4/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "inherited",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
                     "name": "namespacePath",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "value",
                     "storageKey": null
                   }
                 ],
@@ -224,29 +211,29 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "fullPath",
+                "name": "id",
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "14a1d34bb15bdb7fb3f2302b45e70d52",
+    "cacheID": "f3c61ed93b91e581d43cf2e3b406c62f",
     "id": null,
     "metadata": {},
-    "name": "GroupRunnerSettingsMutation",
+    "name": "WorkspaceDriftDetectionSettingsMutation",
     "operationKind": "mutation",
-    "text": "mutation GroupRunnerSettingsMutation(\n  $input: UpdateGroupInput!\n) {\n  updateGroup(input: $input) {\n    group {\n      id\n      runnerTags {\n        inherited\n        value\n      }\n      ...GroupRunnerSettingsFragment_group\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment GroupRunnerSettingsFragment_group on Group {\n  fullPath\n  runnerTags {\n    inherited\n    namespacePath\n    value\n    ...RunnerSettingsForm_runnerTags\n  }\n}\n\nfragment RunnerSettingsForm_runnerTags on NamespaceRunnerTags {\n  inherited\n  namespacePath\n  value\n}\n"
+    "text": "mutation WorkspaceDriftDetectionSettingsMutation(\n  $input: UpdateWorkspaceInput!\n) {\n  updateWorkspace(input: $input) {\n    workspace {\n      driftDetectionEnabled {\n        ...DriftDetectionSettingsFormFragment_driftDetectionEnabled\n      }\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment DriftDetectionSettingsFormFragment_driftDetectionEnabled on NamespaceDriftDetectionEnabled {\n  inherited\n  namespacePath\n  value\n}\n"
   }
 };
 })();
 
-(node as any).hash = "552bb60cdf29f0c6aedc0fffeeccbda3";
+(node as any).hash = "9bf7041749071610978ee6b906f9119b";
 
 export default node;
