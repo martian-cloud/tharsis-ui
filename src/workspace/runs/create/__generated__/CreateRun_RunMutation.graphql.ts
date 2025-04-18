@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9a79043202351bf6a0dfe2af9dbf2d07>>
+ * @generated SignedSource<<76b049a330532a5f215aec5e84e1bda1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,27 +8,27 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type VariableCategory = "environment" | "terraform" | "%future added value";
 export type CreateRunInput = {
-  clientMutationId?: string | null;
-  comment?: string | null;
-  configurationVersionId?: string | null;
-  isDestroy?: boolean | null;
-  moduleSource?: string | null;
-  moduleVersion?: string | null;
-  refresh?: boolean | null;
-  refreshOnly?: boolean | null;
-  speculative?: boolean | null;
-  targetAddresses?: ReadonlyArray<string> | null;
-  terraformVersion?: string | null;
-  variables?: ReadonlyArray<RunVariableInput> | null;
+  clientMutationId?: string | null | undefined;
+  comment?: string | null | undefined;
+  configurationVersionId?: string | null | undefined;
+  isDestroy?: boolean | null | undefined;
+  moduleSource?: string | null | undefined;
+  moduleVersion?: string | null | undefined;
+  refresh?: boolean | null | undefined;
+  refreshOnly?: boolean | null | undefined;
+  speculative?: boolean | null | undefined;
+  targetAddresses?: ReadonlyArray<string> | null | undefined;
+  terraformVersion?: string | null | undefined;
+  variables?: ReadonlyArray<RunVariableInput> | null | undefined;
   workspacePath: string;
 };
 export type RunVariableInput = {
   category: VariableCategory;
-  hcl?: boolean | null;
+  hcl?: boolean | null | undefined;
   key: string;
   value: string;
 };
@@ -38,13 +38,13 @@ export type CreateRun_RunMutation$variables = {
 export type CreateRun_RunMutation$data = {
   readonly createRun: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly run: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type CreateRun_RunMutation = {

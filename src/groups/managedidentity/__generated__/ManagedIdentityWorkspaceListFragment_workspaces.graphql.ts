@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f74b42460988bece1f9a56d5b51a8bae>>
+ * @generated SignedSource<<6a2bfef02192de4dfe893acaf0aafc2d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ManagedIdentityWorkspaceListFragment_workspaces$data = {
   readonly id: string;
@@ -17,8 +17,8 @@ export type ManagedIdentityWorkspaceListFragment_workspaces$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityWorkspaceListItemFragment_workspace">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly " $fragmentType": "ManagedIdentityWorkspaceListFragment_workspaces";
@@ -73,7 +73,10 @@ return {
         "node"
       ],
       "operation": require('./ManagedIdentityWorkspaceListPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "ManagedIdentityWorkspaceListFragment_workspaces",

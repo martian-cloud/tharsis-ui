@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<58d6bcda15322e5e1431a36365fd72f7>>
+ * @generated SignedSource<<7a873502fafc59f378ffdfd60afdc3d1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleVersionListFragment_versions$data = {
   readonly node: {
@@ -17,11 +17,11 @@ export type TerraformModuleVersionListFragment_versions$data = {
         readonly node: {
           readonly id: string;
           readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionListItemFragment_version">;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
       readonly totalCount: number;
     };
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "TerraformModuleVersionListFragment_versions";
 };
 export type TerraformModuleVersionListFragment_versions$key = {

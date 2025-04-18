@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<be20226e23f08914c37d8a987feca892>>
+ * @generated SignedSource<<87aa05caf99db43b2a65841177ee464b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ActivityEventAction = "ADD" | "ADD_MEMBER" | "APPLY" | "CANCEL" | "CREATE" | "CREATE_MEMBERSHIP" | "DELETE" | "DELETE_CHILD_RESOURCE" | "LOCK" | "MIGRATE" | "REMOVE" | "REMOVE_MEMBER" | "REMOVE_MEMBERSHIP" | "SET_VARIABLES" | "UNLOCK" | "UPDATE" | "UPDATE_MEMBER" | "%future added value";
 export type JobType = "apply" | "plan" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ActivityEventManagedIdentityAccessRuleTargetFragment_event$data = {
   readonly action: ActivityEventAction;
-  readonly namespacePath: string | null;
+  readonly namespacePath: string | null | undefined;
   readonly target: {
     readonly __typename: "ManagedIdentityAccessRule";
     readonly managedIdentity: {

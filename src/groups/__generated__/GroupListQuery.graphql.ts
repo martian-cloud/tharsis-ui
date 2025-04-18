@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c2b7f251a152e7d4ef6d353cd09e6382>>
+ * @generated SignedSource<<0252323fb42af5906c719529f794938b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupListQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
-  last?: number | null;
-  parentPath?: string | null;
-  search?: string | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  parentPath?: string | null | undefined;
+  search?: string | null | undefined;
 };
 export type GroupListQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"GroupListFragment_groups">;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9bc8c2b0c714dd5ee686ac59162283cf>>
+ * @generated SignedSource<<9ed2830699a3d305504911346f9e6c63>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateUserAdminStatusInput = {
@@ -21,13 +21,13 @@ export type AdminAreaUserListItemUpdateUserAdminStatusMutation$variables = {
 export type AdminAreaUserListItemUpdateUserAdminStatusMutation$data = {
   readonly updateUserAdminStatus: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly user: {
       readonly " $fragmentSpreads": FragmentRefs<"AdminAreaUserListItemFragment_user">;
-    } | null;
+    } | null | undefined;
   };
 };
 export type AdminAreaUserListItemUpdateUserAdminStatusMutation = {

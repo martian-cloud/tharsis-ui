@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d103abb63f7cf76a9342507baa6a3a49>>
+ * @generated SignedSource<<2c059525d65cb93248aef0febb832e8c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type JobLogsQuery$variables = {
   id: string;
   limit: number;
@@ -17,10 +17,10 @@ export type JobLogsQuery$variables = {
 export type JobLogsQuery$data = {
   readonly job: {
     readonly id: string;
-    readonly logLastUpdatedAt: any | null;
+    readonly logLastUpdatedAt: any | null | undefined;
     readonly logSize: number;
     readonly logs: string;
-  } | null;
+  } | null | undefined;
 };
 export type JobLogsQuery = {
   response: JobLogsQuery$data;

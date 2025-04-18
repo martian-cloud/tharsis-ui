@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8f7e943181f0facbff7a8afb1f183148>>
+ * @generated SignedSource<<7e360009177ccb4543681f6d36fccf7e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type BoundClaimsType = "GLOB" | "STRING" | "%future added value";
 export type EditServiceAccountQuery$variables = {
   id: string;
@@ -28,7 +28,7 @@ export type EditServiceAccountQuery$data = {
       readonly issuer: string;
     }>;
     readonly resourcePath: string;
-  } | null;
+  } | null | undefined;
 };
 export type EditServiceAccountQuery = {
   response: EditServiceAccountQuery$data;

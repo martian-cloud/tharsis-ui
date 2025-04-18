@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7abc5bd6d7117a058392bc5a8431c0c6>>
+ * @generated SignedSource<<7af49148f990b403d07bc75c7f429783>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type VCSProviderListFragment_vcsProviders$data = {
   readonly group: {
@@ -18,11 +18,11 @@ export type VCSProviderListFragment_vcsProviders$data = {
           readonly groupPath: string;
           readonly id: string;
           readonly " $fragmentSpreads": FragmentRefs<"VCSProviderListItemFragment_vcsProvider">;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
       readonly totalCount: number;
     };
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "VCSProviderListFragment_vcsProviders";
 };
 export type VCSProviderListFragment_vcsProviders$key = {

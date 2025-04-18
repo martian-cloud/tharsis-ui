@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3f2a9c9fdf24173f6d6e0fafefd4e37e>>
+ * @generated SignedSource<<e6706dd4b3a345ac0d1ad84f5e00eca3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type MigrateWorkspaceInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   newGroupPath: string;
   workspacePath: string;
 };
@@ -21,7 +21,7 @@ export type MigrateWorkspaceDialogMutation$variables = {
 export type MigrateWorkspaceDialogMutation$data = {
   readonly migrateWorkspace: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -29,7 +29,7 @@ export type MigrateWorkspaceDialogMutation$data = {
       readonly fullPath: string;
       readonly groupPath: string;
       readonly id: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type MigrateWorkspaceDialogMutation = {

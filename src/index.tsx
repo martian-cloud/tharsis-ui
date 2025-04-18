@@ -26,43 +26,43 @@ const root = createRoot(container);
 const graphqlEndpoint = `${config.apiUrl}/graphql`;
 
 fetch(graphqlEndpoint, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    query: authSettingsQuery,
-    variables: {},
-  }),
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        query: authSettingsQuery,
+        variables: {},
+    }),
 }).then(async response => {
-  const { authSettings } = (await response.json()).data;
+    const { authSettings } = (await response.json()).data;
 
-  const authService = new AuthenticationService(
-    authSettings.oidcIssuerUrl,
-    authSettings.oidcClientId,
-    authSettings.oidcScope,
-    authSettings.oidcLogoutUrl,
-    authSettings.oidcUsernameClaim
-  );
-  const fetchGraphQL = graphQLFetcher(authService);
-
-  const relayEnv = environment(fetchGraphQL, authService);
-
-  authService.login().then(() => {
-    root.render(
-      <React.StrictMode>
-        <App authService={authService} environment={relayEnv} />
-      </React.StrictMode>
+    const authService = new AuthenticationService(
+        authSettings.oidcIssuerUrl,
+        authSettings.oidcClientId,
+        authSettings.oidcScope,
+        authSettings.oidcLogoutUrl,
+        authSettings.oidcUsernameClaim
     );
-  });
+    const fetchGraphQL = graphQLFetcher(authService);
+
+    const relayEnv = environment(fetchGraphQL, authService);
+
+    authService.login().then(() => {
+        root.render(
+            <React.StrictMode>
+                <App authService={authService} environment={relayEnv} />
+            </React.StrictMode>
+        );
+    });
 }).catch(error => {
-  const msg = `failed to query auth settings from ${graphqlEndpoint}: ${error}`;
-  console.error(msg);
-  root.render(
-    <React.StrictMode>
-      {msg}
-    </React.StrictMode>
-  );
+    const msg = `failed to query auth settings from ${graphqlEndpoint}: ${error}`;
+    console.error(msg);
+    root.render(
+        <React.StrictMode>
+            {msg}
+        </React.StrictMode>
+    );
 });
 
 // If you want to start measuring performance in your app, pass a function

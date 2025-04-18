@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4b5454323ecbcc740fc0ecac93647179>>
+ * @generated SignedSource<<871b2ff82c96049bf552426f997350bf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,18 +8,18 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type VCSProviderType = "github" | "gitlab" | "%future added value";
 export type CreateWorkspaceVCSProviderLinkInput = {
   autoSpeculativePlan: boolean;
-  branch?: string | null;
-  clientMutationId?: string | null;
+  branch?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
   globPatterns: ReadonlyArray<string>;
-  moduleDirectory?: string | null;
+  moduleDirectory?: string | null | undefined;
   providerId: string;
   repositoryPath: string;
-  tagRegex?: string | null;
+  tagRegex?: string | null | undefined;
   webhookDisabled: boolean;
   workspacePath: string;
 };
@@ -29,7 +29,7 @@ export type NewVCSProviderLinkMutation$variables = {
 export type NewVCSProviderLinkMutation$data = {
   readonly createWorkspaceVCSProviderLink: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -49,15 +49,15 @@ export type NewVCSProviderLinkMutation$data = {
           readonly metadata: {
             readonly createdAt: any;
           };
-          readonly moduleDirectory: string | null;
+          readonly moduleDirectory: string | null | undefined;
           readonly repositoryPath: string;
-          readonly tagRegex: string | null;
+          readonly tagRegex: string | null | undefined;
           readonly webhookDisabled: boolean;
-        } | null;
+        } | null | undefined;
       };
-    } | null;
-    readonly webhookToken: string | null;
-    readonly webhookUrl: string | null;
+    } | null | undefined;
+    readonly webhookToken: string | null | undefined;
+    readonly webhookUrl: string | null | undefined;
   };
 };
 export type NewVCSProviderLinkMutation = {

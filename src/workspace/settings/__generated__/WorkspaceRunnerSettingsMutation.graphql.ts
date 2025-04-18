@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cac8b8738dac2ffd73d9ea96262b43c5>>
+ * @generated SignedSource<<16a023de513652fb6f77fa344e008a51>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,23 +8,23 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateWorkspaceInput = {
-  clientMutationId?: string | null;
-  description?: string | null;
-  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null;
-  id?: string | null;
-  maxJobDuration?: number | null;
-  metadata?: ResourceMetadataInput | null;
-  preventDestroyPlan?: boolean | null;
-  runnerTags?: NamespaceRunnerTagsInput | null;
-  terraformVersion?: string | null;
-  workspacePath?: string | null;
+  clientMutationId?: string | null | undefined;
+  description?: string | null | undefined;
+  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null | undefined;
+  id?: string | null | undefined;
+  maxJobDuration?: number | null | undefined;
+  metadata?: ResourceMetadataInput | null | undefined;
+  preventDestroyPlan?: boolean | null | undefined;
+  runnerTags?: NamespaceRunnerTagsInput | null | undefined;
+  terraformVersion?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type NamespaceDriftDetectionEnabledInput = {
-  enabled?: boolean | null;
+  enabled?: boolean | null | undefined;
   inherit: boolean;
 };
 export type ResourceMetadataInput = {
@@ -32,7 +32,7 @@ export type ResourceMetadataInput = {
 };
 export type NamespaceRunnerTagsInput = {
   inherit: boolean;
-  tags?: ReadonlyArray<string> | null;
+  tags?: ReadonlyArray<string> | null | undefined;
 };
 export type WorkspaceRunnerSettingsMutation$variables = {
   input: UpdateWorkspaceInput;
@@ -40,7 +40,7 @@ export type WorkspaceRunnerSettingsMutation$variables = {
 export type WorkspaceRunnerSettingsMutation$data = {
   readonly updateWorkspace: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -51,7 +51,7 @@ export type WorkspaceRunnerSettingsMutation$data = {
         readonly value: ReadonlyArray<string>;
       };
       readonly " $fragmentSpreads": FragmentRefs<"WorkspaceRunnerSettingsFragment_workspace">;
-    } | null;
+    } | null | undefined;
   };
 };
 export type WorkspaceRunnerSettingsMutation = {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1641495a15f9e23288234a2c8b8ea497>>
+ * @generated SignedSource<<f86b44571e51ba4e925ff4de0d526536>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunnerSessionListItemFragment$data = {
   readonly active: boolean;

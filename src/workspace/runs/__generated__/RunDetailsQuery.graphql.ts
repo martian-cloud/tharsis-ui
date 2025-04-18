@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f62560b792dcb68de4cd987492681064>>
+ * @generated SignedSource<<328ff37620ee69a104af21041645adc0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ApplyStatus = "canceled" | "created" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
@@ -20,7 +20,7 @@ export type RunDetailsQuery$data = {
   readonly run: {
     readonly apply: {
       readonly status: ApplyStatus;
-    } | null;
+    } | null | undefined;
     readonly plan: {
       readonly status: PlanStatus;
     };
@@ -33,7 +33,7 @@ export type RunDetailsQuery$data = {
       };
     };
     readonly " $fragmentSpreads": FragmentRefs<"RunDetailsApplyStageFragment_apply" | "RunDetailsPlanStageFragment_plan" | "RunDetailsSidebarFragment_details">;
-  } | null;
+  } | null | undefined;
 };
 export type RunDetailsQuery = {
   response: RunDetailsQuery$data;

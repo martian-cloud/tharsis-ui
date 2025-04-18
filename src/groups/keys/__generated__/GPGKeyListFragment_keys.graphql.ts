@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3b482b815dbd3e3268c73d20d214c1e9>>
+ * @generated SignedSource<<67e3790f8bb99e16e44ed543481559af>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GPGKeyListFragment_keys$data = {
   readonly group: {
@@ -19,11 +19,11 @@ export type GPGKeyListFragment_keys$data = {
           readonly groupPath: string;
           readonly id: string;
           readonly " $fragmentSpreads": FragmentRefs<"GPGKeyListItemFragment_key">;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
       readonly totalCount: number;
     };
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "GPGKeyListFragment_keys";
 };
 export type GPGKeyListFragment_keys$key = {

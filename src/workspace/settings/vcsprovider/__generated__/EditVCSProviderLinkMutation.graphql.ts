@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ab20d5bcab090c6429766dcb980ea9bd>>
+ * @generated SignedSource<<a7bc77a077c77f7b35a908184353cb0a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,18 +8,18 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateWorkspaceVCSProviderLinkInput = {
-  autoSpeculativePlan?: boolean | null;
-  branch?: string | null;
-  clientMutationId?: string | null;
+  autoSpeculativePlan?: boolean | null | undefined;
+  branch?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
   globPatterns: ReadonlyArray<string>;
   id: string;
-  metadata?: ResourceMetadataInput | null;
-  moduleDirectory?: string | null;
-  tagRegex?: string | null;
-  webhookDisabled?: boolean | null;
+  metadata?: ResourceMetadataInput | null | undefined;
+  moduleDirectory?: string | null | undefined;
+  tagRegex?: string | null | undefined;
+  webhookDisabled?: boolean | null | undefined;
 };
 export type ResourceMetadataInput = {
   version: string;
@@ -30,7 +30,7 @@ export type EditVCSProviderLinkMutation$variables = {
 export type EditVCSProviderLinkMutation$data = {
   readonly updateWorkspaceVCSProviderLink: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -39,11 +39,11 @@ export type EditVCSProviderLinkMutation$data = {
       readonly branch: string;
       readonly globPatterns: ReadonlyArray<string>;
       readonly id: string;
-      readonly moduleDirectory: string | null;
+      readonly moduleDirectory: string | null | undefined;
       readonly repositoryPath: string;
-      readonly tagRegex: string | null;
+      readonly tagRegex: string | null | undefined;
       readonly webhookDisabled: boolean;
-    } | null;
+    } | null | undefined;
   };
 };
 export type EditVCSProviderLinkMutation = {

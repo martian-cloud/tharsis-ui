@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9a8e21fffd48acbeb9608f3e7dc863db>>
+ * @generated SignedSource<<ec78868100bd21294e852faa028a98c2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type EditManagedIdentityQuery$variables = {
   id: string;
 };
@@ -19,7 +19,7 @@ export type EditManagedIdentityQuery$data = {
     readonly id: string;
     readonly name: string;
     readonly type: string;
-  } | null;
+  } | null | undefined;
 };
 export type EditManagedIdentityQuery = {
   response: EditManagedIdentityQuery$data;

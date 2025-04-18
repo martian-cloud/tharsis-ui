@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f6b04b00a41a27581666763cec0abbe6>>
+ * @generated SignedSource<<959a6b7738091d133abab09ac21893fe>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformProviderSearchFragment_providers$data = {
   readonly terraformProviders: {
@@ -16,8 +16,8 @@ export type TerraformProviderSearchFragment_providers$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"TerraformProviderSearchListItemFragment_provider">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly " $fragmentType": "TerraformProviderSearchFragment_providers";

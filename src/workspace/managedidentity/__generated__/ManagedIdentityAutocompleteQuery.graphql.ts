@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d1058667e76aa2eac57a65f6b0b96319>>
+ * @generated SignedSource<<33a9bf7e4ebf601c11616847b77ed18a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ManagedIdentityAutocompleteQuery$variables = {
   path: string;
   search: string;
@@ -24,10 +24,10 @@ export type ManagedIdentityAutocompleteQuery$data = {
           readonly name: string;
           readonly resourcePath: string;
           readonly type: string;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
     };
-  } | null;
+  } | null | undefined;
 };
 export type ManagedIdentityAutocompleteQuery = {
   response: ManagedIdentityAutocompleteQuery$data;

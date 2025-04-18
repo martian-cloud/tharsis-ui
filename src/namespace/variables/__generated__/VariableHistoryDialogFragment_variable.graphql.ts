@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<315a59eebbceb7ea02cef7810709025e>>
+ * @generated SignedSource<<6d79fd75a592780f9f0fd32c0697f274>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,22 +8,22 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type VariableHistoryDialogFragment_variable$data = {
   readonly id: string;
   readonly versions: {
     readonly edges: ReadonlyArray<{
       readonly node: {
-        readonly hcl: boolean | null;
+        readonly hcl: boolean | null | undefined;
         readonly id: string;
         readonly key: string;
         readonly metadata: {
           readonly createdAt: any;
         };
-        readonly value: string | null;
-      } | null;
-    } | null> | null;
+        readonly value?: string | null | undefined;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly " $fragmentType": "VariableHistoryDialogFragment_variable";
@@ -53,6 +53,10 @@ return {
     {
       "kind": "RootArgument",
       "name": "first"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "includeValues"
     }
   ],
   "kind": "Fragment",
@@ -78,7 +82,10 @@ return {
         "node"
       ],
       "operation": require('./VariableHistoryDialogPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "VariableHistoryDialogFragment_variable",
@@ -147,11 +154,18 @@ return {
                   "storageKey": null
                 },
                 {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "value",
-                  "storageKey": null
+                  "condition": "includeValues",
+                  "kind": "Condition",
+                  "passingValue": true,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "value",
+                      "storageKey": null
+                    }
+                  ]
                 },
                 {
                   "alias": null,
@@ -215,6 +229,6 @@ return {
 };
 })();
 
-(node as any).hash = "ebbe7dc623870a99a433d2a302bf66c4";
+(node as any).hash = "30d73859dd9bb1b08bd84de3a2651b30";
 
 export default node;

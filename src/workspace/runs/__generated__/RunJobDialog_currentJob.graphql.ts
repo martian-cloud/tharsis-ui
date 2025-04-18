@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8e46a27cb32f1c4e3df010a457e28cd5>>
+ * @generated SignedSource<<e599853b379be7f462bf1eaab03863d7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type JobStatus = "finished" | "pending" | "queued" | "running" | "%future added value";
 export type RunnerType = "group" | "shared" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
@@ -22,14 +22,14 @@ export type RunJobDialog_currentJob$data = {
     readonly id: string;
     readonly name: string;
     readonly type: RunnerType;
-  } | null;
-  readonly runnerPath: string | null;
+  } | null | undefined;
+  readonly runnerPath: string | null | undefined;
   readonly status: JobStatus;
   readonly tags: ReadonlyArray<string>;
   readonly timestamps: {
-    readonly finishedAt: any | null;
-    readonly pendingAt: any | null;
-    readonly runningAt: any | null;
+    readonly finishedAt: any | null | undefined;
+    readonly pendingAt: any | null | undefined;
+    readonly runningAt: any | null | undefined;
   };
   readonly " $fragmentType": "RunJobDialog_currentJob";
 };

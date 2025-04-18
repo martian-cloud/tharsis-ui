@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<89418ed3967dcb34ea9402f69e752c06>>
+ * @generated SignedSource<<0c7a39b4d0edb1278533887c5923fde2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UnlockWorkspaceInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   workspacePath: string;
 };
 export type WorkspaceStateSettingsUnlockWorkspaceMutation$variables = {
@@ -20,14 +20,14 @@ export type WorkspaceStateSettingsUnlockWorkspaceMutation$variables = {
 export type WorkspaceStateSettingsUnlockWorkspaceMutation$data = {
   readonly unlockWorkspace: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly workspace: {
       readonly fullPath: string;
       readonly locked: boolean;
-    } | null;
+    } | null | undefined;
   };
 };
 export type WorkspaceStateSettingsUnlockWorkspaceMutation = {

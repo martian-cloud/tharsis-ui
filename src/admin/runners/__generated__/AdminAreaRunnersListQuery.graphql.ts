@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<36eaa38abf61f085144a5d11242ed547>>
+ * @generated SignedSource<<e64de620d9639a32924e8304d43e73d5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AdminAreaRunnersListQuery$variables = {
-  after?: string | null;
+  after?: string | null | undefined;
   first: number;
 };
 export type AdminAreaRunnersListQuery$data = {

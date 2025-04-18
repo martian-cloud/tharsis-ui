@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cb13e8ec1940146d4c2ee14bfdbbe056>>
+ * @generated SignedSource<<407c1d3057b7050e7ca7647cc2afdb3c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type StateVersionDependencyListItemFragment_dependency$data = {
   readonly stateVersion: {
@@ -16,13 +16,13 @@ export type StateVersionDependencyListItemFragment_dependency$data = {
     readonly metadata: {
       readonly updatedAt: any;
     };
-  } | null;
+  } | null | undefined;
   readonly workspace: {
     readonly currentStateVersion: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
     readonly id: string;
-  } | null;
+  } | null | undefined;
   readonly workspacePath: string;
   readonly " $fragmentType": "StateVersionDependencyListItemFragment_dependency";
 };

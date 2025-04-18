@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5446a6f13e8d65a3f8ffa956c59991b9>>
+ * @generated SignedSource<<621cf4e60994f68eb12961353f18bd37>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type JobType = "apply" | "plan" | "%future added value";
 export type ManagedIdentityAccessRuleType = "eligible_principals" | "module_attestation" | "%future added value";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateManagedIdentityInput = {
-  accessRules?: ReadonlyArray<ManagedIdentityAccessRuleInput> | null;
-  clientMutationId?: string | null;
+  accessRules?: ReadonlyArray<ManagedIdentityAccessRuleInput> | null | undefined;
+  clientMutationId?: string | null | undefined;
   data: string;
   description: string;
   groupPath: string;
@@ -23,16 +23,16 @@ export type CreateManagedIdentityInput = {
   type: string;
 };
 export type ManagedIdentityAccessRuleInput = {
-  allowedServiceAccounts?: ReadonlyArray<string> | null;
-  allowedTeams?: ReadonlyArray<string> | null;
-  allowedUsers?: ReadonlyArray<string> | null;
-  moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null;
+  allowedServiceAccounts?: ReadonlyArray<string> | null | undefined;
+  allowedTeams?: ReadonlyArray<string> | null | undefined;
+  allowedUsers?: ReadonlyArray<string> | null | undefined;
+  moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null | undefined;
   runStage: JobType;
   type: ManagedIdentityAccessRuleType;
-  verifyStateLineage?: boolean | null;
+  verifyStateLineage?: boolean | null | undefined;
 };
 export type ManagedIdentityAccessRuleModuleAttestationPolicyInput = {
-  predicateType?: string | null;
+  predicateType?: string | null | undefined;
   publicKey: string;
 };
 export type NewManagedIdentityMutation$variables = {
@@ -44,9 +44,9 @@ export type NewManagedIdentityMutation$data = {
     readonly managedIdentity: {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityListItemFragment_managedIdentity">;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

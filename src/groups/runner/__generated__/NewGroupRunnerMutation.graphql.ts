@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ca5564f9f300fbe57d0c2bfae627ae20>>
+ * @generated SignedSource<<92a759e2631298d8a1d8aa44b91ad228>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateRunnerInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   description: string;
-  disabled?: boolean | null;
+  disabled?: boolean | null | undefined;
   groupPath: string;
   name: string;
   runUntaggedJobs: boolean;
@@ -27,14 +27,14 @@ export type NewGroupRunnerMutation$variables = {
 export type NewGroupRunnerMutation$data = {
   readonly createRunner: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly runner: {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"RunnerListItemFragment_runner">;
-    } | null;
+    } | null | undefined;
   };
 };
 export type NewGroupRunnerMutation = {

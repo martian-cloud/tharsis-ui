@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b9173fa5705de53333c723fbb4a8a116>>
+ * @generated SignedSource<<3e029dd7420e492e28cd5258aaca03c8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type JobLogStreamSubscriptionInput = {
   jobId: string;
-  lastSeenLogSize?: number | null;
+  lastSeenLogSize?: number | null | undefined;
 };
 export type JobLogsSubscription$variables = {
   input: JobLogStreamSubscriptionInput;

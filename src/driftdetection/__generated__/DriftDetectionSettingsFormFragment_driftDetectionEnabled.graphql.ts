@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f064ac872548a55b933b7e28b45fbf43>>
+ * @generated SignedSource<<68fcbdb413a7108fd9b62d7beb955688>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DriftDetectionSettingsFormFragment_driftDetectionEnabled$data = {
   readonly inherited: boolean;

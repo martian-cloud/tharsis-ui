@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ebac3381bb9a13f9a6dd607aee63a38d>>
+ * @generated SignedSource<<19f11f7f4f082fe046cbb5fa772440cb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AdminAreaEntryPointFragment_me$data = {
   readonly me: {
     readonly admin?: boolean;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "AdminAreaEntryPointFragment_me";
 };
 export type AdminAreaEntryPointFragment_me$key = {

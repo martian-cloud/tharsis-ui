@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b8950294dbcc117c11d1e6e0040e5f73>>
+ * @generated SignedSource<<00de6c09592d1e683d171db4d23fd050>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AdminAreaRunnerDetailsQuery$variables = {
   id: string;
@@ -18,7 +18,7 @@ export type AdminAreaRunnerDetailsQuery$data = {
     readonly id?: string;
     readonly name?: string;
     readonly " $fragmentSpreads": FragmentRefs<"RunnerDetailsFragment_runner">;
-  } | null;
+  } | null | undefined;
 };
 export type AdminAreaRunnerDetailsQuery = {
   response: AdminAreaRunnerDetailsQuery$data;

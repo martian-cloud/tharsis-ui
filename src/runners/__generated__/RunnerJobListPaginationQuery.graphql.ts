@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aa91ea16e72079714cf5de076784097c>>
+ * @generated SignedSource<<175432e12c5e65c43fac349d3e9e113c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunnerJobListPaginationQuery$variables = {
-  after?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
   id: string;
 };
 export type RunnerJobListPaginationQuery$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"RunnerJobListFragment_jobs">;
-  } | null;
+  } | null | undefined;
 };
 export type RunnerJobListPaginationQuery = {
   response: RunnerJobListPaginationQuery$data;

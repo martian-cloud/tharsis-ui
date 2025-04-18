@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3026a512909b2f5987d2f298a777a08c>>
+ * @generated SignedSource<<c7c4f1a906fc5c7e53949756eb4b6b84>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MaxJobDurationSettingFragment_workspace$data = {
   readonly maxJobDuration: number;

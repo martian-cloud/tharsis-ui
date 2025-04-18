@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0116aa4d1ab9491ae5682497895dab45>>
+ * @generated SignedSource<<feda1f235d0d2c612c3051bd9077c886>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupDetailsIndexFragment_group$data = {
   readonly descendentGroups: {

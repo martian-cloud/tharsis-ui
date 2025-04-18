@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f55c18d65f83914d62796bf61e3e0b93>>
+ * @generated SignedSource<<9c70303ff80a65106c7290f184c8decc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ActivityEventListItemFragment_event$data = {
   readonly id: string;

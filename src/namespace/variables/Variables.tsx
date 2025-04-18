@@ -241,6 +241,7 @@ function Variables(props: Props) {
             </Routes>
             {variableToShowHistory && <VariableHistoryDialog
                 variableId={variableToShowHistory.id}
+                sensitive={variableToShowHistory.sensitive}
                 onClose={() => setVariableToShowHistory(null)}
             />}
             {variableToEdit && <EditVariableDialog variable={variableToEdit} namespacePath={data.fullPath} onClose={() => setVariableToEdit(null)} />}

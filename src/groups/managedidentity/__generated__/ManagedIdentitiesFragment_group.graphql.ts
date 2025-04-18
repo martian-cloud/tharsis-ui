@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8fe3e6ac4c9072473fa26e099cb34299>>
+ * @generated SignedSource<<6a75e20c6cc2237ba981f5248b62e3dc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ManagedIdentitiesFragment_group$data = {
   readonly " $fragmentSpreads": FragmentRefs<"EditManagedIdentityFragment_group" | "ManagedIdentityDetailsFragment_group" | "ManagedIdentityListFragment_group" | "NewManagedIdentityFragment_group">;

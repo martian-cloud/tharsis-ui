@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<00fb4ea053453743889a4d825bdf3c3e>>
+ * @generated SignedSource<<b4a3da6720ff25bb234d7bcc6b3c0494>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NamespaceMembershipListFragment_memberships$data = {
   readonly fullPath: string;
@@ -29,7 +29,7 @@ export type NamespaceMembershipListFragment_memberships$data = {
       // This will never be '%other', but we need some
       // value in case none of the concrete values match.
       readonly __typename: "%other";
-    } | null;
+    } | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"NamespaceMembershipListItemFragment_membership">;
   }>;
   readonly " $fragmentType": "NamespaceMembershipListFragment_memberships";

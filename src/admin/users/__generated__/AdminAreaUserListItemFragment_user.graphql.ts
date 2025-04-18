@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<00e311560707551fb1c5adcc2324bb0b>>
+ * @generated SignedSource<<85a93b5ab71d4f2869542947268b7dc4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AdminAreaUserListItemFragment_user$data = {
   readonly active: boolean;
@@ -18,7 +18,7 @@ export type AdminAreaUserListItemFragment_user$data = {
   readonly metadata: {
     readonly createdAt: any;
   };
-  readonly scimExternalId: string | null;
+  readonly scimExternalId: string | null | undefined;
   readonly username: string;
   readonly " $fragmentType": "AdminAreaUserListItemFragment_user";
 };

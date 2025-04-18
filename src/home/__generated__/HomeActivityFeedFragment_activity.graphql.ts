@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1fee2ea3c8c9072996b34dc0a7ccf8f6>>
+ * @generated SignedSource<<465d10760b63e5d581fcba0dd6c4b732>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HomeActivityFeedFragment_activity$data = {
   readonly activityEvents: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"ActivityEventListFragment_connection">;
   };
   readonly " $fragmentType": "HomeActivityFeedFragment_activity";

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9bd26fe6a9bdcf5671d9be9a0ba65f9f>>
+ * @generated SignedSource<<78987fe5cc4e404d05df3d68f6de351c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupTreeFragment_connection$data = {
   readonly edges: ReadonlyArray<{
     readonly node: {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"GroupTreeListItemFragment_group">;
-    } | null;
-  } | null> | null;
+    } | null | undefined;
+  } | null | undefined> | null | undefined;
   readonly totalCount: number;
   readonly " $fragmentType": "GroupTreeFragment_connection";
 };

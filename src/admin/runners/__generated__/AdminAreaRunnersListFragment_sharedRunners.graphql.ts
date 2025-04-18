@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<16cb9badede0365b07ae493ab49e4f22>>
+ * @generated SignedSource<<b047b886510926dca095f70fcbb5feac>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AdminAreaRunnersListFragment_sharedRunners$data = {
   readonly sharedRunners: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"RunnerListFragment_runners">;
   };
   readonly " $fragmentType": "AdminAreaRunnersListFragment_sharedRunners";

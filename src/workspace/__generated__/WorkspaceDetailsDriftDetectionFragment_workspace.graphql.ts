@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0219448de0322dc41890039da6e9dd13>>
+ * @generated SignedSource<<788a14791a10f1411e3e87c3f99dd969>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type WorkspaceDetailsDriftDetectionFragment_workspace$data = {
   readonly assessment: {
-    readonly completedAt: any | null;
+    readonly completedAt: any | null | undefined;
     readonly hasDrift: boolean;
     readonly run: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
     readonly startedAt: any;
-  } | null;
+  } | null | undefined;
   readonly fullPath: string;
   readonly id: string;
   readonly " $fragmentType": "WorkspaceDetailsDriftDetectionFragment_workspace";

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<25df6fd3b5fbb1e00907c38ee87a3e52>>
+ * @generated SignedSource<<213ce4cda33137409b3f77bf16d5a7d5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type VCSProviderType = "github" | "gitlab" | "%future added value";
 export type VCSProviderAutocompleteQuery$variables = {
   path: string;
@@ -24,10 +24,10 @@ export type VCSProviderAutocompleteQuery$data = {
           readonly id: string;
           readonly name: string;
           readonly type: VCSProviderType;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
     };
-  } | null;
+  } | null | undefined;
 };
 export type VCSProviderAutocompleteQuery = {
   response: VCSProviderAutocompleteQuery$data;

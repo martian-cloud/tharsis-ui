@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<102838f344a976a4a50d1423d48da95c>>
+ * @generated SignedSource<<ae60cc794f825d0336e1f9b4c2f87b34>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupSort = "FULL_PATH_ASC" | "FULL_PATH_DESC" | "GROUP_LEVEL_ASC" | "GROUP_LEVEL_DESC" | "UPDATED_AT_ASC" | "UPDATED_AT_DESC" | "%future added value";
 export type GroupsPaginationQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
-  last?: number | null;
-  parentPath?: string | null;
-  search?: string | null;
-  sort?: GroupSort | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  parentPath?: string | null | undefined;
+  search?: string | null | undefined;
+  sort?: GroupSort | null | undefined;
 };
 export type GroupsPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"GroupTreeContainerFragment_groups">;

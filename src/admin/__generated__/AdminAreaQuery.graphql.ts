@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bdb7a4a11460cbe1b4f1d358f0846a0a>>
+ * @generated SignedSource<<868b10f93aae5b04a2c0ffee3b88ba94>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,9 +8,9 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AdminAreaQuery$variables = {};
+export type AdminAreaQuery$variables = Record<PropertyKey, never>;
 export type AdminAreaQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"AdminAreaEntryPointFragment_me">;
 };

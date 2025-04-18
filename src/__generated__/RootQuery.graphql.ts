@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2876f6d578e285491296cccbd84d8d45>>
+ * @generated SignedSource<<51a7e263c77d1bd1a18230ba865c712b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,16 +8,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RootQuery$variables = {};
+export type RootQuery$variables = Record<PropertyKey, never>;
 export type RootQuery$data = {
   readonly me: {
     readonly admin?: boolean;
     readonly email?: string;
     readonly id?: string;
     readonly username?: string;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"AppHeaderFragment">;
 };
 export type RootQuery = {

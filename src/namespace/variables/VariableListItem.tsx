@@ -67,7 +67,7 @@ function VariableListItem(props: Props) {
                         </React.Fragment>}
                         {data.sensitive && <SensitiveVariableValue variableVersionId={data.latestVersionId} />}
                     </>}
-                    {data.value !== null && <CopyButton
+                    {data.value != null && <CopyButton
                         data={data.value}
                         toolTip="Copy value"
                     />}

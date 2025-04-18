@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6267e576ecf67d214afd21f0a8858b48>>
+ * @generated SignedSource<<f69c9c8c9e14c24fc200744df6acc631>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ManagedIdentityWorkspaceListQuery$variables = {
-  after?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
   managedIdentityId: string;
 };
 export type ManagedIdentityWorkspaceListQuery$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityWorkspaceListFragment_workspaces">;
-  } | null;
+  } | null | undefined;
 };
 export type ManagedIdentityWorkspaceListQuery = {
   response: ManagedIdentityWorkspaceListQuery$data;

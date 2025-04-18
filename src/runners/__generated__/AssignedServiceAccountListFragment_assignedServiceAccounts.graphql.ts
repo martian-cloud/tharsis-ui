@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ea9fc9eda4d7f840c36c45680c945027>>
+ * @generated SignedSource<<5d63c22ff95d9000a17aeaa63098192f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type RunnerType = "group" | "shared" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type AssignedServiceAccountListFragment_assignedServiceAccounts$data = {
@@ -17,8 +17,8 @@ export type AssignedServiceAccountListFragment_assignedServiceAccounts$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"AssignedServiceAccountListItemFragment_assignedServiceAccount">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly group: {
@@ -79,7 +79,10 @@ return {
         "node"
       ],
       "operation": require('./AssignedServiceAccountListPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "AssignedServiceAccountListFragment_assignedServiceAccounts",

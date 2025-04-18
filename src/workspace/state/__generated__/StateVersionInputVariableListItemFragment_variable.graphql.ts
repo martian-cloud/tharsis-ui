@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<42b8c1665c16b455d8c46d7eebaaf315>>
+ * @generated SignedSource<<8b5b1a3435d9dc397288672c5f1540b6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type VariableCategory = "environment" | "terraform" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type StateVersionInputVariableListItemFragment_variable$data = {
   readonly category: VariableCategory;
-  readonly includedInTfConfig: boolean | null;
+  readonly includedInTfConfig: boolean | null | undefined;
   readonly key: string;
-  readonly namespacePath: string | null;
+  readonly namespacePath: string | null | undefined;
   readonly sensitive: boolean;
-  readonly value: string | null;
-  readonly versionId: string | null;
+  readonly value: string | null | undefined;
+  readonly versionId: string | null | undefined;
   readonly " $fragmentType": "StateVersionInputVariableListItemFragment_variable";
 };
 export type StateVersionInputVariableListItemFragment_variable$key = {

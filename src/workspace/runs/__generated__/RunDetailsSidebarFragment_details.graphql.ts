@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aa0b0c44edab8a9e106f9734fce2e105>>
+ * @generated SignedSource<<77a86862cf569692e4b9a81a8124a0b4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ApplyStatus = "canceled" | "created" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type RunStatus = "applied" | "apply_queued" | "applying" | "canceled" | "errored" | "pending" | "plan_queued" | "planned" | "planned_and_finished" | "planning" | "%future added value";
@@ -17,30 +17,30 @@ export type RunDetailsSidebarFragment_details$data = {
   readonly apply: {
     readonly currentJob: {
       readonly cancelRequested: boolean;
-      readonly runnerPath: string | null;
-    } | null;
+      readonly runnerPath: string | null | undefined;
+    } | null | undefined;
     readonly metadata: {
       readonly createdAt: any;
     };
     readonly status: ApplyStatus;
-  } | null;
+  } | null | undefined;
   readonly assessment: boolean;
   readonly configurationVersion: {
     readonly id: string;
-  } | null;
+  } | null | undefined;
   readonly createdBy: string;
   readonly id: string;
   readonly isDestroy: boolean;
   readonly metadata: {
     readonly createdAt: any;
   };
-  readonly moduleSource: string | null;
-  readonly moduleVersion: string | null;
+  readonly moduleSource: string | null | undefined;
+  readonly moduleVersion: string | null | undefined;
   readonly plan: {
     readonly currentJob: {
       readonly cancelRequested: boolean;
-      readonly runnerPath: string | null;
-    } | null;
+      readonly runnerPath: string | null | undefined;
+    } | null | undefined;
     readonly metadata: {
       readonly createdAt: any;
     };

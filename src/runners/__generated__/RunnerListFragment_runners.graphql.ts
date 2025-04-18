@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<468e46e908b0cf22b4db9418ee1167fc>>
+ * @generated SignedSource<<edb4ab426729c280affe2f12a52c113a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunnerListFragment_runners$data = {
   readonly edges: ReadonlyArray<{
@@ -16,8 +16,8 @@ export type RunnerListFragment_runners$data = {
       readonly groupPath: string;
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"RunnerListItemFragment_runner">;
-    } | null;
-  } | null> | null;
+    } | null | undefined;
+  } | null | undefined> | null | undefined;
   readonly " $fragmentType": "RunnerListFragment_runners";
 };
 export type RunnerListFragment_runners$key = {

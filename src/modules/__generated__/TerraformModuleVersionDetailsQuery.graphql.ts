@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<075af94cc58387c1712c1035fee7391c>>
+ * @generated SignedSource<<2e094ded6614602475a3ea8ada5866fe>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,21 +8,21 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleVersionDetailsQuery$variables = {
-  after?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
   moduleName: string;
   registryNamespace: string;
   system: string;
-  version?: string | null;
+  version?: string | null | undefined;
 };
 export type TerraformModuleVersionDetailsQuery$data = {
   readonly terraformModuleVersion: {
     readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionDetailsIndexFragment_details">;
-  } | null;
+  } | null | undefined;
 };
 export type TerraformModuleVersionDetailsQuery = {
   response: TerraformModuleVersionDetailsQuery$data;

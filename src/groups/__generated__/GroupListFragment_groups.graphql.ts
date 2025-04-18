@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<924d633b49a0af53bf5ea7a927e42898>>
+ * @generated SignedSource<<16c60e91a338344c89c05a826872b4bb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupListFragment_groups$data = {
   readonly groups: {
@@ -16,8 +16,8 @@ export type GroupListFragment_groups$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"GroupListItemFragment_group">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly " $fragmentType": "GroupListFragment_groups";

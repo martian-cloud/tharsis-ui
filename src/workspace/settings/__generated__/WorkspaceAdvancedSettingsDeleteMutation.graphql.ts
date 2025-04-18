@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<94a5a9afdb70a600816ac7b54593cc6d>>
+ * @generated SignedSource<<932fe9126141c5c39440e06c761d5463>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteWorkspaceInput = {
-  clientMutationId?: string | null;
-  force?: boolean | null;
-  id?: string | null;
-  metadata?: ResourceMetadataInput | null;
-  workspacePath?: string | null;
+  clientMutationId?: string | null | undefined;
+  force?: boolean | null | undefined;
+  id?: string | null | undefined;
+  metadata?: ResourceMetadataInput | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type ResourceMetadataInput = {
   version: string;
@@ -27,13 +27,13 @@ export type WorkspaceAdvancedSettingsDeleteMutation$variables = {
 export type WorkspaceAdvancedSettingsDeleteMutation$data = {
   readonly deleteWorkspace: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly workspace: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type WorkspaceAdvancedSettingsDeleteMutation = {

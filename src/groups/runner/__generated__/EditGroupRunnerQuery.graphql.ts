@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bd0294d6024856e2116b0d9ff482a194>>
+ * @generated SignedSource<<1f4fa1c833905d1cd7220619bdd7a5fa>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type EditGroupRunnerQuery$variables = {
   id: string;
 };
@@ -20,7 +20,7 @@ export type EditGroupRunnerQuery$data = {
     readonly name?: string;
     readonly runUntaggedJobs?: boolean;
     readonly tags?: ReadonlyArray<string>;
-  } | null;
+  } | null | undefined;
 };
 export type EditGroupRunnerQuery = {
   response: EditGroupRunnerQuery$data;

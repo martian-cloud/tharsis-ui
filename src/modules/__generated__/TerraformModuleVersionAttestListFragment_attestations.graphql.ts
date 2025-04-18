@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ad43b44b0f7b70408b950ce362113668>>
+ * @generated SignedSource<<99b8a9dfbf25348c45f26a9d9b1548e7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleVersionAttestListFragment_attestations$data = {
   readonly attestations: {
@@ -17,8 +17,8 @@ export type TerraformModuleVersionAttestListFragment_attestations$data = {
         readonly data: string;
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionAttestListItemFragment_module">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly id: string;
   readonly " $fragmentType": "TerraformModuleVersionAttestListFragment_attestations";
@@ -73,7 +73,10 @@ return {
         "node"
       ],
       "operation": require('./TerraformModuleVersionAttestListPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "TerraformModuleVersionAttestListFragment_attestations",

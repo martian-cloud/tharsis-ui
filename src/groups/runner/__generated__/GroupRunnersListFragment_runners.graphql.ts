@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<608d23e047c51120bec80fdb235c4f1d>>
+ * @generated SignedSource<<e88f0f7d48c71652495aefcd0981b68b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupRunnersListFragment_runners$data = {
   readonly id: string;
@@ -16,8 +16,8 @@ export type GroupRunnersListFragment_runners$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"RunnerListFragment_runners">;
   };
   readonly " $fragmentType": "GroupRunnersListFragment_runners";
@@ -72,7 +72,10 @@ return {
         "node"
       ],
       "operation": require('./GroupRunnersListPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "GroupRunnersListFragment_runners",

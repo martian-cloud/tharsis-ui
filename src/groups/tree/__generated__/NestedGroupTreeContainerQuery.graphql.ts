@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e570d2bac9d9151dc5e3019aa7b8c54e>>
+ * @generated SignedSource<<bc66f44166fefa90f4ea051f4b7fe28e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NestedGroupTreeContainerQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
-  last?: number | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
   parentPath: string;
 };
 export type NestedGroupTreeContainerQuery$data = {

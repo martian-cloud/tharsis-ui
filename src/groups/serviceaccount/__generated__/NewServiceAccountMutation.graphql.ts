@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e013ce9c5cb502f1a6942edc85e66b89>>
+ * @generated SignedSource<<ae2643b1d7c64a4d37a28cd1a8035f9b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,11 +8,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type BoundClaimsType = "GLOB" | "STRING" | "%future added value";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateServiceAccountInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   description: string;
   groupPath: string;
   name: string;
@@ -20,7 +20,7 @@ export type CreateServiceAccountInput = {
 };
 export type OIDCTrustPolicyInput = {
   boundClaims: ReadonlyArray<JWTClaimInput>;
-  boundClaimsType?: BoundClaimsType | null;
+  boundClaimsType?: BoundClaimsType | null | undefined;
   issuer: string;
 };
 export type JWTClaimInput = {
@@ -34,7 +34,7 @@ export type NewServiceAccountMutation$variables = {
 export type NewServiceAccountMutation$data = {
   readonly createServiceAccount: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -52,7 +52,7 @@ export type NewServiceAccountMutation$data = {
         readonly issuer: string;
       }>;
       readonly resourcePath: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type NewServiceAccountMutation = {

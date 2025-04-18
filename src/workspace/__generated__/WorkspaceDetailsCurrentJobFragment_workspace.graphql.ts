@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e52e48aeaa6a936a503f05c5ce91227d>>
+ * @generated SignedSource<<7ff695d51aa3a01cae4bd6a913ef3224>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ApplyStatus = "canceled" | "created" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type JobType = "apply" | "plan" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
@@ -24,19 +24,19 @@ export type WorkspaceDetailsCurrentJobFragment_workspace$data = {
           readonly updatedAt: any;
         };
         readonly status: ApplyStatus;
-        readonly triggeredBy: string | null;
-      } | null;
+        readonly triggeredBy: string | null | undefined;
+      } | null | undefined;
       readonly configurationVersion: {
         readonly id: string;
-      } | null;
+      } | null | undefined;
       readonly createdBy: string;
       readonly id: string;
       readonly isDestroy: boolean;
       readonly metadata: {
         readonly createdAt: any;
       };
-      readonly moduleSource: string | null;
-      readonly moduleVersion: string | null;
+      readonly moduleSource: string | null | undefined;
+      readonly moduleVersion: string | null | undefined;
       readonly plan: {
         readonly metadata: {
           readonly createdAt: any;
@@ -46,7 +46,7 @@ export type WorkspaceDetailsCurrentJobFragment_workspace$data = {
       readonly status: RunStatus;
     };
     readonly type: JobType;
-  } | null;
+  } | null | undefined;
   readonly fullPath: string;
   readonly id: string;
   readonly " $fragmentType": "WorkspaceDetailsCurrentJobFragment_workspace";

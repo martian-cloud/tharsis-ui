@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bb535a2235f8aadebc72a682222ec336>>
+ * @generated SignedSource<<9ae70c8a409b5da8ec9fc27a98ed59a8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformProviderSearchListItemFragment_provider$data = {
   readonly id: string;
@@ -18,7 +18,7 @@ export type TerraformProviderSearchListItemFragment_provider$data = {
       readonly createdAt: any;
     };
     readonly version: string;
-  } | null;
+  } | null | undefined;
   readonly name: string;
   readonly private: boolean;
   readonly registryNamespace: string;

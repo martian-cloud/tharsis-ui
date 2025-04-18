@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fa64e8c3dfdbc8888047b21edc3b4f60>>
+ * @generated SignedSource<<5741bf95d4ded3c506bb00f03db21043>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type RunnerType = "group" | "shared" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type RunnerJobListFragment_jobs$data = {
@@ -18,8 +18,8 @@ export type RunnerJobListFragment_jobs$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"RunnerJobListItemFragment">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly type: RunnerType;
@@ -75,7 +75,10 @@ return {
         "node"
       ],
       "operation": require('./RunnerJobListPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "RunnerJobListFragment_jobs",

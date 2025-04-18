@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a959b4175c15aa7f7c752c6294a9f29>>
+ * @generated SignedSource<<0eca6ce087c584d71e005d1157883dc7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,20 +8,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateGroupInput = {
-  clientMutationId?: string | null;
-  description?: string | null;
-  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null;
-  groupPath?: string | null;
-  id?: string | null;
-  metadata?: ResourceMetadataInput | null;
-  runnerTags?: NamespaceRunnerTagsInput | null;
+  clientMutationId?: string | null | undefined;
+  description?: string | null | undefined;
+  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null | undefined;
+  groupPath?: string | null | undefined;
+  id?: string | null | undefined;
+  metadata?: ResourceMetadataInput | null | undefined;
+  runnerTags?: NamespaceRunnerTagsInput | null | undefined;
 };
 export type NamespaceDriftDetectionEnabledInput = {
-  enabled?: boolean | null;
+  enabled?: boolean | null | undefined;
   inherit: boolean;
 };
 export type ResourceMetadataInput = {
@@ -29,7 +29,7 @@ export type ResourceMetadataInput = {
 };
 export type NamespaceRunnerTagsInput = {
   inherit: boolean;
-  tags?: ReadonlyArray<string> | null;
+  tags?: ReadonlyArray<string> | null | undefined;
 };
 export type GroupRunnerSettingsMutation$variables = {
   input: UpdateGroupInput;
@@ -43,9 +43,9 @@ export type GroupRunnerSettingsMutation$data = {
         readonly value: ReadonlyArray<string>;
       };
       readonly " $fragmentSpreads": FragmentRefs<"GroupRunnerSettingsFragment_group">;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

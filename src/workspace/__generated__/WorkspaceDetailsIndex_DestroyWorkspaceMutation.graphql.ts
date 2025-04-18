@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7d76f2e5b845192c4f9bd578c547b46b>>
+ * @generated SignedSource<<79c46fe58f3f4a8c779036079f4f246a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DestroyWorkspaceInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   workspacePath: string;
 };
 export type WorkspaceDetailsIndex_DestroyWorkspaceMutation$variables = {
@@ -20,13 +20,13 @@ export type WorkspaceDetailsIndex_DestroyWorkspaceMutation$variables = {
 export type WorkspaceDetailsIndex_DestroyWorkspaceMutation$data = {
   readonly destroyWorkspace: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly run: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type WorkspaceDetailsIndex_DestroyWorkspaceMutation = {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9a6c8d89b19c2d09bef9951524f04dc7>>
+ * @generated SignedSource<<d50ce93de9da824ce56e9403640428c0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type RunnerSessionErrorLogDialogQuery$variables = {
   id: string;
   limit: number;
@@ -19,11 +19,11 @@ export type RunnerSessionErrorLogDialogQuery$data = {
     readonly errorCount?: number;
     readonly errorLog?: {
       readonly data: string;
-      readonly lastUpdatedAt: any | null;
+      readonly lastUpdatedAt: any | null | undefined;
       readonly size: number;
-    } | null;
+    } | null | undefined;
     readonly id?: string;
-  } | null;
+  } | null | undefined;
 };
 export type RunnerSessionErrorLogDialogQuery = {
   response: RunnerSessionErrorLogDialogQuery$data;

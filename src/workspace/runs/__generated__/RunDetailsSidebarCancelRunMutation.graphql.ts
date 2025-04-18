@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c94aaaf95767f9aa0693f8eeda4db45a>>
+ * @generated SignedSource<<a194569c0e75ca8062788a28d15d109d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CancelRunInput = {
-  clientMutationId?: string | null;
-  comment?: string | null;
-  force?: boolean | null;
+  clientMutationId?: string | null | undefined;
+  comment?: string | null | undefined;
+  force?: boolean | null | undefined;
   runId: string;
 };
 export type RunDetailsSidebarCancelRunMutation$variables = {
@@ -23,13 +23,13 @@ export type RunDetailsSidebarCancelRunMutation$variables = {
 export type RunDetailsSidebarCancelRunMutation$data = {
   readonly cancelRun: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly run: {
       readonly " $fragmentSpreads": FragmentRefs<"RunDetailsSidebarFragment_details">;
-    } | null;
+    } | null | undefined;
   };
 };
 export type RunDetailsSidebarCancelRunMutation = {

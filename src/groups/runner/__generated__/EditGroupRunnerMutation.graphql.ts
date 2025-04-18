@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3f3e73b2b14e9197cff31cbdbbad4839>>
+ * @generated SignedSource<<ce52b6911756c3bf7e634cc9ecf3331e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateRunnerInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   description: string;
-  disabled?: boolean | null;
+  disabled?: boolean | null | undefined;
   id: string;
-  metadata?: ResourceMetadataInput | null;
-  runUntaggedJobs?: boolean | null;
-  tags?: ReadonlyArray<string> | null;
+  metadata?: ResourceMetadataInput | null | undefined;
+  runUntaggedJobs?: boolean | null | undefined;
+  tags?: ReadonlyArray<string> | null | undefined;
 };
 export type ResourceMetadataInput = {
   version: string;
@@ -29,13 +29,13 @@ export type EditGroupRunnerMutation$variables = {
 export type EditGroupRunnerMutation$data = {
   readonly updateRunner: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly runner: {
       readonly " $fragmentSpreads": FragmentRefs<"RunnerListItemFragment_runner">;
-    } | null;
+    } | null | undefined;
   };
 };
 export type EditGroupRunnerMutation = {

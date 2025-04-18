@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2c31e32949c943ed427d862e1359e7b0>>
+ * @generated SignedSource<<e67a1bc365290c5b95e9962d8309f57c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type SensitiveVariableValueQuery$variables = {
   id: string;
+  includeSensitiveValue: boolean;
 };
 export type SensitiveVariableValueQuery$data = {
   readonly namespaceVariableVersion: {
     readonly id: string;
-    readonly value: string | null;
-  } | null;
+    readonly value: string | null | undefined;
+  } | null | undefined;
 };
 export type SensitiveVariableValueQuery = {
   response: SensitiveVariableValueQuery$data;
@@ -29,6 +30,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "id"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "includeSensitiveValue"
   }
 ],
 v1 = [
@@ -41,9 +47,9 @@ v1 = [
         "variableName": "id"
       },
       {
-        "kind": "Literal",
+        "kind": "Variable",
         "name": "includeSensitiveValue",
-        "value": true
+        "variableName": "includeSensitiveValue"
       }
     ],
     "concreteType": "NamespaceVariableVersion",
@@ -87,16 +93,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "da0a3c24970a4e06480dba830351703a",
+    "cacheID": "221ee73a45728562ebbd75957c521c28",
     "id": null,
     "metadata": {},
     "name": "SensitiveVariableValueQuery",
     "operationKind": "query",
-    "text": "query SensitiveVariableValueQuery(\n  $id: String!\n) {\n  namespaceVariableVersion(id: $id, includeSensitiveValue: true) {\n    id\n    value\n  }\n}\n"
+    "text": "query SensitiveVariableValueQuery(\n  $id: String!\n  $includeSensitiveValue: Boolean!\n) {\n  namespaceVariableVersion(id: $id, includeSensitiveValue: $includeSensitiveValue) {\n    id\n    value\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "73e4878f0dcdbdc85ae33b9d0bb38b21";
+(node as any).hash = "a0c71be2b25b742c91f6efcb46a0cfa4";
 
 export default node;

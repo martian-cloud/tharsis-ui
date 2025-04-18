@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7cde52c5eb53fb9f730f01d31ea4b49e>>
+ * @generated SignedSource<<c448bd79baa8776d17d46916cf6488d8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type MoveManagedIdentityInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   managedIdentityId: string;
   newParentPath: string;
 };
@@ -24,9 +24,9 @@ export type MoveManagedIdentityDialogMutation$data = {
     readonly managedIdentity: {
       readonly groupPath: string;
       readonly id: string;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e1c112dab55a8bc872101c05f914101d>>
+ * @generated SignedSource<<7bc9a16ed49399b999988578870acfe4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GPGKeyListItemFragment_key$data = {
   readonly createdBy: string;

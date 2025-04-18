@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<56af4e05f17e31c2d59c4931e966173f>>
+ * @generated SignedSource<<0b9ed10d1fdb8bfc8f839cc308b7cafb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,26 +8,26 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateWorkspaceInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   description: string;
-  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null;
+  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null | undefined;
   groupPath: string;
-  maxJobDuration?: number | null;
+  maxJobDuration?: number | null | undefined;
   name: string;
-  preventDestroyPlan?: boolean | null;
-  runnerTags?: NamespaceRunnerTagsInput | null;
-  terraformVersion?: string | null;
+  preventDestroyPlan?: boolean | null | undefined;
+  runnerTags?: NamespaceRunnerTagsInput | null | undefined;
+  terraformVersion?: string | null | undefined;
 };
 export type NamespaceDriftDetectionEnabledInput = {
-  enabled?: boolean | null;
+  enabled?: boolean | null | undefined;
   inherit: boolean;
 };
 export type NamespaceRunnerTagsInput = {
   inherit: boolean;
-  tags?: ReadonlyArray<string> | null;
+  tags?: ReadonlyArray<string> | null | undefined;
 };
 export type NewWorkspaceMutation$variables = {
   connections: ReadonlyArray<string>;
@@ -36,7 +36,7 @@ export type NewWorkspaceMutation$variables = {
 export type NewWorkspaceMutation$data = {
   readonly createWorkspace: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -44,7 +44,7 @@ export type NewWorkspaceMutation$data = {
       readonly fullPath: string;
       readonly id: string;
       readonly name: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type NewWorkspaceMutation = {

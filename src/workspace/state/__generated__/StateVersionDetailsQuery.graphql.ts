@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c58894c1379395a928f50327ba731bee>>
+ * @generated SignedSource<<f706d1d0b39b358f70827c382707adac>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type StateVersionDetailsQuery$variables = {
   id: string;
@@ -22,9 +22,9 @@ export type StateVersionDetailsQuery$data = {
     };
     readonly run?: {
       readonly createdBy: string;
-    } | null;
+    } | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"StateVersionFileFragment_stateVersion">;
-  } | null;
+  } | null | undefined;
 };
 export type StateVersionDetailsQuery = {
   response: StateVersionDetailsQuery$data;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7246b1f33129b4f0319923f81dd2c6cf>>
+ * @generated SignedSource<<5e8e33e0e81d0ccaed77feae41501817>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunDetailsPlanSummaryFragment_plan$data = {
   readonly summary: {

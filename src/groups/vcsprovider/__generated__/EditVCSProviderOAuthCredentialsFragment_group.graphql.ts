@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5f0d22b291c0e24570674dfbbfe466e2>>
+ * @generated SignedSource<<07bba0e99a8f4dc44a3233b67537ae61>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EditVCSProviderOAuthCredentialsFragment_group$data = {
   readonly fullPath: string;

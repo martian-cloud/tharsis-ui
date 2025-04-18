@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dc43b7868818993d36a16d5655ac1620>>
+ * @generated SignedSource<<93b54fa3c4b18c975a4786946e4cbaa2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GPGKeyListPaginationQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
   groupPath: string;
-  last?: number | null;
+  last?: number | null | undefined;
 };
 export type GPGKeyListPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"GPGKeyListFragment_keys">;

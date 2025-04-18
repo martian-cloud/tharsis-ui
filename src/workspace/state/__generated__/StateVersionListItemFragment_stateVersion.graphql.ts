@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b70e926b2775e333920cb0cd52115574>>
+ * @generated SignedSource<<5ac5283e271d0698924f1a34351b4642>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type StateVersionListItemFragment_stateVersion$data = {
   readonly createdBy: string;
@@ -19,7 +19,7 @@ export type StateVersionListItemFragment_stateVersion$data = {
   readonly run: {
     readonly createdBy: string;
     readonly id: string;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "StateVersionListItemFragment_stateVersion";
 };
 export type StateVersionListItemFragment_stateVersion$key = {

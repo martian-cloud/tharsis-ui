@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4d25eb9b2045fe8a9110ac4d9f40ee1f>>
+ * @generated SignedSource<<1afc8a6070b230f62e7a0da023816ffc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupTreeListItemFragment_group$data = {
   readonly descendentGroups: {

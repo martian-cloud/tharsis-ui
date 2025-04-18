@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1400b9e2359c13701a79b10e951c49b7>>
+ * @generated SignedSource<<de286a8837ef509ef5598a039fc03964>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupTreeContainerFragment_me$data = {
   readonly me: {
     readonly admin?: boolean;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "GroupTreeContainerFragment_me";
 };
 export type GroupTreeContainerFragment_me$key = {

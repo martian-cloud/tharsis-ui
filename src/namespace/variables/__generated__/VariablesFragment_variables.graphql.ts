@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7d7de46685bda03138b7ccd670c0627e>>
+ * @generated SignedSource<<648deda43b2f28540f99dfdc0c9144f9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type VariableCategory = "environment" | "terraform" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type VariablesFragment_variables$data = {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e4b06614f62911b84618f14e52bc8f47>>
+ * @generated SignedSource<<af48190d9ba558fc47f869b7faf2f75c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ServiceAccountDetailsFragment_group$data = {
   readonly fullPath: string;

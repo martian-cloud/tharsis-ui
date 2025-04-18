@@ -7,7 +7,7 @@ function HomeEntryPoint() {
     const [queryRef, loadQuery] = useQueryLoader<HomeQueryType>(HomeQuery)
 
     useEffect(() => {
-        loadQuery({ first: 20 }, { fetchPolicy: 'store-and-network' })
+        loadQuery({}, { fetchPolicy: 'store-and-network' })
     }, [loadQuery])
 
     return queryRef != null ? <Home queryRef={queryRef} /> : null

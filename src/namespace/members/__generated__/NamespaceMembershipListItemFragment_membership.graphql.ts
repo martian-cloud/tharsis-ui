@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<68c0bb0f0e0bf22100fd4e07d912d62e>>
+ * @generated SignedSource<<1fb9c3290c26d22fc7d1b2fe2db01cdd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NamespaceMembershipListItemFragment_membership$data = {
   readonly id: string;
@@ -30,7 +30,7 @@ export type NamespaceMembershipListItemFragment_membership$data = {
     // This will never be '%other', but we need some
     // value in case none of the concrete values match.
     readonly __typename: "%other";
-  } | null;
+  } | null | undefined;
   readonly metadata: {
     readonly createdAt: any;
     readonly updatedAt: any;

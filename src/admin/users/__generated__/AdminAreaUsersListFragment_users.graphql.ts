@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7ee151627d917cd9434f5f24dffeec6a>>
+ * @generated SignedSource<<6fc8674473c8976cbfdf961ab77d1711>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AdminAreaUsersListFragment_users$data = {
   readonly users: {
@@ -16,8 +16,8 @@ export type AdminAreaUsersListFragment_users$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"AdminAreaUserListItemFragment_user">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly " $fragmentType": "AdminAreaUsersListFragment_users";

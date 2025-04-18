@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<301ef9f5a393db9124e26ae9dbe86144>>
+ * @generated SignedSource<<3a93af036e6214ce27d0fe957d3f528b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type RunnerType = "group" | "shared" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type RunnerSessionListFragment_sessions$data = {
@@ -18,8 +18,8 @@ export type RunnerSessionListFragment_sessions$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"RunnerSessionListItemFragment">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly type: RunnerType;
@@ -75,7 +75,10 @@ return {
         "node"
       ],
       "operation": require('./RunnerSessionListPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "RunnerSessionListFragment_sessions",

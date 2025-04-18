@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ef78ad1a3f3fb08224662cb7b29782b7>>
+ * @generated SignedSource<<a72cc7dd121964fc9971d8fd3c58b5ee>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,16 +8,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateNamespaceMembershipInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   namespacePath: string;
   role: string;
-  serviceAccountId?: string | null;
-  teamName?: string | null;
-  username?: string | null;
+  serviceAccountId?: string | null | undefined;
+  teamName?: string | null | undefined;
+  username?: string | null | undefined;
 };
 export type NewNamespaceMembershipCreateNamespaceMembershipMutation$variables = {
   input: CreateNamespaceMembershipInput;
@@ -28,9 +28,9 @@ export type NewNamespaceMembershipCreateNamespaceMembershipMutation$data = {
       readonly memberships: ReadonlyArray<{
         readonly " $fragmentSpreads": FragmentRefs<"NamespaceMembershipListItemFragment_membership">;
       }>;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

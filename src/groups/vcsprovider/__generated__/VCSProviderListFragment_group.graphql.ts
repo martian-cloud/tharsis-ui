@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<df6712dd6c3f84d68f0d97e48870543e>>
+ * @generated SignedSource<<f4ec68f5b650d4c8f6f51d7e48becb8d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type VCSProviderListFragment_group$data = {
   readonly fullPath: string;

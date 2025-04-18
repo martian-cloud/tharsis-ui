@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f80a9405a5953b33e30d0b6e9cef6ad2>>
+ * @generated SignedSource<<65862a1772b5e184707aeee478f6e959>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type RunnerType = "group" | "shared" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type RunnerDetailsFragment_runner$data = {
@@ -29,8 +29,8 @@ export type RunnerDetailsFragment_runner$data = {
       readonly node: {
         readonly active: boolean;
         readonly lastContacted: any;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly tags: ReadonlyArray<string>;
   readonly type: RunnerType;

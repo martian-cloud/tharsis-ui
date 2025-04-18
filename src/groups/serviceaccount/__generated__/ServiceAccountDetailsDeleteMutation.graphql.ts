@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<de41e499a381f379caf41669e129bce1>>
+ * @generated SignedSource<<17904345f40b252c8516e46016e4f786>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteServiceAccountInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   id: string;
-  metadata?: ResourceMetadataInput | null;
+  metadata?: ResourceMetadataInput | null | undefined;
 };
 export type ResourceMetadataInput = {
   version: string;
@@ -25,13 +25,13 @@ export type ServiceAccountDetailsDeleteMutation$variables = {
 export type ServiceAccountDetailsDeleteMutation$data = {
   readonly deleteServiceAccount: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly serviceAccount: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type ServiceAccountDetailsDeleteMutation = {

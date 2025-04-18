@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<19a1c05f77cac3b350981cb5fcd75f7c>>
+ * @generated SignedSource<<95e5400c8e38e784afe0824f9d0ec6a5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TeamDetailsQuery$variables = {
-  after?: string | null;
+  after?: string | null | undefined;
   first: number;
   name: string;
 };
 export type TeamDetailsQuery$data = {
   readonly team: {
     readonly " $fragmentSpreads": FragmentRefs<"TeamDetailsFragment_team">;
-  } | null;
+  } | null | undefined;
 };
 export type TeamDetailsQuery = {
   response: TeamDetailsQuery$data;

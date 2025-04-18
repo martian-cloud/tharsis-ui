@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<455153ff307f00385ab8aa27f2342437>>
+ * @generated SignedSource<<133cb33b94f1b886c7b6f024ac128d2a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NestedGroupsListPaginationQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
-  last?: number | null;
-  parentPath?: string | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  parentPath?: string | null | undefined;
 };
 export type NestedGroupsListPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"NestedGroupTreeContainerFragment_groups">;
