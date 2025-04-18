@@ -28,6 +28,7 @@ function RunListItem(props: Props) {
             createdBy
             status
             isDestroy
+            assessment
             plan {
                 status
             }
@@ -52,7 +53,7 @@ function RunListItem(props: Props) {
             <TableCell>
                 {!data.isDestroy && data.apply && <Chip size="small" label="Apply" />}
                 {data.isDestroy && <Chip size="small" label="Destroy" sx={{ color: red[500] }} />}
-                {!data.apply && <Chip size="small" label="Speculative" />}
+                {!data.apply && <Chip size="small" label={data.assessment ? "Assessment" : "Speculative"} />}
             </TableCell>
             <TableCell>
                 <Box display="flex" alignItems="center">

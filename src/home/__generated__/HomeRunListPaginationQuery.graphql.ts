@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1715538d89c5d948ea9dc48ec46c5292>>
+ * @generated SignedSource<<fb9318241a801d804ad50d1c517e5aea>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -50,6 +50,11 @@ v1 = [
     "kind": "Literal",
     "name": "sort",
     "value": "UPDATED_AT_DESC"
+  },
+  {
+    "kind": "Literal",
+    "name": "workspaceAssessment",
+    "value": false
   }
 ],
 v2 = {
@@ -239,7 +244,8 @@ return {
         "alias": null,
         "args": (v1/*: any*/),
         "filters": [
-          "sort"
+          "sort",
+          "workspaceAssessment"
         ],
         "handle": "connection",
         "key": "HomeRunList_runs",
@@ -249,16 +255,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1d82a91c17bae759269e9733223810df",
+    "cacheID": "1a6873eaa9b251e9106ec9c634551043",
     "id": null,
     "metadata": {},
     "name": "HomeRunListPaginationQuery",
     "operationKind": "query",
-    "text": "query HomeRunListPaginationQuery(\n  $after: String\n  $first: Int\n) {\n  ...HomeRunListFragment_runs\n}\n\nfragment HomeRunListFragment_runs on Query {\n  runs(first: $first, after: $after, sort: UPDATED_AT_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...HomeRunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment HomeRunListItemFragment_run on Run {\n  id\n  createdBy\n  metadata {\n    createdAt\n  }\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n  workspace {\n    fullPath\n    id\n  }\n}\n"
+    "text": "query HomeRunListPaginationQuery(\n  $after: String\n  $first: Int\n) {\n  ...HomeRunListFragment_runs\n}\n\nfragment HomeRunListFragment_runs on Query {\n  runs(first: $first, after: $after, sort: UPDATED_AT_DESC, workspaceAssessment: false) {\n    totalCount\n    edges {\n      node {\n        id\n        ...HomeRunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment HomeRunListItemFragment_run on Run {\n  id\n  createdBy\n  metadata {\n    createdAt\n  }\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n  workspace {\n    fullPath\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2ccf415fb806cad1b931861d8fc0a823";
+(node as any).hash = "c16569127c66edb21ba55ee4130d0d96";
 
 export default node;

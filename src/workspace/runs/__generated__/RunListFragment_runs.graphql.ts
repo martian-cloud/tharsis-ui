@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<857486e96e53a0229f51fd98e5ec3a3b>>
+ * @generated SignedSource<<6e6cfe34fd6c42d4c7c0dac99788b26c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -51,6 +51,10 @@ return {
     },
     {
       "kind": "RootArgument",
+      "name": "workspaceAssessment"
+    },
+    {
+      "kind": "RootArgument",
       "name": "workspaceId"
     }
   ],
@@ -89,6 +93,11 @@ return {
           "kind": "Literal",
           "name": "sort",
           "value": "CREATED_AT_DESC"
+        },
+        {
+          "kind": "Variable",
+          "name": "workspaceAssessment",
+          "variableName": "workspaceAssessment"
         },
         {
           "kind": "Variable",
@@ -204,6 +213,6 @@ return {
 };
 })();
 
-(node as any).hash = "96956361668001024cdd95ed3c27339f";
+(node as any).hash = "fc2e409ecd0d355ae76a6149d827c3c6";
 
 export default node;

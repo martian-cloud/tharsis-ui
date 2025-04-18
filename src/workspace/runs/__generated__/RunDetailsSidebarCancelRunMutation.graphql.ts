@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<213467f35048873d889be8f60e5f5854>>
+ * @generated SignedSource<<c94aaaf95767f9aa0693f8eeda4db45a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -228,6 +228,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "assessment",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "moduleSource",
                 "storageKey": null
               },
@@ -281,12 +288,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9653a8fdfa6d8c38abee7c35346dc7c5",
+    "cacheID": "bbcda718548c6bd779c3ccc190192af6",
     "id": null,
     "metadata": {},
     "name": "RunDetailsSidebarCancelRunMutation",
     "operationKind": "mutation",
-    "text": "mutation RunDetailsSidebarCancelRunMutation(\n  $input: CancelRunInput!\n) {\n  cancelRun(input: $input) {\n    run {\n      ...RunDetailsSidebarFragment_details\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  moduleSource\n  moduleVersion\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n"
+    "text": "mutation RunDetailsSidebarCancelRunMutation(\n  $input: CancelRunInput!\n) {\n  cancelRun(input: $input) {\n    run {\n      ...RunDetailsSidebarFragment_details\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  assessment\n  moduleSource\n  moduleVersion\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();

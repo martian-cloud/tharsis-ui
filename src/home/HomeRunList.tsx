@@ -49,6 +49,7 @@ function HomeRunList() {
                 first: $first
                 after: $after
                 sort: UPDATED_AT_DESC
+                workspaceAssessment: false
                 ) @connection(key: "HomeRunList_runs") {
                     totalCount
                     edges {

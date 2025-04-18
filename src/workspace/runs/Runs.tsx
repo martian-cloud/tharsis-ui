@@ -1,4 +1,6 @@
-import { Box, Button } from '@mui/material';
+import { Suspense, useState } from 'react';
+import { Box, Button, Checkbox, CircularProgress, Menu, MenuItem, Stack } from '@mui/material';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import Typography from '@mui/material/Typography';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'react-relay/hooks';
@@ -53,6 +55,9 @@ function RunsIndex({ fragmentRef }: RunsIndexProps) {
         }
       `, fragmentRef);
 
+    const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
+    const [showAssessmentRuns, setShowAssessmentRuns] = useState<boolean>(false);
+
     return (
         <Box>
             <NamespaceBreadcrumbs
@@ -67,14 +72,64 @@ function RunsIndex({ fragmentRef }: RunsIndexProps) {
                     justifyContent: 'space-between'
                 }}>
                 <Typography variant="h5">Runs</Typography>
-                <Button
-                    component={RouterLink}
-                    variant="outlined"
-                    color="primary"
-                    to="create">Create Run
-                </Button>
+                <Stack direction="row" spacing={1}>
+                    <Button
+                        component={RouterLink}
+                        variant="outlined"
+                        color="primary"
+                        to="create">
+                        Create Run
+                    </Button>
+                    <Button
+                        id="filter-button"
+                        color="info"
+                        variant="outlined"
+                        aria-controls={menuAnchorEl ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={menuAnchorEl ? 'true' : undefined}
+                        onClick={(event: React.MouseEvent<HTMLButtonElement>) => setMenuAnchorEl(event.currentTarget)}
+                    >
+                        <FilterListIcon />
+                    </Button>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={menuAnchorEl}
+                        open={Boolean(menuAnchorEl)}
+                        onClose={() => setMenuAnchorEl(null)}
+                        disableScrollLock
+                        MenuListProps={{
+                            'aria-labelledby': 'filter-button',
+                        }}
+                    >
+                        <MenuItem
+                            onClick={() => setShowAssessmentRuns(!showAssessmentRuns)}
+                        >
+                            <Checkbox
+                                color="info"
+                                checked={showAssessmentRuns}
+                            />
+                            Show Assessment Runs
+                        </MenuItem>
+                    </Menu>
+                </Stack>
             </Box>
-            <RunList workspaceId={data.id} workspacePath={data.fullPath} />
+            <Suspense fallback={<Box
+                sx={{
+                    width: '100%',
+                    height: `calc(100vh - 64px)`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
+            >
+                <CircularProgress />
+            </Box>}>
+                <RunList
+                    workspaceId={data.id}
+                    workspacePath={data.fullPath}
+                    includeAssessmentRuns={showAssessmentRuns}
+                />
+            </Suspense>
         </Box>
     );
 }
