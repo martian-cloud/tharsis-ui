@@ -15,7 +15,7 @@ function GetConnections(): [string] {
     const connectionId = ConnectionHandler.getConnectionID(
         "root",
         "HomeRunList_runs",
-        { sort: 'UPDATED_AT_DESC' }
+        { sort: 'UPDATED_AT_DESC', workspaceAssessment: false }
     );
     return [connectionId];
 }

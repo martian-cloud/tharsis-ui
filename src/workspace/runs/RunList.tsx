@@ -24,29 +24,31 @@ interface Props {
     includeAssessmentRuns: boolean
 }
 
-export function GetConnections(workspaceId: string): [string] {
-  const connectionId = ConnectionHandler.getConnectionID(
-    "root",
-    'RunList_runs',
-    { workspaceId, sort: 'CREATED_AT_DESC' }
-  );
-  return [connectionId];
+export function GetConnections(workspaceId: string): string[] {
+    return [
+        { workspaceId, sort: 'CREATED_AT_DESC', workspaceAssessment: false },
+        { workspaceId, sort: 'CREATED_AT_DESC', workspaceAssessment: null }
+    ].map(vars => ConnectionHandler.getConnectionID(
+        "root",
+        'RunList_runs',
+        vars
+    ));
 }
 
-function RunList({ workspaceId, workspacePath, includeAssessmentRuns}: Props) {
+function RunList({ workspaceId, workspacePath, includeAssessmentRuns }: Props) {
 
-  const queryData = useLazyLoadQuery<RunListQuery>(graphql`
+    const queryData = useLazyLoadQuery<RunListQuery>(graphql`
         query RunListQuery($first: Int, $last: Int, $after: String, $before: String, $workspaceId: String, $workspaceAssessment: Boolean) {
             ...RunListFragment_runs
         }
     `, {
-      first: INITIAL_ITEM_COUNT,
-      workspaceId,
-      workspaceAssessment: includeAssessmentRuns ? null : false
-  }, { fetchPolicy: 'network-only' })
+        first: INITIAL_ITEM_COUNT,
+        workspaceId,
+        workspaceAssessment: includeAssessmentRuns ? null : false
+    }, { fetchPolicy: 'network-only' })
 
-  const { data, loadNext, hasNext } = usePaginationFragment<RunListPaginationQuery, RunListFragment_runs$key>(
-    graphql`
+    const { data, loadNext, hasNext } = usePaginationFragment<RunListPaginationQuery, RunListFragment_runs$key>(
+        graphql`
       fragment RunListFragment_runs on Query
       @refetchable(queryName: "RunListPaginationQuery") {
         runs(
