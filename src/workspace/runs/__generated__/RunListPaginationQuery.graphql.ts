@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f20e0ee0fa235aa9768ad80e9c746bd4>>
+ * @generated SignedSource<<10f978074588ce2d1a287bf95635731e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type RunListPaginationQuery$variables = {
   before?: string | null;
   first?: number | null;
   last?: number | null;
+  workspaceAssessment?: boolean | null;
   workspaceId?: string | null;
 };
 export type RunListPaginationQuery$data = {
@@ -50,6 +51,11 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
+    "name": "workspaceAssessment"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
     "name": "workspaceId"
   }
 ],
@@ -78,6 +84,11 @@ v1 = [
     "kind": "Literal",
     "name": "sort",
     "value": "CREATED_AT_DESC"
+  },
+  {
+    "kind": "Variable",
+    "name": "workspaceAssessment",
+    "variableName": "workspaceAssessment"
   },
   {
     "kind": "Variable",
@@ -193,6 +204,13 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "assessment",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "Plan",
                     "kind": "LinkedField",
                     "name": "plan",
@@ -277,7 +295,8 @@ return {
         "args": (v1/*: any*/),
         "filters": [
           "workspaceId",
-          "sort"
+          "sort",
+          "workspaceAssessment"
         ],
         "handle": "connection",
         "key": "RunList_runs",
@@ -287,16 +306,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "88596ec3d7476ddf6114d2efd1c10cbc",
+    "cacheID": "84570cd832f014034c148a4e1da79370",
     "id": null,
     "metadata": {},
     "name": "RunListPaginationQuery",
     "operationKind": "query",
-    "text": "query RunListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $workspaceId: String\n) {\n  ...RunListFragment_runs\n}\n\nfragment RunListFragment_runs on Query {\n  runs(after: $after, before: $before, first: $first, last: $last, workspaceId: $workspaceId, sort: CREATED_AT_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...RunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n"
+    "text": "query RunListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $workspaceAssessment: Boolean\n  $workspaceId: String\n) {\n  ...RunListFragment_runs\n}\n\nfragment RunListFragment_runs on Query {\n  runs(after: $after, before: $before, first: $first, last: $last, workspaceId: $workspaceId, sort: CREATED_AT_DESC, workspaceAssessment: $workspaceAssessment) {\n    totalCount\n    edges {\n      node {\n        id\n        ...RunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  assessment\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "96956361668001024cdd95ed3c27339f";
+(node as any).hash = "fc2e409ecd0d355ae76a6149d827c3c6";
 
 export default node;

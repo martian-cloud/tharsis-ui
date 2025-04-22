@@ -1,11 +1,11 @@
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import StateIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { LoadingButton } from "@mui/lab";
-import { Alert, AlertTitle, Avatar, Box, Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { Alert, AlertTitle, Avatar, Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
 import { CubeOutline as ModuleIcon } from 'mdi-material-ui';
-import React, { Suspense, useState } from 'react';
+import React, { useState } from 'react';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import RelativeTimestamp from '../common/RelativeTimestamp';
@@ -23,7 +23,7 @@ import StateVersionFile from './state/StateVersionFile';
 import StateVersionInputVariables from './state/StateVersionInputVariables';
 import StateVersionOutputs from './state/StateVersionOutputs';
 import StateVersionResources from './state/StateVersionResources';
-import WorkspaceDetailsDriftViewer from './WorkspaceDetailsDriftViewer';
+import WorkspaceDetailsDriftDetection from './WorkspaceDetailsDriftDetection';
 
 const DRIFT_ALERT_DESCRIPTION = "This workspace has drifted from its configuration; this can happen if the resources were modified outside of Tharsis, or if the infrastructure was changed directly through the cloud provider console."
 
@@ -136,6 +136,7 @@ function WorkspaceDetailsIndex(props: Props) {
                 }
             }
         }
+        ...WorkspaceDetailsDriftDetectionFragment_workspace
       }
     `, fragmentRef);
 
@@ -338,32 +339,7 @@ function WorkspaceDetailsIndex(props: Props) {
                 </React.Fragment>}
                 {tab === 'outputs' && <StateVersionOutputs fragmentRef={data.currentStateVersion} />}
                 {tab === 'dependencies' && <StateVersionDependencies fragmentRef={data.currentStateVersion} />}
-                {tab === 'drift' &&
-                    (data.assessment?.hasDrift ?
-                        <Suspense
-                            fallback={<Box
-                                sx={{
-                                    minHeight: 400,
-                                    width: '100%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}
-                            >
-                                <CircularProgress />
-                            </Box>}>
-                            <WorkspaceDetailsDriftViewer workspaceId={data.id} />
-                        </Suspense>
-                        :
-                        <Paper variant="outlined" sx={{ marginTop: 4, display: 'flex', justifyContent: 'center' }}>
-                            <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-                                <Typography color="textSecondary" align="center">
-                                    No drift detected for this workspace
-                                </Typography>
-                            </Box>
-                        </Paper>
-                    )
-                }
+                {tab === 'drift' && <WorkspaceDetailsDriftDetection fragmentRef={data} />}
                 {tab === 'stateFile' && <TabContent>
                     <StateVersionFile fragmentRef={data.currentStateVersion} />
                 </TabContent>}

@@ -53,6 +53,7 @@ function RunDetailsSidebar(props: Props) {
         status
         createdBy
         isDestroy
+        assessment
         moduleSource
         moduleVersion
         metadata {
@@ -147,7 +148,7 @@ function RunDetailsSidebar(props: Props) {
                     <Typography sx={{ marginBottom: 1 }}>Type</Typography>
                     {!data.isDestroy && data.apply && <Chip size="small" label="Apply" />}
                     {data.isDestroy && <Chip size="small" label="Destroy" sx={{ color: red[500] }} />}
-                    {!data.apply && <Chip size="small" label="Speculative" />}
+                    {!data.apply && <Chip size="small" label={data.assessment ? "Assessment" : "Speculative"} />}
                 </Box>
                 <Box marginBottom={3}>
                     <Typography sx={{ marginBottom: 1 }}>Created</Typography>

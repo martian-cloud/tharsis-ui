@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<286c87842c25fcfea517f880dd52056b>>
+ * @generated SignedSource<<aa0b0c44edab8a9e106f9734fce2e105>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,6 +24,7 @@ export type RunDetailsSidebarFragment_details$data = {
     };
     readonly status: ApplyStatus;
   } | null;
+  readonly assessment: boolean;
   readonly configurationVersion: {
     readonly id: string;
   } | null;
@@ -141,6 +142,13 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "assessment",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "moduleSource",
       "storageKey": null
     },
@@ -190,6 +198,6 @@ return {
 };
 })();
 
-(node as any).hash = "8939691c2173728cba30ccb00b74718e";
+(node as any).hash = "3684b7d3cb9bc578d6a6d3f8180e5681";
 
 export default node;

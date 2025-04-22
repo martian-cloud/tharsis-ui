@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6faf3a8b54cf026f65e296eeb1d6ca66>>
+ * @generated SignedSource<<b51d67ed880977bc0a3efdf32b536d7b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -74,6 +74,11 @@ return {
           "kind": "Literal",
           "name": "sort",
           "value": "UPDATED_AT_DESC"
+        },
+        {
+          "kind": "Literal",
+          "name": "workspaceAssessment",
+          "value": false
         }
       ],
       "concreteType": "RunConnection",
@@ -162,7 +167,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": "__HomeRunList_runs_connection(sort:\"UPDATED_AT_DESC\")"
+      "storageKey": "__HomeRunList_runs_connection(sort:\"UPDATED_AT_DESC\",workspaceAssessment:false)"
     }
   ],
   "type": "Query",
@@ -170,6 +175,6 @@ return {
 };
 })();
 
-(node as any).hash = "2ccf415fb806cad1b931861d8fc0a823";
+(node as any).hash = "c16569127c66edb21ba55ee4130d0d96";
 
 export default node;

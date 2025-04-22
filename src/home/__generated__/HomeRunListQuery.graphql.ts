@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<91a46b5f01d4fd3fdadfe71f7b6d1cb7>>
+ * @generated SignedSource<<96d13ad8406a0d48a5baaaf716180fab>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -48,6 +48,11 @@ v2 = [
     "kind": "Literal",
     "name": "sort",
     "value": "UPDATED_AT_DESC"
+  },
+  {
+    "kind": "Literal",
+    "name": "workspaceAssessment",
+    "value": false
   }
 ],
 v3 = {
@@ -243,7 +248,8 @@ return {
         "alias": null,
         "args": (v2/*: any*/),
         "filters": [
-          "sort"
+          "sort",
+          "workspaceAssessment"
         ],
         "handle": "connection",
         "key": "HomeRunList_runs",
@@ -253,12 +259,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5140ca137d9ffc87f65fb83adcac5035",
+    "cacheID": "0ce2eebc162ca703f8b8eeb6b4a1268d",
     "id": null,
     "metadata": {},
     "name": "HomeRunListQuery",
     "operationKind": "query",
-    "text": "query HomeRunListQuery(\n  $first: Int!\n  $after: String\n) {\n  ...HomeRunListFragment_runs\n}\n\nfragment HomeRunListFragment_runs on Query {\n  runs(first: $first, after: $after, sort: UPDATED_AT_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...HomeRunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment HomeRunListItemFragment_run on Run {\n  id\n  createdBy\n  metadata {\n    createdAt\n  }\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n  workspace {\n    fullPath\n    id\n  }\n}\n"
+    "text": "query HomeRunListQuery(\n  $first: Int!\n  $after: String\n) {\n  ...HomeRunListFragment_runs\n}\n\nfragment HomeRunListFragment_runs on Query {\n  runs(first: $first, after: $after, sort: UPDATED_AT_DESC, workspaceAssessment: false) {\n    totalCount\n    edges {\n      node {\n        id\n        ...HomeRunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment HomeRunListItemFragment_run on Run {\n  id\n  createdBy\n  metadata {\n    createdAt\n  }\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n  workspace {\n    fullPath\n    id\n  }\n}\n"
   }
 };
 })();

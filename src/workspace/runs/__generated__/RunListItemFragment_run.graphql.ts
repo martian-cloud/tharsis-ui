@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<afc647a7c1964275fb7146f1551b5015>>
+ * @generated SignedSource<<5c15bd8f3221c06d2470ec2493fa0e2e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type RunListItemFragment_run$data = {
   readonly apply: {
     readonly status: ApplyStatus;
   } | null;
+  readonly assessment: boolean;
   readonly createdBy: string;
   readonly id: string;
   readonly isDestroy: boolean;
@@ -94,6 +95,13 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "assessment",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Plan",
       "kind": "LinkedField",
       "name": "plan",
@@ -117,6 +125,6 @@ return {
 };
 })();
 
-(node as any).hash = "6375e43932e53e87229053eff711916f";
+(node as any).hash = "bb91c1e45424048e9abb6d8216c3ddee";
 
 export default node;

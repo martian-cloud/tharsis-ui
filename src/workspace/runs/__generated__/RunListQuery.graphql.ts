@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<024b4d732afc490882a4d95a7b7e214b>>
+ * @generated SignedSource<<13084789ab4bd336bd21af39a5f4e951>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type RunListQuery$variables = {
   before?: string | null;
   first?: number | null;
   last?: number | null;
+  workspaceAssessment?: boolean | null;
   workspaceId?: string | null;
 };
 export type RunListQuery$data = {
@@ -49,9 +50,14 @@ v3 = {
 v4 = {
   "defaultValue": null,
   "kind": "LocalArgument",
+  "name": "workspaceAssessment"
+},
+v5 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
   "name": "workspaceId"
 },
-v5 = [
+v6 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -79,27 +85,32 @@ v5 = [
   },
   {
     "kind": "Variable",
+    "name": "workspaceAssessment",
+    "variableName": "workspaceAssessment"
+  },
+  {
+    "kind": "Variable",
     "name": "workspaceId",
     "variableName": "workspaceId"
   }
 ],
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "status",
   "storageKey": null
 },
-v8 = [
-  (v7/*: any*/),
-  (v6/*: any*/)
+v9 = [
+  (v8/*: any*/),
+  (v7/*: any*/)
 ];
 return {
   "fragment": {
@@ -108,7 +119,8 @@ return {
       (v1/*: any*/),
       (v2/*: any*/),
       (v3/*: any*/),
-      (v4/*: any*/)
+      (v4/*: any*/),
+      (v5/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -130,6 +142,7 @@ return {
       (v3/*: any*/),
       (v0/*: any*/),
       (v1/*: any*/),
+      (v5/*: any*/),
       (v4/*: any*/)
     ],
     "kind": "Operation",
@@ -137,7 +150,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "concreteType": "RunConnection",
         "kind": "LinkedField",
         "name": "runs",
@@ -166,7 +179,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -192,7 +205,7 @@ return {
                     "name": "createdBy",
                     "storageKey": null
                   },
-                  (v7/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -203,11 +216,18 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "assessment",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "Plan",
                     "kind": "LinkedField",
                     "name": "plan",
                     "plural": false,
-                    "selections": (v8/*: any*/),
+                    "selections": (v9/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -217,7 +237,7 @@ return {
                     "kind": "LinkedField",
                     "name": "apply",
                     "plural": false,
-                    "selections": (v8/*: any*/),
+                    "selections": (v9/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -284,10 +304,11 @@ return {
       },
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "filters": [
           "workspaceId",
-          "sort"
+          "sort",
+          "workspaceAssessment"
         ],
         "handle": "connection",
         "key": "RunList_runs",
@@ -297,16 +318,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6c276c58cb1f11d4604e388bcbfb8082",
+    "cacheID": "af6cd59ba1550812e1baee1d2a7bddb9",
     "id": null,
     "metadata": {},
     "name": "RunListQuery",
     "operationKind": "query",
-    "text": "query RunListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $workspaceId: String\n) {\n  ...RunListFragment_runs\n}\n\nfragment RunListFragment_runs on Query {\n  runs(after: $after, before: $before, first: $first, last: $last, workspaceId: $workspaceId, sort: CREATED_AT_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        ...RunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n"
+    "text": "query RunListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $workspaceId: String\n  $workspaceAssessment: Boolean\n) {\n  ...RunListFragment_runs\n}\n\nfragment RunListFragment_runs on Query {\n  runs(after: $after, before: $before, first: $first, last: $last, workspaceId: $workspaceId, sort: CREATED_AT_DESC, workspaceAssessment: $workspaceAssessment) {\n    totalCount\n    edges {\n      node {\n        id\n        ...RunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  assessment\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a0e5a7b60a147807781f3067484be3d2";
+(node as any).hash = "0da1b8ee64369aa7a194e72b310755d9";
 
 export default node;

@@ -1,12 +1,10 @@
-import { Stack, ToggleButton, Typography } from '@mui/material';
+import { ToggleButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import graphql from 'babel-plugin-relay/macro';
 import throttle from 'lodash.throttle';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useFragment, useLazyLoadQuery } from 'react-relay/hooks';
 import SearchInput from '../common/SearchInput';
-import RelativeTimestamp from '../common/RelativeTimestamp';
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import { WorkspaceDetailsDriftViewerFragment_workspace$key, TerraformResourceMode } from './__generated__/WorkspaceDetailsDriftViewerFragment_workspace.graphql';
 import { WorkspaceDetailsDriftViewerQuery } from './__generated__/WorkspaceDetailsDriftViewerQuery.graphql';
 import RunDetailsPlanDiffPanel, { Props as DiffProps } from './runs/plandiff/RunDetailsPlanDiffPanel';
@@ -139,15 +137,6 @@ function WorkspaceDetailsDriftViewer({ fragmentRef }: { fragmentRef: WorkspaceDe
 
     return (
         <React.Fragment>
-            <Box sx={{ pl: 2, pr: 2, pb: 2 }} >
-                <Stack direction="row" spacing={2}>
-                    <CompareArrowsIcon />
-                    <Typography color="textSecondary">
-                        Drift last checked{' '}
-                        <RelativeTimestamp component="span" timestamp={data.assessment?.completedAt} />
-                    </Typography>
-                </Stack>
-            </Box>
             {(filteredDiffs.length > 0 || search !== '') && <Box>
                 <Box mb={2} display="flex" alignItems="center">
                     <SearchInput
