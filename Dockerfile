@@ -1,4 +1,4 @@
-FROM nginx:1.25.3-alpine
+FROM nginx:1.27.5-alpine
 RUN apk update --no-cache && apk add --no-cache libxml2 && apk upgrade --no-cache
 COPY ./build /bin/www
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
