@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bedf5a0d3894a7d557683365a9f76062>>
+ * @generated SignedSource<<f3f28c4a884a5747a6d2879d352633ee>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type BoundClaimsType = "GLOB" | "STRING" | "%future added value";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateServiceAccountInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   description: string;
   id: string;
-  metadata?: ResourceMetadataInput | null;
+  metadata?: ResourceMetadataInput | null | undefined;
   oidcTrustPolicies: ReadonlyArray<OIDCTrustPolicyInput>;
 };
 export type ResourceMetadataInput = {
@@ -23,7 +23,7 @@ export type ResourceMetadataInput = {
 };
 export type OIDCTrustPolicyInput = {
   boundClaims: ReadonlyArray<JWTClaimInput>;
-  boundClaimsType?: BoundClaimsType | null;
+  boundClaimsType?: BoundClaimsType | null | undefined;
   issuer: string;
 };
 export type JWTClaimInput = {
@@ -36,7 +36,7 @@ export type EditServiceAccountMutation$variables = {
 export type EditServiceAccountMutation$data = {
   readonly updateServiceAccount: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -54,7 +54,7 @@ export type EditServiceAccountMutation$data = {
         readonly issuer: string;
       }>;
       readonly resourcePath: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type EditServiceAccountMutation = {

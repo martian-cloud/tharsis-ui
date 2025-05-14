@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6785b1e3e4b16783f0ccc6d83c1d7121>>
+ * @generated SignedSource<<6c643411e186fa39af66e269320a2626>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleVersionDocsSidebarFragment_configurationDetails$data = {
   readonly dataResources: ReadonlyArray<{

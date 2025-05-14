@@ -13,12 +13,12 @@ function SensitiveVariableValue({ variableVersionId }: Props) {
     const [sensitiveValue, setSensitiveValue] = useState<{ id: string, value: string } | null>(null);
     const [loaded, setLoaded] = useState(false);
     const data = useLazyLoadQuery<SensitiveVariableValueQuery>(graphql`
-        query SensitiveVariableValueQuery($id: String!) {
-            namespaceVariableVersion(id: $id, includeSensitiveValue: true) {
+        query SensitiveVariableValueQuery($id: String!, $includeSensitiveValue: Boolean!) {
+            namespaceVariableVersion(id: $id, includeSensitiveValue: $includeSensitiveValue) {
                 id
                 value
             }
-        }`, { id: variableVersionId }, { fetchPolicy: 'network-only' });
+        }`, { id: variableVersionId, includeSensitiveValue: true }, { fetchPolicy: 'network-only' });
 
     useEffect(() => {
         // Set the sensitive value if it is not already set and the data has loaded

@@ -87,7 +87,7 @@ function AssignedServiceAccountList({ fragmentRef }: Props) {
                         totalCount
                     }
                 }
-                serviceAccount @prependNode(connections: $connections, edgeTypeName: "ServiceAccountEdgeType") {
+                serviceAccount @prependNode(connections: $connections, edgeTypeName: "ServiceAccountEdge") {
                     id
                     ...AssignedServiceAccountListItemFragment_assignedServiceAccount
                 }

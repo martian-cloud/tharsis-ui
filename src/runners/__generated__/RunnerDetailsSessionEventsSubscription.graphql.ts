@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aae8a903dfd54dbf49b078e4926e9726>>
+ * @generated SignedSource<<7b65155e2d41758777e864c86c26c763>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunnerType = "group" | "shared" | "%future added value";
 export type RunnerSessionEventSubscriptionInput = {
-  groupId?: string | null;
-  runnerId?: string | null;
-  runnerType?: RunnerType | null;
+  groupId?: string | null | undefined;
+  runnerId?: string | null | undefined;
+  runnerType?: RunnerType | null | undefined;
 };
 export type RunnerDetailsSessionEventsSubscription$variables = {
   input: RunnerSessionEventSubscriptionInput;

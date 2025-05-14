@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bf335307b133adaa832215267e320fda>>
+ * @generated SignedSource<<8ec9655e9d12e806072bbd01028ed504>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NewVCSProviderLinkFragment_workspace$data = {
   readonly fullPath: string;

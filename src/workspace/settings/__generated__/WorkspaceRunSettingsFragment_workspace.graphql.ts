@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c755ad21b60c47711ef884e790a04151>>
+ * @generated SignedSource<<7ae7948984a4fda510daca16ef6f2e18>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type WorkspaceRunSettingsFragment_workspace$data = {
   readonly description: string;

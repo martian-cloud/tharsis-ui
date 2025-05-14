@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ca95db67bcbf3d621ca3c45d8d94751b>>
+ * @generated SignedSource<<c7bfc1612e9f2ac011375c5e52d8156f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleSearchQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
-  last?: number | null;
-  search?: string | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  search?: string | null | undefined;
 };
 export type TerraformModuleSearchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleSearchFragment_modules">;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c54e0b5df277eab88ad859667bb52359>>
+ * @generated SignedSource<<2e10127c95a657b82199fd6a3cea40f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,11 +8,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteNamespaceVariableInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   id: string;
 };
 export type VariablesDeleteVariableMutation$variables = {
@@ -25,9 +25,9 @@ export type VariablesDeleteVariableMutation$data = {
       readonly variables: ReadonlyArray<{
         readonly " $fragmentSpreads": FragmentRefs<"VariableListItemFragment_variable">;
       }>;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

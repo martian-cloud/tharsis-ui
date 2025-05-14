@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d27441badc69a20a3c5f42f06f5241b6>>
+ * @generated SignedSource<<3be6f781b67244a0210af42fbabe0b8f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ModuleVersionAutocompleteQuery$variables = {
   moduleName: string;
   registryNamespace: string;
   system: string;
-  versionSearch?: string | null;
+  versionSearch?: string | null | undefined;
 };
 export type ModuleVersionAutocompleteQuery$data = {
   readonly terraformModule: {
@@ -21,10 +21,10 @@ export type ModuleVersionAutocompleteQuery$data = {
       readonly edges: ReadonlyArray<{
         readonly node: {
           readonly version: string;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
     };
-  } | null;
+  } | null | undefined;
 };
 export type ModuleVersionAutocompleteQuery = {
   response: ModuleVersionAutocompleteQuery$data;

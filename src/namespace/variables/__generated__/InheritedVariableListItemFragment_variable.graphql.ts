@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<59115739a4bd5776b1e72e8404f224c4>>
+ * @generated SignedSource<<3017ff9a2084bb699fb27a6016438c3e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type VariableCategory = "environment" | "terraform" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type InheritedVariableListItemFragment_variable$data = {
@@ -16,7 +16,7 @@ export type InheritedVariableListItemFragment_variable$data = {
   readonly id: string;
   readonly key: string;
   readonly namespacePath: string;
-  readonly value: string | null;
+  readonly value: string | null | undefined;
   readonly " $fragmentType": "InheritedVariableListItemFragment_variable";
 };
 export type InheritedVariableListItemFragment_variable$key = {

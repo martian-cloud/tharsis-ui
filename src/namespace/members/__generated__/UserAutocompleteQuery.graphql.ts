@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0e45ab85dd4c2b01142dca8ad9a3d5fe>>
+ * @generated SignedSource<<f6fdffa38cd00c7409a9c6a8a6ac1969>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type UserAutocompleteQuery$variables = {
   search: string;
 };
@@ -19,8 +19,8 @@ export type UserAutocompleteQuery$data = {
         readonly email: string;
         readonly id: string;
         readonly username: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
 };
 export type UserAutocompleteQuery = {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0674a80debc6f64cd03fdc6b30a72f59>>
+ * @generated SignedSource<<01c9ebdd433f1ef32223f74fe04d4639>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,11 +8,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateGPGKeyInput = {
   asciiArmor: string;
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   groupPath: string;
 };
 export type NewGPGKeyMutation$variables = {
@@ -29,9 +29,9 @@ export type NewGPGKeyMutation$data = {
       readonly metadata: {
         readonly createdAt: any;
       };
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

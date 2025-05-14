@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<929d056f31e7e0324a78353de2496975>>
+ * @generated SignedSource<<469ea381158f48afcf84045ad48480b0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AppHeaderFragment$data = {
   readonly " $fragmentSpreads": FragmentRefs<"AccountMenuFragment">;

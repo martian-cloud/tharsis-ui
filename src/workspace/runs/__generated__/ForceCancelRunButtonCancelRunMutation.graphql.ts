@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<af006e25a3ec61d36817c358d024f1df>>
+ * @generated SignedSource<<bc5683da6015a31b7149d7bb9770263b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CancelRunInput = {
-  clientMutationId?: string | null;
-  comment?: string | null;
-  force?: boolean | null;
+  clientMutationId?: string | null | undefined;
+  comment?: string | null | undefined;
+  force?: boolean | null | undefined;
   runId: string;
 };
 export type ForceCancelRunButtonCancelRunMutation$variables = {
@@ -22,7 +22,7 @@ export type ForceCancelRunButtonCancelRunMutation$variables = {
 export type ForceCancelRunButtonCancelRunMutation$data = {
   readonly cancelRun: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

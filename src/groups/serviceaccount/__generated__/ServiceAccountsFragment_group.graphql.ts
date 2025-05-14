@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<60851f554ef696d74c24ebd01cff7767>>
+ * @generated SignedSource<<812074511aa9859525df32b0b50ca841>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ServiceAccountsFragment_group$data = {
   readonly " $fragmentSpreads": FragmentRefs<"EditServiceAccountFragment_group" | "NewServiceAccountFragment_group" | "ServiceAccountDetailsFragment_group" | "ServiceAccountListFragment_group">;

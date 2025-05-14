@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6a5fd15c826e69a95fdfeeb0094212b6>>
+ * @generated SignedSource<<e34ca1039a73f3435d3fa786e30b38a0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ApplyStatus = "canceled" | "created" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type RunStatus = "applied" | "apply_queued" | "applying" | "canceled" | "errored" | "pending" | "plan_queued" | "planned" | "planned_and_finished" | "planning" | "%future added value";
@@ -16,10 +16,10 @@ import { FragmentRefs } from "relay-runtime";
 export type WorkspaceDetailsIndexFragment_workspace$data = {
   readonly assessment: {
     readonly hasDrift: boolean;
-  } | null;
+  } | null | undefined;
   readonly currentJob: {
     readonly id: string;
-  } | null;
+  } | null | undefined;
   readonly currentStateVersion: {
     readonly id: string;
     readonly metadata: {
@@ -32,22 +32,22 @@ export type WorkspaceDetailsIndexFragment_workspace$data = {
           readonly updatedAt: any;
         };
         readonly status: ApplyStatus;
-        readonly triggeredBy: string | null;
-      } | null;
+        readonly triggeredBy: string | null | undefined;
+      } | null | undefined;
       readonly configurationVersion: {
         readonly id: string;
         readonly vcsEvent: {
           readonly status: string;
-        } | null;
-      } | null;
+        } | null | undefined;
+      } | null | undefined;
       readonly createdBy: string;
       readonly id: string;
       readonly isDestroy: boolean;
       readonly metadata: {
         readonly createdAt: any;
       };
-      readonly moduleSource: string | null;
-      readonly moduleVersion: string | null;
+      readonly moduleSource: string | null | undefined;
+      readonly moduleVersion: string | null | undefined;
       readonly plan: {
         readonly metadata: {
           readonly createdAt: any;
@@ -56,9 +56,9 @@ export type WorkspaceDetailsIndexFragment_workspace$data = {
       };
       readonly status: RunStatus;
       readonly " $fragmentSpreads": FragmentRefs<"StateVersionInputVariablesFragment_variables">;
-    } | null;
+    } | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"StateVersionDependenciesFragment_dependencies" | "StateVersionFileFragment_stateVersion" | "StateVersionOutputsFragment_outputs" | "StateVersionResourcesFragment_resources">;
-  } | null;
+  } | null | undefined;
   readonly description: string;
   readonly fullPath: string;
   readonly id: string;

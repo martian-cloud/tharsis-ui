@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<601b1bbc7e796698b68c534c7f0ce7f3>>
+ * @generated SignedSource<<f20d309c207f51c5b99fd4b0e7d22f3e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,11 +8,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AdminAreaRunnersListPaginationQuery$variables = {
-  after?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
 };
 export type AdminAreaRunnersListPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"AdminAreaRunnersListFragment_sharedRunners">;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<684e66278f844b028a3de559e61e3399>>
+ * @generated SignedSource<<38db4a77976fd22d1bfe2a659c7ccbe9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,9 +8,9 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HomeQuery$variables = {};
+export type HomeQuery$variables = Record<PropertyKey, never>;
 export type HomeQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"HomeFragment_activity">;
 };

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5c15bd8f3221c06d2470ec2493fa0e2e>>
+ * @generated SignedSource<<107a7bba1d13a80a2872711adfdf261c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ApplyStatus = "canceled" | "created" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type RunStatus = "applied" | "apply_queued" | "applying" | "canceled" | "errored" | "pending" | "plan_queued" | "planned" | "planned_and_finished" | "planning" | "%future added value";
@@ -16,7 +16,7 @@ import { FragmentRefs } from "relay-runtime";
 export type RunListItemFragment_run$data = {
   readonly apply: {
     readonly status: ApplyStatus;
-  } | null;
+  } | null | undefined;
   readonly assessment: boolean;
   readonly createdBy: string;
   readonly id: string;

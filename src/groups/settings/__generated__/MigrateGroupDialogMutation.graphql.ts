@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a5fddccfc35f1ba762a03a12511d2f2b>>
+ * @generated SignedSource<<03e2d85cd9dd600a2db8c082fb4b7d94>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type MigrateGroupInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   groupPath: string;
-  newParentPath?: string | null;
+  newParentPath?: string | null | undefined;
 };
 export type MigrateGroupDialogMutation$variables = {
   input: MigrateGroupInput;
@@ -23,9 +23,9 @@ export type MigrateGroupDialogMutation$data = {
     readonly group: {
       readonly fullPath: string;
       readonly id: string;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

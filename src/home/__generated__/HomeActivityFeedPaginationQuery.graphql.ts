@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bebacb2489311634fdcf86eed9291400>>
+ * @generated SignedSource<<b5f0b14dc1d29174fe3277f63660699b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HomeActivityFeedPaginationQuery$variables = {
-  after?: string | null;
-  first?: number | null;
-  username?: string | null;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  username?: string | null | undefined;
 };
 export type HomeActivityFeedPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"HomeActivityFeedFragment_activity">;

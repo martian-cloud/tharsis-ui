@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d53f62a144dbf36db896e4cb7ef5353b>>
+ * @generated SignedSource<<3c0d86028119e56e9d2834d75973e773>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateManagedIdentityAliasInput = {
-  aliasSourceId?: string | null;
-  aliasSourcePath?: string | null;
-  clientMutationId?: string | null;
+  aliasSourceId?: string | null | undefined;
+  aliasSourcePath?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
   groupPath: string;
   name: string;
 };
@@ -27,9 +27,9 @@ export type NewManagedIdentityAliasDialogMutation$data = {
     readonly managedIdentity: {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityAliasesListItemFragment_managedIdentity">;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -227,7 +227,7 @@ return {
               {
                 "kind": "Literal",
                 "name": "edgeTypeName",
-                "value": "ManagedIdentityAliasEdge"
+                "value": "ManagedIdentityEdge"
               }
             ]
           },
@@ -248,6 +248,6 @@ return {
 };
 })();
 
-(node as any).hash = "9e476b93da44d3a7c66c2e8fc1e2cb48";
+(node as any).hash = "cb0211776f5982715aa35967c834004d";
 
 export default node;

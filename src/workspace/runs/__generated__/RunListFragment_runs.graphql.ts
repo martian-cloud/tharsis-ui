@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6e6cfe34fd6c42d4c7c0dac99788b26c>>
+ * @generated SignedSource<<d0e4d6d7a49f616c30b43efbf4eb39ab>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunListFragment_runs$data = {
   readonly runs: {
@@ -16,8 +16,8 @@ export type RunListFragment_runs$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"RunListItemFragment_run">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly " $fragmentType": "RunListFragment_runs";

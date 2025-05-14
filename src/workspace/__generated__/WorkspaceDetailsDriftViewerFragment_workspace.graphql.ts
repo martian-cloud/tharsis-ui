@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6b5eff12ec05eb1bf581dd2bf14c397c>>
+ * @generated SignedSource<<5c03beb7528a151e4242de83a3513223>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type PlanChangeAction = "CREATE" | "CREATE_THEN_DELETE" | "DELETE" | "DELETE_THEN_CREATE" | "NOOP" | "READ" | "UPDATE" | "%future added value";
 export type PlanChangeWarningType = "after" | "before" | "%future added value";
 export type RunStatus = "applied" | "apply_queued" | "applying" | "canceled" | "errored" | "pending" | "plan_queued" | "planned" | "planned_and_finished" | "planning" | "%future added value";
@@ -16,7 +16,7 @@ export type TerraformResourceMode = "data" | "managed" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type WorkspaceDetailsDriftViewerFragment_workspace$data = {
   readonly assessment: {
-    readonly completedAt: any | null;
+    readonly completedAt: any | null | undefined;
     readonly hasDrift: boolean;
     readonly run: {
       readonly plan: {
@@ -35,12 +35,12 @@ export type WorkspaceDetailsDriftViewerFragment_workspace$data = {
               readonly message: string;
             }>;
           }>;
-        } | null;
+        } | null | undefined;
       };
       readonly status: RunStatus;
-    } | null;
+    } | null | undefined;
     readonly startedAt: any;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "WorkspaceDetailsDriftViewerFragment_workspace";
 };
 export type WorkspaceDetailsDriftViewerFragment_workspace$key = {

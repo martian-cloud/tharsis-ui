@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b969b50c9d9cda51136c5f69641ab92e>>
+ * @generated SignedSource<<f238d640bf5203e98fef2706c0a04256>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NamespaceActivityPaginationQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
-  last?: number | null;
-  namespacePath?: string | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  namespacePath?: string | null | undefined;
 };
 export type NamespaceActivityPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"NamespaceActivityConnectionFragment_activity">;

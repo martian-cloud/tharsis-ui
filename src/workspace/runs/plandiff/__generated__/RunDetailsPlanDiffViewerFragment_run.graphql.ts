@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6b60d46cadf811cc5bc3507b8a4075fa>>
+ * @generated SignedSource<<516b9b67ed0aee20ccc78558b2811331>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type PlanChangeAction = "CREATE" | "CREATE_THEN_DELETE" | "DELETE" | "DELETE_THEN_CREATE" | "NOOP" | "READ" | "UPDATE" | "%future added value";
 export type PlanChangeWarningType = "after" | "before" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
@@ -46,7 +46,7 @@ export type RunDetailsPlanDiffViewerFragment_run$data = {
           readonly message: string;
         }>;
       }>;
-    } | null;
+    } | null | undefined;
     readonly status: PlanStatus;
   };
   readonly " $fragmentType": "RunDetailsPlanDiffViewerFragment_run";

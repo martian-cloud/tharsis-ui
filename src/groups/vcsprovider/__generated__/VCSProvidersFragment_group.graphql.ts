@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2d3fede6089af952d0485590439ef51c>>
+ * @generated SignedSource<<719e65fdc7c91cd0128a565933f95de0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type VCSProvidersFragment_group$data = {
   readonly " $fragmentSpreads": FragmentRefs<"EditVCSProviderFragment_group" | "EditVCSProviderOAuthCredentialsFragment_group" | "NewVCSProviderFragment_group" | "VCSProviderDetailsFragment_group" | "VCSProviderListFragment_group">;

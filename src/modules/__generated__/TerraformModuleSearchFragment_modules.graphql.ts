@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f94881efded918bc1745e89763538136>>
+ * @generated SignedSource<<ed04c14f8c9c2afa31c5e04c9e51c260>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleSearchFragment_modules$data = {
   readonly terraformModules: {
@@ -16,8 +16,8 @@ export type TerraformModuleSearchFragment_modules$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleSearchListItemFragment_module">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly " $fragmentType": "TerraformModuleSearchFragment_modules";

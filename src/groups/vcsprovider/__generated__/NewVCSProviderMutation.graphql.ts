@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7e6d564c50fd963a5744ba7225a736b8>>
+ * @generated SignedSource<<e40de1fbed80e5c30c64a001edfcc5c2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,19 +8,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type VCSProviderType = "github" | "gitlab" | "%future added value";
 export type CreateVCSProviderInput = {
   autoCreateWebhooks: boolean;
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   description: string;
   groupPath: string;
   name: string;
   oAuthClientId: string;
   oAuthClientSecret: string;
   type: VCSProviderType;
-  url?: string | null;
+  url?: string | null | undefined;
 };
 export type NewVCSProviderMutation$variables = {
   connections: ReadonlyArray<string>;
@@ -30,7 +30,7 @@ export type NewVCSProviderMutation$data = {
   readonly createVCSProvider: {
     readonly oAuthAuthorizationUrl: string;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -38,7 +38,7 @@ export type NewVCSProviderMutation$data = {
       readonly description: string;
       readonly id: string;
       readonly name: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type NewVCSProviderMutation = {

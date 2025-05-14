@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4f7df9112c91e9b09d363da782fba100>>
+ * @generated SignedSource<<44de9a1ceb1326f110bdbf5ddd25e6d4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ServiceAccountListFragment_serviceAccounts$data = {
   readonly group: {
@@ -18,11 +18,11 @@ export type ServiceAccountListFragment_serviceAccounts$data = {
           readonly groupPath: string;
           readonly id: string;
           readonly " $fragmentSpreads": FragmentRefs<"ServiceAccountListItemFragment_serviceAccount">;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
       readonly totalCount: number;
     };
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "ServiceAccountListFragment_serviceAccounts";
 };
 export type ServiceAccountListFragment_serviceAccounts$key = {

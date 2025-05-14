@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6566388b3bb590a6f84fc3a64eacd085>>
+ * @generated SignedSource<<f5077b94638db90f146292fbd86df0fc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,11 +8,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type JobSubscriptionInput = {
-  runnerId?: string | null;
-  workspaceId?: string | null;
+  runnerId?: string | null | undefined;
+  workspaceId?: string | null | undefined;
 };
 export type RunnerJobListEventsSubscription$variables = {
   input: JobSubscriptionInput;

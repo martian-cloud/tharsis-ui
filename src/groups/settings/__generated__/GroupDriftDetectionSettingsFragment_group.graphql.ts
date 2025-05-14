@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a08729a8c518149f0bb525281b9457b3>>
+ * @generated SignedSource<<264b58cd97f88748130cd8decac2a32e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupDriftDetectionSettingsFragment_group$data = {
   readonly driftDetectionEnabled: {

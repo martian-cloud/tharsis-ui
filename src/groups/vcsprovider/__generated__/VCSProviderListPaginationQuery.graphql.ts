@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<68c3328e367ea7d5223a3d0d6b80016c>>
+ * @generated SignedSource<<d00fcae6dfee22c4d1117941568d8209>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type VCSProviderListPaginationQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
   groupPath: string;
-  last?: number | null;
-  search?: string | null;
+  last?: number | null | undefined;
+  search?: string | null | undefined;
 };
 export type VCSProviderListPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"VCSProviderListFragment_vcsProviders">;

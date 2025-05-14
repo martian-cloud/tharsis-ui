@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<99d239b667de25c5e657d46c5bb35fd4>>
+ * @generated SignedSource<<670dc6a772b925181b34cc96374a9160>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteGPGKeyInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   id: string;
-  metadata?: ResourceMetadataInput | null;
+  metadata?: ResourceMetadataInput | null | undefined;
 };
 export type ResourceMetadataInput = {
   version: string;
@@ -26,9 +26,9 @@ export type GPGKeyListDeleteMutation$data = {
   readonly deleteGPGKey: {
     readonly gpgKey: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

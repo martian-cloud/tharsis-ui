@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f6135ebccc14996e35aac1a4fbb5e19a>>
+ * @generated SignedSource<<10dc0235160819211a18e24debd904a4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type TeamAutocompleteQuery$variables = {
   search: string;
 };
@@ -18,8 +18,8 @@ export type TeamAutocompleteQuery$data = {
       readonly node: {
         readonly id: string;
         readonly name: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
 };
 export type TeamAutocompleteQuery = {

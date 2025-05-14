@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4184f278ea269555b6eda17f8a088f42>>
+ * @generated SignedSource<<4cd1929cb9a2cfb9a6f21205e510e6e4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,11 +8,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformProviderVersionDetailsSidebarFragment_details$data = {
   readonly createdBy: string;
-  readonly gpgKeyId: string | null;
+  readonly gpgKeyId: string | null | undefined;
   readonly latest: boolean;
   readonly metadata: {
     readonly createdAt: any;

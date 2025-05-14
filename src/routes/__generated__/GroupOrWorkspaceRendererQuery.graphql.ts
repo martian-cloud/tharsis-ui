@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a03f558e52d88334871f2f58abb01809>>
+ * @generated SignedSource<<53d54cb254a0d06e0aeb0ecc9f8f8e82>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GroupOrWorkspaceRendererQuery$variables = {
   fullPath: string;
@@ -19,7 +19,7 @@ export type GroupOrWorkspaceRendererQuery$data = {
     readonly fullPath: string;
     readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"GroupDetailsFragment_group" | "WorkspaceDetailsFragment_workspace">;
-  } | null;
+  } | null | undefined;
 };
 export type GroupOrWorkspaceRendererQuery = {
   response: GroupOrWorkspaceRendererQuery$data;

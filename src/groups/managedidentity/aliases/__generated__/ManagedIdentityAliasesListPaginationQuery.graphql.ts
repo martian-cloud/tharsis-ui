@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e5ba8a76edaf05a3a96ee102a043c6d3>>
+ * @generated SignedSource<<7a84f3adac98211f4db9f0eade98dca8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,19 +8,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ManagedIdentityAliasesListPaginationQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
   id: string;
-  last?: number | null;
+  last?: number | null | undefined;
 };
 export type ManagedIdentityAliasesListPaginationQuery$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityAliasesListFragment_managedIdentity">;
-  } | null;
+  } | null | undefined;
 };
 export type ManagedIdentityAliasesListPaginationQuery = {
   response: ManagedIdentityAliasesListPaginationQuery$data;

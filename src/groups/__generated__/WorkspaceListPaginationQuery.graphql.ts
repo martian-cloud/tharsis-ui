@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cee25239e74319637152812d02266e41>>
+ * @generated SignedSource<<8f73930242fcb5622a988b505dd60646>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type WorkspaceListPaginationQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
-  groupPath?: string | null;
-  last?: number | null;
-  search?: string | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
+  groupPath?: string | null | undefined;
+  last?: number | null | undefined;
+  search?: string | null | undefined;
 };
 export type WorkspaceListPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"WorkspaceListFragment_workspaces">;

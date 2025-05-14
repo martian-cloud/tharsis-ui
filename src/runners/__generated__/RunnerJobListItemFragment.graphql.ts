@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<809513c7eeeba01c102f114250259572>>
+ * @generated SignedSource<<2abb3441df1ad8aa40cc7cd248f3d363>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type JobStatus = "finished" | "pending" | "queued" | "running" | "%future added value";
 export type JobType = "apply" | "plan" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
@@ -23,10 +23,10 @@ export type RunnerJobListItemFragment$data = {
   };
   readonly status: JobStatus;
   readonly timestamps: {
-    readonly finishedAt: any | null;
-    readonly pendingAt: any | null;
-    readonly queuedAt: any | null;
-    readonly runningAt: any | null;
+    readonly finishedAt: any | null | undefined;
+    readonly pendingAt: any | null | undefined;
+    readonly queuedAt: any | null | undefined;
+    readonly runningAt: any | null | undefined;
   };
   readonly type: JobType;
   readonly workspace: {

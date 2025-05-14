@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<42fc656bd40eee6209474579de6ee4d0>>
+ * @generated SignedSource<<2e9ff57d7933b0b80b8028fe03b0e76e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type RunnerAvailabilityStatus = "ASSIGNED" | "AVAILABLE" | "INACTIVE" | "NONE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type NoRunnerAlertFragment_job$data = {

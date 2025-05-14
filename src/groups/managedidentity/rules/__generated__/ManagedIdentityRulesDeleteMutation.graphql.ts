@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a20aec46211a5b58cedd654811b72773>>
+ * @generated SignedSource<<d8c365d0e086b37a395f8d96b057723b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteManagedIdentityAccessRuleInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   id: string;
 };
 export type ManagedIdentityRulesDeleteMutation$variables = {
@@ -21,9 +21,9 @@ export type ManagedIdentityRulesDeleteMutation$data = {
   readonly deleteManagedIdentityAccessRule: {
     readonly accessRule: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

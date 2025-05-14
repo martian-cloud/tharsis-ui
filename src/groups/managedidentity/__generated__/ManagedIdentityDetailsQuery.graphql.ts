@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cc12122011d639b8ee3f1c097f80400c>>
+ * @generated SignedSource<<71fae124c1f0880789d4581c1b05fa45>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type JobType = "apply" | "plan" | "%future added value";
 export type ManagedIdentityDetailsQuery$variables = {
-  after?: string | null;
-  before?: string | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
   first: number;
   id: string;
-  last?: number | null;
+  last?: number | null | undefined;
 };
 export type ManagedIdentityDetailsQuery$data = {
   readonly managedIdentity: {
@@ -25,16 +25,16 @@ export type ManagedIdentityDetailsQuery$data = {
         readonly id: string;
         readonly name: string;
         readonly resourcePath: string;
-      }> | null;
+      }> | null | undefined;
       readonly allowedTeams: ReadonlyArray<{
         readonly id: string;
         readonly name: string;
-      }> | null;
+      }> | null | undefined;
       readonly allowedUsers: ReadonlyArray<{
         readonly email: string;
         readonly id: string;
         readonly username: string;
-      }> | null;
+      }> | null | undefined;
       readonly id: string;
       readonly runStage: JobType;
     }>;
@@ -46,7 +46,7 @@ export type ManagedIdentityDetailsQuery$data = {
     readonly name: string;
     readonly type: string;
     readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityAliasesFragment_managedIdentity" | "ManagedIdentityRulesFragment_managedIdentity" | "MoveManagedIdentityDialogFragment_managedIdentity">;
-  } | null;
+  } | null | undefined;
 };
 export type ManagedIdentityDetailsQuery = {
   response: ManagedIdentityDetailsQuery$data;

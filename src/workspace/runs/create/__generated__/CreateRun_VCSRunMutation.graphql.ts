@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<41cdcb5d8c42be11a3a8fe279849288a>>
+ * @generated SignedSource<<54990b241a86567c535ad49ae9890a46>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateVCSRunInput = {
-  clientMutationId?: string | null;
-  isDestroy?: boolean | null;
-  referenceName?: string | null;
+  clientMutationId?: string | null | undefined;
+  isDestroy?: boolean | null | undefined;
+  referenceName?: string | null | undefined;
   workspacePath: string;
 };
 export type CreateRun_VCSRunMutation$variables = {
@@ -22,7 +22,7 @@ export type CreateRun_VCSRunMutation$variables = {
 export type CreateRun_VCSRunMutation$data = {
   readonly createVCSRun: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

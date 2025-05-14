@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fd8f9036a8770e0efb65755a8bfd6dfc>>
+ * @generated SignedSource<<0107be6ac746d68de6564ce2fcb08651>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,24 +8,24 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateGroupInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   description: string;
-  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null;
+  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null | undefined;
   name: string;
-  parentPath?: string | null;
-  runnerTags?: NamespaceRunnerTagsInput | null;
+  parentPath?: string | null | undefined;
+  runnerTags?: NamespaceRunnerTagsInput | null | undefined;
 };
 export type NamespaceDriftDetectionEnabledInput = {
-  enabled?: boolean | null;
+  enabled?: boolean | null | undefined;
   inherit: boolean;
 };
 export type NamespaceRunnerTagsInput = {
   inherit: boolean;
-  tags?: ReadonlyArray<string> | null;
+  tags?: ReadonlyArray<string> | null | undefined;
 };
 export type NewGroupMutation$variables = {
   connections: ReadonlyArray<string>;
@@ -37,9 +37,9 @@ export type NewGroupMutation$data = {
       readonly fullPath: string;
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"GroupListItemFragment_group">;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

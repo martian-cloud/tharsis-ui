@@ -38,7 +38,7 @@ function NewManagedIdentityAliasDialog({ onClose, fragmentRef }: Props) {
     const [commit, isInFlight] = useMutation<NewManagedIdentityAliasDialogMutation>(graphql`
         mutation NewManagedIdentityAliasDialogMutation($input: CreateManagedIdentityAliasInput!, $connections: [ID!]!) {
             createManagedIdentityAlias(input: $input) {
-                managedIdentity @prependNode(connections: $connections, edgeTypeName: "ManagedIdentityAliasEdge") {
+                managedIdentity @prependNode(connections: $connections, edgeTypeName: "ManagedIdentityEdge") {
                     id
                     ...ManagedIdentityAliasesListItemFragment_managedIdentity
                 }

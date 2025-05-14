@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cc5fa4674be7d405ce57226dbd20e09a>>
+ * @generated SignedSource<<b2433e7ce36642ff1662212e189a829d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ServiceAccountListQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
   groupPath: string;
-  last?: number | null;
-  search?: string | null;
+  last?: number | null | undefined;
+  search?: string | null | undefined;
 };
 export type ServiceAccountListQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"ServiceAccountListFragment_serviceAccounts">;

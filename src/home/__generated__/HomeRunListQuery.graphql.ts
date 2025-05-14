@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<96d13ad8406a0d48a5baaaf716180fab>>
+ * @generated SignedSource<<fde781313cfbf70484efd73bfec42df0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HomeRunListQuery$variables = {
-  after?: string | null;
+  after?: string | null | undefined;
   first: number;
 };
 export type HomeRunListQuery$data = {

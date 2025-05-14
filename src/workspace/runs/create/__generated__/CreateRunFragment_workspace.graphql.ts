@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fa820f97290981a4e480c1b66abe3f06>>
+ * @generated SignedSource<<f95649066f4001ce71322f48944cc300>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateRunFragment_workspace$data = {
   readonly fullPath: string;
   readonly id: string;
   readonly workspaceVcsProviderLink: {
     readonly id: string;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"ModuleSourceFragment_workspace" | "VCSWorkspaceLinkSourceFragment_workspace">;
   readonly " $fragmentType": "CreateRunFragment_workspace";
 };

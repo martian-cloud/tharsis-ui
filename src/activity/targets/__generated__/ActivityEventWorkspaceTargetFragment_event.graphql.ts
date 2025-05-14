@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a956cbab16699915c3aaa5fae5b2a96f>>
+ * @generated SignedSource<<1a758fc7b6d068ab843d03657a197593>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ActivityEventAction = "ADD" | "ADD_MEMBER" | "APPLY" | "CANCEL" | "CREATE" | "CREATE_MEMBERSHIP" | "DELETE" | "DELETE_CHILD_RESOURCE" | "LOCK" | "MIGRATE" | "REMOVE" | "REMOVE_MEMBER" | "REMOVE_MEMBERSHIP" | "SET_VARIABLES" | "UNLOCK" | "UPDATE" | "UPDATE_MEMBER" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ActivityEventWorkspaceTargetFragment_event$data = {
@@ -28,7 +28,7 @@ export type ActivityEventWorkspaceTargetFragment_event$data = {
       // This will never be '%other', but we need some
       // value in case none of the concrete values match.
       readonly __typename: "%other";
-    } | null;
+    } | null | undefined;
     readonly role: string;
   } | {
     readonly __typename: "ActivityEventDeleteChildResourcePayload";
@@ -52,12 +52,12 @@ export type ActivityEventWorkspaceTargetFragment_event$data = {
       // This will never be '%other', but we need some
       // value in case none of the concrete values match.
       readonly __typename: "%other";
-    } | null;
+    } | null | undefined;
   } | {
     // This will never be '%other', but we need some
     // value in case none of the concrete values match.
     readonly __typename: "%other";
-  } | null;
+  } | null | undefined;
   readonly target: {
     readonly description?: string;
     readonly fullPath?: string;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9056e5f2313a89eabca8ece534ad0712>>
+ * @generated SignedSource<<6f21ae774e2e867424868129a4690431>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ActivityEventAction = "ADD" | "ADD_MEMBER" | "APPLY" | "CANCEL" | "CREATE" | "CREATE_MEMBERSHIP" | "DELETE" | "DELETE_CHILD_RESOURCE" | "LOCK" | "MIGRATE" | "REMOVE" | "REMOVE_MEMBER" | "REMOVE_MEMBERSHIP" | "SET_VARIABLES" | "UNLOCK" | "UPDATE" | "UPDATE_MEMBER" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ActivityEventNamespaceMembershipTargetFragment_event$data = {
   readonly action: ActivityEventAction;
-  readonly namespacePath: string | null;
+  readonly namespacePath: string | null | undefined;
   readonly payload: {
     readonly __typename: "ActivityEventUpdateNamespaceMembershipPayload";
     readonly newRole: string;
@@ -22,7 +22,7 @@ export type ActivityEventNamespaceMembershipTargetFragment_event$data = {
     // This will never be '%other', but we need some
     // value in case none of the concrete values match.
     readonly __typename: "%other";
-  } | null;
+  } | null | undefined;
   readonly target: {
     readonly member?: {
       readonly __typename: "ServiceAccount";
@@ -37,7 +37,7 @@ export type ActivityEventNamespaceMembershipTargetFragment_event$data = {
       // This will never be '%other', but we need some
       // value in case none of the concrete values match.
       readonly __typename: "%other";
-    } | null;
+    } | null | undefined;
   };
   readonly " $fragmentSpreads": FragmentRefs<"ActivityEventListItemFragment_event">;
   readonly " $fragmentType": "ActivityEventNamespaceMembershipTargetFragment_event";

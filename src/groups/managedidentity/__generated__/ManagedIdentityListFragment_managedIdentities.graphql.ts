@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6c60820f3d238520bade1492c344bc7c>>
+ * @generated SignedSource<<39039f7a1c5c7beaaa9298f823e81c69>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ManagedIdentityListFragment_managedIdentities$data = {
   readonly group: {
@@ -18,11 +18,11 @@ export type ManagedIdentityListFragment_managedIdentities$data = {
           readonly groupPath: string;
           readonly id: string;
           readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityListItemFragment_managedIdentity">;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
       readonly totalCount: number;
     };
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "ManagedIdentityListFragment_managedIdentities";
 };
 export type ManagedIdentityListFragment_managedIdentities$key = {

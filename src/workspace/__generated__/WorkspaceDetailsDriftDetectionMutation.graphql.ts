@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<49acc5adafbe12fe2f754ca24b3be659>>
+ * @generated SignedSource<<84d60bb8ae535aa3d3eecabec990f3b8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,11 +8,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type AssessWorkspaceInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   workspacePath: string;
 };
 export type WorkspaceDetailsDriftDetectionMutation$variables = {
@@ -21,7 +21,7 @@ export type WorkspaceDetailsDriftDetectionMutation$variables = {
 export type WorkspaceDetailsDriftDetectionMutation$data = {
   readonly assessWorkspace: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -31,7 +31,7 @@ export type WorkspaceDetailsDriftDetectionMutation$data = {
         readonly fullPath: string;
         readonly " $fragmentSpreads": FragmentRefs<"WorkspaceDetailsDriftDetectionFragment_workspace">;
       };
-    } | null;
+    } | null | undefined;
   };
 };
 export type WorkspaceDetailsDriftDetectionMutation = {

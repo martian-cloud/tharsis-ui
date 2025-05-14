@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<152a18638c8979f69751b4e8a80a47b7>>
+ * @generated SignedSource<<44bdc463d48e1d80b76d2e80d40a3b8a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateNamespaceVariableInput = {
-  clientMutationId?: string | null;
-  hcl?: boolean | null;
+  clientMutationId?: string | null | undefined;
+  hcl?: boolean | null | undefined;
   id: string;
   key: string;
   value: string;
@@ -28,9 +28,9 @@ export type EditVariableDialogUpdateVariableMutation$data = {
       readonly variables: ReadonlyArray<{
         readonly " $fragmentSpreads": FragmentRefs<"VariableListItemFragment_variable">;
       }>;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

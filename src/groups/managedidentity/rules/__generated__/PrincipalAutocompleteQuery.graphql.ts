@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6e6816a960e7f5276b82dee6c1c20c9e>>
+ * @generated SignedSource<<9fadc05cc689dfc23e32520689300858>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,9 +8,9 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type PrincipalAutocompleteQuery$variables = {
-  first?: number | null;
+  first?: number | null | undefined;
   fullPath: string;
   search: string;
 };
@@ -22,17 +22,17 @@ export type PrincipalAutocompleteQuery$data = {
           readonly id: string;
           readonly name: string;
           readonly resourcePath: string;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
     };
-  } | null;
+  } | null | undefined;
   readonly teams: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
         readonly name: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly users: {
     readonly edges: ReadonlyArray<{
@@ -40,8 +40,8 @@ export type PrincipalAutocompleteQuery$data = {
         readonly email: string;
         readonly id: string;
         readonly username: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
 };
 export type PrincipalAutocompleteQuery = {

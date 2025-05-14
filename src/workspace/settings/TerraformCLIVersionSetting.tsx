@@ -1,7 +1,7 @@
 import { Box, MenuItem, Select, Typography } from '@mui/material'
 import React from 'react'
 import graphql from 'babel-plugin-relay/macro'
-import {  useLazyLoadQuery } from 'react-relay/hooks';
+import { useLazyLoadQuery } from 'react-relay/hooks';
 import { TerraformCLIVersionSettingQuery } from './__generated__/TerraformCLIVersionSettingQuery.graphql'
 
 interface Props {
@@ -17,7 +17,7 @@ function TerraformCLIVersionSetting(props: Props) {
             terraformCLIVersions {
                 versions
             }
-        }`, { fetchPolicy: 'store-or-network' })
+        }`, {}, { fetchPolicy: 'store-or-network' })
 
     return (
         <Box sx={{ mb: 4 }}>

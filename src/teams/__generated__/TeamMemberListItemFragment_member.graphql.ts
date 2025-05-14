@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ea05676a409ea7faa81e3e0a70dea656>>
+ * @generated SignedSource<<27f5956bbfafb6ea6f525b7983bf686d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TeamMemberListItemFragment_member$data = {
   readonly isMaintainer: boolean;

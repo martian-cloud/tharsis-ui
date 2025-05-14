@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<04397ef106078220a525847ca0def8db>>
+ * @generated SignedSource<<e0d45cb13194d452b95fee8d813f049e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type StateVersionFileQuery$variables = {
   id: string;
 };
 export type StateVersionFileQuery$data = {
   readonly node: {
     readonly data?: string;
-  } | null;
+  } | null | undefined;
 };
 export type StateVersionFileQuery = {
   response: StateVersionFileQuery$data;

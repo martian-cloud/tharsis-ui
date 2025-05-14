@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7e8ddf664225b838b0dede9db7d64165>>
+ * @generated SignedSource<<5614ae06254b553efa348cfd4ecd2a08>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type ResetVCSProviderOAuthTokenInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   providerId: string;
 };
 export type VCSProviderDetailsResetOAuthMutation$variables = {
@@ -21,7 +21,7 @@ export type VCSProviderDetailsResetOAuthMutation$data = {
   readonly resetVCSProviderOAuthToken: {
     readonly oAuthAuthorizationUrl: string;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

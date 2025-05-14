@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<06fd590abe5d9eca50c0483214e24818>>
+ * @generated SignedSource<<c64957a3ebede6bb887cde50cf6c7a4b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ForceCancelRunAlertFragment_run$data = {
-  readonly forceCancelAvailableAt: any | null;
+  readonly forceCancelAvailableAt: any | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"ForceCancelRunButtonFragment_run">;
   readonly " $fragmentType": "ForceCancelRunAlertFragment_run";
 };

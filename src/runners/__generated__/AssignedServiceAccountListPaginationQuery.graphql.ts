@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9fd64e0a1ca1f5a6e4d07384a8055d55>>
+ * @generated SignedSource<<c858934c04b1ef22338687f862447b73>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AssignedServiceAccountListPaginationQuery$variables = {
-  after?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
   id: string;
 };
 export type AssignedServiceAccountListPaginationQuery$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"AssignedServiceAccountListFragment_assignedServiceAccounts">;
-  } | null;
+  } | null | undefined;
 };
 export type AssignedServiceAccountListPaginationQuery = {
   response: AssignedServiceAccountListPaginationQuery$data;

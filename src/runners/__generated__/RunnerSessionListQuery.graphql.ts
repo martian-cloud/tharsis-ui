@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b58727fdeaf1144ed7957a23929ab6df>>
+ * @generated SignedSource<<2b2a4dd2d8e1942232283c43bc48e0f7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunnerSessionListQuery$variables = {
-  after?: string | null;
+  after?: string | null | undefined;
   first: number;
   id: string;
 };
@@ -19,7 +19,7 @@ export type RunnerSessionListQuery$data = {
   readonly node: {
     readonly id?: string;
     readonly " $fragmentSpreads": FragmentRefs<"RunnerSessionListFragment_sessions">;
-  } | null;
+  } | null | undefined;
 };
 export type RunnerSessionListQuery = {
   response: RunnerSessionListQuery$data;

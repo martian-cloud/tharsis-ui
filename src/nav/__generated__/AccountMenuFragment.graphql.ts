@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1501b73eb3060def6c79bb8b5cbed97e>>
+ * @generated SignedSource<<88f0640fc8f4365767c2be055a9791a8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AccountMenuFragment$data = {
   readonly me: {
     readonly admin?: boolean;
     readonly username?: string;
-  } | null;
+  } | null | undefined;
   readonly version: {
     readonly apiVersion: string;
     readonly dbMigrationDirty: boolean;

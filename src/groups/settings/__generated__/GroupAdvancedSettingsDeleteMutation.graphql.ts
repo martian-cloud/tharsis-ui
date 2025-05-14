@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8bf1f11db342897dc2852d26b27d6087>>
+ * @generated SignedSource<<b7c5b5cf756af052a50b611fa332671f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteGroupInput = {
-  clientMutationId?: string | null;
-  force?: boolean | null;
-  groupPath?: string | null;
-  id?: string | null;
-  metadata?: ResourceMetadataInput | null;
+  clientMutationId?: string | null | undefined;
+  force?: boolean | null | undefined;
+  groupPath?: string | null | undefined;
+  id?: string | null | undefined;
+  metadata?: ResourceMetadataInput | null | undefined;
 };
 export type ResourceMetadataInput = {
   version: string;
@@ -26,7 +26,7 @@ export type GroupAdvancedSettingsDeleteMutation$variables = {
 export type GroupAdvancedSettingsDeleteMutation$data = {
   readonly deleteGroup: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

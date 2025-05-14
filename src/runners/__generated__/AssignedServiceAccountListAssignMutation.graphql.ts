@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<55c7e78d34ff02c40cf6af18b4d00d53>>
+ * @generated SignedSource<<4dd91d662fa49a55180835bd48bb1941>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,11 +8,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type AssignServiceAccountToRunnerInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   runnerPath: string;
   serviceAccountPath: string;
 };
@@ -23,7 +23,7 @@ export type AssignedServiceAccountListAssignMutation$variables = {
 export type AssignedServiceAccountListAssignMutation$data = {
   readonly assignServiceAccountToRunner: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -31,11 +31,11 @@ export type AssignedServiceAccountListAssignMutation$data = {
       readonly assignedServiceAccounts: {
         readonly totalCount: number;
       };
-    } | null;
+    } | null | undefined;
     readonly serviceAccount: {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"AssignedServiceAccountListItemFragment_assignedServiceAccount">;
-    } | null;
+    } | null | undefined;
   };
 };
 export type AssignedServiceAccountListAssignMutation = {
@@ -284,7 +284,7 @@ return {
               {
                 "kind": "Literal",
                 "name": "edgeTypeName",
-                "value": "ServiceAccountEdgeType"
+                "value": "ServiceAccountEdge"
               }
             ]
           },
@@ -305,6 +305,6 @@ return {
 };
 })();
 
-(node as any).hash = "60029774de6c241508e2205d6d561d79";
+(node as any).hash = "c865b1469678143e53e4e6f9f88ae181";
 
 export default node;

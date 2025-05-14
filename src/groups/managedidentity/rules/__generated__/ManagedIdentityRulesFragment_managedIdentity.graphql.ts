@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9736d8ac21528e47eb83850ad86861f2>>
+ * @generated SignedSource<<7ccb29be71a097b966cc74fe9872f26d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type JobType = "apply" | "plan" | "%future added value";
 export type ManagedIdentityAccessRuleType = "eligible_principals" | "module_attestation" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
@@ -18,21 +18,21 @@ export type ManagedIdentityRulesFragment_managedIdentity$data = {
       readonly id: string;
       readonly name: string;
       readonly resourcePath: string;
-    }> | null;
+    }> | null | undefined;
     readonly allowedTeams: ReadonlyArray<{
       readonly id: string;
       readonly name: string;
-    }> | null;
+    }> | null | undefined;
     readonly allowedUsers: ReadonlyArray<{
       readonly email: string;
       readonly id: string;
       readonly username: string;
-    }> | null;
+    }> | null | undefined;
     readonly id: string;
     readonly moduleAttestationPolicies: ReadonlyArray<{
-      readonly predicateType: string | null;
+      readonly predicateType: string | null | undefined;
       readonly publicKey: string;
-    }> | null;
+    }> | null | undefined;
     readonly runStage: JobType;
     readonly type: ManagedIdentityAccessRuleType;
   }>;

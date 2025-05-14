@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<13c113a0383176440ffd5ea2c3891b28>>
+ * @generated SignedSource<<c13adedf3acab403344b9d51ae9c2041>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TeamMemberListPaginationQuery$variables = {
-  after?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
   id: string;
 };
 export type TeamMemberListPaginationQuery$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"TeamMemberListFragment_members">;
-  } | null;
+  } | null | undefined;
 };
 export type TeamMemberListPaginationQuery = {
   response: TeamMemberListPaginationQuery$data;

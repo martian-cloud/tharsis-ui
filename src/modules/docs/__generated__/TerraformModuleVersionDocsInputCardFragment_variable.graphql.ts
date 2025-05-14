@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<069fe0c359f6f2b30c4420470f89653e>>
+ * @generated SignedSource<<966a1d9111888dc1ccb27b1cbb19336f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleVersionDocsInputCardFragment_variable$data = {
-  readonly default: string | null;
+  readonly default: string | null | undefined;
   readonly description: string;
   readonly name: string;
   readonly required: boolean;

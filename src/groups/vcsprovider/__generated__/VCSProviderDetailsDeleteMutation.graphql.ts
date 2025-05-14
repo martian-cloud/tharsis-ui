@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c24b05d2fddbc79d0d6840011eb49b68>>
+ * @generated SignedSource<<66950be26139b1ed97ea5d4c51fe60ad>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteVCSProviderInput = {
-  clientMutationId?: string | null;
-  force?: boolean | null;
+  clientMutationId?: string | null | undefined;
+  force?: boolean | null | undefined;
   id: string;
-  metadata?: ResourceMetadataInput | null;
+  metadata?: ResourceMetadataInput | null | undefined;
 };
 export type ResourceMetadataInput = {
   version: string;
@@ -26,13 +26,13 @@ export type VCSProviderDetailsDeleteMutation$variables = {
 export type VCSProviderDetailsDeleteMutation$data = {
   readonly deleteVCSProvider: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly vcsProvider: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type VCSProviderDetailsDeleteMutation = {

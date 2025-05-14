@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<33362fbdd698eefa773111250579252f>>
+ * @generated SignedSource<<a1d479df8a734971cd2170ff7904079f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,17 +8,17 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type VariableCategory = "environment" | "terraform" | "%future added value";
 export type CreateNamespaceVariableInput = {
   category: VariableCategory;
-  clientMutationId?: string | null;
-  hcl?: boolean | null;
+  clientMutationId?: string | null | undefined;
+  hcl?: boolean | null | undefined;
   key: string;
   namespacePath: string;
-  sensitive?: boolean | null;
+  sensitive?: boolean | null | undefined;
   value: string;
 };
 export type EditVariableDialogCreateVariableMutation$variables = {
@@ -31,9 +31,9 @@ export type EditVariableDialogCreateVariableMutation$data = {
       readonly variables: ReadonlyArray<{
         readonly " $fragmentSpreads": FragmentRefs<"VariableListItemFragment_variable">;
       }>;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

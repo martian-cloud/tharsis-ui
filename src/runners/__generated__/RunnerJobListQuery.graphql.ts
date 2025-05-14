@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4180abc9f8564321685dbecec4884098>>
+ * @generated SignedSource<<2d35f5687af153f1e79f0b702bb2bb89>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunnerJobListQuery$variables = {
-  after?: string | null;
+  after?: string | null | undefined;
   first: number;
   id: string;
 };
@@ -19,7 +19,7 @@ export type RunnerJobListQuery$data = {
   readonly node: {
     readonly id?: string;
     readonly " $fragmentSpreads": FragmentRefs<"RunnerJobListFragment_jobs">;
-  } | null;
+  } | null | undefined;
 };
 export type RunnerJobListQuery = {
   response: RunnerJobListQuery$data;

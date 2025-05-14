@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aa43baeb3014255dc494128e6621dfa5>>
+ * @generated SignedSource<<0dd01b83f2f713ce343ea0f493ad6ad1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type AssignServiceAccountToRunnerInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   runnerPath: string;
   serviceAccountPath: string;
 };
@@ -22,7 +22,7 @@ export type AssignedServiceAccountListUnassignMutation$variables = {
 export type AssignedServiceAccountListUnassignMutation$data = {
   readonly unassignServiceAccountFromRunner: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -30,10 +30,10 @@ export type AssignedServiceAccountListUnassignMutation$data = {
       readonly assignedServiceAccounts: {
         readonly totalCount: number;
       };
-    } | null;
+    } | null | undefined;
     readonly serviceAccount: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type AssignedServiceAccountListUnassignMutation = {

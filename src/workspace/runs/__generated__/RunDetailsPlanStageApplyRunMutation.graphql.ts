@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<720ec175ae319d601531f55648915dc1>>
+ * @generated SignedSource<<d4999ff32bd839398d4eb59d60252711>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type ApplyRunInput = {
-  clientMutationId?: string | null;
-  comment?: string | null;
+  clientMutationId?: string | null | undefined;
+  comment?: string | null | undefined;
   runId: string;
 };
 export type RunDetailsPlanStageApplyRunMutation$variables = {
@@ -22,13 +22,13 @@ export type RunDetailsPlanStageApplyRunMutation$variables = {
 export type RunDetailsPlanStageApplyRunMutation$data = {
   readonly applyRun: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly run: {
       readonly " $fragmentSpreads": FragmentRefs<"RunDetailsPlanStageFragment_plan">;
-    } | null;
+    } | null | undefined;
   };
 };
 export type RunDetailsPlanStageApplyRunMutation = {

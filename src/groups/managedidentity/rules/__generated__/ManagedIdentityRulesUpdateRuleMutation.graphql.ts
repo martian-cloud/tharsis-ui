@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<41e3bc4779af00eba7c298d087e2741e>>
+ * @generated SignedSource<<491fdd69b27415eaa32c253d7479d98d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,22 +8,22 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type JobType = "apply" | "plan" | "%future added value";
 export type ManagedIdentityAccessRuleType = "eligible_principals" | "module_attestation" | "%future added value";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateManagedIdentityAccessRuleInput = {
-  allowedServiceAccounts?: ReadonlyArray<string> | null;
-  allowedTeams?: ReadonlyArray<string> | null;
-  allowedUsers?: ReadonlyArray<string> | null;
-  clientMutationId?: string | null;
+  allowedServiceAccounts?: ReadonlyArray<string> | null | undefined;
+  allowedTeams?: ReadonlyArray<string> | null | undefined;
+  allowedUsers?: ReadonlyArray<string> | null | undefined;
+  clientMutationId?: string | null | undefined;
   id: string;
-  moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null;
+  moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null | undefined;
   runStage: JobType;
-  verifyStateLineage?: boolean | null;
+  verifyStateLineage?: boolean | null | undefined;
 };
 export type ManagedIdentityAccessRuleModuleAttestationPolicyInput = {
-  predicateType?: string | null;
+  predicateType?: string | null | undefined;
   publicKey: string;
 };
 export type ManagedIdentityRulesUpdateRuleMutation$variables = {
@@ -36,26 +36,26 @@ export type ManagedIdentityRulesUpdateRuleMutation$data = {
         readonly id: string;
         readonly name: string;
         readonly resourcePath: string;
-      }> | null;
+      }> | null | undefined;
       readonly allowedTeams: ReadonlyArray<{
         readonly id: string;
         readonly name: string;
-      }> | null;
+      }> | null | undefined;
       readonly allowedUsers: ReadonlyArray<{
         readonly email: string;
         readonly id: string;
         readonly username: string;
-      }> | null;
+      }> | null | undefined;
       readonly id: string;
       readonly moduleAttestationPolicies: ReadonlyArray<{
-        readonly predicateType: string | null;
+        readonly predicateType: string | null | undefined;
         readonly publicKey: string;
-      }> | null;
+      }> | null | undefined;
       readonly runStage: JobType;
       readonly type: ManagedIdentityAccessRuleType;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

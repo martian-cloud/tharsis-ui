@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9bd3cc40c65fb2b132e76b124f2794f8>>
+ * @generated SignedSource<<b95afbfed9c6f672049901412f3a893b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateVCSProviderInput = {
-  clientMutationId?: string | null;
-  description?: string | null;
+  clientMutationId?: string | null | undefined;
+  description?: string | null | undefined;
   id: string;
-  metadata?: ResourceMetadataInput | null;
-  oAuthClientId?: string | null;
-  oAuthClientSecret?: string | null;
+  metadata?: ResourceMetadataInput | null | undefined;
+  oAuthClientId?: string | null | undefined;
+  oAuthClientSecret?: string | null | undefined;
 };
 export type ResourceMetadataInput = {
   version: string;
@@ -27,14 +27,14 @@ export type EditVCSProviderMutation$variables = {
 export type EditVCSProviderMutation$data = {
   readonly updateVCSProvider: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly vcsProvider: {
       readonly description: string;
       readonly id: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type EditVCSProviderMutation = {

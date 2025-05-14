@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6aa0fe8873ffba9ede462888c975f986>>
+ * @generated SignedSource<<16e3c9fae286709fd3b9b54d21aa101f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformModuleVersionListItemFragment_version$data = {
   readonly createdBy: string;

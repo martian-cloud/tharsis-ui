@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4ba2fdd767b7256a480e09f66d468adb>>
+ * @generated SignedSource<<b986f546274cb853458af16cc6629570>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type VCSProviderType = "github" | "gitlab" | "%future added value";
 export type EditVCSProviderQuery$variables = {
   id: string;
@@ -20,7 +20,7 @@ export type EditVCSProviderQuery$data = {
     readonly name?: string;
     readonly type?: VCSProviderType;
     readonly url?: string;
-  } | null;
+  } | null | undefined;
 };
 export type EditVCSProviderQuery = {
   response: EditVCSProviderQuery$data;

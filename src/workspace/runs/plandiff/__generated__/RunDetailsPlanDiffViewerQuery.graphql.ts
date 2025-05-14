@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ddeda4c00845a2a3278e05fee7f983a5>>
+ * @generated SignedSource<<875ffc9a9ba4c2d98410dfa4d7636adb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunDetailsPlanDiffViewerQuery$variables = {
   id: string;
@@ -17,7 +17,7 @@ export type RunDetailsPlanDiffViewerQuery$data = {
   readonly node: {
     readonly id?: string;
     readonly " $fragmentSpreads": FragmentRefs<"RunDetailsPlanDiffViewerFragment_run">;
-  } | null;
+  } | null | undefined;
 };
 export type RunDetailsPlanDiffViewerQuery = {
   response: RunDetailsPlanDiffViewerQuery$data;

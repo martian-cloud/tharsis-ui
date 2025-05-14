@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a1e2d4c39d2f0ab9eba9a2335d557dd7>>
+ * @generated SignedSource<<3dc9d90105a5ea97e0f17d88bd1c3d2f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,22 +8,22 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UpdateWorkspaceInput = {
-  clientMutationId?: string | null;
-  description?: string | null;
-  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null;
-  id?: string | null;
-  maxJobDuration?: number | null;
-  metadata?: ResourceMetadataInput | null;
-  preventDestroyPlan?: boolean | null;
-  runnerTags?: NamespaceRunnerTagsInput | null;
-  terraformVersion?: string | null;
-  workspacePath?: string | null;
+  clientMutationId?: string | null | undefined;
+  description?: string | null | undefined;
+  driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null | undefined;
+  id?: string | null | undefined;
+  maxJobDuration?: number | null | undefined;
+  metadata?: ResourceMetadataInput | null | undefined;
+  preventDestroyPlan?: boolean | null | undefined;
+  runnerTags?: NamespaceRunnerTagsInput | null | undefined;
+  terraformVersion?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type NamespaceDriftDetectionEnabledInput = {
-  enabled?: boolean | null;
+  enabled?: boolean | null | undefined;
   inherit: boolean;
 };
 export type ResourceMetadataInput = {
@@ -31,7 +31,7 @@ export type ResourceMetadataInput = {
 };
 export type NamespaceRunnerTagsInput = {
   inherit: boolean;
-  tags?: ReadonlyArray<string> | null;
+  tags?: ReadonlyArray<string> | null | undefined;
 };
 export type WorkspaceGeneralSettingsUpdateMutation$variables = {
   input: UpdateWorkspaceInput;
@@ -39,14 +39,14 @@ export type WorkspaceGeneralSettingsUpdateMutation$variables = {
 export type WorkspaceGeneralSettingsUpdateMutation$data = {
   readonly updateWorkspace: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly workspace: {
       readonly fullPath: string;
       readonly name: string;
-    } | null;
+    } | null | undefined;
   };
 };
 export type WorkspaceGeneralSettingsUpdateMutation = {

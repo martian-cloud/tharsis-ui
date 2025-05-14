@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3c471f4963de499f72447111d2b37f17>>
+ * @generated SignedSource<<4cccc8062112b9ea8dc7282d30164807>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AssignedManagedIdentityListFragment_assignedManagedIdentities$data = {
   readonly assignedManagedIdentities: ReadonlyArray<{

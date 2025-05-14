@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<91bfa79b426277fa52fbc11ff68d731b>>
+ * @generated SignedSource<<e014c095e8de80b3c203373c96191fb9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type WorkspaceDetailsDriftViewerQuery$variables = {
   id: string;
@@ -17,7 +17,7 @@ export type WorkspaceDetailsDriftViewerQuery$data = {
   readonly node: {
     readonly id?: string;
     readonly " $fragmentSpreads": FragmentRefs<"WorkspaceDetailsDriftViewerFragment_workspace">;
-  } | null;
+  } | null | undefined;
 };
 export type WorkspaceDetailsDriftViewerQuery = {
   response: WorkspaceDetailsDriftViewerQuery$data;

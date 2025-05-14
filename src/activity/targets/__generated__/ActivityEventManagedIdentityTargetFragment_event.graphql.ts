@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<208b19e7a7b365369f2a3a97cf172764>>
+ * @generated SignedSource<<e1b16cf905933e591e855530a64f6720>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ActivityEventAction = "ADD" | "ADD_MEMBER" | "APPLY" | "CANCEL" | "CREATE" | "CREATE_MEMBERSHIP" | "DELETE" | "DELETE_CHILD_RESOURCE" | "LOCK" | "MIGRATE" | "REMOVE" | "REMOVE_MEMBER" | "REMOVE_MEMBERSHIP" | "SET_VARIABLES" | "UNLOCK" | "UPDATE" | "UPDATE_MEMBER" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ActivityEventManagedIdentityTargetFragment_event$data = {
   readonly action: ActivityEventAction;
-  readonly namespacePath: string | null;
+  readonly namespacePath: string | null | undefined;
   readonly payload: {
     readonly __typename: "ActivityEventMoveManagedIdentityPayload";
     readonly previousGroupPath: string;
@@ -21,7 +21,7 @@ export type ActivityEventManagedIdentityTargetFragment_event$data = {
     // This will never be '%other', but we need some
     // value in case none of the concrete values match.
     readonly __typename: "%other";
-  } | null;
+  } | null | undefined;
   readonly target: {
     readonly description?: string;
     readonly id?: string;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c3c137a06a9c93285c280d739a4800f5>>
+ * @generated SignedSource<<9cfaceec1dccc23ca7a6b99c8b4c3511>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type WorkspaceAdvancedSettingsDeleteDialogFragment_workspace$data = {
   readonly fullPath: string;

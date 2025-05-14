@@ -14,7 +14,7 @@ import TerraformModuleVersionDocsResources from './TerraformModuleVersionDocsRes
 import TerraformModuleVersionDocsSidebar from './TerraformModuleVersionDocsSidebar';
 
 interface Props {
-    fragmentRef: TerraformModuleVersionDocsFragment_configurationDetails$key | null
+    fragmentRef: TerraformModuleVersionDocsFragment_configurationDetails$key | null | undefined
 }
 
 function TerraformModuleVersionDocs({ fragmentRef }: Props) {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<87ab86460663b852171c44e4983154e7>>
+ * @generated SignedSource<<9251891572dd9b2bb61ed21b41f7d1a4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type WorkspaceSubscriptionInput = {
   workspacePath: string;

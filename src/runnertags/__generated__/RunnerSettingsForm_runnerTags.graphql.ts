@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<39356f9cc381f22725164766ec4ddaa9>>
+ * @generated SignedSource<<5b4833e460df7dbf4e21989e551e53b4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunnerSettingsForm_runnerTags$data = {
   readonly inherited: boolean;

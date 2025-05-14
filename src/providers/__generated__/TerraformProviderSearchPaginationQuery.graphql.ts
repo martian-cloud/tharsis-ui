@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<48d403aafd8e6a4d93e37997dd3b9bd9>>
+ * @generated SignedSource<<8122ec1d5e70b9e686d9493e0d09ad5a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,14 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformProviderSearchPaginationQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
-  last?: number | null;
-  search?: string | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  search?: string | null | undefined;
 };
 export type TerraformProviderSearchPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"TerraformProviderSearchFragment_providers">;

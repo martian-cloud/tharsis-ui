@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a88c60f10f51c6b2e9565a2d9a1a9a5>>
+ * @generated SignedSource<<f51da248477d643a3f28bea53aef3707>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ManagedIdentityAliasesListFragment_managedIdentity$data = {
   readonly aliases: {
@@ -16,8 +16,8 @@ export type ManagedIdentityAliasesListFragment_managedIdentity$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityAliasesListItemFragment_managedIdentity">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly id: string;
   readonly " $fragmentType": "ManagedIdentityAliasesListFragment_managedIdentity";
@@ -83,7 +83,10 @@ return {
         "node"
       ],
       "operation": require('./ManagedIdentityAliasesListPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "ManagedIdentityAliasesListFragment_managedIdentity",

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<60df60b0e477e44033d1be54b3219808>>
+ * @generated SignedSource<<aa1ba8776c104d66f5761624611ba797>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type VCSProviderType = "github" | "gitlab" | "%future added value";
 export type VCSProviderDetailsQuery$variables = {
   id: string;
@@ -26,7 +26,7 @@ export type VCSProviderDetailsQuery$data = {
     readonly resourcePath?: string;
     readonly type?: VCSProviderType;
     readonly url?: string;
-  } | null;
+  } | null | undefined;
 };
 export type VCSProviderDetailsQuery = {
   response: VCSProviderDetailsQuery$data;

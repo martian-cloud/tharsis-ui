@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4853726d834e4ec277f8651a6d11de0d>>
+ * @generated SignedSource<<ae9d98079ec4dced4a0b8aa6a0088cbf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,10 +8,10 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteTerraformModuleAttestationInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   id: string;
 };
 export type TerraformModuleVersionAttestListDeleteMutation$variables = {
@@ -22,9 +22,9 @@ export type TerraformModuleVersionAttestListDeleteMutation$data = {
   readonly deleteTerraformModuleAttestation: {
     readonly moduleAttestation: {
       readonly id: string;
-    } | null;
+    } | null | undefined;
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;

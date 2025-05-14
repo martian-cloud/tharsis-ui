@@ -29,16 +29,16 @@ import SensitiveVariableValue from './SensitiveVariableValue';
 
 const INITIAL_ITEM_COUNT = 5;
 
-function VariableHistory({ variableId }: { variableId: string }) {
+function VariableHistory({ variableId, sensitive }: { variableId: string, sensitive: boolean }) {
     const variable = useLazyLoadQuery<VariableHistoryDialogQuery>(graphql`
-    query VariableHistoryDialogQuery($id: String!, $first: Int!, $after: String) {
+    query VariableHistoryDialogQuery($id: String!, $first: Int!, $after: String, $includeValues: Boolean!) {
         node(id: $id) {
             ... on NamespaceVariable {
                 sensitive
                 ...VariableHistoryDialogFragment_variable
             }
         }
-    }`, { id: variableId, first: INITIAL_ITEM_COUNT }, { fetchPolicy: 'network-only' });
+    }`, { id: variableId, first: INITIAL_ITEM_COUNT, includeValues: !sensitive }, { fetchPolicy: 'network-only' });
 
     const { data, loadNext, hasNext } = usePaginationFragment<VariableHistoryDialogQuery, VariableHistoryDialogFragment_variable$key>(
         graphql`
@@ -57,15 +57,13 @@ function VariableHistory({ variableId }: { variableId: string }) {
                             }
                             id
                             key
-                            value
+                            value @include(if: $includeValues)
                             hcl
                         }
                     }
                 }
             }
         `, variable.node);
-
-    const sensitive = variable.node?.sensitive;
 
     return (
         <Box>
@@ -114,10 +112,11 @@ function VariableHistory({ variableId }: { variableId: string }) {
 
 interface Props {
     variableId: string
+    sensitive: boolean
     onClose: (keepOpen: boolean) => void
 }
 
-function VariableHistoryDialog({ variableId, onClose }: Props) {
+function VariableHistoryDialog({ variableId, sensitive, onClose }: Props) {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -143,7 +142,7 @@ function VariableHistoryDialog({ variableId, onClose }: Props) {
                     }}>
                     <CircularProgress />
                 </Box>}>
-                    <VariableHistory variableId={variableId} />
+                    <VariableHistory variableId={variableId} sensitive={sensitive} />
                 </Suspense>
             </DialogContent>
             <DialogActions sx={{ pl: 3, pr: 3, justifyContent: 'flex-end' }}>

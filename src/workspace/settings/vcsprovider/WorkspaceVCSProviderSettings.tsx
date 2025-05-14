@@ -11,7 +11,7 @@ import { WorkspaceVCSProviderSettingsFragment_workspace$key } from './__generate
 
 export interface WebhooksData {
     url: string
-    token: string | null
+    token: string | null | undefined
     type: string | undefined
 }
 

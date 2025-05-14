@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<36c04f4eaac5cf0e2df95c8684e129b1>>
+ * @generated SignedSource<<c9a1ef0b95c649491fa5c7bca636bb1b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
-export type TerraformCLIVersionSettingQuery$variables = {};
+import { ConcreteRequest } from 'relay-runtime';
+export type TerraformCLIVersionSettingQuery$variables = Record<PropertyKey, never>;
 export type TerraformCLIVersionSettingQuery$data = {
   readonly terraformCLIVersions: {
     readonly versions: ReadonlyArray<string>;
-  } | null;
+  } | null | undefined;
 };
 export type TerraformCLIVersionSettingQuery = {
   response: TerraformCLIVersionSettingQuery$data;

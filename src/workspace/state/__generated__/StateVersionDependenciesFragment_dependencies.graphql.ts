@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9b788b8671b8acc74f719012b6d48a8f>>
+ * @generated SignedSource<<9ddff59df238a53e8b826cdccb48aed1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type StateVersionDependenciesFragment_dependencies$data = {
   readonly dependencies: ReadonlyArray<{

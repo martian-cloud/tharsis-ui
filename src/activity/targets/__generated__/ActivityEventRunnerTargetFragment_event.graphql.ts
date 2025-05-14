@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e39ab9e3fc4d0cc1de0706445344900a>>
+ * @generated SignedSource<<7a4ad170e50b255691187f1dac861298>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,12 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ActivityEventAction = "ADD" | "ADD_MEMBER" | "APPLY" | "CANCEL" | "CREATE" | "CREATE_MEMBERSHIP" | "DELETE" | "DELETE_CHILD_RESOURCE" | "LOCK" | "MIGRATE" | "REMOVE" | "REMOVE_MEMBER" | "REMOVE_MEMBERSHIP" | "SET_VARIABLES" | "UNLOCK" | "UPDATE" | "UPDATE_MEMBER" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ActivityEventRunnerTargetFragment_event$data = {
   readonly action: ActivityEventAction;
-  readonly namespacePath: string | null;
+  readonly namespacePath: string | null | undefined;
   readonly target: {
     readonly name?: string;
   };

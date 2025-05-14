@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<333a5b6eac47318de5dc1498dcbb3691>>
+ * @generated SignedSource<<740965d1447fc906fff94bfc40a2f244>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TeamMemberListFragment_members$data = {
   readonly id: string;
@@ -17,8 +17,8 @@ export type TeamMemberListFragment_members$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"TeamMemberListItemFragment_member">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly " $fragmentType": "TeamMemberListFragment_members";
 };
@@ -72,7 +72,10 @@ return {
         "node"
       ],
       "operation": require('./TeamMemberListPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "TeamMemberListFragment_members",

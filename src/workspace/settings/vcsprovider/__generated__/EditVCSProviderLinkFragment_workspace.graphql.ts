@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8d6838aec3a4522fff777c2d4e8fa9e7>>
+ * @generated SignedSource<<e8687162fe0a457dd1dbb5a8cffe6949>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type VCSProviderType = "github" | "gitlab" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type EditVCSProviderLinkFragment_workspace$data = {
@@ -22,9 +22,9 @@ export type EditVCSProviderLinkFragment_workspace$data = {
     readonly metadata: {
       readonly createdAt: any;
     };
-    readonly moduleDirectory: string | null;
+    readonly moduleDirectory: string | null | undefined;
     readonly repositoryPath: string;
-    readonly tagRegex: string | null;
+    readonly tagRegex: string | null | undefined;
     readonly vcsProvider: {
       readonly autoCreateWebhooks: boolean;
       readonly description: string;
@@ -33,7 +33,7 @@ export type EditVCSProviderLinkFragment_workspace$data = {
       readonly type: VCSProviderType;
     };
     readonly webhookDisabled: boolean;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"VCSProviderLinkFormFragment_workspace">;
   readonly " $fragmentType": "EditVCSProviderLinkFragment_workspace";
 };

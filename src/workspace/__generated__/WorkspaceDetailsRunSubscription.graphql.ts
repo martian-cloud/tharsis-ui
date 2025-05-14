@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9eabaadcbf96e8774ecc2b6e555a2a07>>
+ * @generated SignedSource<<4224d5c154aa9d43c3bb92f94079bf4f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,11 +8,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, GraphQLSubscription } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunSubscriptionInput = {
-  runId?: string | null;
-  workspacePath?: string | null;
+  runId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type WorkspaceDetailsRunSubscription$variables = {
   input: RunSubscriptionInput;

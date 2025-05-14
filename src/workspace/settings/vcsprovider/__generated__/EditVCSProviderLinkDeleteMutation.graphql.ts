@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2df2d9dc30b0c09d75082e9d7f69e6d8>>
+ * @generated SignedSource<<e8e585180a5941ff8d7cb26395be1d37>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DeleteWorkspaceVCSProviderLinkInput = {
-  clientMutationId?: string | null;
-  force?: boolean | null;
+  clientMutationId?: string | null | undefined;
+  force?: boolean | null | undefined;
   id: string;
-  metadata?: ResourceMetadataInput | null;
+  metadata?: ResourceMetadataInput | null | undefined;
 };
 export type ResourceMetadataInput = {
   version: string;
@@ -25,7 +25,7 @@ export type EditVCSProviderLinkDeleteMutation$variables = {
 export type EditVCSProviderLinkDeleteMutation$data = {
   readonly deleteWorkspaceVCSProviderLink: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
@@ -34,9 +34,9 @@ export type EditVCSProviderLinkDeleteMutation$data = {
         readonly id: string;
         readonly workspaceVcsProviderLink: {
           readonly id: string;
-        } | null;
+        } | null | undefined;
       };
-    } | null;
+    } | null | undefined;
   };
 };
 export type EditVCSProviderLinkDeleteMutation = {

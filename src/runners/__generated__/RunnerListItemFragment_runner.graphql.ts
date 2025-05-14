@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d31a3b597883a4eccd43ceb61aa1954f>>
+ * @generated SignedSource<<1dff414bc36d5e03027b04c1cdfe9a19>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunnerListItemFragment_runner$data = {
   readonly createdBy: string;

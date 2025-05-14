@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<223f5aed7facc9a3117ea346d8b969dc>>
+ * @generated SignedSource<<1dee36cae53d61f4b6858db4bb468b81>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TerraformProviderVersionListQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
-  last?: number | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
   providerId: string;
 };
 export type TerraformProviderVersionListQuery$data = {

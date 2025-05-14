@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<28f9f72041edc04dd31f598b29ddccfd>>
+ * @generated SignedSource<<cf783674df1867e9cc1dbc579c80e8c3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,13 +8,13 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type AssignManagedIdentityInput = {
-  clientMutationId?: string | null;
-  managedIdentityId?: string | null;
-  managedIdentityPath?: string | null;
+  clientMutationId?: string | null | undefined;
+  managedIdentityId?: string | null | undefined;
+  managedIdentityPath?: string | null | undefined;
   workspacePath: string;
 };
 export type AssignedManagedIdentityListMutation$variables = {
@@ -23,13 +23,13 @@ export type AssignedManagedIdentityListMutation$variables = {
 export type AssignedManagedIdentityListMutation$data = {
   readonly assignManagedIdentity: {
     readonly problems: ReadonlyArray<{
-      readonly field: ReadonlyArray<string> | null;
+      readonly field: ReadonlyArray<string> | null | undefined;
       readonly message: string;
       readonly type: ProblemType;
     }>;
     readonly workspace: {
       readonly " $fragmentSpreads": FragmentRefs<"AssignedManagedIdentityListFragment_assignedManagedIdentities">;
-    } | null;
+    } | null | undefined;
   };
 };
 export type AssignedManagedIdentityListMutation = {

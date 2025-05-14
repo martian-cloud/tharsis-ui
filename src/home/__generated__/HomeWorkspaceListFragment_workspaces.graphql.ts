@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1a52c3a9c5f9003cfd5ac6f07a73defb>>
+ * @generated SignedSource<<3ecd4deff7d13bcb05272b5704d2d49f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HomeWorkspaceListFragment_workspaces$data = {
   readonly workspaces: {
@@ -16,8 +16,8 @@ export type HomeWorkspaceListFragment_workspaces$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"HomeWorkspaceListItemFragment_workspace">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly totalCount: number;
   };
   readonly " $fragmentType": "HomeWorkspaceListFragment_workspaces";

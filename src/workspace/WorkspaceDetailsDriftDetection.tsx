@@ -1,15 +1,15 @@
-import { Suspense, useMemo, useState } from 'react';
-import { Alert, Box, Button, CircularProgress, Paper, Stack, Typography } from '@mui/material';
-import { useFragment, useMutation } from 'react-relay/hooks';
-import graphql from 'babel-plugin-relay/macro';
-import { MutationError } from '../common/error';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
-import Link from '../routes/Link';
-import WorkspaceDetailsDriftViewer from './WorkspaceDetailsDriftViewer';
-import RelativeTimestamp from '../common/RelativeTimestamp';
+import { Alert, Box, Button, CircularProgress, Paper, Stack, Typography } from '@mui/material';
+import graphql from 'babel-plugin-relay/macro';
+import { Suspense, useMemo, useState } from 'react';
+import { useFragment, useMutation } from 'react-relay/hooks';
 import ConfirmationDialog from '../common/ConfirmationDialog';
+import { MutationError } from '../common/error';
+import RelativeTimestamp from '../common/RelativeTimestamp';
+import Link from '../routes/Link';
 import { WorkspaceDetailsDriftDetectionFragment_workspace$key } from './__generated__/WorkspaceDetailsDriftDetectionFragment_workspace.graphql';
 import { WorkspaceDetailsDriftDetectionMutation } from './__generated__/WorkspaceDetailsDriftDetectionMutation.graphql';
+import WorkspaceDetailsDriftViewer from './WorkspaceDetailsDriftViewer';
 
 interface Props {
     fragmentRef: WorkspaceDetailsDriftDetectionFragment_workspace$key;
@@ -37,8 +37,8 @@ const StatusMessage = ({
     runId?: string,
     workspacePath: string
 }) => (
-    <Stack direction="column" spacing={1}>
-        <Typography color="textSecondary">
+    <Box display="flex">
+        <Typography color="textSecondary" mr={1}>
             {isInProgress ? 'Drift detection started' : 'Drift last checked'}{' '}
             <RelativeTimestamp
                 component="span"
@@ -48,13 +48,13 @@ const StatusMessage = ({
         {!isInProgress && runId && (
             <Link
                 to={`/groups/${workspacePath}/-/runs/${runId}`}
-                color="secondary"
+                color="textSecondary"
                 underline="hover"
             >
-                View assessment run
+                (view assessment run)
             </Link>
         )}
-    </Stack>
+    </Box>
 );
 
 
@@ -149,17 +149,15 @@ function WorkspaceDetailsDriftDetection({ fragmentRef }: Props) {
 
             {data.assessment && (
                 <Box sx={{ mb: 2 }} display="flex" justifyContent="space-between">
-                    <Box sx={{ pl: 2 }}>
-                        <Stack direction="row" spacing={2}>
-                            <CompareArrowsIcon />
-                            <StatusMessage
-                                isInProgress={isAssessmentInProgress}
-                                timestamp={isAssessmentInProgress ? data.assessment.startedAt : data.assessment.completedAt}
-                                runId={data.assessment.run?.id}
-                                workspacePath={data.fullPath}
-                            />
-                        </Stack>
-                    </Box>
+                    <Stack direction="row" spacing={2}>
+                        <CompareArrowsIcon />
+                        <StatusMessage
+                            isInProgress={isAssessmentInProgress}
+                            timestamp={isAssessmentInProgress ? data.assessment.startedAt : data.assessment.completedAt}
+                            runId={data.assessment.run?.id}
+                            workspacePath={data.fullPath}
+                        />
+                    </Stack>
                     {!isAssessmentInProgress && (
                         <Box>
                             <DriftDetectionButton

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<25ffc15ec63254d315c7b0e02d162792>>
+ * @generated SignedSource<<f1ce9da855d5aafe347420a946512a45>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 export type ApplyStatus = "canceled" | "created" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
 export type JobStatus = "finished" | "pending" | "queued" | "running" | "%future added value";
 export type PlanStatus = "canceled" | "errored" | "finished" | "pending" | "queued" | "running" | "%future added value";
@@ -16,7 +16,7 @@ import { FragmentRefs } from "relay-runtime";
 export type RunDetailsPlanStageFragment_plan$data = {
   readonly apply: {
     readonly status: ApplyStatus;
-  } | null;
+  } | null | undefined;
   readonly createdBy: string;
   readonly id: string;
   readonly plan: {
@@ -25,15 +25,15 @@ export type RunDetailsPlanStageFragment_plan$data = {
       readonly id: string;
       readonly status: JobStatus;
       readonly timestamps: {
-        readonly finishedAt: any | null;
-        readonly pendingAt: any | null;
-        readonly queuedAt: any | null;
-        readonly runningAt: any | null;
+        readonly finishedAt: any | null | undefined;
+        readonly pendingAt: any | null | undefined;
+        readonly queuedAt: any | null | undefined;
+        readonly runningAt: any | null | undefined;
       };
       readonly " $fragmentSpreads": FragmentRefs<"JobLogsFragment_logs" | "NoRunnerAlertFragment_job" | "RunJobDialog_currentJob">;
-    } | null;
+    } | null | undefined;
     readonly diffSize: number;
-    readonly errorMessage: string | null;
+    readonly errorMessage: string | null | undefined;
     readonly hasChanges: boolean;
     readonly metadata: {
       readonly createdAt: any;

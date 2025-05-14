@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<224451967275ca4cc73d57f04024e28c>>
+ * @generated SignedSource<<974d62a5a94edf3aa74ad5d3c13cb7df>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ManagedIdentityListQuery$variables = {
-  after?: string | null;
-  before?: string | null;
-  first?: number | null;
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  first?: number | null | undefined;
   groupPath: string;
-  last?: number | null;
-  search?: string | null;
+  last?: number | null | undefined;
+  search?: string | null | undefined;
 };
 export type ManagedIdentityListQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityListFragment_managedIdentities">;

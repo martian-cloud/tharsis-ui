@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f75519f2f6e168339f55c9e6600cfe43>>
+ * @generated SignedSource<<c4913c679098fae3d5a7ab705a9667f9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NamespaceMembershipsFragment_memberships$data = {
   readonly " $fragmentSpreads": FragmentRefs<"NamespaceMembershipsIndexFragment_memberships" | "NewNamespaceMembershipFragment_memberships">;
