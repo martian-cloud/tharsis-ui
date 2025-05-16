@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<740965d1447fc906fff94bfc40a2f244>>
+ * @generated SignedSource<<b575558b8304c7dace55ef606c28abdc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type TeamMemberListFragment_members$key = {
   readonly " $data"?: TeamMemberListFragment_members$data;
   readonly " $fragmentSpreads": FragmentRefs<"TeamMemberListFragment_members">;
 };
+
+import TeamMemberListPaginationQuery_graphql from './TeamMemberListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -71,7 +73,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./TeamMemberListPaginationQuery.graphql'),
+      "operation": TeamMemberListPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"

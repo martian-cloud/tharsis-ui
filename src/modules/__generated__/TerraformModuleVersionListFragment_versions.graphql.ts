@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7a873502fafc59f378ffdfd60afdc3d1>>
+ * @generated SignedSource<<c07d0a35f0f656cfce8221d2d53a06f6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,6 +28,8 @@ export type TerraformModuleVersionListFragment_versions$key = {
   readonly " $data"?: TerraformModuleVersionListFragment_versions$data;
   readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionListFragment_versions">;
 };
+
+import TerraformModuleVersionListPaginationQuery_graphql from './TerraformModuleVersionListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -80,7 +82,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./TerraformModuleVersionListPaginationQuery.graphql')
+      "operation": TerraformModuleVersionListPaginationQuery_graphql
     }
   },
   "name": "TerraformModuleVersionListFragment_versions",

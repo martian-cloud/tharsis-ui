@@ -74,7 +74,10 @@ function WorkspaceDetails(props: Props) {
     subscription: runSubscription,
     onCompleted: () => console.log("Subscription completed"),
     onError: () => console.warn("Subscription error"),
-    updater: (store: RecordSourceProxy, payload: WorkspaceDetailsRunSubscription$data) => {
+    updater: (store: RecordSourceProxy, payload: WorkspaceDetailsRunSubscription$data | null | undefined) => {
+      if (!payload) {
+        return;
+      }
       const record = store.get(payload.workspaceRunEvents.run.id);
       if (record == null) {
         return;

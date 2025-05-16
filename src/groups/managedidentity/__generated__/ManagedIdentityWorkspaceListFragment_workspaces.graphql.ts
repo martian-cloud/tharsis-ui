@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6a2bfef02192de4dfe893acaf0aafc2d>>
+ * @generated SignedSource<<e338706a2adfedc2e926bb8242d78514>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,6 +27,8 @@ export type ManagedIdentityWorkspaceListFragment_workspaces$key = {
   readonly " $data"?: ManagedIdentityWorkspaceListFragment_workspaces$data;
   readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityWorkspaceListFragment_workspaces">;
 };
+
+import ManagedIdentityWorkspaceListPaginationQuery_graphql from './ManagedIdentityWorkspaceListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -72,7 +74,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./ManagedIdentityWorkspaceListPaginationQuery.graphql'),
+      "operation": ManagedIdentityWorkspaceListPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"

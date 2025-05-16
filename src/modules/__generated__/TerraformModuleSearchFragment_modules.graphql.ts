@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ed04c14f8c9c2afa31c5e04c9e51c260>>
+ * @generated SignedSource<<604242ed9437806affc256d023d43437>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type TerraformModuleSearchFragment_modules$key = {
   readonly " $data"?: TerraformModuleSearchFragment_modules$data;
   readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleSearchFragment_modules">;
 };
+
+import TerraformModuleSearchPaginationQuery_graphql from './TerraformModuleSearchPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -77,7 +79,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./TerraformModuleSearchPaginationQuery.graphql')
+      "operation": TerraformModuleSearchPaginationQuery_graphql
     }
   },
   "name": "TerraformModuleSearchFragment_modules",

@@ -189,8 +189,8 @@ function ManagedIdentityRules(props: Props) {
                     setRuleToDelete(null);
                     enqueueSnackbar(`Unexpected error occurred: ${error.message}`, { variant: 'error' });
                 },
-                updater: (store: RecordSourceProxy, payload: ManagedIdentityRulesDeleteMutation$data) => {
-                    if (!payload.deleteManagedIdentityAccessRule.accessRule) {
+                updater: (store: RecordSourceProxy, payload: ManagedIdentityRulesDeleteMutation$data | null | undefined) => {
+                    if (!payload || !payload.deleteManagedIdentityAccessRule.accessRule) {
                         return;
                     }
 
@@ -252,8 +252,8 @@ function ManagedIdentityRules(props: Props) {
                     message: `Unexpected error occurred: ${error.message}`
                 });
             },
-            updater: (store: RecordSourceProxy, payload: ManagedIdentityRulesCreateRuleMutation$data) => {
-                if (!payload.createManagedIdentityAccessRule.accessRule) {
+            updater: (store: RecordSourceProxy, payload: ManagedIdentityRulesCreateRuleMutation$data | null | undefined) => {
+                if (!payload || !payload.createManagedIdentityAccessRule.accessRule) {
                     return;
                 }
 

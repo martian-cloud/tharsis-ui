@@ -1,5 +1,6 @@
 function buildGraphqlUrl(protocol: 'http' | 'ws'): string {
-    const urlSetting = process.env.REACT_APP_THARSIS_API_ENDPOINT ? process.env.REACT_APP_THARSIS_API_ENDPOINT : (window as any).env.THARSIS_API_ENDPOINT;
+    const urlSetting = import.meta.env.VITE_THARSIS_API_ENDPOINT ? import.meta.env.VITE_THARSIS_API_ENDPOINT : (window as any).env.VITE_API_ENDPOINT;
+
     if (!urlSetting) {
         return `${protocol}://localhost:8000`
     }
@@ -18,7 +19,7 @@ function buildGraphqlUrl(protocol: 'http' | 'ws'): string {
 }
 
 function buildDocumentsUrl(): string {
-    const urlSetting = process.env.REACT_APP_THARSIS_DOCUMENTS_URL ? process.env.REACT_APP_THARSIS_DOCUMENTS_URL : (window as any).env.THARSIS_DOCUMENTS_URL;
+    const urlSetting = import.meta.env.VITE_THARSIS_DOCUMENTS_URL ? import.meta.env.VITE_THARSIS_DOCUMENTS_URL : (window as any).env.THARSIS_DOCUMENTS_URL;
     const defaultSetting = 'https://tharsis.martian-cloud.io';
 
     if (!urlSetting || urlSetting === '__THARSIS_DOCUMENTS_URL__') {
@@ -29,7 +30,7 @@ function buildDocumentsUrl(): string {
 }
 
 function buildVersion(): string {
-    const version = process.env.REACT_APP_THARSIS_UI_VERSION ? process.env.REACT_APP_THARSIS_UI_VERSION : (window as any).env.THARSIS_UI_VERSION;
+    const version = import.meta.env.VITE_THARSIS_UI_VERSION ? import.meta.env.VITE_THARSIS_UI_VERSION : (window as any).env.THARSIS_UI_VERSION;
     const defaultVersion = 'dev';
 
     if (!version || version === '__THARSIS_UI_VERSION__') {
@@ -40,7 +41,7 @@ function buildVersion(): string {
 }
 
 function buildSupportUrl(): string {
-    const urlSetting = process.env.REACT_APP_THARSIS_SUPPORT_URL ? process.env.REACT_APP_THARSIS_SUPPORT_URL : (window as any).env.THARSIS_SUPPORT_URL;
+    const urlSetting = import.meta.env.VITE_THARSIS_SUPPORT_URL ? import.meta.env.VITE_THARSIS_SUPPORT_URL : (window as any).env.THARSIS_SUPPORT_URL;
 
     if (!urlSetting || urlSetting === '__THARSIS_SUPPORT_URL__') {
         return '';

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<44de9a1ceb1326f110bdbf5ddd25e6d4>>
+ * @generated SignedSource<<57059df2c3bb4a8f8229d6fc2f89688c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,6 +29,8 @@ export type ServiceAccountListFragment_serviceAccounts$key = {
   readonly " $data"?: ServiceAccountListFragment_serviceAccounts$data;
   readonly " $fragmentSpreads": FragmentRefs<"ServiceAccountListFragment_serviceAccounts">;
 };
+
+import ServiceAccountListPaginationQuery_graphql from './ServiceAccountListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -85,7 +87,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./ServiceAccountListPaginationQuery.graphql')
+      "operation": ServiceAccountListPaginationQuery_graphql
     }
   },
   "name": "ServiceAccountListFragment_serviceAccounts",

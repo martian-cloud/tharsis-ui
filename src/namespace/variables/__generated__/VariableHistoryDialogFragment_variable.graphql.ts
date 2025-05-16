@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6d79fd75a592780f9f0fd32c0697f274>>
+ * @generated SignedSource<<0f4ec699275f882fcb83caa39a75e019>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -32,6 +32,8 @@ export type VariableHistoryDialogFragment_variable$key = {
   readonly " $data"?: VariableHistoryDialogFragment_variable$data;
   readonly " $fragmentSpreads": FragmentRefs<"VariableHistoryDialogFragment_variable">;
 };
+
+import VariableHistoryDialogPaginationQuery_graphql from './VariableHistoryDialogPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -81,7 +83,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./VariableHistoryDialogPaginationQuery.graphql'),
+      "operation": VariableHistoryDialogPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"

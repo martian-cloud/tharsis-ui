@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<89c3229360f2beafd6767b34c80ba0a2>>
+ * @generated SignedSource<<4f3a894c68809945d540e310cf0df518>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type HomeRunListFragment_runs$key = {
   readonly " $data"?: HomeRunListFragment_runs$data;
   readonly " $fragmentSpreads": FragmentRefs<"HomeRunListFragment_runs">;
 };
+
+import HomeRunListPaginationQuery_graphql from './HomeRunListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -62,7 +64,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./HomeRunListPaginationQuery.graphql')
+      "operation": HomeRunListPaginationQuery_graphql
     }
   },
   "name": "HomeRunListFragment_runs",

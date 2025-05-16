@@ -122,7 +122,7 @@ function AssignedServiceAccountList({ fragmentRef }: Props) {
                     connections: GetConnections(runner.id)
                 },
                 updater: (store, data) => {
-                    if (data.assignServiceAccountToRunner.serviceAccount) {
+                    if (data && data.assignServiceAccountToRunner.serviceAccount) {
                         const runnerRecord = store.get(runner.id);
                         if (runnerRecord) {
                             const connectionRecord = ConnectionHandler.getConnection(
@@ -137,7 +137,7 @@ function AssignedServiceAccountList({ fragmentRef }: Props) {
                     }
                 },
                 onCompleted: data => {
-                    if (data.assignServiceAccountToRunner.problems.length) {
+                    if (data && data.assignServiceAccountToRunner.problems.length) {
                         setError({
                             severity: 'warning',
                             message: data.assignServiceAccountToRunner.problems.map(problem => problem.message).join('; ')
@@ -189,7 +189,7 @@ function AssignedServiceAccountList({ fragmentRef }: Props) {
                     connections: GetConnections(runner.id)
                 },
                 updater: (store, data) => {
-                    if (data.unassignServiceAccountFromRunner.serviceAccount) {
+                    if (data && data.unassignServiceAccountFromRunner.serviceAccount) {
                         const runnerRecord = store.get(runner.id);
                         if (runnerRecord) {
                             const connectionRecord = ConnectionHandler.getConnection(
@@ -204,7 +204,7 @@ function AssignedServiceAccountList({ fragmentRef }: Props) {
                     }
                 },
                 onCompleted: data => {
-                    if (data.unassignServiceAccountFromRunner.problems.length) {
+                    if (data && data.unassignServiceAccountFromRunner.problems.length) {
                         setError({
                             severity: 'warning',
                             message: data.unassignServiceAccountFromRunner.problems.map(problem => problem.message).join('; ')

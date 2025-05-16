@@ -68,7 +68,10 @@ function HomeRunList() {
         variables: { input: {} },
         onCompleted: () => console.log("Subscription completed"),
         onError: (error) => console.warn(`Subscription error: ${error.message}`),
-        updater: (store: RecordSourceProxy, payload: HomeRunListSubscription$data) => {
+        updater: (store: RecordSourceProxy, payload: HomeRunListSubscription$data | null | undefined) => {
+            if (!payload) {
+                return;
+            }
             const record = store.get(payload.workspaceRunEvents.run.id);
             if (record == null) {
                 return;

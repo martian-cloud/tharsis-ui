@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e88f0f7d48c71652495aefcd0981b68b>>
+ * @generated SignedSource<<4716d8f62072ce6612efffff5a527e43>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type GroupRunnersListFragment_runners$key = {
   readonly " $data"?: GroupRunnersListFragment_runners$data;
   readonly " $fragmentSpreads": FragmentRefs<"GroupRunnersListFragment_runners">;
 };
+
+import GroupRunnersListPaginationQuery_graphql from './GroupRunnersListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -71,7 +73,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./GroupRunnersListPaginationQuery.graphql'),
+      "operation": GroupRunnersListPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"

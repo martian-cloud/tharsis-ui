@@ -23,7 +23,7 @@ class AuthenticationService {
             monitorSession: false,
             response_type: 'id_token',
             automaticSilentRenew: false,
-            silent_redirect_uri: `${HOST}${process.env.PUBLIC_URL}/silent-refresh.html`,
+            silent_redirect_uri: `${HOST}${import.meta.env.BASE_URL}/silent-refresh.html`,
             post_logout_redirect_uri: `${logoutUrl}?post_logout_redirect_uri=${HOST}`
         });
         this.subjectClaim = subjectClaim;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useMutation } from 'react-relay/hooks';
 import graphql from 'babel-plugin-relay/macro'
 import { MutationError } from '../common/error';

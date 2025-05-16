@@ -127,7 +127,10 @@ function RunnerDetails({ fragmentRef, getConnections }: Props) {
         subscription: runnerSessionEventsSubscription,
         onCompleted: () => console.log("Subscription completed"),
         onError: () => console.warn("Subscription error"),
-        updater: (store: RecordSourceProxy, payload: RunnerDetailsSessionEventsSubscription$data) => {
+        updater: (store: RecordSourceProxy, payload: RunnerDetailsSessionEventsSubscription$data | null | undefined) => {
+            if (!payload) {
+                return;
+            }
             const record = store.get(payload.runnerSessionEvents.runnerSession.id);
             if (record == null) {
                 return;

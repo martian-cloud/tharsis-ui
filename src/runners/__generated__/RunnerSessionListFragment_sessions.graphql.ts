@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3a93af036e6214ce27d0fe957d3f528b>>
+ * @generated SignedSource<<6d1a121e701692bccd26388175c889c5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,6 +29,8 @@ export type RunnerSessionListFragment_sessions$key = {
   readonly " $data"?: RunnerSessionListFragment_sessions$data;
   readonly " $fragmentSpreads": FragmentRefs<"RunnerSessionListFragment_sessions">;
 };
+
+import RunnerSessionListPaginationQuery_graphql from './RunnerSessionListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -74,7 +76,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./RunnerSessionListPaginationQuery.graphql'),
+      "operation": RunnerSessionListPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"
