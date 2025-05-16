@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d0e4d6d7a49f616c30b43efbf4eb39ab>>
+ * @generated SignedSource<<7d8c8793b4bbf96a507ea7ef6a18ad58>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type RunListFragment_runs$key = {
   readonly " $data"?: RunListFragment_runs$data;
   readonly " $fragmentSpreads": FragmentRefs<"RunListFragment_runs">;
 };
+
+import RunListPaginationQuery_graphql from './RunListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -81,7 +83,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./RunListPaginationQuery.graphql')
+      "operation": RunListPaginationQuery_graphql
     }
   },
   "name": "RunListFragment_runs",

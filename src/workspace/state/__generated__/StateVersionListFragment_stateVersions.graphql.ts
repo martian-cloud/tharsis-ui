@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b79fd28ce0bb8223bea7f2e160503ee0>>
+ * @generated SignedSource<<18ea9139e78e57bb55150148bbfe6af4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,6 +27,8 @@ export type StateVersionListFragment_stateVersions$key = {
   readonly " $data"?: StateVersionListFragment_stateVersions$data;
   readonly " $fragmentSpreads": FragmentRefs<"StateVersionListFragment_stateVersions">;
 };
+
+import StateVersionListPaginationQuery_graphql from './StateVersionListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -79,7 +81,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./StateVersionListPaginationQuery.graphql')
+      "operation": StateVersionListPaginationQuery_graphql
     }
   },
   "name": "StateVersionListFragment_stateVersions",

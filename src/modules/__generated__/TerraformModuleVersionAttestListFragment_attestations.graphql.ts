@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<99b8a9dfbf25348c45f26a9d9b1548e7>>
+ * @generated SignedSource<<3f57e3357faf8f565fca52fecb77dfbb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,6 +27,8 @@ export type TerraformModuleVersionAttestListFragment_attestations$key = {
   readonly " $data"?: TerraformModuleVersionAttestListFragment_attestations$data;
   readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionAttestListFragment_attestations">;
 };
+
+import TerraformModuleVersionAttestListPaginationQuery_graphql from './TerraformModuleVersionAttestListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -72,7 +74,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./TerraformModuleVersionAttestListPaginationQuery.graphql'),
+      "operation": TerraformModuleVersionAttestListPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"

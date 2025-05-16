@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<959a6b7738091d133abab09ac21893fe>>
+ * @generated SignedSource<<aff177006f79c309ec96448ec88be2b2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type TerraformProviderSearchFragment_providers$key = {
   readonly " $data"?: TerraformProviderSearchFragment_providers$data;
   readonly " $fragmentSpreads": FragmentRefs<"TerraformProviderSearchFragment_providers">;
 };
+
+import TerraformProviderSearchPaginationQuery_graphql from './TerraformProviderSearchPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -77,7 +79,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./TerraformProviderSearchPaginationQuery.graphql')
+      "operation": TerraformProviderSearchPaginationQuery_graphql
     }
   },
   "name": "TerraformProviderSearchFragment_providers",

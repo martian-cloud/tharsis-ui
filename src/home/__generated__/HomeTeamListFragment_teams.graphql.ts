@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0b003fa8b42c0935eb1ac5088893141c>>
+ * @generated SignedSource<<5b428a3d48513b110d5b82359de80e5d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,6 +27,8 @@ export type HomeTeamListFragment_teams$key = {
   readonly " $data"?: HomeTeamListFragment_teams$data;
   readonly " $fragmentSpreads": FragmentRefs<"HomeTeamListFragment_teams">;
 };
+
+import HomeTeamListPaginationQuery_graphql from './HomeTeamListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -72,7 +74,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./HomeTeamListPaginationQuery.graphql'),
+      "operation": HomeTeamListPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"

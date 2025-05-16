@@ -17,7 +17,7 @@ import colors from './RunDetailsPlanDiffColors';
 refractor.register(hcl);
 
 // Start tokenize working for syntax highlighting
-const tokenizeWorker = new Worker(new URL('./Tokenize.ts', import.meta.url));
+const tokenizeWorker = new Worker(new URL('./Tokenize.ts', import.meta.url), { type: "module" });
 
 type PlanChangeWarning = { readonly changeType: PlanChangeWarningType; readonly line: number; readonly message: string; };
 

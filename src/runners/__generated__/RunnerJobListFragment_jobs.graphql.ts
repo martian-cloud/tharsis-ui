@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5741bf95d4ded3c506bb00f03db21043>>
+ * @generated SignedSource<<a3207e702aefb7b7deb1541f82808ac0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,6 +29,8 @@ export type RunnerJobListFragment_jobs$key = {
   readonly " $data"?: RunnerJobListFragment_jobs$data;
   readonly " $fragmentSpreads": FragmentRefs<"RunnerJobListFragment_jobs">;
 };
+
+import RunnerJobListPaginationQuery_graphql from './RunnerJobListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -74,7 +76,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./RunnerJobListPaginationQuery.graphql'),
+      "operation": RunnerJobListPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"

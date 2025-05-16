@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7eed10cf0dc5c066ead377588655183e>>
+ * @generated SignedSource<<eaeaa5363df74ca421103bf4abed083b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type GroupTreeContainerFragment_groups$key = {
   readonly " $data"?: GroupTreeContainerFragment_groups$data;
   readonly " $fragmentSpreads": FragmentRefs<"GroupTreeContainerFragment_groups">;
 };
+
+import GroupsPaginationQuery_graphql from './GroupsPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -85,7 +87,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./GroupsPaginationQuery.graphql')
+      "operation": GroupsPaginationQuery_graphql
     }
   },
   "name": "GroupTreeContainerFragment_groups",

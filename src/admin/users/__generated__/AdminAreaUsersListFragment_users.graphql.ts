@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6fc8674473c8976cbfdf961ab77d1711>>
+ * @generated SignedSource<<525afff05b23db2c44edcfb32ac8663f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type AdminAreaUsersListFragment_users$key = {
   readonly " $data"?: AdminAreaUsersListFragment_users$data;
   readonly " $fragmentSpreads": FragmentRefs<"AdminAreaUsersListFragment_users">;
 };
+
+import AdminAreaUsersListPaginationQuery_graphql from './AdminAreaUsersListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -66,7 +68,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./AdminAreaUsersListPaginationQuery.graphql')
+      "operation": AdminAreaUsersListPaginationQuery_graphql
     }
   },
   "name": "AdminAreaUsersListFragment_users",

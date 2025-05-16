@@ -43,7 +43,7 @@ function AdminAreaDetailsDrawer() {
                         <ListItemButton
                             key={item.route}
                             selected={route.includes(item.route)}
-                            onClick={() => navigate(`${item.route}`)}
+                            onClick={() => navigate(`/admin/${item.route}`)}
                         >
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText>{item.label}</ListItemText>

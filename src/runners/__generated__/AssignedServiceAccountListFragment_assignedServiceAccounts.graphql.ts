@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5d63c22ff95d9000a17aeaa63098192f>>
+ * @generated SignedSource<<d2f0967104ba300560b68b36ace6167d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -33,6 +33,8 @@ export type AssignedServiceAccountListFragment_assignedServiceAccounts$key = {
   readonly " $data"?: AssignedServiceAccountListFragment_assignedServiceAccounts$data;
   readonly " $fragmentSpreads": FragmentRefs<"AssignedServiceAccountListFragment_assignedServiceAccounts">;
 };
+
+import AssignedServiceAccountListPaginationQuery_graphql from './AssignedServiceAccountListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -78,7 +80,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./AssignedServiceAccountListPaginationQuery.graphql'),
+      "operation": AssignedServiceAccountListPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f51da248477d643a3f28bea53aef3707>>
+ * @generated SignedSource<<2d59677811493f87c344328f72ca0ce4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type ManagedIdentityAliasesListFragment_managedIdentity$key = {
   readonly " $data"?: ManagedIdentityAliasesListFragment_managedIdentity$data;
   readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityAliasesListFragment_managedIdentity">;
 };
+
+import ManagedIdentityAliasesListPaginationQuery_graphql from './ManagedIdentityAliasesListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -82,7 +84,7 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./ManagedIdentityAliasesListPaginationQuery.graphql'),
+      "operation": ManagedIdentityAliasesListPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"

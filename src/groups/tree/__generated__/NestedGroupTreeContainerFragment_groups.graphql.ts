@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<200d1e4c11cd5d9d6039def2cdebdf9c>>
+ * @generated SignedSource<<4707a7c0a9e399cb81ff8a0886af3a9f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,6 +25,8 @@ export type NestedGroupTreeContainerFragment_groups$key = {
   readonly " $data"?: NestedGroupTreeContainerFragment_groups$data;
   readonly " $fragmentSpreads": FragmentRefs<"NestedGroupTreeContainerFragment_groups">;
 };
+
+import NestedGroupsListPaginationQuery_graphql from './NestedGroupsListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -76,7 +78,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./NestedGroupsListPaginationQuery.graphql')
+      "operation": NestedGroupsListPaginationQuery_graphql
     }
   },
   "name": "NestedGroupTreeContainerFragment_groups",

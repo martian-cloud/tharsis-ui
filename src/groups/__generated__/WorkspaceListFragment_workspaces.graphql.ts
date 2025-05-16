@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f90b214ca7519e54f5d8e0eab6d6b25c>>
+ * @generated SignedSource<<f5e2f344f4c6a943ef2f24897f804365>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type WorkspaceListFragment_workspaces$key = {
   readonly " $data"?: WorkspaceListFragment_workspaces$data;
   readonly " $fragmentSpreads": FragmentRefs<"WorkspaceListFragment_workspaces">;
 };
+
+import WorkspaceListPaginationQuery_graphql from './WorkspaceListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -81,7 +83,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./WorkspaceListPaginationQuery.graphql')
+      "operation": WorkspaceListPaginationQuery_graphql
     }
   },
   "name": "WorkspaceListFragment_workspaces",

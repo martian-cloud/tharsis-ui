@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3ecd4deff7d13bcb05272b5704d2d49f>>
+ * @generated SignedSource<<d79522fdd56582c6b0141162fcccd0f0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,8 @@ export type HomeWorkspaceListFragment_workspaces$key = {
   readonly " $data"?: HomeWorkspaceListFragment_workspaces$data;
   readonly " $fragmentSpreads": FragmentRefs<"HomeWorkspaceListFragment_workspaces">;
 };
+
+import HomeWorkspaceListPaginationQuery_graphql from './HomeWorkspaceListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -66,7 +68,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./HomeWorkspaceListPaginationQuery.graphql')
+      "operation": HomeWorkspaceListPaginationQuery_graphql
     }
   },
   "name": "HomeWorkspaceListFragment_workspaces",

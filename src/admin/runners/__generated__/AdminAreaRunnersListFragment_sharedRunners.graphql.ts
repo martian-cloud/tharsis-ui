@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b047b886510926dca095f70fcbb5feac>>
+ * @generated SignedSource<<a0b974f64c6d4a57d0e1e2fd60f59d1f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,6 +25,8 @@ export type AdminAreaRunnersListFragment_sharedRunners$key = {
   readonly " $data"?: AdminAreaRunnersListFragment_sharedRunners$data;
   readonly " $fragmentSpreads": FragmentRefs<"AdminAreaRunnersListFragment_sharedRunners">;
 };
+
+import AdminAreaRunnersListPaginationQuery_graphql from './AdminAreaRunnersListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -61,7 +63,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./AdminAreaRunnersListPaginationQuery.graphql')
+      "operation": AdminAreaRunnersListPaginationQuery_graphql
     }
   },
   "name": "AdminAreaRunnersListFragment_sharedRunners",

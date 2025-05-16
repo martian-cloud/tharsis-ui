@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<67e3790f8bb99e16e44ed543481559af>>
+ * @generated SignedSource<<7c89c1df69c2c1519271f50f3d906d99>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,6 +30,8 @@ export type GPGKeyListFragment_keys$key = {
   readonly " $data"?: GPGKeyListFragment_keys$data;
   readonly " $fragmentSpreads": FragmentRefs<"GPGKeyListFragment_keys">;
 };
+
+import GPGKeyListPaginationQuery_graphql from './GPGKeyListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -82,7 +84,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./GPGKeyListPaginationQuery.graphql')
+      "operation": GPGKeyListPaginationQuery_graphql
     }
   },
   "name": "GPGKeyListFragment_keys",

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<39039f7a1c5c7beaaa9298f823e81c69>>
+ * @generated SignedSource<<2a1bb1437fb91318988af6e2c7615429>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,6 +29,8 @@ export type ManagedIdentityListFragment_managedIdentities$key = {
   readonly " $data"?: ManagedIdentityListFragment_managedIdentities$data;
   readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityListFragment_managedIdentities">;
 };
+
+import ManagedIdentityListPaginationQuery_graphql from './ManagedIdentityListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -85,7 +87,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./ManagedIdentityListPaginationQuery.graphql')
+      "operation": ManagedIdentityListPaginationQuery_graphql
     }
   },
   "name": "ManagedIdentityListFragment_managedIdentities",

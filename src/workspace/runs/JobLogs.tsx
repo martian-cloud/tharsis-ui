@@ -55,8 +55,10 @@ function JobLogs(props: Props) {
         subscription,
         onCompleted: () => console.log("Subscription completed"),
         onError: () => console.warn("Subscription error"),
-        updater: (store: RecordSourceProxy, payload: JobLogsSubscription$data) => {
-            setLastLogEventSize(payload.jobLogStreamEvents.size);
+        updater: (store: RecordSourceProxy, payload: JobLogsSubscription$data | null | undefined) => {
+            if (payload) {
+                setLastLogEventSize(payload.jobLogStreamEvents.size);
+            }
         }
     }), [data.id]);
     useSubscription<JobLogsSubscription>(config);

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5e3b94820ef56f22bb617a75e3f8f1de>>
+ * @generated SignedSource<<565349a1d7cfb26560e3210a537abd10>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,6 +25,8 @@ export type NamespaceActivityConnectionFragment_activity$key = {
   readonly " $data"?: NamespaceActivityConnectionFragment_activity$data;
   readonly " $fragmentSpreads": FragmentRefs<"NamespaceActivityConnectionFragment_activity">;
 };
+
+import NamespaceActivityPaginationQuery_graphql from './NamespaceActivityPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -76,7 +78,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./NamespaceActivityPaginationQuery.graphql')
+      "operation": NamespaceActivityPaginationQuery_graphql
     }
   },
   "name": "NamespaceActivityConnectionFragment_activity",

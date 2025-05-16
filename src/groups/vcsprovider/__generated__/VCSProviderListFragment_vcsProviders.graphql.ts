@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7af49148f990b403d07bc75c7f429783>>
+ * @generated SignedSource<<b49e2d0b0f14e951555ab0b6a58ce7ce>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,6 +29,8 @@ export type VCSProviderListFragment_vcsProviders$key = {
   readonly " $data"?: VCSProviderListFragment_vcsProviders$data;
   readonly " $fragmentSpreads": FragmentRefs<"VCSProviderListFragment_vcsProviders">;
 };
+
+import VCSProviderListPaginationQuery_graphql from './VCSProviderListPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -85,7 +87,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./VCSProviderListPaginationQuery.graphql')
+      "operation": VCSProviderListPaginationQuery_graphql
     }
   },
   "name": "VCSProviderListFragment_vcsProviders",
