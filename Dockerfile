@@ -1,6 +1,6 @@
 FROM nginx:1.27.5-alpine
 RUN apk update --no-cache && apk add --no-cache libxml2 && apk upgrade --no-cache
-COPY ./build /bin/www
+COPY ./dist /bin/www
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN chown -R nginx:nginx /bin/www && chmod -R 755 /bin/www && \

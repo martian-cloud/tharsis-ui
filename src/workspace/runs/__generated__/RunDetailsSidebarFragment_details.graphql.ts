@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<77a86862cf569692e4b9a81a8124a0b4>>
+ * @generated SignedSource<<a30f1f6ead28cab534ed34365fb9de0c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -47,6 +47,9 @@ export type RunDetailsSidebarFragment_details$data = {
     readonly status: PlanStatus;
   };
   readonly status: RunStatus;
+  readonly workspace: {
+    readonly fullPath: string;
+  };
   readonly " $fragmentType": "RunDetailsSidebarFragment_details";
 };
 export type RunDetailsSidebarFragment_details$key = {
@@ -159,6 +162,24 @@ return {
       "name": "moduleVersion",
       "storageKey": null
     },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Workspace",
+      "kind": "LinkedField",
+      "name": "workspace",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "fullPath",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
     (v2/*: any*/),
     {
       "alias": null,
@@ -198,6 +219,6 @@ return {
 };
 })();
 
-(node as any).hash = "3684b7d3cb9bc578d6a6d3f8180e5681";
+(node as any).hash = "521c1437da1f7f14b2c80fc37e209c14";
 
 export default node;
