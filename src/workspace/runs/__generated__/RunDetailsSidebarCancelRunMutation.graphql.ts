@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a194569c0e75ca8062788a28d15d109d>>
+ * @generated SignedSource<<c9f0375cff7a002a766b6cb5599c0b47>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -245,6 +245,25 @@ return {
                 "name": "moduleVersion",
                 "storageKey": null
               },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Workspace",
+                "kind": "LinkedField",
+                "name": "workspace",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "fullPath",
+                    "storageKey": null
+                  },
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
               (v5/*: any*/),
               {
                 "alias": null,
@@ -288,12 +307,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bbcda718548c6bd779c3ccc190192af6",
+    "cacheID": "0f357261c6f257eff4dfd76743ef4eff",
     "id": null,
     "metadata": {},
     "name": "RunDetailsSidebarCancelRunMutation",
     "operationKind": "mutation",
-    "text": "mutation RunDetailsSidebarCancelRunMutation(\n  $input: CancelRunInput!\n) {\n  cancelRun(input: $input) {\n    run {\n      ...RunDetailsSidebarFragment_details\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  assessment\n  moduleSource\n  moduleVersion\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n"
+    "text": "mutation RunDetailsSidebarCancelRunMutation(\n  $input: CancelRunInput!\n) {\n  cancelRun(input: $input) {\n    run {\n      ...RunDetailsSidebarFragment_details\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment RunDetailsSidebarFragment_details on Run {\n  id\n  status\n  createdBy\n  isDestroy\n  assessment\n  moduleSource\n  moduleVersion\n  workspace {\n    fullPath\n    id\n  }\n  metadata {\n    createdAt\n  }\n  configurationVersion {\n    id\n  }\n  plan {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n  apply {\n    status\n    metadata {\n      createdAt\n    }\n    currentJob {\n      runnerPath\n      cancelRequested\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();

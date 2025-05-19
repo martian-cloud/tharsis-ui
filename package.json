@@ -54,7 +54,8 @@
     "serialize-javascript": "6.0.2",
     "prismjs": "^1.30.0",
     "@babel/helpers": "^7.26.10",
-    "@babel/runtime": "^7.26.10"
+    "@babel/runtime": "^7.26.10",
+    "@ardatan/relay-compiler": "npm:relay-compiler@^18.2.0"
   },
   "scripts": {
     "start": "vite",

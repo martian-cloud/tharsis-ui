@@ -15,7 +15,7 @@
         "jest": true
     },
     "ignorePatterns": [
-        "build/*"
+        "dist/*"
     ],
     "root": true
 }

@@ -156,7 +156,7 @@ package:
     - npm run build
   artifacts:
     paths:
-      - build/
+      - dist/
 
 publish ui docker:
   image: docker:latest

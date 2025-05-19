@@ -38,6 +38,7 @@ testdata/*
 
 # production
 /build
+/dist
 
 npm-debug.log*
 yarn-debug.log*

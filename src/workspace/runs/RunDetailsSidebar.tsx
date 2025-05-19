@@ -56,6 +56,9 @@ function RunDetailsSidebar(props: Props) {
         assessment
         moduleSource
         moduleVersion
+        workspace {
+          fullPath
+        }
         metadata {
           createdAt
         }
@@ -198,13 +201,13 @@ function RunDetailsSidebar(props: Props) {
                 <Box marginBottom={3}>
                     <Typography sx={{ marginBottom: 1 }}>Stages</Typography>
                     <List>
-                        <ListItem button selected={stage === 'plan'} component={LinkRouter} replace to={'plan'}>
+                        <ListItem button selected={stage === 'plan'} component={LinkRouter} replace to={`/groups/${data.workspace.fullPath}/-/runs/${data.id}/plan`}>
                             <ListItemIcon>
                                 <PlanStatusIcon />
                             </ListItemIcon>
                             <ListItemText primary="Plan" />
                         </ListItem>
-                        {data.apply && <ListItem button selected={stage === 'apply'} component={LinkRouter} replace to={'apply'}>
+                        {data.apply && <ListItem button selected={stage === 'apply'} component={LinkRouter} replace to={`/groups/${data.workspace.fullPath}/-/runs/${data.id}/apply`}>
                             <ListItemIcon>
                                 <ApplyStatusIcon />
                             </ListItemIcon>
