@@ -1,5 +1,5 @@
 function buildGraphqlUrl(protocol: 'http' | 'ws'): string {
-    const urlSetting = import.meta.env.VITE_THARSIS_API_ENDPOINT ? import.meta.env.VITE_THARSIS_API_ENDPOINT : (window as any).env.VITE_API_ENDPOINT;
+    const urlSetting = import.meta.env.VITE_THARSIS_API_ENDPOINT ? import.meta.env.VITE_THARSIS_API_ENDPOINT : (window as any).env.THARSIS_API_ENDPOINT;
 
     if (!urlSetting) {
         return `${protocol}://localhost:8000`
