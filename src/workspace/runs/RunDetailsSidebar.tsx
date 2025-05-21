@@ -1,6 +1,6 @@
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import { LoadingButton } from '@mui/lab';
-import { Chip, List, Stack, styled, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Chip, Link, List, Stack, styled, Toolbar, Tooltip, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { red } from '@mui/material/colors';
 import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
@@ -9,9 +9,14 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import graphql from 'babel-plugin-relay/macro';
+import { useContext } from 'react';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { Link as LinkRouter } from 'react-router-dom';
+import AuthenticationService from '../../auth/AuthenticationService';
+import AuthServiceContext from '../../auth/AuthServiceContext';
+import cfg from '../../common/config';
 import { MutationError } from '../../common/error';
+import downloadFile from '../../common/filedownload';
 import Gravatar from '../../common/Gravatar';
 import RelativeTimestamp from '../../common/RelativeTimestamp';
 import { RunDetailsSidebarCancelRunMutation } from './__generated__/RunDetailsSidebarCancelRunMutation.graphql';
@@ -44,6 +49,7 @@ const Drawer = styled(MuiDrawer)<DrawerProps>(() => ({
 
 function RunDetailsSidebar(props: Props) {
     const { stage, open, temporary, onClose, onError } = props;
+    const authService = useContext<AuthenticationService>(AuthServiceContext);
 
     const data = useFragment<RunDetailsSidebarFragment_details$key>(
         graphql`
@@ -127,6 +133,27 @@ function RunDetailsSidebar(props: Props) {
         })
     }
 
+    const onDownloadConfigVersion = async (configVersionId: string) => {
+        try {
+            const token = await authService.getAccessToken()
+            const response = await fetch(`${cfg.apiUrl}/tfe/v2/configuration-versions/${configVersionId}/content`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`request for configuration version content returned status ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            downloadFile(`${configVersionId}.tar.gz`, blob);
+        } catch (error) {
+            onError({ message: `failed to download: ${error}`, severity: 'error' })
+        }
+    }
+
     const PlanStatusIcon = RunStageStatusTypes[data.plan.status].icon;
     const ApplyStatusIcon = data.apply ? RunStageStatusTypes[data.apply.status].icon : null;
 
@@ -167,9 +194,16 @@ function RunDetailsSidebar(props: Props) {
                 {data.configurationVersion && <Box marginBottom={3}>
                     <Typography sx={{ marginBottom: 1 }}>Configuration Version</Typography>
                     <Stack direction="row" spacing={1} alignItems="center">
-                        <Typography sx={{ wordBreak: 'break-all' }}>
-                            {data.configurationVersion.id.substring(0, 8)}...
-                        </Typography>
+                        <Tooltip title="download">
+                            <Link
+                                color="textPrimary"
+                                underline="none"
+                                sx={{ wordBreak: 'break-all', cursor: 'pointer' }}
+                                onClick={() => onDownloadConfigVersion(data.configurationVersion?.id as string)}
+                            >
+                                {data.configurationVersion.id.substring(0, 8)}...
+                            </Link>
+                        </Tooltip>
                         <IconButton sx={{ padding: 0 }} onClick={() => navigator.clipboard.writeText(data.configurationVersion?.id ?? '')}>
                             <CopyIcon sx={{ width: 16, height: 16 }} />
                         </IconButton>

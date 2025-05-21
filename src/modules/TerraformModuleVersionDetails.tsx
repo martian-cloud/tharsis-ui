@@ -1,24 +1,29 @@
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
-import { Alert, Chip, CircularProgress, IconButton, Typography } from '@mui/material';
+import { Alert, Button, Chip, CircularProgress, IconButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import graphql from 'babel-plugin-relay/macro';
-import React, { Suspense, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import React, { Suspense, useContext, useState } from 'react';
 import { PreloadedQuery, useFragment, usePreloadedQuery } from 'react-relay/hooks';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import AuthServiceContext from '../auth/AuthServiceContext';
+import AuthenticationService from '../auth/AuthenticationService';
+import cfg from '../common/config';
+import downloadFile from '../common/filedownload';
 import ListSkeleton from '../skeletons/ListSkeleton';
-import TerraformModuleVersionDocs from './docs/TerraformModuleVersionDocs';
 import TerraformModuleVersionAttestList from './TerraformModuleVersionAttestList';
 import TerraformModuleVersionDetailsSidebar, { SidebarWidth } from './TerraformModuleVersionDetailsSidebar';
 import TerraformModuleVersionList from './TerraformModuleVersionList';
 import { TerraformModuleVersionDetailsIndexFragment_details$key } from './__generated__/TerraformModuleVersionDetailsIndexFragment_details.graphql';
 import { TerraformModuleVersionDetailsQuery } from './__generated__/TerraformModuleVersionDetailsQuery.graphql';
+import TerraformModuleVersionDocs from './docs/TerraformModuleVersionDocs';
 
 const query = graphql`
     query TerraformModuleVersionDetailsQuery($registryNamespace: String!, $moduleName: String!, $system: String!, $version: String, $first: Int, $after: String) {
@@ -82,6 +87,8 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
 
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down('md'));
+    const authService = useContext<AuthenticationService>(AuthServiceContext);
+    const { enqueueSnackbar } = useSnackbar();
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -125,6 +132,41 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
         setSearchParams(searchParams, { replace: true });
     };
 
+    const onDownloadModule = async () => {
+        try {
+            const token = await authService.getAccessToken()
+            const { registryNamespace, name, system } = data.module;
+            let response = await fetch(`${cfg.apiUrl}/v1/module-registry/modules/${registryNamespace}/${name}/${system}/${data.version}/download`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`request for module download url returned status ${response.status}`);
+            }
+
+            const downloadUrl = response.headers.get('X-Terraform-Get')
+            if (!downloadUrl) {
+                throw new Error(`response for module download url is missing header X-Terraform-Get`);
+            }
+
+            response = await fetch(downloadUrl, {
+                method: 'GET',
+            });
+
+            if (!response.ok) {
+                throw new Error(`requested to download module returned status ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            downloadFile(`${registryNamespace}_${name}_${system}_${data.version}.tar.gz`, blob);
+        } catch (error) {
+            enqueueSnackbar(`failed to download: ${error}`, { variant: 'error' });
+        }
+    };
+
     const usageInfo = buildUsageInfo(data.module.name, data.version, data.module.source);
 
     return (
@@ -145,6 +187,7 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
                             <Typography variant="h6">{data.module.registryNamespace} / {data.module.name} / {data.module.system}</Typography>
                             {data.module.private && <Chip sx={{ marginLeft: 2 }} variant="outlined" color="warning" size="small" label="private" />}
                         </Box>
+                        <Button size="small" color="info" variant="outlined" onClick={onDownloadModule}>Download</Button>
                         {mobile && <Box display="flex" justifyContent="space-between">
                             <IconButton onClick={onToggleSidebar}><DoubleArrowIcon sx={{ transform: 'rotate(180deg)' }} /></IconButton>
                         </Box>}
