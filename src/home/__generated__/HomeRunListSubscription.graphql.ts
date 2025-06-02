@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<983aea74d3a99a0b9399fad78707fab0>>
+ * @generated SignedSource<<93d7ef1bbcc559726049aa3526931fc1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RunSubscriptionInput = {
   runId?: string | null | undefined;
+  workspaceId?: string | null | undefined;
   workspacePath?: string | null | undefined;
 };
 export type HomeRunListSubscription$variables = {

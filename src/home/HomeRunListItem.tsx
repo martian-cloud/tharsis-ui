@@ -16,7 +16,7 @@ import { useMemo } from 'react';
 import { useFragment } from 'react-relay/hooks';
 import { Link as LinkRouter } from 'react-router-dom';
 import Gravatar from '../common/Gravatar';
-import RelativeTimestamp from '../common/RelativeTimestamp';
+import Timestamp from '../common/Timestamp';
 import RunStageIcons from '../workspace/runs/RunStageIcons';
 import { HomeRunListItemFragment_run$key } from './__generated__/HomeRunListItemFragment_run.graphql';
 
@@ -111,7 +111,7 @@ function HomeRunListItem({ fragmentRef, last }: Props) {
                         </Tooltip>
                         <Box display="flex">
                             <Typography variant="body2" color="textSecondary">created</Typography>
-                            <RelativeTimestamp ml={0.5} variant="body2" color="textSecondary" timestamp={data.metadata.createdAt} />
+                            <Timestamp ml={0.5} variant="body2" color="textSecondary" timestamp={data.metadata.createdAt} />
                         </Box>
                     </Stack>}
             />

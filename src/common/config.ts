@@ -50,12 +50,24 @@ function buildSupportUrl(): string {
     return urlSetting;
 }
 
+function getBuildTimestamp(): string {
+    const timestamp = import.meta.env.VITE_THARSIS_UI_BUILD_TIMESTAMP ? import.meta.env.VITE_THARSIS_UI_BUILD_TIMESTAMP : (window as any).env.THARSIS_UI_BUILD_TIMESTAMP;
+    const defaultTimestamp = new Date().toISOString();
+
+    if (!timestamp || timestamp === '__THARSIS_UI_BUILD_TIMESTAMP__') {
+        return defaultTimestamp;
+    }
+
+    return timestamp;
+}
+
 const cfg = {
     apiUrl: buildGraphqlUrl('http'),
     wsUrl: buildGraphqlUrl('ws'),
     docsUrl: buildDocumentsUrl(),
     version: buildVersion(),
     supportUrl: buildSupportUrl(),
+    buildTimestamp: getBuildTimestamp(),
 };
 
 export default cfg;

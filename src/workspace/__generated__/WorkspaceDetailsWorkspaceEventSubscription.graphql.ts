@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9251891572dd9b2bb61ed21b41f7d1a4>>
+ * @generated SignedSource<<ae5f52130e84755a71d0d54650a0cbe1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,8 @@
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type WorkspaceSubscriptionInput = {
-  workspacePath: string;
+  workspaceId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type WorkspaceDetailsWorkspaceEventSubscription$variables = {
   input: WorkspaceSubscriptionInput;

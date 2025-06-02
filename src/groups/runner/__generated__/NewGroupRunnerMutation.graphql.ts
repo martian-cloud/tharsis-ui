@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<92a759e2631298d8a1d8aa44b91ad228>>
+ * @generated SignedSource<<03e8aa65db946fdb377cf23bedce87dc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,8 @@ export type CreateRunnerInput = {
   clientMutationId?: string | null | undefined;
   description: string;
   disabled?: boolean | null | undefined;
-  groupPath: string;
+  groupId?: string | null | undefined;
+  groupPath?: string | null | undefined;
   name: string;
   runUntaggedJobs: boolean;
   tags: ReadonlyArray<string>;

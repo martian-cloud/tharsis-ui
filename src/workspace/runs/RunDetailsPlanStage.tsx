@@ -13,7 +13,7 @@ import Lottie from 'react-lottie-player';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Gravatar from '../../common/Gravatar';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import { MutationError } from '../../common/error';
 import RocketLottieFileJson from '../../lotties/rocket-in-space-lottie.json';
 import Link from '../../routes/Link';
@@ -159,7 +159,7 @@ function RunDetailsPlanStage(props: Props) {
                 }}>
                 <Box display="flex" alignItems="center">
                     <Typography sx={{ paddingRight: '4px' }}>Plan triggered</Typography>
-                    <RelativeTimestamp component="span" timestamp={data.plan.metadata.createdAt} />
+                    <Timestamp component="span" timestamp={data.plan.metadata.createdAt} />
                     <Typography sx={{ paddingLeft: '4px', paddingRight: '8px' }}>by</Typography>
                     <Gravatar width={20} height={20} email={data.createdBy} />
                     <Typography
@@ -231,7 +231,7 @@ function RunDetailsPlanStage(props: Props) {
                     <Typography sx={{ marginBottom: 2 }} variant="h6" align="center">Plan operation is pending and will start shortly</Typography>
                     <Box display="flex" alignItems="center" marginLeft={2}>
                         <Typography sx={{ paddingRight: '4px' }} color="textSecondary">Triggered</Typography>
-                        <RelativeTimestamp color="textSecondary" component="span" timestamp={data.plan.metadata.createdAt} />
+                        <Timestamp color="textSecondary" component="span" timestamp={data.plan.metadata.createdAt} />
                         <Typography sx={{ paddingLeft: '4px', paddingRight: '8px' }} color="textSecondary">by</Typography>
                         <Tooltip title={data.createdBy}>
                             <Box>

@@ -7,7 +7,7 @@ import { Terraform as TerraformIcon } from 'mdi-material-ui';
 import { useFragment } from "react-relay/hooks";
 import { Link as LinkRouter } from 'react-router-dom';
 import Gravatar from '../common/Gravatar';
-import RelativeTimestamp from '../common/RelativeTimestamp';
+import Timestamp from '../common/Timestamp';
 import { TerraformModuleSearchListItemFragment_module$key } from './__generated__/TerraformModuleSearchListItemFragment_module.graphql';
 
 interface Props {
@@ -66,7 +66,7 @@ function TerraformModuleSearchListItem(props: Props) {
                     <Box>
                         {data.latestVersion && <Box display="flex" alignItems="center">
                             <Typography variant="body2" color="textSecondary">
-                                {data.latestVersion.version} published <RelativeTimestamp component="span" timestamp={data.latestVersion.metadata.createdAt}/> by
+                                {data.latestVersion.version} published <Timestamp component="span" timestamp={data.latestVersion.metadata.createdAt}/> by
                             </Typography>
                             <Tooltip title={data.latestVersion.createdBy}>
                                 <Box>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<621cf4e60994f68eb12961353f18bd37>>
+ * @generated SignedSource<<628055d2e0067c376835ad8b4f756916>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,13 +18,17 @@ export type CreateManagedIdentityInput = {
   clientMutationId?: string | null | undefined;
   data: string;
   description: string;
-  groupPath: string;
+  groupId?: string | null | undefined;
+  groupPath?: string | null | undefined;
   name: string;
   type: string;
 };
 export type ManagedIdentityAccessRuleInput = {
+  allowedServiceAccountIds?: ReadonlyArray<string> | null | undefined;
   allowedServiceAccounts?: ReadonlyArray<string> | null | undefined;
+  allowedTeamIds?: ReadonlyArray<string> | null | undefined;
   allowedTeams?: ReadonlyArray<string> | null | undefined;
+  allowedUserIds?: ReadonlyArray<string> | null | undefined;
   allowedUsers?: ReadonlyArray<string> | null | undefined;
   moduleAttestationPolicies?: ReadonlyArray<ManagedIdentityAccessRuleModuleAttestationPolicyInput> | null | undefined;
   runStage: JobType;

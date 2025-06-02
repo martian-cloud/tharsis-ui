@@ -89,6 +89,7 @@ enum ActivityEventSort {
 }
 
 enum ActivityEventTargetType {
+  FEDERATED_REGISTRY
   GPG_KEY
   GROUP
   MANAGED_IDENTITY
@@ -162,7 +163,8 @@ enum ApplyStatus {
 
 input AssessWorkspaceInput {
   clientMutationId: String
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
 }
 
 type AssessWorkspacePayload {
@@ -175,7 +177,8 @@ input AssignManagedIdentityInput {
   clientMutationId: String
   managedIdentityId: String
   managedIdentityPath: String
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
 }
 
 type AssignManagedIdentityPayload {
@@ -186,8 +189,10 @@ type AssignManagedIdentityPayload {
 
 input AssignServiceAccountToRunnerInput {
   clientMutationId: String
-  runnerPath: String!
-  serviceAccountPath: String!
+  runnerId: String
+  runnerPath: String
+  serviceAccountId: String
+  serviceAccountPath: String
 }
 
 type AssignServiceAccountToRunnerPayload {
@@ -219,7 +224,8 @@ input CancelRunInput {
 
 input ClaimJobInput {
   clientMutationId: String
-  runnerPath: String!
+  runnerId: String
+  runnerPath: String
 }
 
 type ClaimJobPayload {
@@ -248,13 +254,34 @@ type ConfigurationVersionMutationPayload {
 input CreateConfigurationVersionInput {
   clientMutationId: String
   speculative: Boolean
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
+}
+
+input CreateFederatedRegistryInput {
+  audience: String!
+  clientMutationId: String
+  groupId: String
+  groupPath: String
+  hostname: String!
+}
+
+input CreateFederatedRegistryTokensInput {
+  clientMutationId: String
+  jobId: String!
+}
+
+type CreateFederatedRegistryTokensPayload {
+  clientMutationId: String
+  problems: [Problem!]!
+  tokens: [FederatedRegistryToken!]!
 }
 
 input CreateGPGKeyInput {
   asciiArmor: String!
   clientMutationId: String
-  groupPath: String!
+  groupId: String
+  groupPath: String
 }
 
 type CreateGPGKeyPayload {
@@ -268,6 +295,7 @@ input CreateGroupInput {
   description: String!
   driftDetectionEnabled: NamespaceDriftDetectionEnabledInput
   name: String!
+  parentId: String
   parentPath: String
   runnerTags: NamespaceRunnerTagsInput
 }
@@ -279,8 +307,11 @@ type CreateGroupPayload {
 }
 
 input CreateManagedIdentityAccessRuleInput {
+  allowedServiceAccountIds: [String!]
   allowedServiceAccounts: [String!]
+  allowedTeamIds: [String!]
   allowedTeams: [String!]
+  allowedUserIds: [String!]
   allowedUsers: [String!]
   clientMutationId: String
   managedIdentityId: String!
@@ -294,7 +325,8 @@ input CreateManagedIdentityAliasInput {
   aliasSourceId: String
   aliasSourcePath: String
   clientMutationId: String
-  groupPath: String!
+  groupId: String
+  groupPath: String
   name: String!
 }
 
@@ -320,7 +352,8 @@ input CreateManagedIdentityInput {
   clientMutationId: String
   data: String!
   description: String!
-  groupPath: String!
+  groupId: String
+  groupPath: String
   name: String!
   type: String!
 }
@@ -376,14 +409,16 @@ input CreateRunInput {
   targetAddresses: [String!]
   terraformVersion: String
   variables: [RunVariableInput!]
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
 }
 
 input CreateRunnerInput {
   clientMutationId: String
   description: String!
   disabled: Boolean
-  groupPath: String!
+  groupId: String
+  groupPath: String
   name: String!
   runUntaggedJobs: Boolean!
   tags: [String!]!
@@ -420,7 +455,8 @@ type CreateRunnerSessionPayload {
 input CreateServiceAccountInput {
   clientMutationId: String
   description: String!
-  groupPath: String!
+  groupId: String
+  groupPath: String
   name: String!
   oidcTrustPolicies: [OIDCTrustPolicyInput!]!
 }
@@ -466,7 +502,8 @@ input CreateTerraformModuleAttestationInput {
   attestationData: String!
   clientMutationId: String
   description: String
-  modulePath: String!
+  moduleId: String
+  modulePath: String
 }
 
 type CreateTerraformModuleAttestationPayload {
@@ -477,7 +514,8 @@ type CreateTerraformModuleAttestationPayload {
 
 input CreateTerraformModuleInput {
   clientMutationId: String
-  groupPath: String!
+  groupId: String
+  groupPath: String
   name: String!
   private: Boolean
   repositoryUrl: String
@@ -492,7 +530,8 @@ type CreateTerraformModulePayload {
 
 input CreateTerraformModuleVersionInput {
   clientMutationId: String
-  modulePath: String!
+  moduleId: String
+  modulePath: String
   shaSum: String!
   version: String!
 }
@@ -505,7 +544,8 @@ type CreateTerraformModuleVersionPayload {
 
 input CreateTerraformProviderInput {
   clientMutationId: String
-  groupPath: String!
+  groupId: String
+  groupPath: String
   name: String!
   private: Boolean
   repositoryUrl: String
@@ -535,13 +575,15 @@ type CreateTerraformProviderPlatformPayload {
 input CreateTerraformProviderVersionInput {
   clientMutationId: String
   protocols: [String!]!
-  providerPath: String!
+  providerId: String
+  providerPath: String
   version: String!
 }
 
 input CreateTerraformProviderVersionMirrorInput {
   clientMutationId: String
-  groupPath: String!
+  groupId: String
+  groupPath: String
   registryHostname: String!
   registryNamespace: String!
   semanticVersion: String!
@@ -564,7 +606,8 @@ input CreateVCSProviderInput {
   autoCreateWebhooks: Boolean!
   clientMutationId: String
   description: String!
-  groupPath: String!
+  groupId: String
+  groupPath: String
   name: String!
   oAuthClientId: String!
   oAuthClientSecret: String!
@@ -583,7 +626,8 @@ input CreateVCSRunInput {
   clientMutationId: String
   isDestroy: Boolean
   referenceName: String
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
 }
 
 type CreateVCSRunPayload {
@@ -595,7 +639,8 @@ input CreateWorkspaceInput {
   clientMutationId: String
   description: String!
   driftDetectionEnabled: NamespaceDriftDetectionEnabledInput
-  groupPath: String!
+  groupId: String
+  groupPath: String
   maxJobDuration: Int
   name: String!
   preventDestroyPlan: Boolean
@@ -619,7 +664,8 @@ input CreateWorkspaceVCSProviderLinkInput {
   repositoryPath: String!
   tagRegex: String
   webhookDisabled: Boolean!
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
 }
 
 type CreateWorkspaceVCSProviderLinkPayload {
@@ -628,6 +674,11 @@ type CreateWorkspaceVCSProviderLinkPayload {
   vcsProviderLink: WorkspaceVCSProviderLink
   webhookToken: String
   webhookUrl: String
+}
+
+input DeleteFederatedRegistryInput {
+  clientMutationId: String
+  id: String!
 }
 
 input DeleteGPGKeyInput {
@@ -737,8 +788,9 @@ type DeleteServiceAccountPayload {
 
 input DeleteTeamInput {
   clientMutationId: String
+  id: String
   metadata: ResourceMetadataInput
-  name: String!
+  name: String
 }
 
 type DeleteTeamPayload {
@@ -883,7 +935,8 @@ type DeleteWorkspaceVCSProviderLinkPayload {
 
 input DestroyWorkspaceInput {
   clientMutationId: String
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
 }
 
 type DestroyWorkspacePayload {
@@ -911,6 +964,41 @@ type EnableMaintenanceModePayload {
   clientMutationId: String
   maintenanceMode: MaintenanceMode
   problems: [Problem!]!
+}
+
+type FederatedRegistry implements Node {
+  audience: String!
+  group: Group!
+  hostname: String!
+  id: ID!
+  metadata: ResourceMetadata!
+}
+
+type FederatedRegistryConnection {
+  edges: [FederatedRegistryEdge]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type FederatedRegistryEdge {
+  cursor: String!
+  node: FederatedRegistry
+}
+
+type FederatedRegistryMutationPayload {
+  clientMutationId: String
+  federatedRegistry: FederatedRegistry
+  problems: [Problem!]!
+}
+
+enum FederatedRegistrySort {
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+type FederatedRegistryToken {
+  hostname: String!
+  token: String!
 }
 
 type GPGKey implements Node {
@@ -943,12 +1031,17 @@ enum GPGKeySort {
   UPDATED_AT_DESC
 }
 
+type GlobalUserPreferences {
+  notificationPreference: UserNotificationPreference!
+}
+
 type Group implements Namespace & Node {
-  activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, username: String): ActivityEventConnection!
+  activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, serviceAccountId: String, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, userId: String, username: String): ActivityEventConnection!
   createdBy: String!
   descendentGroups(after: String, before: String, first: Int, last: Int, sort: GroupSort): GroupConnection!
   description: String!
   driftDetectionEnabled: NamespaceDriftDetectionEnabled!
+  federatedRegistries(after: String, before: String, first: Int, last: Int, sort: FederatedRegistrySort): FederatedRegistryConnection!
   fullPath: String!
   gpgKeys(after: String, before: String, first: Int, includeInherited: Boolean, last: Int, sort: GPGKeySort): GPGKeyConnection!
   id: ID!
@@ -1085,7 +1178,8 @@ enum JobType {
 
 input LockWorkspaceInput {
   clientMutationId: String
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
 }
 
 type LockWorkspacePayload {
@@ -1134,8 +1228,11 @@ type ManagedIdentityAccessRule implements Node {
 }
 
 input ManagedIdentityAccessRuleInput {
+  allowedServiceAccountIds: [String!]
   allowedServiceAccounts: [String!]
+  allowedTeamIds: [String!]
   allowedTeams: [String!]
+  allowedUserIds: [String!]
   allowedUsers: [String!]
   moduleAttestationPolicies: [ManagedIdentityAccessRuleModuleAttestationPolicyInput!]
   runStage: JobType!
@@ -1192,7 +1289,9 @@ union Member = ServiceAccount | Team | User
 
 input MigrateGroupInput {
   clientMutationId: String
-  groupPath: String!
+  groupId: String
+  groupPath: String
+  newParentId: String
   newParentPath: String
 }
 
@@ -1204,8 +1303,10 @@ type MigrateGroupPayload {
 
 input MigrateWorkspaceInput {
   clientMutationId: String
-  newGroupPath: String!
-  workspacePath: String!
+  newGroupId: String
+  newGroupPath: String
+  workspaceId: String
+  workspacePath: String
 }
 
 type MigrateWorkspacePayload {
@@ -1217,7 +1318,8 @@ type MigrateWorkspacePayload {
 input MoveManagedIdentityInput {
   clientMutationId: String
   managedIdentityId: ID!
-  newParentPath: String!
+  newParentId: String
+  newParentPath: String
 }
 
 type MoveManagedIdentityPayload {
@@ -1236,6 +1338,8 @@ type Mutation {
   cancelRun(input: CancelRunInput!): RunMutationPayload!
   claimJob(input: ClaimJobInput!): ClaimJobPayload!
   createConfigurationVersion(input: CreateConfigurationVersionInput!): ConfigurationVersionMutationPayload!
+  createFederatedRegistry(input: CreateFederatedRegistryInput!): FederatedRegistryMutationPayload!
+  createFederatedRegistryTokens(input: CreateFederatedRegistryTokensInput!): CreateFederatedRegistryTokensPayload!
   createGPGKey(input: CreateGPGKeyInput!): CreateGPGKeyPayload!
   createGroup(input: CreateGroupInput!): CreateGroupPayload!
   createManagedIdentity(input: CreateManagedIdentityInput!): CreateManagedIdentityPayload!
@@ -1265,6 +1369,7 @@ type Mutation {
   createVCSRun(input: CreateVCSRunInput!): CreateVCSRunPayload!
   createWorkspace(input: CreateWorkspaceInput!): CreateWorkspacePayload!
   createWorkspaceVCSProviderLink(input: CreateWorkspaceVCSProviderLinkInput!): CreateWorkspaceVCSProviderLinkPayload!
+  deleteFederatedRegistry(input: DeleteFederatedRegistryInput!): FederatedRegistryMutationPayload!
   deleteGPGKey(input: DeleteGPGKeyInput!): DeleteGPGKeyPayload!
   deleteGroup(input: DeleteGroupInput!): DeleteGroupPayload!
   deleteManagedIdentity(input: DeleteManagedIdentityInput!): DeleteManagedIdentityPayload!
@@ -1300,11 +1405,13 @@ type Mutation {
   saveJobLogs(input: SaveJobLogsInput!): SaveJobLogsPayload!
   serviceAccountCreateToken(input: ServiceAccountCreateTokenInput!): ServiceAccountCreateTokenPayload!
   setNamespaceVariables(input: SetNamespaceVariablesInput!): NamespaceVariableMutationPayload!
+  setUserNotificationPreference(input: SetUserNotificationPreferenceInput!): SetUserNotificationPreferencePayload!
   setVariablesIncludedInTFConfig(input: SetVariablesIncludedInTFConfigInput!): SetVariablesIncludedInTFConfigPayload!
   unassignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
   unassignServiceAccountFromRunner(input: AssignServiceAccountToRunnerInput!): AssignServiceAccountToRunnerPayload!
   unlockWorkspace(input: UnlockWorkspaceInput!): UnlockWorkspacePayload!
   updateApply(input: UpdateApplyInput!): UpdateApplyPayload!
+  updateFederatedRegistry(input: UpdateFederatedRegistryInput!): FederatedRegistryMutationPayload!
   updateGroup(input: UpdateGroupInput!): UpdateGroupPayload!
   updateManagedIdentity(input: UpdateManagedIdentityInput!): UpdateManagedIdentityPayload!
   updateManagedIdentityAccessRule(input: UpdateManagedIdentityAccessRuleInput!): ManagedIdentityAccessRuleMutationPayload!
@@ -1327,7 +1434,7 @@ type Mutation {
 }
 
 interface Namespace {
-  activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, username: String): ActivityEventConnection!
+  activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, serviceAccountId: String, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, userId: String, username: String): ActivityEventConnection!
   description: String!
   driftDetectionEnabled: NamespaceDriftDetectionEnabled!
   fullPath: String!
@@ -1569,41 +1676,42 @@ enum ProblemType {
 """The Query type represents all of the entry points into the API."""
 type Query {
   """There is no query for an activity event by ID."""
-  activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, namespacePath: String, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, username: String): ActivityEventConnection!
+  activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, namespacePath: String, serviceAccountId: String, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, userId: String, username: String): ActivityEventConnection!
   authSettings: AuthSettings
   availableRolePermissions: [String!]!
-  configurationVersion(id: String!): ConfigurationVersion
-  group(fullPath: String!): Group
-  groups(after: String, before: String, first: Int, last: Int, parentPath: String, search: String, sort: GroupSort): GroupConnection!
-  job(id: String!): Job
-  jobs(after: String, before: String, first: Int, jobStatus: JobStatus, jobType: JobType, last: Int, sort: JobSort, workspacePath: String): JobConnection!
+  configurationVersion(id: String!): ConfigurationVersion @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
+  group(fullPath: String!): Group @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
+  groups(after: String, before: String, first: Int, last: Int, parentId: String, parentPath: String, search: String, sort: GroupSort): GroupConnection!
+  job(id: String!): Job @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
+  jobs(after: String, before: String, first: Int, jobStatus: JobStatus, jobType: JobType, last: Int, sort: JobSort, workspaceId: String, workspacePath: String): JobConnection!
   maintenanceMode: MaintenanceMode
-  managedIdentity(id: String, path: String): ManagedIdentity
+  managedIdentity(id: String, path: String): ManagedIdentity @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
   me: MeResponse
   namespace(fullPath: String!): Namespace
   namespaceVariableVersion(id: String!, includeSensitiveValue: Boolean): NamespaceVariableVersion
   node(id: String!): Node
   resourceLimits: [ResourceLimit!]!
-  role(name: String!): Role
+  role(name: String!): Role @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
   roles(after: String, before: String, first: Int, last: Int, search: String, sort: RoleSort): RoleConnection!
-  run(id: String!): Run
+  run(id: String!): Run @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
   runs(after: String, before: String, first: Int, last: Int, sort: RunSort, workspaceAssessment: Boolean, workspaceId: String, workspacePath: String): RunConnection!
-  serviceAccount(id: String!): ServiceAccount
+  serviceAccount(id: String!): ServiceAccount @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
   sharedRunners(after: String, before: String, first: Int, last: Int, sort: ServiceAccountSort): RunnerConnection!
-  team(name: String!): Team
+  team(name: String!): Team @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
   teams(after: String, before: String, first: Int, last: Int, search: String, sort: TeamSort): TeamConnection!
   terraformCLIVersions: TerraformCLIVersions
-  terraformModule(moduleName: String!, registryNamespace: String!, system: String!): TerraformModule
+  terraformModule(moduleName: String!, registryNamespace: String!, system: String!): TerraformModule @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
   terraformModuleVersion(moduleName: String!, registryNamespace: String!, system: String!, version: String): TerraformModuleVersion
   terraformModules(after: String, before: String, first: Int, last: Int, search: String, sort: TerraformModuleSort): TerraformModuleConnection!
-  terraformProvider(providerName: String!, registryNamespace: String!): TerraformProvider
+  terraformProvider(providerName: String!, registryNamespace: String!): TerraformProvider @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
   terraformProviderVersion(providerName: String!, registryNamespace: String!, version: String): TerraformProviderVersion
-  terraformProviderVersionMirror(groupPath: String!, registryHostname: String!, registryNamespace: String!, type: String!, version: String!): TerraformProviderVersionMirror
+  terraformProviderVersionMirror(groupPath: String!, registryHostname: String!, registryNamespace: String!, type: String!, version: String!): TerraformProviderVersionMirror @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
   terraformProviders(after: String, before: String, first: Int, last: Int, search: String, sort: TerraformProviderSort): TerraformProviderConnection!
+  userPreferences: UserPreferences!
   users(after: String, before: String, first: Int, last: Int, search: String, sort: UserSort): UserConnection!
   version: Version!
-  workspace(fullPath: String!): Workspace
-  workspaces(after: String, before: String, first: Int, groupPath: String, last: Int, search: String, sort: WorkspaceSort): WorkspaceConnection!
+  workspace(fullPath: String!): Workspace @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
+  workspaces(after: String, before: String, first: Int, groupId: String, groupPath: String, last: Int, search: String, sort: WorkspaceSort): WorkspaceConnection!
 }
 
 input RemoveUserFromTeamInput {
@@ -1640,6 +1748,7 @@ type ResourceLimit {
 
 type ResourceMetadata {
   createdAt: Time!
+  trn: String!
   updatedAt: Time!
   version: String!
 }
@@ -1747,6 +1856,7 @@ enum RunStatus {
 
 input RunSubscriptionInput {
   runId: String
+  workspaceId: String
   workspacePath: String
 }
 
@@ -1928,7 +2038,8 @@ type ServiceAccountConnection {
 
 input ServiceAccountCreateTokenInput {
   clientMutationId: String
-  serviceAccountPath: String!
+  serviceAccountId: String
+  serviceAccountPath: String
   token: String!
 }
 
@@ -1956,6 +2067,20 @@ input SetNamespaceVariablesInput {
   clientMutationId: String
   namespacePath: String!
   variables: [NamespaceVariableInput!]!
+}
+
+input SetUserNotificationPreferenceInput {
+  clientMutationId: String
+  customEvents: UserNotificationPreferenceCustomEventsInput
+  inherit: Boolean
+  namespacePath: String
+  scope: UserNotificationPreferenceScope
+}
+
+type SetUserNotificationPreferencePayload {
+  clientMutationId: String
+  preference: UserNotificationPreference
+  problems: [Problem!]!
 }
 
 input SetVariablesIncludedInTFConfigInput {
@@ -2374,7 +2499,8 @@ scalar Time
 
 input UnlockWorkspaceInput {
   clientMutationId: String
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
 }
 
 type UnlockWorkspacePayload {
@@ -2397,6 +2523,13 @@ type UpdateApplyPayload {
   problems: [Problem!]!
 }
 
+input UpdateFederatedRegistryInput {
+  audience: String
+  clientMutationId: String
+  hostname: String
+  id: String!
+}
+
 input UpdateGroupInput {
   clientMutationId: String
   description: String
@@ -2414,8 +2547,11 @@ type UpdateGroupPayload {
 }
 
 input UpdateManagedIdentityAccessRuleInput {
+  allowedServiceAccountIds: [String!]
   allowedServiceAccounts: [String!]
+  allowedTeamIds: [String!]
   allowedTeams: [String!]
+  allowedUserIds: [String!]
   allowedUsers: [String!]
   clientMutationId: String
   id: ID!
@@ -2528,8 +2664,9 @@ type UpdateServiceAccountPayload {
 input UpdateTeamInput {
   clientMutationId: String
   description: String!
+  id: String
   metadata: ResourceMetadataInput
-  name: String!
+  name: String
 }
 
 input UpdateTeamMemberInput {
@@ -2679,6 +2816,52 @@ type UserEdge {
   node: User
 }
 
+type UserNamespacePreferenceConnection {
+  edges: [UserNamespacePreferenceEdge]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UserNamespacePreferenceEdge {
+  cursor: String!
+  node: UserNamespacePreferences!
+}
+
+type UserNamespacePreferences {
+  id: ID!
+  notificationPreference: UserNotificationPreference!
+  path: String!
+}
+
+type UserNotificationPreference {
+  customEvents: UserNotificationPreferenceCustomEvents
+  global: Boolean!
+  inherited: Boolean!
+  namespacePath: String
+  scope: UserNotificationPreferenceScope!
+}
+
+type UserNotificationPreferenceCustomEvents {
+  failedRun: Boolean!
+}
+
+input UserNotificationPreferenceCustomEventsInput {
+  failedRun: Boolean!
+}
+
+enum UserNotificationPreferenceScope {
+  ALL
+  CUSTOM
+  NONE
+  PARTICIPATE
+}
+
+type UserPreferences {
+  globalPreferences: GlobalUserPreferences!
+  groupPreferences(after: String, before: String, first: Int, last: Int, path: String): UserNamespacePreferenceConnection!
+  workspacePreferences(after: String, before: String, first: Int, last: Int, path: String): UserNamespacePreferenceConnection!
+}
+
 enum UserSort {
   UPDATED_AT_ASC
   UPDATED_AT_DESC
@@ -2759,13 +2942,14 @@ enum VariableCategory {
 }
 
 type Version {
+  apiBuildTimestamp: Time!
   apiVersion: String!
   dbMigrationDirty: Boolean!
   dbMigrationVersion: String!
 }
 
 type Workspace implements Namespace & Node {
-  activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, username: String): ActivityEventConnection!
+  activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, serviceAccountId: String, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, userId: String, username: String): ActivityEventConnection!
   assessment: WorkspaceAssessment
   assignedManagedIdentities: [ManagedIdentity!]!
   createdBy: String!
@@ -2828,7 +3012,8 @@ enum WorkspaceSort {
 }
 
 input WorkspaceSubscriptionInput {
-  workspacePath: String!
+  workspaceId: String
+  workspacePath: String
 }
 
 type WorkspaceVCSProviderLink implements Node {

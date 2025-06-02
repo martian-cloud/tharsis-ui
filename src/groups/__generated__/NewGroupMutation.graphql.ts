@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0107be6ac746d68de6564ce2fcb08651>>
+ * @generated SignedSource<<c7ef4dc34a14fdb1e5f9e011bb3e74c6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type CreateGroupInput = {
   description: string;
   driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null | undefined;
   name: string;
+  parentId?: string | null | undefined;
   parentPath?: string | null | undefined;
   runnerTags?: NamespaceRunnerTagsInput | null | undefined;
 };

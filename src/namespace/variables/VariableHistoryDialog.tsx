@@ -22,7 +22,7 @@ import graphql from "babel-plugin-relay/macro";
 import React, { Suspense } from 'react';
 import { useLazyLoadQuery, usePaginationFragment } from 'react-relay/hooks';
 import DataTableCell from '../../common/DataTableCell';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import { VariableHistoryDialogFragment_variable$key } from './__generated__/VariableHistoryDialogFragment_variable.graphql';
 import { VariableHistoryDialogQuery } from './__generated__/VariableHistoryDialogQuery.graphql';
 import SensitiveVariableValue from './SensitiveVariableValue';
@@ -79,7 +79,7 @@ function VariableHistory({ variableId, sensitive }: { variableId: string, sensit
                     <TableBody>
                         {data?.versions.edges?.map((edge) => <TableRow key={edge?.node?.id}>
                             <TableCell>
-                                <RelativeTimestamp timestamp={edge?.node?.metadata.createdAt} />
+                                <Timestamp timestamp={edge?.node?.metadata.createdAt} />
                             </TableCell>
                             <DataTableCell sx={{ wordBreak: 'break-all' }} >
                                 {edge?.node?.key}

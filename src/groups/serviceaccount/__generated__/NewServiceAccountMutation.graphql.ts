@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ae2643b1d7c64a4d37a28cd1a8035f9b>>
+ * @generated SignedSource<<828443c71229a5f9b19bddf802cb700f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,8 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type CreateServiceAccountInput = {
   clientMutationId?: string | null | undefined;
   description: string;
-  groupPath: string;
+  groupId?: string | null | undefined;
+  groupPath?: string | null | undefined;
   name: string;
   oidcTrustPolicies: ReadonlyArray<OIDCTrustPolicyInput>;
 };

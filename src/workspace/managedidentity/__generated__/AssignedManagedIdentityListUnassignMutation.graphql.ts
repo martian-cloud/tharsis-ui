@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<da40f08a49feb755dd23db08799a021c>>
+ * @generated SignedSource<<d290d4957b318c9f1c9ba1fab300e50c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,8 @@ export type AssignManagedIdentityInput = {
   clientMutationId?: string | null | undefined;
   managedIdentityId?: string | null | undefined;
   managedIdentityPath?: string | null | undefined;
-  workspacePath: string;
+  workspaceId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type AssignedManagedIdentityListUnassignMutation$variables = {
   input: AssignManagedIdentityInput;

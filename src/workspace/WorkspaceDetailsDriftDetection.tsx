@@ -5,7 +5,7 @@ import { Suspense, useMemo, useState } from 'react';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import ConfirmationDialog from '../common/ConfirmationDialog';
 import { MutationError } from '../common/error';
-import RelativeTimestamp from '../common/RelativeTimestamp';
+import Timestamp from '../common/Timestamp';
 import Link from '../routes/Link';
 import { WorkspaceDetailsDriftDetectionFragment_workspace$key } from './__generated__/WorkspaceDetailsDriftDetectionFragment_workspace.graphql';
 import { WorkspaceDetailsDriftDetectionMutation } from './__generated__/WorkspaceDetailsDriftDetectionMutation.graphql';
@@ -40,7 +40,7 @@ const StatusMessage = ({
     <Box display="flex">
         <Typography color="textSecondary" mr={1}>
             {isInProgress ? 'Drift detection started' : 'Drift last checked'}{' '}
-            <RelativeTimestamp
+            <Timestamp
                 component="span"
                 timestamp={timestamp}
             />

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e40de1fbed80e5c30c64a001edfcc5c2>>
+ * @generated SignedSource<<2c9d40c5b6d1f0beba88da087c4da516>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,8 @@ export type CreateVCSProviderInput = {
   autoCreateWebhooks: boolean;
   clientMutationId?: string | null | undefined;
   description: string;
-  groupPath: string;
+  groupId?: string | null | undefined;
+  groupPath?: string | null | undefined;
   name: string;
   oAuthClientId: string;
   oAuthClientSecret: string;

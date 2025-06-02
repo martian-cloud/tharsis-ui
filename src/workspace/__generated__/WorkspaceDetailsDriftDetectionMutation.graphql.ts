@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<84d60bb8ae535aa3d3eecabec990f3b8>>
+ * @generated SignedSource<<de59aa86d7bdc711de7099313535a0dd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,8 @@ import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type AssessWorkspaceInput = {
   clientMutationId?: string | null | undefined;
-  workspacePath: string;
+  workspaceId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type WorkspaceDetailsDriftDetectionMutation$variables = {
   input: AssessWorkspaceInput;

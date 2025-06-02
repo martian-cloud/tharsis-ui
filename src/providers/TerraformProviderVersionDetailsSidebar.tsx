@@ -4,7 +4,7 @@ import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'react-relay/hooks';
 import Gravatar from '../common/Gravatar';
-import RelativeTimestamp from '../common/RelativeTimestamp';
+import Timestamp from '../common/Timestamp';
 import { TerraformProviderVersionDetailsSidebarFragment_details$key } from './__generated__/TerraformProviderVersionDetailsSidebarFragment_details.graphql';
 
 interface Props {
@@ -96,7 +96,7 @@ function TerraformProviderVersionDetailsSidebar(props: Props) {
           <FieldLabel>Published</FieldLabel>
           <Box display="flex" alignItems="center">
             <Typography sx={{ marginRight: 1 }}>
-              <RelativeTimestamp component="span" timestamp={data.metadata.createdAt} /> by
+              <Timestamp component="span" timestamp={data.metadata.createdAt} /> by
             </Typography>
             <Tooltip title={data.createdBy}>
               <Box>

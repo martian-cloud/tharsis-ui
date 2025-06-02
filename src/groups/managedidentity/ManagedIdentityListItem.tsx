@@ -2,7 +2,7 @@ import { Box, Chip, ListItemButton, ListItemText, Typography, useTheme } from '@
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from "react-relay/hooks";
 import { Link as RouterLink } from 'react-router-dom';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import ManagedIdentityTypeChip from './ManagedIdentityTypeChip';
 import { ManagedIdentityListItemFragment_managedIdentity$key } from './__generated__/ManagedIdentityListItemFragment_managedIdentity.graphql';
 
@@ -55,7 +55,7 @@ function ManagedIdentityListItem({ fragmentRef, inherited }: Props) {
                     {inherited && <Typography mt={0.5} color="textSecondary" variant="caption">Inherited from group <strong>{data.groupPath}</strong></Typography>}
                 </Box>}
             />
-            <RelativeTimestamp variant="body2" color="textSecondary" timestamp={data.metadata.updatedAt} />
+            <Timestamp variant="body2" color="textSecondary" timestamp={data.metadata.updatedAt} />
         </ListItemButton>
     );
 }

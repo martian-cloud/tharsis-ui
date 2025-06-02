@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0c7a39b4d0edb1278533887c5923fde2>>
+ * @generated SignedSource<<ab4b22af3faa39ecf8b92e779c16db61>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,8 @@ import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type UnlockWorkspaceInput = {
   clientMutationId?: string | null | undefined;
-  workspacePath: string;
+  workspaceId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type WorkspaceStateSettingsUnlockWorkspaceMutation$variables = {
   input: UnlockWorkspaceInput;
