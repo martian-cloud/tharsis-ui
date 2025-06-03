@@ -10,7 +10,7 @@ import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useFragment, useMutation } from "react-relay/hooks";
 import Gravatar from '../../common/Gravatar';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import Link from '../../routes/Link';
 import RoleAutocomplete from './RoleAutocomplete';
 import { NamespaceMembershipListItemFragment_membership$key } from './__generated__/NamespaceMembershipListItemFragment_membership.graphql';
@@ -135,7 +135,7 @@ function NamespaceMembershipListItem(props: Props) {
                 {!editMode && <React.Fragment>{data.role.name}</React.Fragment>}
             </TableCell>
             <TableCell>
-                <RelativeTimestamp timestamp={data.metadata.updatedAt} />
+                <Timestamp timestamp={data.metadata.updatedAt} />
             </TableCell>
             <TableCell>
                 {membershipNamespacePath === namespacePath ? 'Direct Member' : <Link

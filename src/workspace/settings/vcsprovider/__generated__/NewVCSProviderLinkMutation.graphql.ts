@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<871b2ff82c96049bf552426f997350bf>>
+ * @generated SignedSource<<ca83413641f690af6be39e19978050ae>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,8 @@ export type CreateWorkspaceVCSProviderLinkInput = {
   repositoryPath: string;
   tagRegex?: string | null | undefined;
   webhookDisabled: boolean;
-  workspacePath: string;
+  workspaceId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type NewVCSProviderLinkMutation$variables = {
   input: CreateWorkspaceVCSProviderLinkInput;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<76b049a330532a5f215aec5e84e1bda1>>
+ * @generated SignedSource<<9947248ea65f91c1e2f1530c02bde842>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,7 +24,8 @@ export type CreateRunInput = {
   targetAddresses?: ReadonlyArray<string> | null | undefined;
   terraformVersion?: string | null | undefined;
   variables?: ReadonlyArray<RunVariableInput> | null | undefined;
-  workspacePath: string;
+  workspaceId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type RunVariableInput = {
   category: VariableCategory;

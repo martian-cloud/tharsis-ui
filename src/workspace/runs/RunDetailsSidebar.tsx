@@ -18,7 +18,7 @@ import cfg from '../../common/config';
 import { MutationError } from '../../common/error';
 import downloadFile from '../../common/filedownload';
 import Gravatar from '../../common/Gravatar';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import { RunDetailsSidebarCancelRunMutation } from './__generated__/RunDetailsSidebarCancelRunMutation.graphql';
 import { RunDetailsSidebarFragment_details$key } from './__generated__/RunDetailsSidebarFragment_details.graphql';
 import RunStageStatusTypes from './RunStageStatusTypes';
@@ -183,7 +183,7 @@ function RunDetailsSidebar(props: Props) {
                 <Box marginBottom={3}>
                     <Typography sx={{ marginBottom: 1 }}>Created</Typography>
                     <Box display="flex" alignItems="center">
-                        <RelativeTimestamp variant="subtitle1" sx={{ marginRight: 1 }} timestamp={data.metadata.createdAt} />
+                        <Timestamp variant="subtitle1" sx={{ marginRight: 1 }} timestamp={data.metadata.createdAt} />
                         <Tooltip title={data.createdBy}>
                             <Box>
                                 <Gravatar width={20} height={20} email={data.createdBy} />

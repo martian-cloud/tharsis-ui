@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<54990b241a86567c535ad49ae9890a46>>
+ * @generated SignedSource<<41dd022f5a501095bc07dde588dba3cf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,8 @@ export type CreateVCSRunInput = {
   clientMutationId?: string | null | undefined;
   isDestroy?: boolean | null | undefined;
   referenceName?: string | null | undefined;
-  workspacePath: string;
+  workspaceId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type CreateRun_VCSRunMutation$variables = {
   input: CreateVCSRunInput;

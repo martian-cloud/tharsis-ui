@@ -1,14 +1,25 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText, Typography } from "@mui/material";
+import Timestamp from "../common/Timestamp";
 
 interface Props {
     frontendVersion: string;
+    frontendBuildTimestamp: string;
     backendVersion: string;
+    backendBuildTimestamp: string;
     dbMigrationVersion: string;
     dbMigrationDirty: boolean;
     onClose: () => void;
 }
 
-function AboutDialog({ frontendVersion, backendVersion, dbMigrationVersion, dbMigrationDirty, onClose }: Props) {
+function AboutDialog({
+    frontendVersion,
+    frontendBuildTimestamp,
+    backendVersion,
+    backendBuildTimestamp,
+    dbMigrationVersion,
+    dbMigrationDirty,
+    onClose
+}: Props) {
     const stripPrefix = (version: string) => {
         const prefix = 'v'
         return version.startsWith(prefix) ? version.slice(prefix.length) : version;
@@ -30,10 +41,32 @@ function AboutDialog({ frontendVersion, backendVersion, dbMigrationVersion, dbMi
                 <Box>
                     <List sx={{ padding: 0 }}>
                         <ListItem sx={{ padding: 0 }}>
-                            <ListItemText primary="Frontend" secondary={stripPrefix(frontendVersion)} />
+                            <ListItemText
+                                primary="Frontend"
+                                secondary={
+                                    <>
+                                        {stripPrefix(frontendVersion)} &mdash; <Timestamp
+                                            tooltip="Frontend build date"
+                                            format="absolute"
+                                            timestamp={frontendBuildTimestamp}
+                                        />
+                                    </>
+                                }
+                            />
                         </ListItem>
                         <ListItem sx={{ padding: 0 }}>
-                            <ListItemText primary="Backend" secondary={stripPrefix(backendVersion)} />
+                            <ListItemText
+                                primary="Backend"
+                                secondary={
+                                    <>
+                                        {stripPrefix(backendVersion)} &mdash; <Timestamp
+                                            tooltip="Backend build date"
+                                            format="absolute"
+                                            timestamp={backendBuildTimestamp}
+                                        />
+                                    </>
+                                }
+                            />
                         </ListItem>
                         <ListItem sx={{ padding: 0 }}>
                             <ListItemText

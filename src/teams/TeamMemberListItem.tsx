@@ -2,7 +2,7 @@ import React from 'react';
 import Gravatar from '../common/Gravatar';
 import graphql from 'babel-plugin-relay/macro';
 import { Box, Stack, TableCell, TableRow } from '@mui/material';
-import RelativeTimestamp from '../common/RelativeTimestamp';
+import Timestamp from '../common/Timestamp';
 import { useFragment } from 'react-relay/hooks';
 import { TeamMemberListItemFragment_member$key } from './__generated__/TeamMemberListItemFragment_member.graphql';
 
@@ -39,7 +39,7 @@ function TeamMemberListItem({ fragmentRef }: Props) {
                 {data.isMaintainer ? 'Yes' : 'No'}
             </TableCell>
             <TableCell>
-                <RelativeTimestamp timestamp={data.metadata.updatedAt} />
+                <Timestamp timestamp={data.metadata.updatedAt} />
             </TableCell>
         </TableRow>
     );

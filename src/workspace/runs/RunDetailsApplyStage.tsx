@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 import Lottie from 'react-lottie-player';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import Gravatar from '../../common/Gravatar';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import { MutationError } from '../../common/error';
 import RocketLottieFileJson from '../../lotties/rocket-in-space-lottie.json';
 import Link from '../../routes/Link';
@@ -146,7 +146,7 @@ function RunDetailsApplyStage(props: Props) {
                     }}>
                     <Box display="flex" alignItems="center">
                         <Typography sx={{ paddingRight: '4px' }}>Apply triggered</Typography>
-                        <RelativeTimestamp component="span" timestamp={data.apply.metadata.createdAt} />
+                        <Timestamp component="span" timestamp={data.apply.metadata.createdAt} />
                         <Typography sx={{ paddingLeft: '4px', paddingRight: '8px' }}>by</Typography>
                         <Gravatar width={20} height={20} email={data.apply.triggeredBy} />
                         <Typography
@@ -210,7 +210,7 @@ function RunDetailsApplyStage(props: Props) {
                         <Typography sx={{ marginBottom: 2 }} variant="h6" align="center">Apply operation is pending and will start shortly</Typography>
                         <Box display="flex" alignItems="center" marginLeft={2}>
                             <Typography sx={{ paddingRight: '4px' }} color="textSecondary">Triggered</Typography>
-                            <RelativeTimestamp color="textSecondary" component="span" timestamp={data.apply.metadata.createdAt} />
+                            <Timestamp color="textSecondary" component="span" timestamp={data.apply.metadata.createdAt} />
                             <Typography sx={{ paddingLeft: '4px', paddingRight: '8px' }} color="textSecondary">by</Typography>
                             <Tooltip title={data.apply.triggeredBy}>
                                 <Box>

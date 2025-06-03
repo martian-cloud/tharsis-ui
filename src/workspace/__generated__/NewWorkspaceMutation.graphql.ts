@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0b9ed10d1fdb8bfc8f839cc308b7cafb>>
+ * @generated SignedSource<<0492719a8c926cb688088cbd28793c31>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,8 @@ export type CreateWorkspaceInput = {
   clientMutationId?: string | null | undefined;
   description: string;
   driftDetectionEnabled?: NamespaceDriftDetectionEnabledInput | null | undefined;
-  groupPath: string;
+  groupId?: string | null | undefined;
+  groupPath?: string | null | undefined;
   maxJobDuration?: number | null | undefined;
   name: string;
   preventDestroyPlan?: boolean | null | undefined;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<79c46fe58f3f4a8c779036079f4f246a>>
+ * @generated SignedSource<<b015127f8df8332bfcedee2c94c9da7c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,8 @@ import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type DestroyWorkspaceInput = {
   clientMutationId?: string | null | undefined;
-  workspacePath: string;
+  workspaceId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type WorkspaceDetailsIndex_DestroyWorkspaceMutation$variables = {
   input: DestroyWorkspaceInput;

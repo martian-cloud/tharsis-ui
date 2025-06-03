@@ -41,6 +41,7 @@ function AccountMenu({ fragmentRef }: Props) {
                 apiVersion
                 dbMigrationVersion
                 dbMigrationDirty
+                apiBuildTimestamp
             }
         }
         `, fragmentRef);
@@ -145,8 +146,10 @@ function AccountMenu({ fragmentRef }: Props) {
                 </div>
             </Popover>
             {showAboutDialog && <AboutDialog
-                backendVersion={data.version.apiVersion}
                 frontendVersion={config.version}
+                frontendBuildTimestamp={config.buildTimestamp}
+                backendVersion={data.version.apiVersion}
+                backendBuildTimestamp={data.version.apiBuildTimestamp}
                 dbMigrationVersion={data.version.dbMigrationVersion}
                 dbMigrationDirty={data.version.dbMigrationDirty}
                 onClose={() => setShowAboutDialog(false)}

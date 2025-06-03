@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<03e2d85cd9dd600a2db8c082fb4b7d94>>
+ * @generated SignedSource<<8dfbdf26eb56713482179f0bdbb1242e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,9 @@ import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type MigrateGroupInput = {
   clientMutationId?: string | null | undefined;
-  groupPath: string;
+  groupId?: string | null | undefined;
+  groupPath?: string | null | undefined;
+  newParentId?: string | null | undefined;
   newParentPath?: string | null | undefined;
 };
 export type MigrateGroupDialogMutation$variables = {

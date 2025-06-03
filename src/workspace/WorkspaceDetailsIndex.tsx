@@ -8,7 +8,7 @@ import { CubeOutline as ModuleIcon } from 'mdi-material-ui';
 import React, { useState } from 'react';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import RelativeTimestamp from '../common/RelativeTimestamp';
+import Timestamp from '../common/Timestamp';
 import TabContent from '../common/TabContent';
 import { MutationError } from '../common/error';
 import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
@@ -259,7 +259,7 @@ function WorkspaceDetailsIndex(props: Props) {
                         <StateIcon />
                         <Typography component="div">
                             State last updated{' '}
-                            <RelativeTimestamp component="span" timestamp={data.currentStateVersion.metadata.createdAt} />
+                            <Timestamp component="span" timestamp={data.currentStateVersion.metadata.createdAt} />
                             {' '}
                             {!data.currentStateVersion.run && 'by manual update'}
                             {data.currentStateVersion.run && <React.Fragment>

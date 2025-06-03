@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4dd91d662fa49a55180835bd48bb1941>>
+ * @generated SignedSource<<940c33ac33f094320df86ffd0d289852>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,8 +13,10 @@ import { FragmentRefs } from "relay-runtime";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type AssignServiceAccountToRunnerInput = {
   clientMutationId?: string | null | undefined;
-  runnerPath: string;
-  serviceAccountPath: string;
+  runnerId?: string | null | undefined;
+  runnerPath?: string | null | undefined;
+  serviceAccountId?: string | null | undefined;
+  serviceAccountPath?: string | null | undefined;
 };
 export type AssignedServiceAccountListAssignMutation$variables = {
   connections: ReadonlyArray<string>;

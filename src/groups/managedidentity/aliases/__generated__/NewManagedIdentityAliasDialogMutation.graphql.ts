@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3c0d86028119e56e9d2834d75973e773>>
+ * @generated SignedSource<<3b218c938f4a0cb74589dbab2a94ff2a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,8 @@ export type CreateManagedIdentityAliasInput = {
   aliasSourceId?: string | null | undefined;
   aliasSourcePath?: string | null | undefined;
   clientMutationId?: string | null | undefined;
-  groupPath: string;
+  groupId?: string | null | undefined;
+  groupPath?: string | null | undefined;
   name: string;
 };
 export type NewManagedIdentityAliasDialogMutation$variables = {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7a22a3b2300a49ad9a77f5cc8ea1b53c>>
+ * @generated SignedSource<<2ee12f52767d48c1ff22763efcf49a5a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,8 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type CreateConfigurationVersionInput = {
   clientMutationId?: string | null | undefined;
   speculative?: boolean | null | undefined;
-  workspacePath: string;
+  workspaceId?: string | null | undefined;
+  workspacePath?: string | null | undefined;
 };
 export type CreateRun_ConfigRunMutation$variables = {
   input: CreateConfigurationVersionInput;

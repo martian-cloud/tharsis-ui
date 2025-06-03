@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from "react-relay/hooks";
 import { Link as LinkRouter } from 'react-router-dom';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import { ManagedIdentityWorkspaceListItemFragment_workspace$key } from './__generated__/ManagedIdentityWorkspaceListItemFragment_workspace.graphql';
 
 interface Props {
@@ -61,7 +61,7 @@ function ManagedIdentityWorkspaceListItem(props: Props) {
                         <Typography variant="body2" color="textSecondary">{data.description}</Typography>
                     </Box>
                     <Stack direction="row" spacing={1}>
-                        <RelativeTimestamp variant="body2" color="textSecondary" timestamp={data.metadata.updatedAt} />
+                        <Timestamp variant="body2" color="textSecondary" timestamp={data.metadata.updatedAt} />
                     </Stack>
                 </Box>
             </Box>

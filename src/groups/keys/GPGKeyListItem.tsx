@@ -4,7 +4,7 @@ import graphql from 'babel-plugin-relay/macro';
 import { KeyVariant as KeyIcon } from 'mdi-material-ui';
 import { useFragment } from "react-relay/hooks";
 import Gravatar from '../../common/Gravatar';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import { GPGKeyListItemFragment_key$key } from './__generated__/GPGKeyListItemFragment_key.graphql';
 
 interface Props {
@@ -65,7 +65,7 @@ function GPGKeyListItem({ fragmentRef, inherited, onDelete }: Props) {
                     </Typography>
                     <Box display="flex" alignItems="center" mt={1}>
                         <Typography variant="caption" color="textSecondary">
-                            Added <RelativeTimestamp component="span" timestamp={data.metadata.createdAt} /> by
+                            Added <Timestamp component="span" timestamp={data.metadata.createdAt} /> by
                         </Typography>
                         <Tooltip title={data.createdBy}>
                             <Box>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<88f0640fc8f4365767c2be055a9791a8>>
+ * @generated SignedSource<<1631e35572ab1ba42e0ee54e41e7856c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type AccountMenuFragment$data = {
     readonly username?: string;
   } | null | undefined;
   readonly version: {
+    readonly apiBuildTimestamp: any;
     readonly apiVersion: string;
     readonly dbMigrationDirty: boolean;
     readonly dbMigrationVersion: string;
@@ -93,6 +94,13 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "dbMigrationDirty",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "apiBuildTimestamp",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -102,6 +110,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "144958753006dc56fdf0e24507b3a1c8";
+(node as any).hash = "7c51969cf574cb2b4868a1f816086bf2";
 
 export default node;

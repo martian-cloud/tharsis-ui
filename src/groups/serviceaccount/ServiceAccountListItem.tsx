@@ -3,7 +3,7 @@ import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from "react-relay/hooks";
 import { Link as RouterLink } from 'react-router-dom';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import { ServiceAccountListItemFragment_serviceAccount$key } from './__generated__/ServiceAccountListItemFragment_serviceAccount.graphql';
 
 interface Props {
@@ -50,7 +50,7 @@ function ServiceAccountListItem({ fragmentRef, inherited }: Props) {
                     {data.description && <Typography variant="body2" color="textSecondary">{data.description}</Typography>}
                     {inherited && <Typography mt={0.5} color="textSecondary" variant="caption">Inherited from group <strong>{data.groupPath}</strong></Typography>}
                 </Box>} />
-            <RelativeTimestamp variant="body2" color="textSecondary" timestamp={data.metadata.updatedAt} />
+            <Timestamp variant="body2" color="textSecondary" timestamp={data.metadata.updatedAt} />
         </ListItem>
     );
 }

@@ -2,7 +2,7 @@ import { Box, TableCell, TableRow, Typography, Chip, Menu, MenuItem, IconButton 
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import Gravatar from '../../common/Gravatar';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import { AdminAreaUserListItemFragment_user$key } from './__generated__/AdminAreaUserListItemFragment_user.graphql';
 import { useContext, useMemo, useState } from 'react';
 import { AdminAreaUserListItemUpdateUserAdminStatusMutation } from './__generated__/AdminAreaUserListItemUpdateUserAdminStatusMutation.graphql';
@@ -116,7 +116,7 @@ function AdminAreaUserListItem({ fragmentRef }: Props) {
                     {data.scimExternalId ? 'Yes' : 'No'}
                 </TableCell>
                 <TableCell>
-                    <RelativeTimestamp variant="body2" timestamp={data.metadata.createdAt} />
+                    <Timestamp variant="body2" timestamp={data.metadata.createdAt} />
                 </TableCell>
                 <TableCell>
                     {showDropdownMenuButton && <Dropdown>

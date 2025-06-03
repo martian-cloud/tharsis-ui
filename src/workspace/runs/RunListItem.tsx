@@ -7,7 +7,7 @@ import Box from '@mui/system/Box';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from "react-relay/hooks";
 import Gravatar from '../../common/Gravatar';
-import RelativeTimestamp from '../../common/RelativeTimestamp';
+import Timestamp from '../../common/Timestamp';
 import Link from '../../routes/Link';
 import RunStageIcons from './RunStageIcons';
 import RunStatusChip from './RunStatusChip';
@@ -62,7 +62,7 @@ function RunListItem(props: Props) {
                             <Gravatar width={24} height={24} email={data.createdBy} />
                         </Box>
                     </Tooltip>
-                    <RelativeTimestamp ml={1} timestamp={data.metadata.createdAt} />
+                    <Timestamp ml={1} timestamp={data.metadata.createdAt} />
                 </Box>
             </TableCell>
             <TableCell>

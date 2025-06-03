@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c448bd79baa8776d17d46916cf6488d8>>
+ * @generated SignedSource<<134ca7affc98dae8381db99300fb8b16>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,8 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type MoveManagedIdentityInput = {
   clientMutationId?: string | null | undefined;
   managedIdentityId: string;
-  newParentPath: string;
+  newParentId?: string | null | undefined;
+  newParentPath?: string | null | undefined;
 };
 export type MoveManagedIdentityDialogMutation$variables = {
   connections: ReadonlyArray<string>;

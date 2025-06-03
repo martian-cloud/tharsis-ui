@@ -2,7 +2,7 @@ import { Box, TableCell, TableRow, Tooltip, Typography } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'react-relay/hooks';
 import Gravatar from '../common/Gravatar';
-import RelativeTimestamp from '../common/RelativeTimestamp';
+import Timestamp from '../common/Timestamp';
 import Link from '../routes/Link';
 import RunnerChip from './RunnerChip';
 import { RunnerListItemFragment_runner$key } from './__generated__/RunnerListItemFragment_runner.graphql';
@@ -46,7 +46,7 @@ function RunnerListItem({ fragmentRef, inherited }: Props) {
                         </Box>
                     </Tooltip>
                     <Box ml={1}>
-                        <RelativeTimestamp variant="body2" timestamp={data.metadata.createdAt} />
+                        <Timestamp variant="body2" timestamp={data.metadata.createdAt} />
                     </Box>
                 </Box>
             </TableCell>

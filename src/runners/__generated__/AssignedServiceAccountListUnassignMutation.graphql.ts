@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0dd01b83f2f713ce343ea0f493ad6ad1>>
+ * @generated SignedSource<<ab85daac4846e8d3d58a903296836494>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,8 +12,10 @@ import { ConcreteRequest } from 'relay-runtime';
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type AssignServiceAccountToRunnerInput = {
   clientMutationId?: string | null | undefined;
-  runnerPath: string;
-  serviceAccountPath: string;
+  runnerId?: string | null | undefined;
+  runnerPath?: string | null | undefined;
+  serviceAccountId?: string | null | undefined;
+  serviceAccountPath?: string | null | undefined;
 };
 export type AssignedServiceAccountListUnassignMutation$variables = {
   connections: ReadonlyArray<string>;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<01c9ebdd433f1ef32223f74fe04d4639>>
+ * @generated SignedSource<<6de550aa3b789faa5e3161e9e5299cbd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,8 @@ export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND"
 export type CreateGPGKeyInput = {
   asciiArmor: string;
   clientMutationId?: string | null | undefined;
-  groupPath: string;
+  groupId?: string | null | undefined;
+  groupPath?: string | null | undefined;
 };
 export type NewGPGKeyMutation$variables = {
   connections: ReadonlyArray<string>;

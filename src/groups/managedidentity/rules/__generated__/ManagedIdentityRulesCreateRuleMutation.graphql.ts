@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7490dd9f6cbe1ddbbbc59a0e33fe227b>>
+ * @generated SignedSource<<bbc10e394c1137aa89f71f954b48676e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,8 +13,11 @@ export type JobType = "apply" | "plan" | "%future added value";
 export type ManagedIdentityAccessRuleType = "eligible_principals" | "module_attestation" | "%future added value";
 export type ProblemType = "BAD_REQUEST" | "CONFLICT" | "FORBIDDEN" | "NOT_FOUND" | "SERVICE_UNAVAILABLE" | "%future added value";
 export type CreateManagedIdentityAccessRuleInput = {
+  allowedServiceAccountIds?: ReadonlyArray<string> | null | undefined;
   allowedServiceAccounts?: ReadonlyArray<string> | null | undefined;
+  allowedTeamIds?: ReadonlyArray<string> | null | undefined;
   allowedTeams?: ReadonlyArray<string> | null | undefined;
+  allowedUserIds?: ReadonlyArray<string> | null | undefined;
   allowedUsers?: ReadonlyArray<string> | null | undefined;
   clientMutationId?: string | null | undefined;
   managedIdentityId: string;
