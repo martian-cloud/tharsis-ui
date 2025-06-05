@@ -1,7 +1,7 @@
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import StateIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { LoadingButton } from "@mui/lab";
-import { Alert, AlertTitle, Avatar, Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { Alert, AlertTitle, Avatar, Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Stack, Tab, Tabs, Tooltip, Typography, useTheme } from '@mui/material';
 import teal from '@mui/material/colors/teal';
 import graphql from 'babel-plugin-relay/macro';
 import { CubeOutline as ModuleIcon } from 'mdi-material-ui';
@@ -24,6 +24,7 @@ import StateVersionInputVariables from './state/StateVersionInputVariables';
 import StateVersionOutputs from './state/StateVersionOutputs';
 import StateVersionResources from './state/StateVersionResources';
 import WorkspaceDetailsDriftDetection from './WorkspaceDetailsDriftDetection';
+import WorkspaceNotificationPreference from '../notifications/WorkspaceNotificationPreference';
 
 const DRIFT_ALERT_DESCRIPTION = "This workspace has drifted from its configuration; this can happen if the resources were modified outside of Tharsis, or if the infrastructure was changed directly through the cloud provider console."
 
@@ -70,6 +71,7 @@ function DestroyRunConfirmationDialog({ deleteInProgress, onClose, open }: Confi
 
 function WorkspaceDetailsIndex(props: Props) {
     const { fragmentRef } = props;
+    const theme = useTheme();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [showDestroyRunConfirmationDialog, setShowDestroyRunConfirmationDialog] = useState<boolean>(false);
@@ -91,6 +93,7 @@ function WorkspaceDetailsIndex(props: Props) {
         }
         ...WorkspaceDetailsEmptyFragment_workspace
         ...WorkspaceDetailsCurrentJobFragment_workspace
+        ...WorkspaceNotificationPreferenceFragment_workspace
         currentJob {
             id
         }
@@ -203,7 +206,16 @@ function WorkspaceDetailsIndex(props: Props) {
     return (
         <Box>
             <NamespaceBreadcrumbs namespacePath={data.fullPath} />
-            <Box display="flex" justifyContent="space-between" marginBottom={4}>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    [theme.breakpoints.down('lg')]: {
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        '& > *': { marginBottom: 2 },
+                    }
+                }}>
                 <Box display="flex" alignItems="center">
                     <Avatar sx={{ width: 56, height: 56, marginRight: 2, bgcolor: teal[200] }} variant="rounded">{data.name[0].toUpperCase()}</Avatar>
                     <Stack>
@@ -211,27 +223,31 @@ function WorkspaceDetailsIndex(props: Props) {
                         <Typography color="textSecondary" variant="subtitle2">{data.description}</Typography>
                     </Stack>
                 </Box>
-                {(data.currentStateVersion && data.currentStateVersion.run) && (
-                    <Box>
-                        <Tooltip
-                            title={data.preventDestroyPlan ? "Prevent Destroy Run is enabled for this workspace." : "Create a destroy run, which destroys all resources in this workspace."}
-                            placement="top"
-                        >
-                            <span>
-                                <Button
-                                    sx={{ mt: 1, mb: 1 }}
-                                    size="small"
-                                    variant="outlined"
-                                    color="error"
-                                    disabled={data.preventDestroyPlan}
-                                    onClick={() => setShowDestroyRunConfirmationDialog(true)}
-                                >
-                                    Destroy Workspace
-                                </Button>
-                            </span>
-                        </Tooltip>
-                    </Box>
-                )}
+                <Stack direction="row" spacing={1}>
+                    <WorkspaceNotificationPreference fragmentRef={data} />
+                    {(data.currentStateVersion && data.currentStateVersion.run) && (
+                        <Box>
+                            <Tooltip
+                                title={data.preventDestroyPlan ? "Prevent Destroy Run is enabled for this workspace." : "Create a destroy run, which destroys all resources in this workspace."}
+                                placement="top"
+                            >
+                                <span>
+                                    <Button
+                                        size="small"
+                                        variant="outlined"
+                                        color="error"
+                                        disabled={data.preventDestroyPlan}
+                                        onClick={() => setShowDestroyRunConfirmationDialog(true)}
+                                    >
+                                        Destroy Workspace
+                                    </Button>
+                                </span>
+                            </Tooltip>
+                        </Box>
+                    )}
+
+                </Stack>
+
             </Box>
 
             {data.assessment?.hasDrift &&

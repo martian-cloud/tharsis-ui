@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<feda1f235d0d2c612c3051bd9077c886>>
+ * @generated SignedSource<<0fb824c51941616e3f2d3a2b26013508>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,7 +20,7 @@ export type GroupDetailsIndexFragment_group$data = {
   readonly workspaces: {
     readonly totalCount: number;
   };
-  readonly " $fragmentSpreads": FragmentRefs<"MigrateGroupDialogFragment_group">;
+  readonly " $fragmentSpreads": FragmentRefs<"GroupNotificationPreferenceFragment_group" | "MigrateGroupDialogFragment_group">;
   readonly " $fragmentType": "GroupDetailsIndexFragment_group";
 };
 export type GroupDetailsIndexFragment_group$key = {
@@ -96,6 +96,11 @@ return {
       "args": null,
       "kind": "FragmentSpread",
       "name": "MigrateGroupDialogFragment_group"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "GroupNotificationPreferenceFragment_group"
     }
   ],
   "type": "Group",
@@ -103,6 +108,6 @@ return {
 };
 })();
 
-(node as any).hash = "b138b8d3a2bee6670fedc2e5262ee7ad";
+(node as any).hash = "7daa39a789767b4a84f11ab0ac65d1ac";
 
 export default node;

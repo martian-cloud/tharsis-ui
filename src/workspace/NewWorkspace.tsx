@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useMutation } from 'react-relay/hooks';
-import graphql from 'babel-plugin-relay/macro'
+import graphql from 'babel-plugin-relay/macro';
 import { MutationError } from '../common/error';
 import { Box, Button, Divider, Typography } from '@mui/material'
-import { LoadingButton } from '@mui/lab'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs'
-import WorkspaceForm, {FormData} from './WorkspaceForm'
+import { LoadingButton } from '@mui/lab';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
+import WorkspaceForm, { FormData } from './WorkspaceForm';
 import { NewWorkspaceMutation } from './__generated__/NewWorkspaceMutation.graphql';
-import { GetConnections } from '../groups/WorkspaceList'
+import { GetConnections } from '../groups/WorkspaceList';
 
 function NewWorkspace(){
     const navigate = useNavigate();

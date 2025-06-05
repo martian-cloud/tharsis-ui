@@ -12,6 +12,7 @@ import TerraformProviderSearchEntryPoint from './TerraformProviderSearchEntryPoi
 import TerraformProviderVersionDetailsEntryPoint from './TerraformProviderVersionDetailsEntryPoint';
 import WorkspaceSearchEntryPoint from './WorkspaceSearchEntryPoint';
 import AdminAreaEntryPoint from '../admin/AdminArea';
+import UserPreferencesEntryPoint from './UserPreferencesEntryPoint';
 import TeamDetailsEntryPoint from './TeamDetailsEntryPoint';
 
 function AppRoutes() {
@@ -31,6 +32,7 @@ function AppRoutes() {
                 <Route path="/module-registry/:registryNamespace/:moduleName/:system" element={<TerraformModuleVersionDetailsEntryPoint />} />
                 <Route path="/module-registry/*" element={<TerraformModuleSearchEntryPoint />} />
                 <Route path="/admin/*" element={<AdminAreaEntryPoint />} />
+                <Route path="/preferences" element={<UserPreferencesEntryPoint /> } />
                 <Route path="/teams/:teamName" element={<TeamDetailsEntryPoint />} />
                 <Route path="/" element={<HomeEntryPoint />} />
             </Routes>
