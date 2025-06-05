@@ -69,6 +69,11 @@ function AccountMenu({ fragmentRef }: Props) {
         setShowAboutDialog(true);
     }
 
+    function onShowPreferences() {
+        onMenuClose();
+        navigate('preferences');
+    }
+
     const isAdmin = data.me?.admin;
 
     return (
@@ -94,6 +99,9 @@ function AccountMenu({ fragmentRef }: Props) {
                     </Box>
                     <Divider />
                     <List dense>
+                        <ListItemButton onClick={onShowPreferences}>
+                            <ListItemText primary="Preferences" />
+                        </ListItemButton>
                         {isAdmin && <ListItemButton>
                             <ListItemText onClick={onShowAdminArea}>
                                 Admin Area

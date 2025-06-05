@@ -31,6 +31,7 @@ import ServiceAccounts from './serviceaccount/ServiceAccounts';
 import VCSProviders from './vcsprovider/VCSProviders';
 import GPGKeys from './keys/GPGKeys';
 import NamespaceActivity from '../namespace/activity/NamespaceActivity';
+import GroupNotificationPreference from '../notifications/GroupNotificationPreference';
 
 const TABS = ['workspaces', 'subgroups'];
 
@@ -162,6 +163,7 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
                     totalCount
                 }
                 ...MigrateGroupDialogFragment_group
+                ...GroupNotificationPreferenceFragment_group
             }
         `,
         props.fragmentRef
@@ -228,7 +230,6 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
             {(!route || TABS.includes(route)) && <React.Fragment>
                 <Box sx={{
                     display: 'flex',
-                    flexDirection: 'row',
                     justifyContent: 'space-between',
                     [theme.breakpoints.down('lg')]: {
                         flexDirection: 'column',
@@ -245,6 +246,7 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
                     </Box>
                     <Box>
                         <Stack direction="row" spacing={1}>
+                            <GroupNotificationPreference fragmentRef={data} />
                             <Button size="small" variant="outlined" color="info" onClick={() => (navigate(`/workspaces/-/new?parent=${data.fullPath}`))}>New Workspace</Button>
                             <Button size="small" variant="outlined" color="info" onClick={() => (navigate(`/groups/-/new?parent=${data.fullPath}`))}>New Subgroup</Button>
                         </Stack>
