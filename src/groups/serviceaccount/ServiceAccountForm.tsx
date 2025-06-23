@@ -60,11 +60,12 @@ function ServiceAccountForm({ data, onChange, editMode, error }: Props) {
                 {error.message}
             </Alert>}
             <Typography sx={{ marginTop: 2 }} variant="subtitle1" gutterBottom>Details</Typography>
-            <Divider light />
-            <Box marginTop={2} mb={2}>
+            <Divider sx={{ opacity: 0.6 }} />
+            <Box sx={{ my: 2 }}>
                 <TextField
+                    fullWidth
                     disabled={editMode}
-                    size="small" fullWidth
+                    size="small"
                     label="Name"
                     value={data.name}
                     onChange={event => onChange({ ...data, name: event.target.value })}

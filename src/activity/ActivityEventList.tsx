@@ -20,6 +20,7 @@ import ActivityEventVariableTarget from './targets/ActivityEventVariableTarget';
 import ActivityEventVCSProviderTarget from './targets/ActivityEventVCSProviderTarget';
 import ActivityEventWorkspaceTarget from './targets/ActivityEventWorkspaceTarget';
 import ActivityEventRunnerTarget from './targets/ActivityEventRunnerTarget';
+import ActivityEventFederatedRegistryTarget from './targets/ActivityEventFederatedRegistryTarget';
 import { ActivityEventListFragment_connection$key } from './__generated__/ActivityEventListFragment_connection.graphql';
 
 const TARGET_COMPONENT_MAP = {
@@ -39,7 +40,8 @@ const TARGET_COMPONENT_MAP = {
     TerraformModuleVersion: ActivityEventTerraformModuleVersionTarget,
     VCSProvider: ActivityEventVCSProviderTarget,
     Role: ActivityEventRoleTarget,
-    Runner: ActivityEventRunnerTarget
+    Runner: ActivityEventRunnerTarget,
+    FederatedRegistry: ActivityEventFederatedRegistryTarget
 } as any;
 
 interface Props {
@@ -74,6 +76,7 @@ function ActivityEventList({ fragmentRef, loadNext, hasNext }: Props) {
                     ...ActivityEventVCSProviderTargetFragment_event
                     ...ActivityEventRoleTargetFragment_event
                     ...ActivityEventRunnerTargetFragment_event
+                    ...ActivityEventFederatedRegistryTargetFragment_event
                 }
             }
         }

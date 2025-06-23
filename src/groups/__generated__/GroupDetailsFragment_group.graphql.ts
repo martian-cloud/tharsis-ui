@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<995a4f10e2fcc17aba8c062284e5c951>>
+ * @generated SignedSource<<609ccd032ddcc8605ed2e41e771a8782>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type GroupDetailsFragment_group$data = {
   readonly fullPath: string;
   readonly id: string;
   readonly name: string;
-  readonly " $fragmentSpreads": FragmentRefs<"GPGKeysFragment_group" | "GroupDetailsIndexFragment_group" | "GroupRunnersFragment_group" | "GroupSettingsFragment_group" | "ManagedIdentitiesFragment_group" | "NamespaceActivityFragment_activity" | "NamespaceMembershipsFragment_memberships" | "ServiceAccountsFragment_group" | "VCSProvidersFragment_group" | "VariablesFragment_variables">;
+  readonly " $fragmentSpreads": FragmentRefs<"FederatedRegistriesFragment_group" | "GPGKeysFragment_group" | "GroupDetailsIndexFragment_group" | "GroupRunnersFragment_group" | "GroupSettingsFragment_group" | "ManagedIdentitiesFragment_group" | "NamespaceActivityFragment_activity" | "NamespaceMembershipsFragment_memberships" | "ServiceAccountsFragment_group" | "VCSProvidersFragment_group" | "VariablesFragment_variables">;
   readonly " $fragmentType": "GroupDetailsFragment_group";
 };
 export type GroupDetailsFragment_group$key = {
@@ -77,6 +77,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
+      "name": "FederatedRegistriesFragment_group"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
       "name": "VariablesFragment_variables"
     },
     {
@@ -104,6 +109,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "d3114b78f96033dbd12ce8ad276aa826";
+(node as any).hash = "6e509d09cb181c832f509dd354b96f18";
 
 export default node;

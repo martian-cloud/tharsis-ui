@@ -31,7 +31,7 @@ export function GetConnections(groupId: string): [string] {
     const connectionId = ConnectionHandler.getConnectionID(
         groupId,
         'ServiceAccountList_serviceAccounts',
-        { includeInherited: false }
+        { sort: 'GROUP_LEVEL_DESC', includeInherited: true }
     );
     return [connectionId];
 }
