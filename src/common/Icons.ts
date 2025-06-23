@@ -12,7 +12,8 @@ import {
     LanConnect as ServiceAccountIcon,
     KeyVariant as KeyIcon,
     Terraform as TerraformIcon,
-    RobotOutline as RunnerIcon
+    RobotOutline as RunnerIcon,
+    ServerNetwork as FederatedRegistryIcon
 } from 'mdi-material-ui';
 
 export {
@@ -31,5 +32,6 @@ export {
     TerraformIcon,
     VCSProviderIcon,
     RunnerIcon,
-    UserIcon
+    UserIcon,
+    FederatedRegistryIcon
 };

@@ -210,10 +210,11 @@ function WorkspaceDetailsIndex(props: Props) {
                 sx={{
                     display: "flex",
                     justifyContent: "space-between",
+                    mb: 2,
                     [theme.breakpoints.down('lg')]: {
                         flexDirection: 'column',
                         alignItems: 'flex-start',
-                        '& > *': { marginBottom: 2 },
+                        '& > *:not(:last-child)': { mb: 2 },
                     }
                 }}>
                 <Box display="flex" alignItems="center">
@@ -245,9 +246,7 @@ function WorkspaceDetailsIndex(props: Props) {
                             </Tooltip>
                         </Box>
                     )}
-
                 </Stack>
-
             </Box>
 
             {data.assessment?.hasDrift &&

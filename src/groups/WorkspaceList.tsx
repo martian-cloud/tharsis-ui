@@ -50,7 +50,7 @@ function WorkspaceList(props: Props) {
                 last: $last
                 groupPath: $groupPath
                 search: $search
-                sort:FULL_PATH_ASC
+                sort: FULL_PATH_ASC
             ) @connection(key: "WorkspaceList_workspaces") {
                 totalCount
                 edges {

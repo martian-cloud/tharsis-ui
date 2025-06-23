@@ -968,6 +968,7 @@ type EnableMaintenanceModePayload {
 
 type FederatedRegistry implements Node {
   audience: String!
+  createdBy: String!
   group: Group!
   hostname: String!
   id: ID!

@@ -118,7 +118,7 @@ function NewServiceAccount(props: Props) {
                 onChange={(data: FormData) => setFormData(data)}
                 error={error}
             />
-            <Divider light />
+            <Divider sx={{ opacity: 0.6 }} />
             <Box marginTop={2}>
                 <LoadingButton
                     loading={isInFlight}

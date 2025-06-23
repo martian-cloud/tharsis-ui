@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import ServiceAccounts from './serviceaccount/ServiceAccounts';
 import VCSProviders from './vcsprovider/VCSProviders';
+import FederatedRegistries from './federatedregistry/FederatedRegistries';
 import GPGKeys from './keys/GPGKeys';
 import NamespaceActivity from '../namespace/activity/NamespaceActivity';
 import GroupNotificationPreference from '../notifications/GroupNotificationPreference';
@@ -91,6 +92,7 @@ function GroupDetails(props: Props) {
             ...GroupRunnersFragment_group
             ...ServiceAccountsFragment_group
             ...VCSProvidersFragment_group
+            ...FederatedRegistriesFragment_group
             ...VariablesFragment_variables
             ...NamespaceMembershipsFragment_memberships
             ...GPGKeysFragment_group
@@ -125,6 +127,7 @@ function GroupDetails(props: Props) {
                             <Route path={`${groupPath}/-/runners/*`} element={<GroupRunners fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/service_accounts/*`} element={<ServiceAccounts fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/vcs_providers/*`} element={<VCSProviders fragmentRef={data} />} />
+                            <Route path={`${groupPath}/-/federated_registries/*`} element={<FederatedRegistries fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/variables/*`} element={<Variables fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/members/*`} element={<NamespaceMemberships fragmentRef={data} />} />
                             <Route path={`${groupPath}/-/keys/*`} element={<GPGKeys fragmentRef={data} />} />

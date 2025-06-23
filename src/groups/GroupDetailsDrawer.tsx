@@ -6,7 +6,7 @@ import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText
 import { useNavigate } from 'react-router-dom';
 import teal from '@mui/material/colors/teal';
 import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
-import { AccountLockOutline as ManagedIdentityIcon, LanConnect as ServiceAccountIcon, KeyVariant as KeyIcon, SourceMerge as VCSProviderIcon, RobotOutline as RunnersIcon } from 'mdi-material-ui';
+import { AccountLockOutline as ManagedIdentityIcon, LanConnect as ServiceAccountIcon, KeyVariant as KeyIcon, SourceMerge as VCSProviderIcon, RobotOutline as RunnersIcon, ServerNetwork as FederatedRegistryIcon } from 'mdi-material-ui';
 
 interface Props {
   groupPath: string
@@ -40,6 +40,7 @@ const LIST_ITEMS = [
   { route: 'runners', label: 'Runner Agents', icon: <RunnersIcon /> },
   { route: 'service_accounts', label: 'Service Accounts', icon: <ServiceAccountIcon /> },
   { route: 'vcs_providers', label: 'VCS Providers', icon: <VCSProviderIcon /> },
+  { route: 'federated_registries', label: 'Federated Registries', icon: <FederatedRegistryIcon /> },
   { route: 'members', label: 'Members', icon: <MembersIcon /> },
   { route: 'keys', label: 'GPG Keys', icon: <KeyIcon /> },
   { route: 'settings', label: 'Settings', icon: <SettingsIcon /> }
