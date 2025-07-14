@@ -1,6 +1,6 @@
-import { Chip, Link as MuiLink, Toolbar, Tooltip, Typography, TypographyProps, styled, useTheme } from '@mui/material';
+import { Chip, Link as MuiLink, Tooltip, Typography, TypographyProps, styled, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
-import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
+import Drawer from '../common/Drawer';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'react-relay/hooks';
 import Gravatar from '../common/Gravatar';
@@ -26,17 +26,6 @@ const FieldLabel = styled(
 )(() => ({
     fontSize: 16,
     marginBottom: 1,
-}));
-
-const Drawer = styled(MuiDrawer)<DrawerProps>(() => ({
-    flexShrink: 0,
-    overflowX: 'hidden',
-    [`& .MuiDrawer-paper`]: {
-        overflowX: 'hidden',
-        width: SidebarWidth,
-        boxSizing: 'border-box'
-    },
-    width: SidebarWidth,
 }));
 
 function TerraformModuleVersionDetailsSidebar(props: Props) {
@@ -69,13 +58,14 @@ function TerraformModuleVersionDetailsSidebar(props: Props) {
 
     return (
         <Drawer
+            width={SidebarWidth}
+            temporary={temporary}
             variant={temporary ? 'temporary' : 'permanent'}
             open={open}
             hideBackdrop={false}
             anchor='right'
             onClose={onClose}
         >
-            <Toolbar />
             <Box padding={2}>
                 <Section>
                     <FieldLabel>Version</FieldLabel>

@@ -8,6 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import { PreloadedQuery, usePreloadedQuery, useQueryLoader } from 'react-relay/hooks';
 import { RootQuery } from './__generated__/RootQuery.graphql';
 import { User, UserContext } from './UserContext';
+import { AppHeaderHeightProvider, useAppHeaderHeight } from './contexts/AppHeaderHeightProvider';
 
 const query = graphql`
     query RootQuery {
@@ -43,29 +44,41 @@ function Root({ queryRef }: Props) {
     return (
         <React.Fragment>
             <UserContext.Provider value={queryData.me as User}>
-                <AppHeader fragmentRef={queryData} />
-                <Box marginTop="65px">
-                    <ErrorBoundary>
-                        <Suspense fallback={<Box
-                            sx={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100vh',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <CircularProgress />
-                        </Box>}>
-                            <AppRoutes />
-                        </Suspense>
-                    </ErrorBoundary>
-                </Box>
+                <AppHeaderHeightProvider>
+                    <RootContent fragmentRef={queryData} />
+                </AppHeaderHeightProvider>
             </UserContext.Provider>
         </React.Fragment>
+    );
+}
+
+function RootContent({ fragmentRef }: { fragmentRef: RootQuery['response'] }) {
+    const { headerHeight } = useAppHeaderHeight();
+
+    return (
+        <>
+            <AppHeader fragmentRef={fragmentRef} />
+            <Box sx={{ paddingTop: `${headerHeight}px` }}>
+                <ErrorBoundary>
+                    <Suspense fallback={<Box
+                        sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100vh',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <CircularProgress />
+                    </Box>}>
+                        <AppRoutes />
+                    </Suspense>
+                </ErrorBoundary>
+            </Box>
+        </>
     );
 }
 

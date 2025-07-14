@@ -91,7 +91,7 @@ function RunDetails(props: Props) {
             }
             return false;
         },
-        [queryData.run?.status, queryData.run?.workspace.locked, queryData.run?.workspace.metadata.updatedAt]
+        [queryData.run?.status, queryData.run?.workspace?.locked, queryData.run?.workspace?.metadata?.updatedAt]
     );
 
     return queryData.run ? (

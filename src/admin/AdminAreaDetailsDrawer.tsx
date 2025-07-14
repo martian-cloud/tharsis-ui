@@ -1,42 +1,29 @@
-import { Box, List, ListItemButton, ListItemIcon, ListItemText, styled, Toolbar } from "@mui/material";
-import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
+import { Box, List, ListItemButton, ListItemIcon, ListItemText, useTheme } from "@mui/material";
+import { AnnouncementIcon, RunnerIcon, SettingsIcon, UserIcon } from "../common/Icons";
+import Drawer from '../common/Drawer';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { RunnerIcon, UserIcon } from "../common/Icons";
 
 const LIST_ITEMS = [
     { route: 'users', label: 'Users', icon: <UserIcon /> },
     { route: 'runners', label: 'Runner Agents', icon: <RunnerIcon /> },
+    { route: 'announcements', label: 'Announcements', icon: <AnnouncementIcon /> },
+    { route: 'system_settings', label: 'System Settings', icon: <SettingsIcon /> },
 ]
 
 const DRAWER_WIDTH = 240;
 
-const Drawer = styled(MuiDrawer)<DrawerProps>(({ theme }) => ({
-    flexShrink: 0,
-    overflowX: 'hidden',
-    [`& .MuiDrawer-paper`]: {
-        overflowX: 'hidden',
-        width: `calc(${theme.spacing(7)} + 1px)`,
-        boxSizing: 'border-box'
-    },
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    [theme.breakpoints.up('md')]: {
-        width: DRAWER_WIDTH,
-        [`& .MuiDrawer-paper`]: {
-            width: DRAWER_WIDTH
-        },
-    }
-}));
-
 function AdminAreaDetailsDrawer() {
+    const theme = useTheme();
     const navigate = useNavigate();
     const location = useLocation();
     const route = location.pathname as string;
 
     return (
         <Drawer
+            width={DRAWER_WIDTH}
+            mobileWidth={`calc(${theme.spacing(7)} + 1px)`}
             variant="permanent"
         >
-            <Toolbar />
             <Box>
                 <List>
                     {LIST_ITEMS.map(item => (

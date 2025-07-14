@@ -4,6 +4,7 @@ import teal from '@mui/material/colors/teal';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
+import { CookiesProvider } from 'react-cookie';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { BrowserRouter } from 'react-router-dom';
 import Root from './Root';
@@ -96,25 +97,27 @@ function App(props: Props) {
     }
 
     return (
-        <BrowserRouter>
-            <RelayEnvironmentProvider environment={props.environment}>
-                <AuthServiceContext.Provider value={props.authService}>
-                    <ThemeProvider theme={theme}>
-                        <SnackbarProvider
-                            ref={notistackRef}
-                            action={(key) => (
-                                <Button onClick={onClickDismiss(key)} color="inherit">
-                                    Dismiss
-                                </Button>
-                            )}
-                        >
-                            <CssBaseline />
-                            <Root />
-                        </SnackbarProvider>
-                    </ThemeProvider>
-                </AuthServiceContext.Provider>
-            </RelayEnvironmentProvider>
-        </BrowserRouter>
+        <CookiesProvider>
+            <BrowserRouter>
+                <RelayEnvironmentProvider environment={props.environment}>
+                    <AuthServiceContext.Provider value={props.authService}>
+                        <ThemeProvider theme={theme}>
+                            <SnackbarProvider
+                                ref={notistackRef}
+                                action={(key) => (
+                                    <Button onClick={onClickDismiss(key)} color="inherit">
+                                        Dismiss
+                                    </Button>
+                                )}
+                            >
+                                <CssBaseline />
+                                <Root />
+                            </SnackbarProvider>
+                        </ThemeProvider>
+                    </AuthServiceContext.Provider>
+                </RelayEnvironmentProvider>
+            </BrowserRouter>
+        </CookiesProvider>
     );
 }
 

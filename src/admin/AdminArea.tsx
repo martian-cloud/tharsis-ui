@@ -8,6 +8,10 @@ import { AdminAreaEntryPointFragment_me$key } from "./__generated__/AdminAreaEnt
 import { AdminAreaQuery } from "./__generated__/AdminAreaQuery.graphql";
 import AdminAreaRunners from "./runners/AdminAreaRunners";
 import AdminAreaUsers from "./users/AdminAreaUsers";
+import AdminAreaAnnouncementList from "./announcements/AdminAreaAnnouncementList";
+import AdminAreaNewAnnouncement from "./announcements/AdminAreaNewAnnouncement";
+import EditAdminAreaAnnouncement from "./announcements/EditAdminAreaAnnouncement";
+import SystemSettings from "./systemsettings/SystemSettings";
 
 const query = graphql`
      query AdminAreaQuery {
@@ -73,6 +77,10 @@ function AdminArea({ queryRef }: Props) {
                             <Routes>
                                 <Route index path={`users/*`} element={<AdminAreaUsers />} />
                                 <Route path={`runners/*`} element={<AdminAreaRunners />} />
+                                <Route path={`announcements`} element={<AdminAreaAnnouncementList />} />
+                                <Route path={`announcements/new`} element={<AdminAreaNewAnnouncement />} />
+                                <Route path={`announcements/:announcementId/edit`} element={<EditAdminAreaAnnouncement />} />
+                                <Route path={`system_settings`} element={<SystemSettings />} />
                             </Routes>
                         </Box>
                     </Suspense>

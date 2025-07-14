@@ -10,12 +10,19 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function MarkdownParagraph({ ...props }: any) {
-    return <Typography paragraph>{props.children}</Typography>
+    return (
+        <Typography
+            sx={{ wordBreak: 'break-word' }}
+            fontSize={'.85rem'} paragraph>
+            {props.children}
+        </Typography>
+    );
 }
 
-function MarkdownHeading({ ...props }: any) {
+function MarkdownHeading({ node, ...props }: any) {
+    const level = node?.tagName ? parseInt(node.tagName.charAt(1)) : 1;
     let variant: Variant;
-    switch (props.level) {
+    switch (level) {
         case 1:
             variant = "h4";
             break;
@@ -115,6 +122,18 @@ function MarkdownImage({ ...props }: any) {
     );
 }
 
+function MarkdownOrderedList({ ...props }: any) {
+    return <ol style={{ paddingInlineStart: 0, listStylePosition: 'inside' }}>{props.children}</ol>;
+}
+
+function MarkdownUnorderedList({ ...props }: any) {
+    return <ul style={{ paddingInlineStart: 0, listStylePosition: 'inside' }}>{props.children}</ul>;
+}
+
+function MarkdownListItem({ ...props }: any) {
+    return <li>{props.children}</li>;
+}
+
 const components = {
     h1: MarkdownHeading,
     h2: MarkdownHeading,
@@ -131,7 +150,10 @@ const components = {
     tr: MarkdownTableRow,
     td: MarkdownTableCell,
     th: MarkdownTableCell,
-    img: MarkdownImage
+    img: MarkdownImage,
+    ol: MarkdownOrderedList,
+    ul: MarkdownUnorderedList,
+    li: MarkdownListItem
 };
 
 export default function Markdown(props: Options) {

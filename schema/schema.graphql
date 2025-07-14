@@ -135,6 +135,44 @@ type AddUserToTeamPayload {
   teamMember: TeamMember
 }
 
+type Announcement implements Node {
+  active: Boolean!
+  createdBy: String!
+  dismissible: Boolean!
+  endTime: Time
+  expired: Boolean!
+  id: ID!
+  message: String!
+  metadata: ResourceMetadata!
+  startTime: Time!
+  type: AnnouncementType!
+}
+
+type AnnouncementConnection {
+  edges: [AnnouncementEdge]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type AnnouncementEdge {
+  cursor: String!
+  node: Announcement
+}
+
+enum AnnouncementSort {
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  START_TIME_ASC
+  START_TIME_DESC
+}
+
+enum AnnouncementType {
+  ERROR
+  INFO
+  SUCCESS
+  WARNING
+}
+
 type Apply implements Node {
   comment: String!
   currentJob: Job
@@ -248,6 +286,21 @@ type ConfigurationVersion implements Node {
 type ConfigurationVersionMutationPayload {
   clientMutationId: String
   configurationVersion: ConfigurationVersion
+  problems: [Problem!]!
+}
+
+input CreateAnnouncementInput {
+  clientMutationId: String
+  dismissible: Boolean!
+  endTime: Time
+  message: String!
+  startTime: Time
+  type: AnnouncementType!
+}
+
+type CreateAnnouncementPayload {
+  announcement: Announcement
+  clientMutationId: String
   problems: [Problem!]!
 }
 
@@ -676,6 +729,18 @@ type CreateWorkspaceVCSProviderLinkPayload {
   webhookUrl: String
 }
 
+input DeleteAnnouncementInput {
+  clientMutationId: String
+  id: ID!
+  metadata: ResourceMetadataInput
+}
+
+type DeleteAnnouncementPayload {
+  announcement: Announcement
+  clientMutationId: String
+  problems: [Problem!]!
+}
+
 input DeleteFederatedRegistryInput {
   clientMutationId: String
   id: String!
@@ -957,7 +1022,6 @@ type DisableMaintenanceModePayload {
 
 input EnableMaintenanceModeInput {
   clientMutationId: String
-  message: String!
 }
 
 type EnableMaintenanceModePayload {
@@ -1192,7 +1256,6 @@ type LockWorkspacePayload {
 type MaintenanceMode {
   createdBy: String!
   id: ID!
-  message: String!
   metadata: ResourceMetadata!
 }
 
@@ -1338,6 +1401,7 @@ type Mutation {
   assignServiceAccountToRunner(input: AssignServiceAccountToRunnerInput!): AssignServiceAccountToRunnerPayload!
   cancelRun(input: CancelRunInput!): RunMutationPayload!
   claimJob(input: ClaimJobInput!): ClaimJobPayload!
+  createAnnouncement(input: CreateAnnouncementInput!): CreateAnnouncementPayload!
   createConfigurationVersion(input: CreateConfigurationVersionInput!): ConfigurationVersionMutationPayload!
   createFederatedRegistry(input: CreateFederatedRegistryInput!): FederatedRegistryMutationPayload!
   createFederatedRegistryTokens(input: CreateFederatedRegistryTokensInput!): CreateFederatedRegistryTokensPayload!
@@ -1370,6 +1434,7 @@ type Mutation {
   createVCSRun(input: CreateVCSRunInput!): CreateVCSRunPayload!
   createWorkspace(input: CreateWorkspaceInput!): CreateWorkspacePayload!
   createWorkspaceVCSProviderLink(input: CreateWorkspaceVCSProviderLinkInput!): CreateWorkspaceVCSProviderLinkPayload!
+  deleteAnnouncement(input: DeleteAnnouncementInput!): DeleteAnnouncementPayload!
   deleteFederatedRegistry(input: DeleteFederatedRegistryInput!): FederatedRegistryMutationPayload!
   deleteGPGKey(input: DeleteGPGKeyInput!): DeleteGPGKeyPayload!
   deleteGroup(input: DeleteGroupInput!): DeleteGroupPayload!
@@ -1411,6 +1476,7 @@ type Mutation {
   unassignManagedIdentity(input: AssignManagedIdentityInput!): AssignManagedIdentityPayload!
   unassignServiceAccountFromRunner(input: AssignServiceAccountToRunnerInput!): AssignServiceAccountToRunnerPayload!
   unlockWorkspace(input: UnlockWorkspaceInput!): UnlockWorkspacePayload!
+  updateAnnouncement(input: UpdateAnnouncementInput!): UpdateAnnouncementPayload!
   updateApply(input: UpdateApplyInput!): UpdateApplyPayload!
   updateFederatedRegistry(input: UpdateFederatedRegistryInput!): FederatedRegistryMutationPayload!
   updateGroup(input: UpdateGroupInput!): UpdateGroupPayload!
@@ -1678,6 +1744,7 @@ enum ProblemType {
 type Query {
   """There is no query for an activity event by ID."""
   activityEvents(actions: [ActivityEventAction!], after: String, before: String, first: Int, includeNested: Boolean, last: Int, namespacePath: String, serviceAccountId: String, serviceAccountPath: String, sort: ActivityEventSort, targetTypes: [ActivityEventTargetType!], timeRangeEnd: Time, timeRangeStart: Time, userId: String, username: String): ActivityEventConnection!
+  announcements(active: Boolean, after: String, before: String, first: Int, last: Int, sort: AnnouncementSort): AnnouncementConnection!
   authSettings: AuthSettings
   availableRolePermissions: [String!]!
   configurationVersion(id: String!): ConfigurationVersion @deprecated(reason: "Use node query instead, which accepts a TRN (Tharsis Resource Name)")
@@ -2508,6 +2575,23 @@ type UnlockWorkspacePayload {
   clientMutationId: String
   problems: [Problem!]!
   workspace: Workspace
+}
+
+input UpdateAnnouncementInput {
+  clientMutationId: String
+  dismissible: Boolean
+  endTime: Time
+  id: ID!
+  message: String
+  metadata: ResourceMetadataInput
+  startTime: Time
+  type: AnnouncementType
+}
+
+type UpdateAnnouncementPayload {
+  announcement: Announcement
+  clientMutationId: String
+  problems: [Problem!]!
 }
 
 input UpdateApplyInput {

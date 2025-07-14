@@ -5,6 +5,7 @@ import SettingsIcon from '@mui/icons-material/SettingsOutlined';
 import StateVersionIcon from '@mui/icons-material/InsertDriveFileOutlined'
 import VariableIcon from '@mui/icons-material/WindowOutlined';
 import UserIcon from '@mui/icons-material/PersonOutline';
+import AnnouncementIcon from '@mui/icons-material/Campaign';
 import {
     SourceMerge as VCSProviderIcon,
     RocketLaunchOutline as RunIcon,
@@ -33,5 +34,6 @@ export {
     VCSProviderIcon,
     RunnerIcon,
     UserIcon,
-    FederatedRegistryIcon
+    FederatedRegistryIcon,
+    AnnouncementIcon,
 };
