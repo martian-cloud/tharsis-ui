@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import { createGraphiQLFetcher, Fetcher } from '@graphiql/toolkit';
-import { Box, Toolbar } from '@mui/material';
+import { Box } from '@mui/material';
 import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
 import AuthenticationService from '../auth/AuthenticationService';
 import AuthServiceContext from '../auth/AuthServiceContext';
 import cfg from '../common/config';
+import { useAppHeaderHeight } from '../contexts/AppHeaderHeightProvider';
 
 const fetcher = (authService: AuthenticationService): Fetcher => createGraphiQLFetcher({
     url: `${cfg.apiUrl}/graphql`,
@@ -21,20 +22,20 @@ const fetcher = (authService: AuthenticationService): Fetcher => createGraphiQLF
 
 function GraphiQLEditor() {
     const authService = useContext<AuthenticationService>(AuthServiceContext)
+    const { headerHeight } = useAppHeaderHeight();
 
     const f = fetcher(authService);
 
     return (
         <Box sx={{
             position: 'absolute',
-            top: 0,
+            top: `${headerHeight}px`,
             left: 0,
             width: '100%',
-            height: '100%',
+            height: `calc(100% - ${headerHeight}px)`,
             display: 'flex',
             flexDirection: 'column'
         }}>
-            <Toolbar />
             <GraphiQL
                 fetcher={f}
             />

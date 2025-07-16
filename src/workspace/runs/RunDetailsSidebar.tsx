@@ -1,9 +1,9 @@
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import { LoadingButton } from '@mui/lab';
-import { Chip, Link, List, Stack, styled, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Chip, Link, List, Stack, Tooltip, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { red } from '@mui/material/colors';
-import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
+import Drawer from '../../common/Drawer';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -35,17 +35,6 @@ interface Props {
 export const SidebarWidth = 240;
 
 const RUN_FINALITY_STATES = ['planned_and_finished', 'applied', 'errored', 'canceled']
-
-const Drawer = styled(MuiDrawer)<DrawerProps>(() => ({
-    flexShrink: 0,
-    overflowX: 'hidden',
-    [`& .MuiDrawer-paper`]: {
-        overflowX: 'hidden',
-        width: SidebarWidth,
-        boxSizing: 'border-box'
-    },
-    width: SidebarWidth,
-}));
 
 function RunDetailsSidebar(props: Props) {
     const { stage, open, temporary, onClose, onError } = props;
@@ -159,13 +148,14 @@ function RunDetailsSidebar(props: Props) {
 
     return (
         <Drawer
+            width={SidebarWidth}
+            temporary={temporary}
             variant={temporary ? 'temporary' : 'permanent'}
             open={open}
             hideBackdrop={false}
             anchor='right'
             onClose={onClose}
         >
-            <Toolbar />
             <Box padding={2}>
                 <Box marginBottom={2} display="flex" alignItems="center" justifyContent="space-between">
                     <Typography variant="h6">Run Details</Typography>

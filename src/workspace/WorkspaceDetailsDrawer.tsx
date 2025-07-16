@@ -7,8 +7,6 @@ import {
     ListItemIcon,
     ListItemText,
     ListItemButton,
-    styled,
-    Toolbar,
     Typography,
     useMediaQuery,
     useTheme
@@ -20,7 +18,7 @@ import ActivityIcon from '@mui/icons-material/TimelineOutlined';
 import VariablesIcon from '@mui/icons-material/WindowOutlined';
 import { useNavigate } from 'react-router-dom';
 import teal from '@mui/material/colors/teal';
-import MuiDrawer, { DrawerProps } from '@mui/material/Drawer';
+import Drawer from '../common/Drawer';
 import { AccountLockOutline as ManagedIdentityIcon, RocketLaunchOutline as RunIcon } from 'mdi-material-ui';
 
 interface Props {
@@ -30,23 +28,6 @@ interface Props {
 }
 
 const DRAWER_WIDTH = 240;
-
-const Drawer = styled(MuiDrawer)<DrawerProps>(({ theme }) => ({
-    flexShrink: 0,
-    overflowX: 'hidden',
-    [`& .MuiDrawer-paper`]: {
-        overflowX: 'hidden',
-        width: `calc(${theme.spacing(7)} + 1px)`,
-        boxSizing: 'border-box'
-    },
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    [theme.breakpoints.up('md')]: {
-        width: DRAWER_WIDTH,
-        [`& .MuiDrawer-paper`]: {
-            width: DRAWER_WIDTH
-        },
-    }
-}));
 
 const LIST_ITEMS = [
     { route: 'activity', label: 'Activity', icon: <ActivityIcon /> },
@@ -66,9 +47,10 @@ function WorkspaceDetailsDrawer(props: Props) {
 
     return (
         <Drawer
+            width={DRAWER_WIDTH}
+            mobileWidth={`calc(${theme.spacing(7)} + 1px)`}
             variant="permanent"
         >
-            <Toolbar />
             <Box>
                 <List>
                     {fullSize && <ListItem dense>
