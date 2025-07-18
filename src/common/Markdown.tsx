@@ -1,4 +1,4 @@
-import { Box, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Box, lighten, TableBody, TableCell, TableHead, TableRow, useTheme } from "@mui/material";
 import Link from '@mui/material/Link';
 import Paper from "@mui/material/Paper";
 import { Variant } from '@mui/material/styles/createTypography';
@@ -8,12 +8,14 @@ import Typography from '@mui/material/Typography';
 import ReactMarkdown, { Options } from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { StyledCode } from './StyledCode';
 
 function MarkdownParagraph({ ...props }: any) {
     return (
         <Typography
             sx={{ wordBreak: 'break-word' }}
-            fontSize={'.85rem'} paragraph>
+            fontSize={'.85rem'} 
+            paragraph>
             {props.children}
         </Typography>
     );
@@ -50,22 +52,15 @@ function MarkdownHeading({ node, ...props }: any) {
 
 function MarkdownTable({ ...props }: any) {
     return (
-        <TableContainer
-            sx={{
-                margin: '16px 0',
-                maxWidth: '100%'
-            }}
-            component={Paper}
-        >
-            <Table size="small">
-                {props.children}
-            </Table>
+        <TableContainer sx={{ margin: '16px 0' }} component={Paper}>
+            <Table size="small">{props.children}</Table>
         </TableContainer>
     );
 }
 
 function MarkdownTableCell({ ...props }: any) {
-    return <TableCell>{props.children}</TableCell>
+    const theme = useTheme();
+    return <TableCell sx={{ backgroundColor: lighten(theme.palette.background.paper, 0.1) }}>{props.children}</TableCell>
 }
 
 function MarkdownTableRow({ ...props }: any) {
@@ -81,7 +76,14 @@ function MarkdownTableHead({ ...props }: any) {
 }
 
 function MarkdownLink({ ...props }: any) {
-    return <Link underline="none" href={props.href}>{props.children}</Link>
+    return <Link
+        color="secondary"
+        underline="none"
+        target='_blank'
+        rel='noopener noreferrer'
+        href={props.href}>
+        {props.children}
+    </Link>
 }
 
 function MarkdownCode({ inline, className, children, ...props }: any) {
@@ -102,24 +104,14 @@ function MarkdownCode({ inline, className, children, ...props }: any) {
             {...props}
         />
     ) : (
-        <code className={className} {...props}>
+        <StyledCode>
             {children}
-        </code>
+        </StyledCode>
     );
 }
 
 function MarkdownImage({ ...props }: any) {
-    return (
-        <Box
-            component="img"
-            sx={{
-                maxWidth: '100%',
-                height: 'auto',
-                display: 'block'
-            }}
-            {...props}
-        />
-    );
+    return <img width="100%" {...props} />;
 }
 
 function MarkdownOrderedList({ ...props }: any) {
@@ -157,5 +149,15 @@ const components = {
 };
 
 export default function Markdown(props: Options) {
-    return <ReactMarkdown skipHtml components={components} {...props} />;
+    return (
+        <Box
+            sx={{
+                '&>:last-child': {
+                    marginBottom: 0
+                }
+            }}
+        >
+            <ReactMarkdown skipHtml components={components} {...props} />
+        </Box>
+    );
 }
