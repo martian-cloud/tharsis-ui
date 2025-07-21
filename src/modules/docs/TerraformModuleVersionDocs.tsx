@@ -35,14 +35,6 @@ function TerraformModuleVersionDocs({ fragmentRef }: Props) {
         `, fragmentRef
     );
 
-    if (!data) {
-        return (
-            <Box padding={2} display="flex" justifyContent="center" alignItems="center">
-                <Typography color="textSecondary">No documentation for this version</Typography>
-            </Box>
-        );
-    }
-
     const onTreeItemChange = (item: string) => {
         searchParams.set('item', item);
         setSearchParams(searchParams, { replace: true });
@@ -50,8 +42,16 @@ function TerraformModuleVersionDocs({ fragmentRef }: Props) {
 
     const selected = useMemo(() => {
         const response = searchParams.get('item');
-        return response ? response : (data.readme ? 'overview' : 'inputs');
-    }, [data.readme, searchParams]);
+        return response ? response : (data?.readme ? 'overview' : 'inputs');
+    }, [data, searchParams]);
+
+    if (!data) {
+        return (
+            <Box padding={2} display="flex" justifyContent="center" alignItems="center">
+                <Typography color="textSecondary">No documentation for this version</Typography>
+            </Box>
+        );
+    }
 
     return (
         <Box
