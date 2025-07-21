@@ -86,7 +86,7 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.down('md'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const authService = useContext<AuthenticationService>(AuthServiceContext);
     const { enqueueSnackbar } = useSnackbar();
 
@@ -174,23 +174,37 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
             <TerraformModuleVersionDetailsSidebar
                 fragmentRef={data}
                 open={sidebarOpen}
-                temporary={mobile}
+                temporary={isMobile}
                 onClose={onToggleSidebar}
             />
             <Box>
-                <Box paddingRight={!mobile ? `${SidebarWidth}px` : 0}>
+                <Box sx={{ paddingRight: { xs: 0, md: `${SidebarWidth}px` } }}>
                     {data.status === 'pending' && <Alert sx={{ marginBottom: 2 }} severity="warning">
                         Upload is still in progress
                     </Alert>}
-                    <Box display="flex" alignItems="center" marginBottom={2} justifyContent="space-between">
-                        <Box display="flex" alignItems="center">
-                            <Typography variant="h6">{data.module.registryNamespace} / {data.module.name} / {data.module.system}</Typography>
-                            {data.module.private && <Chip sx={{ marginLeft: 2 }} variant="outlined" color="warning" size="small" label="private" />}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            marginBottom: 2,
+                            justifyContent: 'space-between',
+                            flexDirection: { xs: 'column', md: 'row' },
+                            alignItems: { xs: 'flex-start', md: 'center' },
+                            gap: { xs: 2, md: 0 }
+                        }}
+                    >
+                        <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
+                            <Box display="flex" alignItems="center">
+                                <Typography variant="h6">{data.module.registryNamespace} / {data.module.name} / {data.module.system}</Typography>
+                                {data.module.private && <Chip sx={{ marginLeft: 2 }} variant="outlined" color="warning" size="small" label="private" />}
+                            </Box>
+                            <IconButton
+                                onClick={onToggleSidebar}
+                                sx={{ display: { xs: 'block', md: 'none' } }}
+                            >
+                                <DoubleArrowIcon sx={{ transform: 'rotate(180deg)' }} />
+                            </IconButton>
                         </Box>
                         <Button size="small" color="info" variant="outlined" onClick={onDownloadModule}>Download</Button>
-                        {mobile && <Box display="flex" justifyContent="space-between">
-                            <IconButton onClick={onToggleSidebar}><DoubleArrowIcon sx={{ transform: 'rotate(180deg)' }} /></IconButton>
-                        </Box>}
                     </Box>
                     <Box sx={{ border: 1, borderColor: 'divider', marginBottom: 2 }}>
                         <Tabs value={tab} onChange={onTabChange}>
