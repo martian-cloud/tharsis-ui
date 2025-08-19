@@ -23,7 +23,6 @@ interface Props {
 function AccountMenu({ fragmentRef }: Props) {
     const navigate = useNavigate();
     const authService = useContext<AuthenticationService>(AuthServiceContext);
-    const email = authService.getCurrentUser().email;
     const [showAboutDialog, setShowAboutDialog] = useState(false);
     const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -33,6 +32,7 @@ function AccountMenu({ fragmentRef }: Props) {
         {
             me {
                 ... on User {
+                    email
                     username
                     admin
                 }
@@ -78,7 +78,7 @@ function AccountMenu({ fragmentRef }: Props) {
 
     return (
         <div>
-            <IconButton onClick={onMenuOpen}><Gravatar width={32} height={32} email={email} /></IconButton>
+            <IconButton onClick={onMenuOpen}><Gravatar width={32} height={32} email={data.me?.email as string} /></IconButton>
             <Popover
                 id="account-menu"
                 open={Boolean(menuAnchorEl)}
@@ -147,7 +147,7 @@ function AccountMenu({ fragmentRef }: Props) {
                         <ListItemButton>
                             <ListItemText onClick={onShowAboutDialog}>About Tharsis</ListItemText>
                         </ListItemButton>
-                        <ListItemButton onClick={() => (authService.signOut())}>
+                        <ListItemButton onClick={() => (authService.logout())}>
                             <ListItemText primary="Sign Out" />
                         </ListItemButton>
                     </List>

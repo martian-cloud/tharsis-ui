@@ -116,17 +116,15 @@ function CreateRun({ fragmentRef }: Props) {
                         message: "Unexpected error occurred"
                     });
                 } else {
-                    authService.getAccessToken().then(async token => {
-                        const configVersionId = data.createConfigurationVersion.configurationVersion?.id as string;
-                        await uploadConfigVersionPackage(options.file, workspace.id, configVersionId, token);
-
-                        createConfigVersionRun(configVersionId);
-                    }).catch(error => {
-                        setError({
-                            severity: 'warning',
-                            message: `failed to upload configuration version: ${error.message}`
+                    const configVersionId = data.createConfigurationVersion.configurationVersion?.id as string;
+                    uploadConfigVersionPackage(options.file, workspace.id, configVersionId, authService)
+                        .then(() => createConfigVersionRun(configVersionId))
+                        .catch(error => {
+                            setError({
+                                severity: 'warning',
+                                message: `failed to upload configuration version: ${error.message}`
+                            });
                         });
-                    });
                 }
             },
             onError: error => {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1631e35572ab1ba42e0ee54e41e7856c>>
+ * @generated SignedSource<<a43f5174228b7f0ad8abe075557e9d7d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type AccountMenuFragment$data = {
   readonly me: {
     readonly admin?: boolean;
+    readonly email?: string;
     readonly username?: string;
   } | null | undefined;
   readonly version: {
@@ -45,6 +46,13 @@ const node: ReaderFragment = {
         {
           "kind": "InlineFragment",
           "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "email",
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -110,6 +118,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "7c51969cf574cb2b4868a1f816086bf2";
+(node as any).hash = "04b0cfb6062eaf0012885802acb5df08";
 
 export default node;

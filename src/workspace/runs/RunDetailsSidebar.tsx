@@ -3,7 +3,6 @@ import { LoadingButton } from '@mui/lab';
 import { Chip, Link, List, Stack, Tooltip, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { red } from '@mui/material/colors';
-import Drawer from '../../common/Drawer';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -15,6 +14,7 @@ import { Link as LinkRouter } from 'react-router-dom';
 import AuthenticationService from '../../auth/AuthenticationService';
 import AuthServiceContext from '../../auth/AuthServiceContext';
 import cfg from '../../common/config';
+import Drawer from '../../common/Drawer';
 import { MutationError } from '../../common/error';
 import downloadFile from '../../common/filedownload';
 import Gravatar from '../../common/Gravatar';
@@ -124,12 +124,8 @@ function RunDetailsSidebar(props: Props) {
 
     const onDownloadConfigVersion = async (configVersionId: string) => {
         try {
-            const token = await authService.getAccessToken()
-            const response = await fetch(`${cfg.apiUrl}/tfe/v2/configuration-versions/${configVersionId}/content`, {
+            const response = await authService.fetchWithAuth(`${cfg.apiUrl}/tfe/v2/configuration-versions/${configVersionId}/content`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
             });
 
             if (!response.ok) {

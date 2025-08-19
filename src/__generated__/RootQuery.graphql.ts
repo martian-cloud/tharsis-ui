@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8b82c7963445fd2a0eb2f8370b44ed99>>
+ * @generated SignedSource<<90e8ccc30c03bb7885c367d1d8dbe06c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -165,12 +165,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5c48b554d505af6130ad8e8d5ecbfc6c",
+    "cacheID": "ccd9f3ba25ebeebb8265a11a700c8fac",
     "id": null,
     "metadata": {},
     "name": "RootQuery",
     "operationKind": "query",
-    "text": "query RootQuery {\n  me {\n    __typename\n    ... on User {\n      id\n      username\n      email\n      admin\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...AppHeaderFragment\n}\n\nfragment AccountMenuFragment on Query {\n  me {\n    __typename\n    ... on User {\n      username\n      admin\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  version {\n    apiVersion\n    dbMigrationVersion\n    dbMigrationDirty\n    apiBuildTimestamp\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  ...AccountMenuFragment\n}\n"
+    "text": "query RootQuery {\n  me {\n    __typename\n    ... on User {\n      id\n      username\n      email\n      admin\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...AppHeaderFragment\n}\n\nfragment AccountMenuFragment on Query {\n  me {\n    __typename\n    ... on User {\n      email\n      username\n      admin\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  version {\n    apiVersion\n    dbMigrationVersion\n    dbMigrationDirty\n    apiBuildTimestamp\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  ...AccountMenuFragment\n}\n"
   }
 };
 })();

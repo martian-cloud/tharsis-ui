@@ -243,7 +243,6 @@ type AssignServiceAccountToRunnerPayload {
 type AuthSettings {
   oidcClientId: String
   oidcIssuerUrl: String
-  oidcLogoutUrl: String
   oidcScope: String
   oidcUsernameClaim: String
 }

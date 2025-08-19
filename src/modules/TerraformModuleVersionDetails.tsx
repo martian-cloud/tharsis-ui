@@ -134,13 +134,9 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
 
     const onDownloadModule = async () => {
         try {
-            const token = await authService.getAccessToken()
             const { registryNamespace, name, system } = data.module;
-            let response = await fetch(`${cfg.apiUrl}/v1/module-registry/modules/${registryNamespace}/${name}/${system}/${data.version}/download`, {
+            let response = await authService.fetchWithAuth(`${cfg.apiUrl}/v1/module-registry/modules/${registryNamespace}/${name}/${system}/${data.version}/download`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
             });
 
             if (!response.ok) {
