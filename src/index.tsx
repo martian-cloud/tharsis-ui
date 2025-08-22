@@ -12,10 +12,8 @@ const authSettingsQuery = `query srcQuery {
     oidcIssuerUrl
     oidcClientId
     oidcScope
-    oidcLogoutUrl
-    oidcUsernameClaim
   }
-}`
+}`;
 
 const container = document.getElementById('root');
 
@@ -40,21 +38,20 @@ fetch(graphqlEndpoint, {
     const authService = new AuthenticationService(
         authSettings.oidcIssuerUrl,
         authSettings.oidcClientId,
-        authSettings.oidcScope,
-        authSettings.oidcLogoutUrl,
-        authSettings.oidcUsernameClaim
+        authSettings.oidcScope
     );
+
+    await authService.finishLogin();
+
     const fetchGraphQL = graphQLFetcher(authService);
 
     const relayEnv = environment(fetchGraphQL, authService);
 
-    authService.login().then(() => {
-        root.render(
-            <React.StrictMode>
-                <App authService={authService} environment={relayEnv} />
-            </React.StrictMode>
-        );
-    });
+    return root.render(
+        <React.StrictMode>
+            <App authService={authService} environment={relayEnv} />
+        </React.StrictMode>
+    );
 }).catch(error => {
     const msg = `failed to query auth settings from ${graphqlEndpoint}: ${error}`;
     console.error(msg);

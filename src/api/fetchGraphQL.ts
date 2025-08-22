@@ -11,11 +11,9 @@ class GraphQLError extends Error {
 
 const graphQLFetcher = (authService: AuthenticationService) => {
   return async (text: string, variables?: object) => {
-    const token = await authService.getAccessToken()
-    const response = await fetch(`${cfg.apiUrl}/graphql`, { // nosemgrep: nodejs_scan.javascript-ssrf-rule-node_ssrf
+    const response = await authService.fetchWithAuth(`${cfg.apiUrl}/graphql`, { // nosemgrep: nodejs_scan.javascript-ssrf-rule-node_ssrf
       method: 'POST',
       headers: {
-        Authorization: `bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

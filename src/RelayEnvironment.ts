@@ -10,12 +10,14 @@ const environment = (fetchGraphQL: (query: string, variables?: object) => Promis
         reconnect: true,
         lazy: true, // connect only when the first subscription is created
         timeout: KEEP_ALIVE_INTERVAL * 2, // The max time to wait for a keep alive response from the server
-        connectionParams: async () => {
-            const token = await authService.getAccessToken();
-            return {
-                Authorization: `bearer ${token}`,
-            };
-        },
+    });
+
+    subscriptionClient.onError(() => {
+        // A subscription connection error will be triggered when the session has expired or if the websocket
+        // connection has expired. To handle the case where the session has expired, we try to refresh the session token.
+        authService.refreshSession().catch(err => {
+            console.error('Failed to refresh session token for graphql subscription:', err);
+        });
     });
 
     const subscribe = (request: RequestParameters, variables: Variables) => {

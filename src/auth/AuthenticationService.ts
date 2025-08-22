@@ -1,139 +1,190 @@
-import jwt_decode from 'jwt-decode';
-import moment from 'moment';
-import { UserManager } from 'oidc-client';
+import { OidcClient, SigninRequest } from "oidc-client-ts";
+import { Cookies } from 'react-cookie';
+import cfg from '../common/config';
 
-const HOST = `${window.location.protocol}//${window.location.host}`;
+const LOGIN_RETURN_TO = 'tharsis_oidc_login_return_to';
+const CSRF_TOKEN_COOKIE_NAME = 'tharsis_csrf_token';
+const CSRF_TOKEN_HEADER = 'X-Csrf-Token';
 
-const QUERY_PARAMS_CACHE_KEY = 'queryParamsBeforeSSORedirect';
+const cookies = new Cookies();
 
 class AuthenticationService {
-    private user: any;
-    private accessToken: string | null = null;
-    private expiration = 0;
-    private pendingRenewPromise: Promise<any> | null = null;
-    private manager: UserManager;
-    private subjectClaim: string
+    private oidcClient: OidcClient;
+    private pendingPromise: Promise<void> | null = null;
 
-    constructor(issuerUrl: string, clientId: string, scope: string, logoutUrl: string, subjectClaim: string) {
-        this.manager = new UserManager({
+    constructor(issuerUrl: string, clientId: string, scope: string) {
+        this.oidcClient = new OidcClient({
             authority: issuerUrl,
             client_id: clientId,
             scope: scope,
-            loadUserInfo: false,
-            monitorSession: false,
-            response_type: 'id_token',
-            automaticSilentRenew: false,
-            silent_redirect_uri: `${HOST}${import.meta.env.BASE_URL}/silent-refresh.html`,
-            post_logout_redirect_uri: `${logoutUrl}?post_logout_redirect_uri=${HOST}`
+            redirect_uri: `${window.location.protocol}//${window.location.host}`
         });
-        this.subjectClaim = subjectClaim;
     }
 
-    login() {
-        return this.manager.getUser().then(user => {
-            return new Promise(resolve => {
-                if (!user || !user.id_token || this._isExpired(this._decodeAccessToken(user.id_token).exp)) {
-                    if (window.location.href.indexOf('#') !== -1) {
-                        resolve(this._completeAuthentication());
-                    } else {
-                        this._renewSession();
-                    }
-                } else {
-                    resolve(user);
+    async fetchWithAuth(input: string | URL | globalThis.Request, init: RequestInit | undefined): Promise<Response> {
+        const csrfToken = cookies.get(CSRF_TOKEN_COOKIE_NAME);
+        const fetchFn = () => fetch(input, { // nosemgrep: nodejs_scan.javascript-ssrf-rule-node_ssrf
+            ...init,
+            credentials: 'include', // Include cookies in the request
+            headers: {
+                [CSRF_TOKEN_HEADER]: csrfToken,
+                ...init?.headers
+            }
+        });
+
+        const response = await fetchFn();
+        if (response.status === 401) {
+            // Attempt to refresh the session, this will redirect to the login page if there is no valid refresh token
+            await this.refreshSession()
+            // Retry the original request after refreshing the session
+            return fetchFn();
+        }
+
+        return response;
+    }
+
+    async logout() {
+        try {
+            const csrfToken = cookies.get(CSRF_TOKEN_COOKIE_NAME);
+            const session = await fetch(`${cfg.apiUrl}/v1/sessions/logout`, {
+                credentials: 'include',
+                method: 'POST',
+                headers: {
+                    [CSRF_TOKEN_HEADER]: csrfToken
                 }
             });
-        }).then(authResult => {
-            const { accessToken, expiration, user } = this._processAuthResult(authResult);
-            this.accessToken = accessToken;
-            this.expiration = expiration;
-            this.user = user;
-            return user;
-        });
-    }
 
-    getAccessToken() {
-        if (this.accessToken && !this._isExpired(this.expiration)) {
-            // Token is valid
-            return Promise.resolve(this.accessToken);
-        } else if (this.pendingRenewPromise) {
-            // Renew is pending
-            return this.pendingRenewPromise;
-        } else {
-            // Renew token
-            return this._renewSession();
+            if (!session.ok) {
+                throw new Error(`Failed to logout session: ${session.statusText}`);
+            }
+
+            const req = await this.oidcClient.createSignoutRequest();
+
+            window.location.assign(req.url);
+        } catch (error) {
+            console.error('Failed to logout session:', error);
         }
     }
 
-    getCurrentUser() {
-        return this.user;
-    }
+    refreshSession(): Promise<void> {
+        // If there's a pending promise, return it
+        if (this.pendingPromise) {
+            return this.pendingPromise;
+        }
 
-    isAuthenticated() {
-        return !!this.user;
-    }
-
-    signOut() {
-        this.manager.signoutRedirect();
-    }
-
-    _startAuthentication() {
-        console.log('Starting authentication by redirecting to SSO provider...');
-        window.sessionStorage.setItem(QUERY_PARAMS_CACHE_KEY, window.location.search);
-        return this.manager.signinRedirect({
-            redirect_uri: this._build_redirect_uri()
-        });
-    }
-
-    _completeAuthentication() {
-        console.log('Completing authentication...');
-        return this.manager.signinRedirectCallback().then(user => {
-            // Clear token from url fragment
-            window.location.replace('#');
-            // Slice off the remaining fragment
-            if (typeof window.history.replaceState === 'function') {
-                let newUrl = window.location.href.slice(0, -1);
-                // Restore query params
-                const queryParams = window.sessionStorage.getItem(QUERY_PARAMS_CACHE_KEY);
-                if (queryParams) {
-                    newUrl += queryParams;
+        // Create new promise and store it
+        this.pendingPromise = new Promise((resolve, reject) => {
+            const csrfToken = cookies.get(CSRF_TOKEN_COOKIE_NAME);
+            fetch(`${cfg.apiUrl}/v1/sessions/refresh`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    [CSRF_TOKEN_HEADER]: csrfToken
                 }
-                window.sessionStorage.removeItem(QUERY_PARAMS_CACHE_KEY);
+            })
+                .then(response => {
+                    if (response.status === 401) {
+                        this.startLogin();
+                        return;
+                    }
 
-                window.history.replaceState({}, '', newUrl);
-            }
+                    if (!response.ok) {
+                        throw new Error(`Failed to refresh session: ${response.statusText}`);
+                    }
 
-            return user;
+                    this.pendingPromise = null;
+                    resolve();
+                })
+                .catch(error => {
+                    // Clear the pending promise on error
+                    this.pendingPromise = null;
+                    reject(error);
+                });
         });
+
+        return this.pendingPromise;
     }
 
-    _renewSession() {
-        this.pendingRenewPromise = new Promise(() => this._startAuthentication());
-        return this.pendingRenewPromise;
+    async startLogin(): Promise<void> {
+        try {
+            window.sessionStorage.setItem(LOGIN_RETURN_TO, location.pathname + location.search);
+
+            // Generate the signin request
+            const request: SigninRequest = await this.oidcClient.createSigninRequest({
+                state: { some: 'data' }, // Optional state to pass through
+            });
+
+            // Redirect the user to the OIDC provider's login page
+            window.location.assign(request.url);
+        } catch (error) {
+            console.error('Failed to initiate oauth authorization code flow:', error);
+        }
     }
 
-    _processAuthResult(authResult: any) {
-        const decodedToken = this._decodeAccessToken(authResult.id_token);
-        return {
-            accessToken: authResult.id_token,
-            expiration: decodedToken.exp,
-            user: {
-                email: decodedToken[this.subjectClaim].toLowerCase(),
-                firstName: decodedToken.given_name,
-                lastName: decodedToken.family_name
+    async finishLogin(): Promise<void> {
+        try {
+            if (!this._hasAuthRedirectParams()) {
+                return
             }
-        };
+
+            // Process the signin response
+            const response = await this.oidcClient.processSigninResponse(window.location.href);
+
+            const returnToPath = window.sessionStorage.getItem(LOGIN_RETURN_TO);
+
+            window.history.replaceState(
+                {},
+                document.title,
+                returnToPath ?? window.location.pathname
+            );
+
+            if (!response.id_token) {
+                throw new Error('Failed to login user because ID token is undefined. Ensure that the openid scope is specified in the oauth settings for the identity provider.');
+            }
+
+            // Make post request to api to create session
+            const session = await fetch(`${cfg.apiUrl}/v1/sessions`, {
+                credentials: 'include',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: response.id_token
+                }),
+            });
+
+            if (!session.ok) {
+                throw new Error(`Failed to create session: ${session.statusText}`);
+            }
+
+            // Verify that csrf token has been set
+            const csrfToken = cookies.get(CSRF_TOKEN_COOKIE_NAME);
+            if (!csrfToken) {
+                throw new Error('missing csrf token cookie');
+            }
+        } catch (error) {
+            console.error('Failed to complete oauth authorization code flow:', error);
+            throw error;
+        }
     }
 
-    _isExpired(exp: any) {
-        return !moment.unix(exp).isAfter(moment().add(1, 'm'));
-    }
+    _hasAuthRedirectParams(): boolean {
+        // response_mode: query
+        let searchParams = new URLSearchParams(window.location.search);
+        if ((searchParams.get("code") || searchParams.get("error")) &&
+            searchParams.get("state")) {
+            return true;
+        }
 
-    _decodeAccessToken(token: any) {
-        return (jwt_decode(token) as any);
-    }
+        // response_mode: fragment
+        searchParams = new URLSearchParams(window.location.hash.replace("#", "?"));
+        if ((searchParams.get("code") || searchParams.get("error")) &&
+            searchParams.get("state")) {
+            return true;
+        }
 
-    _build_redirect_uri() {
-        return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+        return false;
     }
 }
 
