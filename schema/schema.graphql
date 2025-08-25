@@ -6,7 +6,6 @@ type ActivityEvent implements Node {
   namespacePath: String
   payload: ActivityEventPayload
   target: Node!
-  targetId: String!
   targetType: ActivityEventTargetType!
 }
 
@@ -1466,6 +1465,7 @@ type Mutation {
   moveManagedIdentity(input: MoveManagedIdentityInput!): MoveManagedIdentityPayload!
   removeUserFromTeam(input: RemoveUserFromTeamInput): RemoveUserFromTeamPayload!
   resetVCSProviderOAuthToken(input: ResetVCSProviderOAuthTokenInput!): ResetVCSProviderOAuthTokenPayload!
+  revokeUserSession(input: RevokeUserSessionInput!): RevokeUserSessionPayload!
   runnerSessionHeartbeat(input: RunnerSessionHeartbeatInput!): RunnerSessionHeartbeatPayload!
   saveJobLogs(input: SaveJobLogsInput!): SaveJobLogsPayload!
   serviceAccountCreateToken(input: ServiceAccountCreateTokenInput!): ServiceAccountCreateTokenPayload!
@@ -1822,6 +1822,15 @@ type ResourceMetadata {
 
 input ResourceMetadataInput {
   version: String!
+}
+
+input RevokeUserSessionInput {
+  userSessionId: String!
+}
+
+type RevokeUserSessionPayload {
+  clientMutationId: String
+  problems: [Problem!]!
 }
 
 type Role implements Node {
@@ -2886,6 +2895,7 @@ type User implements Node {
   namespaceMemberships(after: String, before: String, first: Int, last: Int): NamespaceMembershipConnection!
   scimExternalId: String
   teams(after: String, before: String, first: Int, last: Int, sort: TeamSort): TeamConnection!
+  userSessions(after: String, before: String, first: Int, last: Int, sort: UserSessionSort): UserSessionConnection!
   username: String!
 }
 
@@ -2944,6 +2954,32 @@ type UserPreferences {
   globalPreferences: GlobalUserPreferences!
   groupPreferences(after: String, before: String, first: Int, last: Int, path: String): UserNamespacePreferenceConnection!
   workspacePreferences(after: String, before: String, first: Int, last: Int, path: String): UserNamespacePreferenceConnection!
+}
+
+type UserSession implements Node {
+  expiration: Time!
+  expired: Boolean!
+  id: ID!
+  metadata: ResourceMetadata!
+  userAgent: String!
+}
+
+type UserSessionConnection {
+  edges: [UserSessionEdge]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UserSessionEdge {
+  cursor: String!
+  node: UserSession
+}
+
+enum UserSessionSort {
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  EXPIRATION_ASC
+  EXPIRATION_DESC
 }
 
 enum UserSort {
