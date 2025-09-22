@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f706d1d0b39b358f70827c382707adac>>
+ * @generated SignedSource<<41fbe58108bf9980f99918e111e38746>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,7 @@ export type StateVersionDetailsQuery$data = {
     readonly id?: string;
     readonly metadata?: {
       readonly createdAt: any;
+      readonly trn: string;
     };
     readonly run?: {
       readonly createdBy: string;
@@ -73,6 +74,13 @@ v4 = {
       "args": null,
       "kind": "ScalarField",
       "name": "createdAt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "trn",
       "storageKey": null
     }
   ],
@@ -177,16 +185,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2589364dc21ee75728bc2e0ac1a48381",
+    "cacheID": "c00336a37d4cd2edeedcd06b2c24029b",
     "id": null,
     "metadata": {},
     "name": "StateVersionDetailsQuery",
     "operationKind": "query",
-    "text": "query StateVersionDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on StateVersion {\n      id\n      createdBy\n      metadata {\n        createdAt\n      }\n      run {\n        createdBy\n        id\n      }\n      ...StateVersionFileFragment_stateVersion\n    }\n    id\n  }\n}\n\nfragment StateVersionFileFragment_stateVersion on StateVersion {\n  id\n}\n"
+    "text": "query StateVersionDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on StateVersion {\n      id\n      createdBy\n      metadata {\n        createdAt\n        trn\n      }\n      run {\n        createdBy\n        id\n      }\n      ...StateVersionFileFragment_stateVersion\n    }\n    id\n  }\n}\n\nfragment StateVersionFileFragment_stateVersion on StateVersion {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "da09f99536f825cfecef74e20b44ca14";
+(node as any).hash = "3af09e64ae50bd1228eeaafc40116f07";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<65862a1772b5e184707aeee478f6e959>>
+ * @generated SignedSource<<c1b3b7632e0371cb6d7173d5f860d869>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,7 @@ export type RunnerDetailsFragment_runner$data = {
   readonly id: string;
   readonly metadata: {
     readonly createdAt: any;
+    readonly trn: string;
   };
   readonly name: string;
   readonly runUntaggedJobs: boolean;
@@ -118,6 +119,13 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "createdAt",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -214,6 +222,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "128052a461b5040c702bca8ee45ef603";
+(node as any).hash = "8cd98303202d63952ab6659c13ebf62f";
 
 export default node;

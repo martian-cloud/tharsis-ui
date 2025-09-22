@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<537dd64ff5b8ff48c0ec77172cf4ec8c>>
+ * @generated SignedSource<<906389aa3506d65edfb146a6859994f0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -31,6 +31,7 @@ export type RunDetailsApplyStageFragment_apply$data = {
     readonly errorMessage: string | null | undefined;
     readonly metadata: {
       readonly createdAt: any;
+      readonly trn: string;
     };
     readonly status: ApplyStatus;
     readonly triggeredBy: string | null | undefined;
@@ -148,6 +149,13 @@ return {
               "kind": "ScalarField",
               "name": "createdAt",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "trn",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -260,6 +268,6 @@ return {
 };
 })();
 
-(node as any).hash = "1f0bee5527d42568ed79fafbbab5c6ce";
+(node as any).hash = "43d3ce9156542afe57a3d7129ae382cc";
 
 export default node;

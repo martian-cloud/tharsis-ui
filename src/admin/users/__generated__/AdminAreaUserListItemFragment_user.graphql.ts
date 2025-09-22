@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<85a93b5ab71d4f2869542947268b7dc4>>
+ * @generated SignedSource<<b6517b3f580fc709984c1711f4c6c75e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type AdminAreaUserListItemFragment_user$data = {
   readonly id: string;
   readonly metadata: {
     readonly createdAt: any;
+    readonly trn: string;
   };
   readonly scimExternalId: string | null | undefined;
   readonly username: string;
@@ -46,6 +47,13 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "createdAt",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
           "storageKey": null
         }
       ],
@@ -98,6 +106,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "39af1124b4f023536cef0379ac6e5cdd";
+(node as any).hash = "1ecebf7fb862080727266628789e0bc7";
 
 export default node;

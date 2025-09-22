@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4c9d5fae1ddee3671316c0ef22000c18>>
+ * @generated SignedSource<<93ba5e2a2ffd704a7b3eb11afa618e3a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -148,6 +148,31 @@ return {
           {
             "alias": null,
             "args": null,
+            "concreteType": "ResourceMetadata",
+            "kind": "LinkedField",
+            "name": "metadata",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "trn",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "createdAt",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "TerraformProvider",
             "kind": "LinkedField",
             "name": "provider",
@@ -245,24 +270,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "ResourceMetadata",
-            "kind": "LinkedField",
-            "name": "metadata",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "createdAt",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -270,12 +277,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "72643d07c497e3a68090085aadebc3b9",
+    "cacheID": "5d0b9c031e8f7be0aa033353c724d751",
     "id": null,
     "metadata": {},
     "name": "TerraformProviderVersionDetailsQuery",
     "operationKind": "query",
-    "text": "query TerraformProviderVersionDetailsQuery(\n  $registryNamespace: String!\n  $providerName: String!\n  $version: String\n) {\n  terraformProviderVersion(registryNamespace: $registryNamespace, providerName: $providerName, version: $version) {\n    id\n    ...TerraformProviderVersionDetailsIndexFragment_details\n  }\n}\n\nfragment TerraformProviderVersionDetailsIndexFragment_details on TerraformProviderVersion {\n  id\n  version\n  readme\n  shaSumsUploaded\n  shaSumsSigUploaded\n  provider {\n    id\n    name\n    registryNamespace\n    private\n    ...TerraformProviderVersionListFragment_provider\n  }\n  ...TerraformProviderVersionDetailsSidebarFragment_details\n}\n\nfragment TerraformProviderVersionDetailsSidebarFragment_details on TerraformProviderVersion {\n  version\n  createdBy\n  gpgKeyId\n  protocols\n  latest\n  platforms {\n    id\n    os\n    arch\n    binaryUploaded\n  }\n  metadata {\n    createdAt\n  }\n  provider {\n    id\n    name\n    registryNamespace\n    private\n    repositoryUrl\n  }\n}\n\nfragment TerraformProviderVersionListFragment_provider on TerraformProvider {\n  id\n}\n"
+    "text": "query TerraformProviderVersionDetailsQuery(\n  $registryNamespace: String!\n  $providerName: String!\n  $version: String\n) {\n  terraformProviderVersion(registryNamespace: $registryNamespace, providerName: $providerName, version: $version) {\n    id\n    ...TerraformProviderVersionDetailsIndexFragment_details\n  }\n}\n\nfragment TerraformProviderVersionDetailsIndexFragment_details on TerraformProviderVersion {\n  id\n  version\n  readme\n  shaSumsUploaded\n  shaSumsSigUploaded\n  metadata {\n    trn\n  }\n  provider {\n    id\n    name\n    registryNamespace\n    private\n    ...TerraformProviderVersionListFragment_provider\n  }\n  ...TerraformProviderVersionDetailsSidebarFragment_details\n}\n\nfragment TerraformProviderVersionDetailsSidebarFragment_details on TerraformProviderVersion {\n  version\n  createdBy\n  gpgKeyId\n  protocols\n  latest\n  platforms {\n    id\n    os\n    arch\n    binaryUploaded\n  }\n  metadata {\n    createdAt\n  }\n  provider {\n    id\n    name\n    registryNamespace\n    private\n    repositoryUrl\n  }\n}\n\nfragment TerraformProviderVersionListFragment_provider on TerraformProvider {\n  id\n}\n"
   }
 };
 })();

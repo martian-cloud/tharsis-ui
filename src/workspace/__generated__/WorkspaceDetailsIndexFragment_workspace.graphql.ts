@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<59d9d6656e2efdd3e763998554a7ea7c>>
+ * @generated SignedSource<<ed6d3bfa7ee95044cba534ba8183ce5c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -62,6 +62,9 @@ export type WorkspaceDetailsIndexFragment_workspace$data = {
   readonly description: string;
   readonly fullPath: string;
   readonly id: string;
+  readonly metadata: {
+    readonly trn: string;
+  };
   readonly name: string;
   readonly preventDestroyPlan: boolean;
   readonly " $fragmentSpreads": FragmentRefs<"WorkspaceDetailsCurrentJobFragment_workspace" | "WorkspaceDetailsDriftDetectionFragment_workspace" | "WorkspaceDetailsEmptyFragment_workspace" | "WorkspaceNotificationPreferenceFragment_workspace">;
@@ -139,6 +142,24 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "preventDestroyPlan",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ResourceMetadata",
+      "kind": "LinkedField",
+      "name": "metadata",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -352,6 +373,6 @@ return {
 };
 })();
 
-(node as any).hash = "52d36a79afebc474087cd2b504c554f9";
+(node as any).hash = "5d246777a06694813b1238c8eebda652";
 
 export default node;

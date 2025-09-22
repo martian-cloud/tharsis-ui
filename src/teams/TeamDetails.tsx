@@ -1,11 +1,12 @@
 import React, { Suspense } from 'react';
-import { Avatar, Box, CircularProgress, Stack, Typography } from '@mui/material';
+import { Avatar, Box, CircularProgress, Stack, Typography, useTheme } from '@mui/material';
 import { teal } from '@mui/material/colors';
 import { PreloadedQuery, useFragment, usePreloadedQuery } from 'react-relay/hooks';
 import graphql from 'babel-plugin-relay/macro';
 import TeamMemberList from '../teams/TeamMemberList';
 import { TeamDetailsQuery } from './__generated__/TeamDetailsQuery.graphql';
 import { TeamDetailsFragment_team$key } from './__generated__/TeamDetailsFragment_team.graphql';
+import TRNButton from '../common/TRNButton';
 
 const query = graphql`
     query TeamDetailsQuery($name: String!, $first: Int!, $after: String) {
@@ -20,6 +21,7 @@ interface Props {
 }
 
 function TeamDetails({ queryRef }: Props) {
+    const theme = useTheme();
     const queryData = usePreloadedQuery<TeamDetailsQuery>(query, queryRef);
 
     const data = useFragment<TeamDetailsFragment_team$key>(
@@ -28,6 +30,9 @@ function TeamDetails({ queryRef }: Props) {
         {
             name
             description
+            metadata {
+                trn
+            }
             ...TeamMemberListFragment_members
         }
         `,
@@ -48,7 +53,15 @@ function TeamDetails({ queryRef }: Props) {
                     <CircularProgress />
                 </Box>}
                 >
-                    <Box sx={{ display: "flex", justifyContent: 'space-between' }}>
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        [theme.breakpoints.down('sm')]: {
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            '& > *': { marginBottom: 2 },
+                        }
+                    }}>
                         <Box display="flex" marginBottom={4} alignItems="center">
                             <Avatar
                                 sx={{
@@ -67,6 +80,7 @@ function TeamDetails({ queryRef }: Props) {
                                 </Typography>
                             </Stack>
                         </Box>
+                        <TRNButton trn={data.metadata.trn} />
                     </Box>
                     <TeamMemberList fragmentRef={data} />
                 </Suspense>

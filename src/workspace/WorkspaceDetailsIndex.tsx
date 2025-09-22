@@ -10,6 +10,7 @@ import { useFragment, useMutation } from 'react-relay/hooks';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Timestamp from '../common/Timestamp';
 import TabContent from '../common/TabContent';
+import TRNButton from '../common/TRNButton';
 import { MutationError } from '../common/error';
 import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
 import Link from '../routes/Link';
@@ -88,6 +89,9 @@ function WorkspaceDetailsIndex(props: Props) {
         description
         fullPath
         preventDestroyPlan
+        metadata {
+            trn
+        }
         assessment {
             hasDrift
         }
@@ -226,6 +230,7 @@ function WorkspaceDetailsIndex(props: Props) {
                 </Box>
                 <Stack direction="row" spacing={1}>
                     <WorkspaceNotificationPreference fragmentRef={data} />
+                    <TRNButton trn={data.metadata.trn} size="small" />
                     {(data.currentStateVersion && data.currentStateVersion.run) && (
                         <Box>
                             <Tooltip

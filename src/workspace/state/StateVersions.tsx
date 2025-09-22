@@ -18,10 +18,11 @@ function StateVersions(props: Props) {
         fragment StateVersionsFragment_stateVersions on Workspace
         {
             fullPath
+            ...StateVersionListFragment_workspace
             ...StateVersionDetailsFragment_details
         }
         `, props.fragmentRef
-    )
+    );
 
     return (
         <Box>
@@ -34,12 +35,12 @@ function StateVersions(props: Props) {
                         ]}
                     />
                     <Typography variant="h5">State Versions</Typography>
-                    <StateVersionList workspacePath={data.fullPath} />
+                    <StateVersionList fragmentRef={data} />
                 </Box>} />
-                <Route path={`:id/*`} element={<StateVersionDetails fragmentRef={data} />}/>
+                <Route path={`:id/*`} element={<StateVersionDetails fragmentRef={data} />} />
             </Routes>
         </Box>
-    )
+    );
 }
 
-export default StateVersions
+export default StateVersions;

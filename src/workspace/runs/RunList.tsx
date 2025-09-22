@@ -87,7 +87,8 @@ function RunList({ workspaceId, workspacePath, includeAssessmentRuns }: Props) {
                             <Box component="col" sx={{ width: '15%' }} />
                             <Box component="col" sx={{ width: '20%' }} />
                             <Box component="col" sx={{ width: '25%' }} />
-                            <Box component="col" sx={{ width: '25%' }} />
+                            <Box component="col" sx={{ width: '10%' }} />
+                            <Box component="col" sx={{ width: '15%' }} />
                         </colgroup>
 
                         <TableHead>
@@ -97,6 +98,7 @@ function RunList({ workspaceId, workspacePath, includeAssessmentRuns }: Props) {
                                 <TableCell>Type</TableCell>
                                 <TableCell>Triggerer</TableCell>
                                 <TableCell>Stages</TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
 

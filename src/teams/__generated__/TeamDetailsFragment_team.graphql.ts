@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ef5fdee3ab05d7b17ef48d52fd9fa66b>>
+ * @generated SignedSource<<712b7560ff35bce3909572da062b8b7b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,9 @@ import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TeamDetailsFragment_team$data = {
   readonly description: string;
+  readonly metadata: {
+    readonly trn: string;
+  };
   readonly name: string;
   readonly " $fragmentSpreads": FragmentRefs<"TeamMemberListFragment_members">;
   readonly " $fragmentType": "TeamDetailsFragment_team";
@@ -42,6 +45,24 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "ResourceMetadata",
+      "kind": "LinkedField",
+      "name": "metadata",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "TeamMemberListFragment_members"
@@ -51,6 +72,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "f9de68bcce73ee067700d1ed90ccf463";
+(node as any).hash = "8e69e7805f7a1ac5c1fc3f1377ab95d7";
 
 export default node;

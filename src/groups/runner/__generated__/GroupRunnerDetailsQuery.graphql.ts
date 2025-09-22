@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<18cb7e4d8798767cdaed9339f7257be2>>
+ * @generated SignedSource<<9153469f81850151ebfe4c888f209961>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -172,6 +172,13 @@ return {
                     "kind": "ScalarField",
                     "name": "createdAt",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "trn",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -276,12 +283,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6749086e23f848e0889e2dd50c2d1385",
+    "cacheID": "7b7274351fc7f282c8ffaab4fb979fa3",
     "id": null,
     "metadata": {},
     "name": "GroupRunnerDetailsQuery",
     "operationKind": "query",
-    "text": "query GroupRunnerDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on Runner {\n      id\n      name\n      ...RunnerDetailsFragment_runner\n    }\n    id\n  }\n}\n\nfragment AssignedServiceAccountListFragment_runner on Runner {\n  id\n  resourcePath\n}\n\nfragment RunnerDetailsFragment_runner on Runner {\n  id\n  name\n  type\n  disabled\n  description\n  createdBy\n  tags\n  runUntaggedJobs\n  metadata {\n    createdAt\n  }\n  assignedServiceAccounts(first: 0) {\n    totalCount\n  }\n  sessions(first: 1, sort: LAST_CONTACTED_AT_DESC) {\n    edges {\n      node {\n        active\n        lastContacted\n        id\n      }\n    }\n  }\n  ...AssignedServiceAccountListFragment_runner\n}\n"
+    "text": "query GroupRunnerDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on Runner {\n      id\n      name\n      ...RunnerDetailsFragment_runner\n    }\n    id\n  }\n}\n\nfragment AssignedServiceAccountListFragment_runner on Runner {\n  id\n  resourcePath\n}\n\nfragment RunnerDetailsFragment_runner on Runner {\n  id\n  name\n  type\n  disabled\n  description\n  createdBy\n  tags\n  runUntaggedJobs\n  metadata {\n    createdAt\n    trn\n  }\n  assignedServiceAccounts(first: 0) {\n    totalCount\n  }\n  sessions(first: 1, sort: LAST_CONTACTED_AT_DESC) {\n    edges {\n      node {\n        active\n        lastContacted\n        id\n      }\n    }\n  }\n  ...AssignedServiceAccountListFragment_runner\n}\n"
   }
 };
 })();

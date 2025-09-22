@@ -14,6 +14,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import MuiMarkdown from '../common/Markdown';
+import TRNButton from '../common/TRNButton';
 import ListSkeleton from '../skeletons/ListSkeleton';
 import TerraformProviderVersionDetailsSidebar, { SidebarWidth } from './TerraformProviderVersionDetailsSidebar';
 import TerraformProviderVersionList from './TerraformProviderVersionList';
@@ -102,6 +103,9 @@ function TerraformProviderVersionDetailsIndex(props: IndexProps) {
               readme
               shaSumsUploaded
               shaSumsSigUploaded
+              metadata {
+                  trn
+              }
               provider {
                   id
                   name
@@ -142,14 +146,31 @@ function TerraformProviderVersionDetailsIndex(props: IndexProps) {
           {(!data.shaSumsUploaded || !data.shaSumsSigUploaded) && <Alert sx={{ marginBottom: 2 }} severity="warning">
             This provider version is missing the required checksum files
           </Alert>}
-          <Box display="flex" alignItems="center" marginBottom={2} justifyContent="space-between">
-            <Box display="flex" alignItems="center">
-              <Typography variant="h6">{data.provider.registryNamespace} / {data.provider.name}</Typography>
-              {data.provider.private && <Chip sx={{ marginLeft: 2 }} variant="outlined" color="warning" size="small" label="private" />}
+          <Box
+            sx={{
+              display: 'flex',
+              marginBottom: 2,
+              justifyContent: 'space-between',
+              flexDirection: { xs: 'column', md: 'row' },
+              alignItems: { xs: 'flex-start', md: 'center' },
+              gap: { xs: 2 }
+            }}
+          >
+            <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
+              <Box display="flex" alignItems="center">
+                <Typography variant="h6">{data.provider.registryNamespace} / {data.provider.name}</Typography>
+                {data.provider.private && <Chip sx={{ marginLeft: 2 }} variant="outlined" color="warning" size="small" label="private" />}
+              </Box>
+              <IconButton
+                onClick={onToggleSidebar}
+                sx={{ display: { xs: 'block', md: 'none' } }}
+              >
+                <DoubleArrowIcon sx={{ transform: 'rotate(180deg)' }} />
+              </IconButton>
             </Box>
-            {mobile && <Box display="flex" justifyContent="space-between">
-              <IconButton onClick={onToggleSidebar}><DoubleArrowIcon sx={{ transform: 'rotate(180deg)' }} /></IconButton>
-            </Box>}
+            <Box>
+              <TRNButton trn={data.metadata.trn} size="small" />
+            </Box>
           </Box>
           <Box sx={{ border: 1, borderColor: 'divider', marginBottom: 2 }}>
             <Tabs value={tab} onChange={onTabChange}>

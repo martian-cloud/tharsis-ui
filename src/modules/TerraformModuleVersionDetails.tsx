@@ -1,6 +1,6 @@
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
-import { Alert, Button, Chip, CircularProgress, IconButton, Typography } from '@mui/material';
+import { Alert, Button, Chip, CircularProgress, IconButton, Stack, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -16,6 +16,7 @@ import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles
 import AuthServiceContext from '../auth/AuthServiceContext';
 import AuthenticationService from '../auth/AuthenticationService';
 import cfg from '../common/config';
+import TRNButton from '../common/TRNButton';
 import downloadFile from '../common/filedownload';
 import ListSkeleton from '../skeletons/ListSkeleton';
 import TerraformModuleVersionAttestList from './TerraformModuleVersionAttestList';
@@ -99,6 +100,9 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
               id
               version
               status
+              metadata {
+                  trn
+              }
               module {
                   id
                   name
@@ -185,7 +189,7 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
                             justifyContent: 'space-between',
                             flexDirection: { xs: 'column', md: 'row' },
                             alignItems: { xs: 'flex-start', md: 'center' },
-                            gap: { xs: 2, md: 0 }
+                            gap: { xs: 2 }
                         }}
                     >
                         <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
@@ -200,7 +204,10 @@ function TerraformModuleVersionDetailsIndex(props: IndexProps) {
                                 <DoubleArrowIcon sx={{ transform: 'rotate(180deg)' }} />
                             </IconButton>
                         </Box>
-                        <Button size="small" color="info" variant="outlined" onClick={onDownloadModule}>Download</Button>
+                        <Stack direction="row" spacing={1} >
+                            <TRNButton trn={data.metadata.trn} size="small" />
+                            <Button size="small" color="info" variant="outlined" onClick={onDownloadModule}>Download</Button>
+                        </Stack>
                     </Box>
                     <Box sx={{ border: 1, borderColor: 'divider', marginBottom: 2 }}>
                         <Tabs value={tab} onChange={onTabChange}>

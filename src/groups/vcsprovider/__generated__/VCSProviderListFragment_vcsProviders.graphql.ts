@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b49e2d0b0f14e951555ab0b6a58ce7ce>>
+ * @generated SignedSource<<145d083be28ea32f77874e36af17a02a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,18 +11,17 @@
 import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type VCSProviderListFragment_vcsProviders$data = {
-  readonly group: {
-    readonly vcsProviders: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly groupPath: string;
-          readonly id: string;
-          readonly " $fragmentSpreads": FragmentRefs<"VCSProviderListItemFragment_vcsProvider">;
-        } | null | undefined;
-      } | null | undefined> | null | undefined;
-      readonly totalCount: number;
-    };
-  } | null | undefined;
+  readonly id: string;
+  readonly vcsProviders: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly groupPath: string;
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"VCSProviderListItemFragment_vcsProvider">;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
+    readonly totalCount: number;
+  };
   readonly " $fragmentType": "VCSProviderListFragment_vcsProviders";
 };
 export type VCSProviderListFragment_vcsProviders$key = {
@@ -34,9 +33,15 @@ import VCSProviderListPaginationQuery_graphql from './VCSProviderListPaginationQ
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "group",
   "vcsProviders"
-];
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [
     {
@@ -50,10 +55,6 @@ return {
     {
       "kind": "RootArgument",
       "name": "first"
-    },
-    {
-      "kind": "RootArgument",
-      "name": "groupPath"
     },
     {
       "kind": "RootArgument",
@@ -86,149 +87,132 @@ return {
         },
         "path": (v0/*: any*/)
       },
-      "fragmentPathInResult": [],
-      "operation": VCSProviderListPaginationQuery_graphql
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": VCSProviderListPaginationQuery_graphql,
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "VCSProviderListFragment_vcsProviders",
   "selections": [
     {
-      "alias": null,
+      "alias": "vcsProviders",
       "args": [
         {
+          "kind": "Literal",
+          "name": "includeInherited",
+          "value": true
+        },
+        {
           "kind": "Variable",
-          "name": "fullPath",
-          "variableName": "groupPath"
+          "name": "search",
+          "variableName": "search"
+        },
+        {
+          "kind": "Literal",
+          "name": "sort",
+          "value": "GROUP_LEVEL_DESC"
         }
       ],
-      "concreteType": "Group",
+      "concreteType": "VCSProviderConnection",
       "kind": "LinkedField",
-      "name": "group",
+      "name": "__VCSProviderList_vcsProviders_connection",
       "plural": false,
       "selections": [
         {
-          "alias": "vcsProviders",
-          "args": [
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "VCSProviderEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
             {
-              "kind": "Literal",
-              "name": "includeInherited",
-              "value": true
+              "alias": null,
+              "args": null,
+              "concreteType": "VCSProvider",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                (v1/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "groupPath",
+                  "storageKey": null
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "VCSProviderListItemFragment_vcsProvider"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
             },
             {
-              "kind": "Variable",
-              "name": "search",
-              "variableName": "search"
-            },
-            {
-              "kind": "Literal",
-              "name": "sort",
-              "value": "GROUP_LEVEL_DESC"
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
             }
           ],
-          "concreteType": "VCSProviderConnection",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
           "kind": "LinkedField",
-          "name": "__VCSProviderList_vcsProviders_connection",
+          "name": "pageInfo",
           "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "totalCount",
+              "name": "endCursor",
               "storageKey": null
             },
             {
               "alias": null,
               "args": null,
-              "concreteType": "VCSProviderEdge",
-              "kind": "LinkedField",
-              "name": "edges",
-              "plural": true,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "VCSProvider",
-                  "kind": "LinkedField",
-                  "name": "node",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "id",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "groupPath",
-                      "storageKey": null
-                    },
-                    {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "VCSProviderListItemFragment_vcsProvider"
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "__typename",
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "cursor",
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             },
             {
               "alias": null,
               "args": null,
-              "concreteType": "PageInfo",
-              "kind": "LinkedField",
-              "name": "pageInfo",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "endCursor",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "hasNextPage",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "hasPreviousPage",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "startCursor",
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "hasPreviousPage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "startCursor",
               "storageKey": null
             }
           ],
@@ -236,13 +220,14 @@ return {
         }
       ],
       "storageKey": null
-    }
+    },
+    (v1/*: any*/)
   ],
-  "type": "Query",
+  "type": "Group",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "d2da0798d0172bb9dbfc39b2c5ea6b55";
+(node as any).hash = "0cfc1d237ae8df3e74572cfdb715622a";
 
 export default node;

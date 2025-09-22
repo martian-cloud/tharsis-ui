@@ -1,6 +1,6 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { LoadingButton } from '@mui/lab';
-import { ButtonGroup, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Menu, MenuItem, Paper, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { ButtonGroup, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Menu, MenuItem, Paper, Stack, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Tab from '@mui/material/Tab';
@@ -14,6 +14,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as prismTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import config from '../../common/config';
+import TRNButton from '../../common/TRNButton';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
 import { ManagedIdentityDetailsDeleteAliasMutation } from './__generated__/ManagedIdentityDetailsDeleteAliasMutation.graphql';
 import { ManagedIdentityDetailsDeleteMutation } from './__generated__/ManagedIdentityDetailsDeleteMutation.graphql';
@@ -126,6 +127,9 @@ function ManagedIdentityDetails(props: Props) {
                 type
                 data
                 groupPath
+                metadata {
+                    trn
+                }
                 accessRules {
                     id
                     runStage
@@ -276,49 +280,55 @@ function ManagedIdentityDetails(props: Props) {
                         </Box>
                         <Typography color="textSecondary">{data.managedIdentity.description}</Typography>
                     </Box>
-                    {!data.managedIdentity.isAlias ? <Box>
-                        <ButtonGroup variant="outlined" color="primary">
-                            <Button onClick={() => navigate('edit')}>Edit</Button>
-                            <Button
-                                color="primary"
-                                size="small"
-                                aria-label="more options menu"
-                                aria-haspopup="menu"
-                                onClick={onOpenMenu}
+                    {!data.managedIdentity.isAlias && <Box>
+                        <Stack direction="row" spacing={1}>
+                            <TRNButton trn={data.managedIdentity.metadata.trn} />
+                            <ButtonGroup variant="outlined" color="primary">
+                                <Button onClick={() => navigate('edit')}>Edit</Button>
+                                <Button
+                                    color="primary"
+                                    size="small"
+                                    aria-label="more options menu"
+                                    aria-haspopup="menu"
+                                    onClick={onOpenMenu}
+                                >
+                                    <ArrowDropDownIcon fontSize="small" />
+                                </Button>
+                            </ButtonGroup>
+                            <Menu
+                                id="managed-identity-more-options-menu"
+                                anchorEl={menuAnchorEl}
+                                open={Boolean(menuAnchorEl)}
+                                onClose={onMenuClose}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
                             >
-                                <ArrowDropDownIcon fontSize="small" />
-                            </Button>
-                        </ButtonGroup>
-                        <Menu
-                            id="managed-identity-more-options-menu"
-                            anchorEl={menuAnchorEl}
-                            open={Boolean(menuAnchorEl)}
-                            onClose={onMenuClose}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                        >
-                            <MenuItem onClick={() => onMenuAction(() => setShowMoveManagedIdentityDialog(true))}>
-                                Move Managed Identity
-                            </MenuItem>
-                            <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
-                                Delete Managed Identity
-                            </MenuItem>
-                        </Menu>
-                    </Box>
-                        :
-                        <Box>
+                                <MenuItem onClick={() => onMenuAction(() => setShowMoveManagedIdentityDialog(true))}>
+                                    Move Managed Identity
+                                </MenuItem>
+                                <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
+                                    Delete Managed Identity
+                                </MenuItem>
+                            </Menu>
+                        </Stack>
+                    </Box>}
+
+                    {data.managedIdentity.isAlias && <Box>
+                        <Stack direction="row" spacing={1}>
+                            <TRNButton trn={data.managedIdentity.metadata.trn} />
                             <Button
                                 variant="outlined"
                                 color="error"
                                 onClick={() => setShowDeleteConfirmationDialog(true)}
                             >Delete Alias</Button>
-                        </Box>}
+                        </Stack>
+                    </Box>}
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between", border: 1, borderTopLeftRadius: 4, borderTopRightRadius: 4, borderColor: 'divider' }}>
                     <Tabs value={tab} onChange={onTabChange}>

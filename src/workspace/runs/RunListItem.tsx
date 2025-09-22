@@ -11,6 +11,7 @@ import Timestamp from '../../common/Timestamp';
 import Link from '../../routes/Link';
 import RunStageIcons from './RunStageIcons';
 import RunStatusChip from './RunStatusChip';
+import TRNButton from '../../common/TRNButton';
 import { RunListItemFragment_run$key } from './__generated__/RunListItemFragment_run.graphql';
 
 interface Props {
@@ -23,6 +24,7 @@ function RunListItem(props: Props) {
         fragment RunListItemFragment_run on Run {
             metadata {
                 createdAt
+                trn
             }
             id
             createdBy
@@ -68,8 +70,11 @@ function RunListItem(props: Props) {
             <TableCell>
                 <RunStageIcons planStatus={data.plan.status} applyStatus={data.apply?.status} runPath={runPath} />
             </TableCell>
-        </TableRow >
+            <TableCell align="right">
+                <TRNButton trn={data.metadata.trn} size="small"/>
+            </TableCell>
+        </TableRow>
     );
 }
 
-export default RunListItem
+export default RunListItem;

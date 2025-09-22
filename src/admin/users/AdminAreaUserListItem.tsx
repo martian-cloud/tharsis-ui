@@ -3,6 +3,7 @@ import graphql from 'babel-plugin-relay/macro';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import Gravatar from '../../common/Gravatar';
 import Timestamp from '../../common/Timestamp';
+import TRNButton from '../../common/TRNButton';
 import { AdminAreaUserListItemFragment_user$key } from './__generated__/AdminAreaUserListItemFragment_user.graphql';
 import { useContext, useMemo, useState } from 'react';
 import { AdminAreaUserListItemUpdateUserAdminStatusMutation } from './__generated__/AdminAreaUserListItemUpdateUserAdminStatusMutation.graphql';
@@ -27,6 +28,7 @@ function AdminAreaUserListItem({ fragmentRef }: Props) {
         fragment AdminAreaUserListItemFragment_user on User {
             metadata {
                 createdAt
+                trn
             }
             id
             username
@@ -118,29 +120,33 @@ function AdminAreaUserListItem({ fragmentRef }: Props) {
                 <TableCell>
                     <Timestamp variant="body2" timestamp={data.metadata.createdAt} />
                 </TableCell>
-                <TableCell>
-                    {showDropdownMenuButton && <Dropdown>
-                        <IconButton
-                            color="inherit"
-                            size="small"
-                            onClick={onMenuOpen}
-                        >
-                            <MoreVertIcon />
-                        </IconButton>
-                        <Menu
-                            id="admin-users-list-more-options-menu"
-                            anchorEl={menuAnchorEl}
-                            open={Boolean(menuAnchorEl)}
-                            onClose={onMenuClose}
-                        >
-                            <MenuItem
-                                onClick={() => onMenuAction(() => {
-                                    setShowUpdateUserAdminStatusConfirmation(true);
-                                })}>
-                                {data.admin ? 'Revoke' : 'Grant'} Admin Permissions
-                            </MenuItem>
-                        </Menu>
-                    </Dropdown>}
+                <TableCell align="right">
+                    <Box display="flex" alignItems="center" justifyContent="flex-end" gap={1}>
+                        <TRNButton trn={data.metadata.trn} size="small"/>
+                        {showDropdownMenuButton && <Dropdown>
+                            <IconButton
+                                color="inherit"
+                                size="small"
+                                onClick={onMenuOpen}
+                            >
+                                <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                                id="admin-users-list-more-options-menu"
+                                anchorEl={menuAnchorEl}
+                                open={Boolean(menuAnchorEl)}
+                                onClose={onMenuClose}
+                            >
+                                <MenuItem
+                                    onClick={() => onMenuAction(() => {
+                                        setShowUpdateUserAdminStatusConfirmation(true);
+                                    })}>
+                                    {data.admin ? 'Revoke' : 'Grant'} Admin Permissions
+                                </MenuItem>
+                            </Menu>
+                        </Dropdown>}
+                        {!showDropdownMenuButton && <IconButton size="small" sx={{ visibility: 'hidden' }}><MoreVertIcon /></IconButton>}
+                    </Box>
                 </TableCell>
             </TableRow>
             {showUpdateUserAdminStatusConfirmation && <ConfirmationDialog
@@ -151,7 +157,7 @@ function AdminAreaUserListItem({ fragmentRef }: Props) {
                 onConfirm={onUpdateUserAdminStatus}
                 onClose={() => setShowUpdateUserAdminStatusConfirmation(false)}
             />}
-        </React.Fragment >
+        </React.Fragment>
     );
 }
 

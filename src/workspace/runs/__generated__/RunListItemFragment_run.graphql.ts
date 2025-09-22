@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<107a7bba1d13a80a2872711adfdf261c>>
+ * @generated SignedSource<<4c29317a224225dffca3199c144a7f11>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,6 +23,7 @@ export type RunListItemFragment_run$data = {
   readonly isDestroy: boolean;
   readonly metadata: {
     readonly createdAt: any;
+    readonly trn: string;
   };
   readonly plan: {
     readonly status: PlanStatus;
@@ -65,6 +66,13 @@ return {
           "args": null,
           "kind": "ScalarField",
           "name": "createdAt",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
           "storageKey": null
         }
       ],
@@ -125,6 +133,6 @@ return {
 };
 })();
 
-(node as any).hash = "bb91c1e45424048e9abb6d8216c3ddee";
+(node as any).hash = "b2deb13eebdc7f7c2ca8a9156943319b";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<81e108f771b6a537d5c93bb25e8b83e0>>
+ * @generated SignedSource<<b6857ffc98be3587a42886049cb48fce>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -218,6 +218,13 @@ return {
                         "kind": "ScalarField",
                         "name": "updatedAt",
                         "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "trn",
+                        "storageKey": null
                       }
                     ],
                     "storageKey": null
@@ -312,12 +319,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9a591f8a0f0d292b5193ce07686ba170",
+    "cacheID": "50733e10a5133dcefd7ae6913274f036",
     "id": null,
     "metadata": {},
     "name": "NamespaceMembershipListDeleteNamespaceMembershipMutation",
     "operationKind": "mutation",
-    "text": "mutation NamespaceMembershipListDeleteNamespaceMembershipMutation(\n  $input: DeleteNamespaceMembershipInput!\n) {\n  deleteNamespaceMembership(input: $input) {\n    namespace {\n      __typename\n      memberships {\n        ...NamespaceMembershipListItemFragment_membership\n        id\n      }\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment NamespaceMembershipListItemFragment_membership on NamespaceMembership {\n  metadata {\n    createdAt\n    updatedAt\n  }\n  id\n  role {\n    name\n    id\n  }\n  resourcePath\n  member {\n    __typename\n    ... on User {\n      id\n      username\n      email\n    }\n    ... on Team {\n      id\n      name\n    }\n    ... on ServiceAccount {\n      id\n      name\n      resourcePath\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
+    "text": "mutation NamespaceMembershipListDeleteNamespaceMembershipMutation(\n  $input: DeleteNamespaceMembershipInput!\n) {\n  deleteNamespaceMembership(input: $input) {\n    namespace {\n      __typename\n      memberships {\n        ...NamespaceMembershipListItemFragment_membership\n        id\n      }\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment NamespaceMembershipListItemFragment_membership on NamespaceMembership {\n  metadata {\n    createdAt\n    updatedAt\n    trn\n  }\n  id\n  role {\n    name\n    id\n  }\n  resourcePath\n  member {\n    __typename\n    ... on User {\n      id\n      username\n      email\n    }\n    ... on Team {\n      id\n      name\n    }\n    ... on ServiceAccount {\n      id\n      name\n      resourcePath\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
   }
 };
 })();

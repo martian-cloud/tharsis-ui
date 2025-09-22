@@ -18,8 +18,12 @@ const DESCRIPTION = 'Managed identities provide credentials to the Terraform pro
 const INITIAL_ITEM_COUNT = 100;
 
 const query = graphql`
-    query ManagedIdentityListQuery($first: Int, $last: Int, $after: String, $before: String, $groupPath: String!, $search: String) {
-        ...ManagedIdentityListFragment_managedIdentities
+    query ManagedIdentityListQuery($first: Int, $last: Int, $after: String, $before: String, $groupId: String!, $search: String) {
+        node(id: $groupId) {
+            ...on Group {
+                ...ManagedIdentityListFragment_managedIdentities
+            }
+        }
     }
 `;
 
@@ -45,17 +49,17 @@ function ManagedIdentityList(props: Props) {
         graphql`
         fragment ManagedIdentityListFragment_group on Group
         {
-          fullPath
+            id
+            fullPath
         }
-    `, props.fragmentRef)
+    `, props.fragmentRef);
 
-    const queryData = useLazyLoadQuery<ManagedIdentityListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath }, {fetchPolicy: 'store-and-network'})
+    const queryData = useLazyLoadQuery<ManagedIdentityListQuery>(query, { first: INITIAL_ITEM_COUNT, groupId: group.id }, { fetchPolicy: 'store-and-network' })
 
     const { data, loadNext, hasNext, refetch } = usePaginationFragment<ManagedIdentityListPaginationQuery, ManagedIdentityListFragment_managedIdentities$key>(
         graphql`
-      fragment ManagedIdentityListFragment_managedIdentities on Query
-      @refetchable(queryName: "ManagedIdentityListPaginationQuery") {
-        group(fullPath: $groupPath) {
+        fragment ManagedIdentityListFragment_managedIdentities on Group
+        @refetchable(queryName: "ManagedIdentityListPaginationQuery") {
             managedIdentities(
                 after: $after
                 before: $before
@@ -75,8 +79,8 @@ function ManagedIdentityList(props: Props) {
                 }
             }
         }
-      }
-    `, queryData)
+        `, queryData.node
+    );
 
     const environment = useRelayEnvironment();
 
@@ -86,7 +90,7 @@ function ManagedIdentityList(props: Props) {
                 (input?: string) => {
                     setIsRefreshing(true);
 
-                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath, search: input })
+                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, groupId: group.id, search: input })
                         .subscribe({
                             complete: () => {
                                 setIsRefreshing(false);
@@ -112,7 +116,7 @@ function ManagedIdentityList(props: Props) {
                 2000,
                 { leading: false, trailing: true }
             ),
-        [environment, refetch, group.fullPath],
+        [environment, refetch, group.id],
     );
 
 
@@ -135,7 +139,7 @@ function ManagedIdentityList(props: Props) {
                     { title: "managed identities", path: 'managed_identities' }
                 ]}
             />
-            {(search !== '' || data.group?.managedIdentities.edges?.length !== 0) && <Box>
+            {(search !== '' || data?.managedIdentities.edges?.length !== 0) && <Box>
                 <Box>
                     <Box sx={{
                         display: 'flex',
@@ -168,11 +172,11 @@ function ManagedIdentityList(props: Props) {
                 <Paper sx={{ borderBottomLeftRadius: 0, borderBottomRightRadius: 0, border: `1px solid ${theme.palette.divider}` }}>
                     <Box padding={2} display="flex" alignItems="center" justifyContent="space-between">
                         <Typography variant="subtitle1">
-                            {data.group?.managedIdentities.edges?.length} managed identit{data.group?.managedIdentities.edges?.length === 1 ? 'y' : 'ies'}
+                            {data?.managedIdentities.edges?.length} managed identit{data?.managedIdentities.edges?.length === 1 ? 'y' : 'ies'}
                         </Typography>
                     </Box>
                 </Paper>
-                {(data.group?.managedIdentities.edges?.length === 0) && search !== '' && <Typography
+                {(data?.managedIdentities.edges?.length === 0) && search !== '' && <Typography
                     sx={{
                         padding: 4,
                         borderBottom: `1px solid ${theme.palette.divider}`,
@@ -187,13 +191,13 @@ function ManagedIdentityList(props: Props) {
                     No managed identities matching search <strong>{search}</strong>
                 </Typography>}
                 <InfiniteScroll
-                    dataLength={data.group?.managedIdentities.edges?.length ?? 0}
+                    dataLength={data?.managedIdentities.edges?.length ?? 0}
                     next={() => loadNext(20)}
                     hasMore={hasNext}
                     loader={<ListSkeleton rowCount={3} />}
                 >
                     <List sx={isRefreshing ? { opacity: 0.5 } : null} disablePadding>
-                        {data.group?.managedIdentities.edges?.map((edge: any) => <ManagedIdentityListItem
+                        {data?.managedIdentities.edges?.map((edge: any) => <ManagedIdentityListItem
                             key={edge.node.id}
                             fragmentRef={edge.node}
                             inherited={edge.node.groupPath !== group.fullPath}
@@ -201,7 +205,7 @@ function ManagedIdentityList(props: Props) {
                     </List>
                 </InfiniteScroll>
             </Box>}
-            {search === '' && data.group?.managedIdentities.edges?.length === 0 && <Box sx={{ marginTop: 4 }} display="flex" justifyContent="center">
+            {search === '' && data?.managedIdentities.edges?.length === 0 && <Box sx={{ marginTop: 4 }} display="flex" justifyContent="center">
                 <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ maxWidth: 600 }}>
                     <Typography variant="h6">Get started with managed identities</Typography>
                     <Typography color="textSecondary" align="center" sx={{ marginBottom: 2 }}>
@@ -211,7 +215,7 @@ function ManagedIdentityList(props: Props) {
                 </Box>
             </Box>}
         </Box>
-    )
+    );
 }
 
-export default ManagedIdentityList
+export default ManagedIdentityList;

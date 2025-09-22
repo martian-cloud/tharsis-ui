@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4882cbe87f5de1e77d79ae3c5c2b81b6>>
+ * @generated SignedSource<<18648d6deb062949f2db5cc532919d3f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,11 +14,13 @@ export type GPGKeyListQuery$variables = {
   after?: string | null | undefined;
   before?: string | null | undefined;
   first?: number | null | undefined;
-  groupPath: string;
+  groupId: string;
   last?: number | null | undefined;
 };
 export type GPGKeyListQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"GPGKeyListFragment_keys">;
+  readonly node: {
+    readonly " $fragmentSpreads": FragmentRefs<"GPGKeyListFragment_keys">;
+  } | null | undefined;
 };
 export type GPGKeyListQuery = {
   response: GPGKeyListQuery$data;
@@ -44,7 +46,7 @@ v2 = {
 v3 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "groupPath"
+  "name": "groupId"
 },
 v4 = {
   "defaultValue": null,
@@ -52,6 +54,27 @@ v4 = {
   "name": "last"
 },
 v5 = [
+  {
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "groupId"
+  }
+],
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v8 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -82,14 +105,7 @@ v5 = [
     "name": "sort",
     "value": "GROUP_LEVEL_DESC"
   }
-],
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -104,9 +120,27 @@ return {
     "name": "GPGKeyListQuery",
     "selections": [
       {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "GPGKeyListFragment_keys"
+        "alias": null,
+        "args": (v5/*: any*/),
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "node",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "GPGKeyListFragment_keys"
+              }
+            ],
+            "type": "Group",
+            "abstractKey": null
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -126,79 +160,103 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "fullPath",
-            "variableName": "groupPath"
-          }
-        ],
-        "concreteType": "Group",
+        "args": (v5/*: any*/),
+        "concreteType": null,
         "kind": "LinkedField",
-        "name": "group",
+        "name": "node",
         "plural": false,
         "selections": [
+          (v6/*: any*/),
+          (v7/*: any*/),
           {
-            "alias": null,
-            "args": (v5/*: any*/),
-            "concreteType": "GPGKeyConnection",
-            "kind": "LinkedField",
-            "name": "gpgKeys",
-            "plural": false,
+            "kind": "InlineFragment",
             "selections": [
               {
                 "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "totalCount",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "GPGKeyEdge",
+                "args": (v8/*: any*/),
+                "concreteType": "GPGKeyConnection",
                 "kind": "LinkedField",
-                "name": "edges",
-                "plural": true,
+                "name": "gpgKeys",
+                "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "GPGKey",
+                    "kind": "ScalarField",
+                    "name": "totalCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "GPGKeyEdge",
                     "kind": "LinkedField",
-                    "name": "node",
-                    "plural": false,
+                    "name": "edges",
+                    "plural": true,
                     "selections": [
-                      (v6/*: any*/),
                       {
                         "alias": null,
                         "args": null,
-                        "kind": "ScalarField",
-                        "name": "gpgKeyId",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "groupPath",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ResourceMetadata",
+                        "concreteType": "GPGKey",
                         "kind": "LinkedField",
-                        "name": "metadata",
+                        "name": "node",
                         "plural": false,
                         "selections": [
+                          (v7/*: any*/),
                           {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "createdAt",
+                            "name": "gpgKeyId",
                             "storageKey": null
-                          }
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "groupPath",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ResourceMetadata",
+                            "kind": "LinkedField",
+                            "name": "metadata",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "createdAt",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "trn",
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "fingerprint",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "createdBy",
+                            "storageKey": null
+                          },
+                          (v6/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -206,21 +264,7 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "fingerprint",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "createdBy",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "__typename",
+                        "name": "cursor",
                         "storageKey": null
                       }
                     ],
@@ -229,8 +273,40 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "cursor",
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "endCursor",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasNextPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasPreviousPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "startCursor",
+                        "storageKey": null
+                      }
+                    ],
                     "storageKey": null
                   }
                 ],
@@ -238,75 +314,36 @@ return {
               },
               {
                 "alias": null,
-                "args": null,
-                "concreteType": "PageInfo",
-                "kind": "LinkedField",
-                "name": "pageInfo",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "endCursor",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "hasNextPage",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "hasPreviousPage",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "startCursor",
-                    "storageKey": null
-                  }
+                "args": (v8/*: any*/),
+                "filters": [
+                  "includeInherited",
+                  "sort"
                 ],
-                "storageKey": null
+                "handle": "connection",
+                "key": "GPGKeyList_gpgKeys",
+                "kind": "LinkedHandle",
+                "name": "gpgKeys"
               }
             ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": (v5/*: any*/),
-            "filters": [
-              "includeInherited",
-              "sort"
-            ],
-            "handle": "connection",
-            "key": "GPGKeyList_gpgKeys",
-            "kind": "LinkedHandle",
-            "name": "gpgKeys"
-          },
-          (v6/*: any*/)
+            "type": "Group",
+            "abstractKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "6f857f1ce75fb5dd40af1c8d32645e81",
+    "cacheID": "52582d2d304a3de9b3564becf417d0d9",
     "id": null,
     "metadata": {},
     "name": "GPGKeyListQuery",
     "operationKind": "query",
-    "text": "query GPGKeyListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupPath: String!\n) {\n  ...GPGKeyListFragment_keys\n}\n\nfragment GPGKeyListFragment_keys on Query {\n  group(fullPath: $groupPath) {\n    gpgKeys(after: $after, before: $before, first: $first, last: $last, includeInherited: true, sort: GROUP_LEVEL_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          gpgKeyId\n          groupPath\n          ...GPGKeyListItemFragment_key\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment GPGKeyListItemFragment_key on GPGKey {\n  metadata {\n    createdAt\n  }\n  id\n  gpgKeyId\n  fingerprint\n  createdBy\n  groupPath\n}\n"
+    "text": "query GPGKeyListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupId: String!\n) {\n  node(id: $groupId) {\n    __typename\n    ... on Group {\n      ...GPGKeyListFragment_keys\n    }\n    id\n  }\n}\n\nfragment GPGKeyListFragment_keys on Group {\n  gpgKeys(after: $after, before: $before, first: $first, last: $last, includeInherited: true, sort: GROUP_LEVEL_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        gpgKeyId\n        groupPath\n        ...GPGKeyListItemFragment_key\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n  id\n}\n\nfragment GPGKeyListItemFragment_key on GPGKey {\n  metadata {\n    createdAt\n    trn\n  }\n  id\n  gpgKeyId\n  fingerprint\n  createdBy\n  groupPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5618554955f98f4f9991f7f523549eb8";
+(node as any).hash = "b1a5791f82339fd1a7023117f7607b39";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5ba8760004bbd82dbc78d2d4332b3ab8>>
+ * @generated SignedSource<<e71e1a6fcedfcb8b316b370514b0cd4d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,12 +14,14 @@ export type ServiceAccountListPaginationQuery$variables = {
   after?: string | null | undefined;
   before?: string | null | undefined;
   first?: number | null | undefined;
-  groupPath: string;
+  id: string;
   last?: number | null | undefined;
   search?: string | null | undefined;
 };
 export type ServiceAccountListPaginationQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"ServiceAccountListFragment_serviceAccounts">;
+  readonly node: {
+    readonly " $fragmentSpreads": FragmentRefs<"ServiceAccountListFragment_serviceAccounts">;
+  } | null | undefined;
 };
 export type ServiceAccountListPaginationQuery = {
   response: ServiceAccountListPaginationQuery$data;
@@ -27,39 +29,58 @@ export type ServiceAccountListPaginationQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "after"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "before"
+},
+v2 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "first"
+},
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "id"
+},
+v4 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "last"
+},
+v5 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "search"
+},
+v6 = [
   {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "after"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "before"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "first"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "groupPath"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "last"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "search"
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "id"
   }
 ],
-v1 = [
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v9 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -95,25 +116,36 @@ v1 = [
     "name": "sort",
     "value": "GROUP_LEVEL_DESC"
   }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/),
+      (v3/*: any*/),
+      (v4/*: any*/),
+      (v5/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "ServiceAccountListPaginationQuery",
     "selections": [
       {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "ServiceAccountListFragment_serviceAccounts"
+        "alias": null,
+        "args": (v6/*: any*/),
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "node",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ServiceAccountListFragment_serviceAccounts"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -121,78 +153,109 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/),
+      (v4/*: any*/),
+      (v5/*: any*/),
+      (v3/*: any*/)
+    ],
     "kind": "Operation",
     "name": "ServiceAccountListPaginationQuery",
     "selections": [
       {
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "fullPath",
-            "variableName": "groupPath"
-          }
-        ],
-        "concreteType": "Group",
+        "args": (v6/*: any*/),
+        "concreteType": null,
         "kind": "LinkedField",
-        "name": "group",
+        "name": "node",
         "plural": false,
         "selections": [
+          (v7/*: any*/),
+          (v8/*: any*/),
           {
-            "alias": null,
-            "args": (v1/*: any*/),
-            "concreteType": "ServiceAccountConnection",
-            "kind": "LinkedField",
-            "name": "serviceAccounts",
-            "plural": false,
+            "kind": "InlineFragment",
             "selections": [
               {
                 "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "totalCount",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ServiceAccountEdge",
+                "args": (v9/*: any*/),
+                "concreteType": "ServiceAccountConnection",
                 "kind": "LinkedField",
-                "name": "edges",
-                "plural": true,
+                "name": "serviceAccounts",
+                "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "ServiceAccount",
+                    "kind": "ScalarField",
+                    "name": "totalCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ServiceAccountEdge",
                     "kind": "LinkedField",
-                    "name": "node",
-                    "plural": false,
+                    "name": "edges",
+                    "plural": true,
                     "selections": [
-                      (v2/*: any*/),
                       {
                         "alias": null,
                         "args": null,
-                        "kind": "ScalarField",
-                        "name": "groupPath",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ResourceMetadata",
+                        "concreteType": "ServiceAccount",
                         "kind": "LinkedField",
-                        "name": "metadata",
+                        "name": "node",
                         "plural": false,
                         "selections": [
+                          (v8/*: any*/),
                           {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "updatedAt",
+                            "name": "groupPath",
                             "storageKey": null
-                          }
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ResourceMetadata",
+                            "kind": "LinkedField",
+                            "name": "metadata",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "updatedAt",
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "name",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "description",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "resourcePath",
+                            "storageKey": null
+                          },
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -200,28 +263,7 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "name",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "description",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "resourcePath",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "__typename",
+                        "name": "cursor",
                         "storageKey": null
                       }
                     ],
@@ -230,8 +272,40 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "cursor",
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "endCursor",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasNextPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasPreviousPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "startCursor",
+                        "storageKey": null
+                      }
+                    ],
                     "storageKey": null
                   }
                 ],
@@ -239,76 +313,37 @@ return {
               },
               {
                 "alias": null,
-                "args": null,
-                "concreteType": "PageInfo",
-                "kind": "LinkedField",
-                "name": "pageInfo",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "endCursor",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "hasNextPage",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "hasPreviousPage",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "startCursor",
-                    "storageKey": null
-                  }
+                "args": (v9/*: any*/),
+                "filters": [
+                  "includeInherited",
+                  "search",
+                  "sort"
                 ],
-                "storageKey": null
+                "handle": "connection",
+                "key": "ServiceAccountList_serviceAccounts",
+                "kind": "LinkedHandle",
+                "name": "serviceAccounts"
               }
             ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": (v1/*: any*/),
-            "filters": [
-              "includeInherited",
-              "search",
-              "sort"
-            ],
-            "handle": "connection",
-            "key": "ServiceAccountList_serviceAccounts",
-            "kind": "LinkedHandle",
-            "name": "serviceAccounts"
-          },
-          (v2/*: any*/)
+            "type": "Group",
+            "abstractKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "23b2dbc8ab022c48e819cd7f22644846",
+    "cacheID": "3e4a60da77c4befaf0c3df1d15b8aa53",
     "id": null,
     "metadata": {},
     "name": "ServiceAccountListPaginationQuery",
     "operationKind": "query",
-    "text": "query ServiceAccountListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $groupPath: String!\n  $last: Int\n  $search: String\n) {\n  ...ServiceAccountListFragment_serviceAccounts\n}\n\nfragment ServiceAccountListFragment_serviceAccounts on Query {\n  group(fullPath: $groupPath) {\n    serviceAccounts(after: $after, before: $before, first: $first, last: $last, includeInherited: true, search: $search, sort: GROUP_LEVEL_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          groupPath\n          ...ServiceAccountListItemFragment_serviceAccount\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ServiceAccountListItemFragment_serviceAccount on ServiceAccount {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  resourcePath\n  groupPath\n}\n"
+    "text": "query ServiceAccountListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $search: String\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ...ServiceAccountListFragment_serviceAccounts\n    id\n  }\n}\n\nfragment ServiceAccountListFragment_serviceAccounts on Group {\n  serviceAccounts(after: $after, before: $before, first: $first, last: $last, includeInherited: true, search: $search, sort: GROUP_LEVEL_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        groupPath\n        ...ServiceAccountListItemFragment_serviceAccount\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n  id\n}\n\nfragment ServiceAccountListItemFragment_serviceAccount on ServiceAccount {\n  metadata {\n    updatedAt\n  }\n  id\n  name\n  description\n  resourcePath\n  groupPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "16e0b15730f2b84496afb48f04a809af";
+(node as any).hash = "4adbbdfc3f8426f3dea9aa2831d7ac35";
 
 export default node;

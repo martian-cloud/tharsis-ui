@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { ArrowDropUp } from '@mui/icons-material';
 import { default as ArrowDropDown, default as ArrowDropDownIcon } from '@mui/icons-material/ArrowDropDown';
 import { LoadingButton } from '@mui/lab';
-import { Avatar, Alert, Box, Button, ButtonGroup, Collapse, Dialog, DialogActions, DialogTitle, DialogContent, Divider, Menu, MenuItem, Link, Paper, styled, Typography } from '@mui/material'
+import { Avatar, Alert, Box, Button, ButtonGroup, Collapse, Dialog, DialogActions, DialogTitle, DialogContent, Divider, Menu, MenuItem, Link, Paper, Stack, styled, Typography } from '@mui/material'
 import teal from '@mui/material/colors/teal';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
+import TRNButton from '../../common/TRNButton';
 import { MutationError } from '../../common/error';
 import { useFragment, useLazyLoadQuery, useMutation } from 'react-relay'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -138,6 +139,7 @@ function VCSProviderDetails(props: Props) {
                     autoCreateWebhooks
                     metadata {
                         createdAt
+                        trn
                     }
                 }
             }
@@ -278,46 +280,49 @@ function VCSProviderDetails(props: Props) {
                             </Box>
                         </Box>
                         <Box>
-                            <ButtonGroup variant="outlined" color="primary">
-                                <Button onClick={() => navigate('edit')}>Edit</Button>
-                                <Button
-                                    color="primary"
-                                    size="small"
-                                    aria-label="more options menu"
-                                    aria-haspopup="menu"
-                                    onClick={onOpenMenu}
+                            <Stack direction="row" spacing={1} >
+                                <TRNButton trn={vcsProvider.metadata.trn} />
+                                <ButtonGroup variant="outlined" color="primary">
+                                    <Button onClick={() => navigate('edit')}>Edit</Button>
+                                    <Button
+                                        color="primary"
+                                        size="small"
+                                        aria-label="more options menu"
+                                        aria-haspopup="menu"
+                                        onClick={onOpenMenu}
+                                    >
+                                        <ArrowDropDownIcon fontSize="small" />
+                                    </Button>
+                                </ButtonGroup>
+                                <Menu
+                                    id="vcs-provider-more-options-menu"
+                                    anchorEl={menuAnchorEl}
+                                    open={Boolean(menuAnchorEl)}
+                                    onClose={onMenuClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'right',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
                                 >
-                                    <ArrowDropDownIcon fontSize="small" />
-                                </Button>
-                            </ButtonGroup>
-                            <Menu
-                                id="vcs-provider-more-options-menu"
-                                anchorEl={menuAnchorEl}
-                                open={Boolean(menuAnchorEl)}
-                                onClose={onMenuClose}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                            >
-                                <MenuItem onClick={() => navigate('edit_oauth_credentials')}>
-                                    Edit OAuth Credentials
-                                </MenuItem>
-                                <MenuItem onClick={() => onMenuAction(() =>
-                                    setShowResetOAuthDialog(true))}>
-                                    Reset OAuth Token
-                                </MenuItem>
-                                <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
-                                    Delete VCS Provider
-                                </MenuItem>
-                            </Menu>
+                                    <MenuItem onClick={() => navigate('edit_oauth_credentials')}>
+                                        Edit OAuth Credentials
+                                    </MenuItem>
+                                    <MenuItem onClick={() => onMenuAction(() =>
+                                        setShowResetOAuthDialog(true))}>
+                                        Reset OAuth Token
+                                    </MenuItem>
+                                    <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
+                                        Delete VCS Provider
+                                    </MenuItem>
+                                </Menu>
+                            </Stack>
                         </Box>
                     </Box>
-                    <Divider light sx={{ marginTop: 2, marginBottom: 2, marginLeft: -CARD_PADDING, marginRight: -CARD_PADDING }} />
+                    <Divider sx={{ opacity: 0.6, marginTop: 2, marginBottom: 2, marginLeft: -CARD_PADDING, marginRight: -CARD_PADDING }} />
                     <Box>
                         <Box>
                             <FieldLabel>Type</FieldLabel>

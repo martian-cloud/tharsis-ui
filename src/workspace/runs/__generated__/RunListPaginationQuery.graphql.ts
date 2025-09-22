@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<eaa7450f961b53e1e6a0f763e91d7287>>
+ * @generated SignedSource<<e66af6e371ed72c8291c39712fabfe8a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -182,6 +182,13 @@ return {
                         "kind": "ScalarField",
                         "name": "createdAt",
                         "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "trn",
+                        "storageKey": null
                       }
                     ],
                     "storageKey": null
@@ -306,12 +313,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "84570cd832f014034c148a4e1da79370",
+    "cacheID": "60fb9a0b6851cdbd8a7f7c01b9c5bcdc",
     "id": null,
     "metadata": {},
     "name": "RunListPaginationQuery",
     "operationKind": "query",
-    "text": "query RunListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $workspaceAssessment: Boolean\n  $workspaceId: String\n) {\n  ...RunListFragment_runs\n}\n\nfragment RunListFragment_runs on Query {\n  runs(after: $after, before: $before, first: $first, last: $last, workspaceId: $workspaceId, sort: CREATED_AT_DESC, workspaceAssessment: $workspaceAssessment) {\n    totalCount\n    edges {\n      node {\n        id\n        ...RunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  assessment\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n"
+    "text": "query RunListPaginationQuery(\n  $after: String\n  $before: String\n  $first: Int\n  $last: Int\n  $workspaceAssessment: Boolean\n  $workspaceId: String\n) {\n  ...RunListFragment_runs\n}\n\nfragment RunListFragment_runs on Query {\n  runs(after: $after, before: $before, first: $first, last: $last, workspaceId: $workspaceId, sort: CREATED_AT_DESC, workspaceAssessment: $workspaceAssessment) {\n    totalCount\n    edges {\n      node {\n        id\n        ...RunListItemFragment_run\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment RunListItemFragment_run on Run {\n  metadata {\n    createdAt\n    trn\n  }\n  id\n  createdBy\n  status\n  isDestroy\n  assessment\n  plan {\n    status\n    id\n  }\n  apply {\n    status\n    id\n  }\n}\n"
   }
 };
 })();

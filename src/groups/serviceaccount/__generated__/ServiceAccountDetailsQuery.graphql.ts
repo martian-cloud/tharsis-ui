@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a49a0c6d52df0c7e7c3059b28a8e410>>
+ * @generated SignedSource<<a274bfa456f172f591ce982ce5699590>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,6 +20,7 @@ export type ServiceAccountDetailsQuery$data = {
     readonly id: string;
     readonly metadata: {
       readonly createdAt: any;
+      readonly trn: string;
     };
     readonly name: string;
     readonly oidcTrustPolicies: ReadonlyArray<{
@@ -81,6 +82,13 @@ v2 = [
             "args": null,
             "kind": "ScalarField",
             "name": "createdAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "trn",
             "storageKey": null
           }
         ],
@@ -181,16 +189,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "8972a5dda929afa12be864e21e7104e2",
+    "cacheID": "36dce8f7ac229170882293aa5ddb832f",
     "id": null,
     "metadata": {},
     "name": "ServiceAccountDetailsQuery",
     "operationKind": "query",
-    "text": "query ServiceAccountDetailsQuery(\n  $id: String!\n) {\n  serviceAccount(id: $id) {\n    metadata {\n      createdAt\n    }\n    id\n    name\n    description\n    resourcePath\n    createdBy\n    oidcTrustPolicies {\n      issuer\n      boundClaimsType\n      boundClaims {\n        name\n        value\n      }\n    }\n  }\n}\n"
+    "text": "query ServiceAccountDetailsQuery(\n  $id: String!\n) {\n  serviceAccount(id: $id) {\n    metadata {\n      createdAt\n      trn\n    }\n    id\n    name\n    description\n    resourcePath\n    createdBy\n    oidcTrustPolicies {\n      issuer\n      boundClaimsType\n      boundClaims {\n        name\n        value\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8b2da3c5dcb21291019a582e68ddb405";
+(node as any).hash = "e80eb2d11d1fa9348a5c99e01d3cbf3b";
 
 export default node;

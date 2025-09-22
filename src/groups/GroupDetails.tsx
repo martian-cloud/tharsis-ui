@@ -10,6 +10,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import { LinkProps, Route, Routes } from 'react-router-dom';
 import { GroupIcon, WorkspaceIcon } from '../common/Icons';
+import TRNButton from '../common/TRNButton';
 import Variables from '../namespace/variables/Variables';
 import NamespaceMemberships from '../namespace/members/NamespaceMemberships';
 import NamespaceBreadcrumbs from '../namespace/NamespaceBreadcrumbs';
@@ -156,15 +157,20 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
     const data = useFragment<GroupDetailsIndexFragment_group$key>(
         graphql`
             fragment GroupDetailsIndexFragment_group on Group {
+                id
                 name
                 description
                 fullPath
+                metadata {
+                    trn
+                }
                 workspaces(first: 0) {
                     totalCount
                 }
                 descendentGroups(first: 0) {
                     totalCount
                 }
+                ...WorkspaceListFragment_group
                 ...MigrateGroupDialogFragment_group
                 ...GroupNotificationPreferenceFragment_group
             }
@@ -250,6 +256,7 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
                     <Box>
                         <Stack direction="row" spacing={1}>
                             <GroupNotificationPreference fragmentRef={data} />
+                            <TRNButton trn={data.metadata.trn} size="small" />
                             <Button size="small" variant="outlined" color="info" onClick={() => (navigate(`/workspaces/-/new?parent=${data.fullPath}`))}>New Workspace</Button>
                             <Button size="small" variant="outlined" color="info" onClick={() => (navigate(`/groups/-/new?parent=${data.fullPath}`))}>New Subgroup</Button>
                         </Stack>
@@ -276,7 +283,7 @@ function GroupDetailsIndex(props: GroupDetailsIndexProps) {
                     </Box>
                     <TabPanel value="workspaces">
                         {data.workspaces.totalCount > 0 && <Suspense fallback={<ListSkeleton rowCount={10} />}>
-                            <WorkspaceList groupPath={data.fullPath} />
+                            <WorkspaceList fragmentRef={data}/>
                         </Suspense>}
                         {data.workspaces.totalCount === 0 && <Box padding={4} display="flex" justifyContent="center" alignItems="center">
                             <Typography color="textSecondary">No workspaces in this group</Typography>

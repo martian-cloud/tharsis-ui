@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<974d62a5a94edf3aa74ad5d3c13cb7df>>
+ * @generated SignedSource<<253188ff0f37b47834cd1536219784cc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,12 +14,14 @@ export type ManagedIdentityListQuery$variables = {
   after?: string | null | undefined;
   before?: string | null | undefined;
   first?: number | null | undefined;
-  groupPath: string;
+  groupId: string;
   last?: number | null | undefined;
   search?: string | null | undefined;
 };
 export type ManagedIdentityListQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityListFragment_managedIdentities">;
+  readonly node: {
+    readonly " $fragmentSpreads": FragmentRefs<"ManagedIdentityListFragment_managedIdentities">;
+  } | null | undefined;
 };
 export type ManagedIdentityListQuery = {
   response: ManagedIdentityListQuery$data;
@@ -45,7 +47,7 @@ v2 = {
 v3 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "groupPath"
+  "name": "groupId"
 },
 v4 = {
   "defaultValue": null,
@@ -58,6 +60,27 @@ v5 = {
   "name": "search"
 },
 v6 = [
+  {
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "groupId"
+  }
+],
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v9 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -93,14 +116,7 @@ v6 = [
     "name": "sort",
     "value": "GROUP_LEVEL_DESC"
   }
-],
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -116,9 +132,27 @@ return {
     "name": "ManagedIdentityListQuery",
     "selections": [
       {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "ManagedIdentityListFragment_managedIdentities"
+        "alias": null,
+        "args": (v6/*: any*/),
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "node",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "ManagedIdentityListFragment_managedIdentities"
+              }
+            ],
+            "type": "Group",
+            "abstractKey": null
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -139,72 +173,110 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "fullPath",
-            "variableName": "groupPath"
-          }
-        ],
-        "concreteType": "Group",
+        "args": (v6/*: any*/),
+        "concreteType": null,
         "kind": "LinkedField",
-        "name": "group",
+        "name": "node",
         "plural": false,
         "selections": [
+          (v7/*: any*/),
+          (v8/*: any*/),
           {
-            "alias": null,
-            "args": (v6/*: any*/),
-            "concreteType": "ManagedIdentityConnection",
-            "kind": "LinkedField",
-            "name": "managedIdentities",
-            "plural": false,
+            "kind": "InlineFragment",
             "selections": [
               {
                 "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "totalCount",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ManagedIdentityEdge",
+                "args": (v9/*: any*/),
+                "concreteType": "ManagedIdentityConnection",
                 "kind": "LinkedField",
-                "name": "edges",
-                "plural": true,
+                "name": "managedIdentities",
+                "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "ManagedIdentity",
+                    "kind": "ScalarField",
+                    "name": "totalCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ManagedIdentityEdge",
                     "kind": "LinkedField",
-                    "name": "node",
-                    "plural": false,
+                    "name": "edges",
+                    "plural": true,
                     "selections": [
-                      (v7/*: any*/),
                       {
                         "alias": null,
                         "args": null,
-                        "kind": "ScalarField",
-                        "name": "groupPath",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ResourceMetadata",
+                        "concreteType": "ManagedIdentity",
                         "kind": "LinkedField",
-                        "name": "metadata",
+                        "name": "node",
                         "plural": false,
                         "selections": [
+                          (v8/*: any*/),
                           {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "updatedAt",
+                            "name": "groupPath",
                             "storageKey": null
-                          }
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ResourceMetadata",
+                            "kind": "LinkedField",
+                            "name": "metadata",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "updatedAt",
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "isAlias",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "name",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "description",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "type",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "resourcePath",
+                            "storageKey": null
+                          },
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -212,42 +284,7 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "isAlias",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "name",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "description",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "type",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "resourcePath",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "__typename",
+                        "name": "cursor",
                         "storageKey": null
                       }
                     ],
@@ -256,8 +293,40 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "cursor",
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "endCursor",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasNextPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasPreviousPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "startCursor",
+                        "storageKey": null
+                      }
+                    ],
                     "storageKey": null
                   }
                 ],
@@ -265,76 +334,37 @@ return {
               },
               {
                 "alias": null,
-                "args": null,
-                "concreteType": "PageInfo",
-                "kind": "LinkedField",
-                "name": "pageInfo",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "endCursor",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "hasNextPage",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "hasPreviousPage",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "startCursor",
-                    "storageKey": null
-                  }
+                "args": (v9/*: any*/),
+                "filters": [
+                  "search",
+                  "includeInherited",
+                  "sort"
                 ],
-                "storageKey": null
+                "handle": "connection",
+                "key": "ManagedIdentityList_managedIdentities",
+                "kind": "LinkedHandle",
+                "name": "managedIdentities"
               }
             ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": (v6/*: any*/),
-            "filters": [
-              "search",
-              "includeInherited",
-              "sort"
-            ],
-            "handle": "connection",
-            "key": "ManagedIdentityList_managedIdentities",
-            "kind": "LinkedHandle",
-            "name": "managedIdentities"
-          },
-          (v7/*: any*/)
+            "type": "Group",
+            "abstractKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "020fa7f2481e410b2ec298203781be04",
+    "cacheID": "07ac1db2b4bdbb03a6fa296a2d6b4967",
     "id": null,
     "metadata": {},
     "name": "ManagedIdentityListQuery",
     "operationKind": "query",
-    "text": "query ManagedIdentityListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupPath: String!\n  $search: String\n) {\n  ...ManagedIdentityListFragment_managedIdentities\n}\n\nfragment ManagedIdentityListFragment_managedIdentities on Query {\n  group(fullPath: $groupPath) {\n    managedIdentities(after: $after, before: $before, first: $first, last: $last, search: $search, includeInherited: true, sort: GROUP_LEVEL_DESC) {\n      totalCount\n      edges {\n        node {\n          id\n          groupPath\n          ...ManagedIdentityListItemFragment_managedIdentity\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        startCursor\n      }\n    }\n    id\n  }\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  isAlias\n  name\n  description\n  type\n  resourcePath\n  groupPath\n}\n"
+    "text": "query ManagedIdentityListQuery(\n  $first: Int\n  $last: Int\n  $after: String\n  $before: String\n  $groupId: String!\n  $search: String\n) {\n  node(id: $groupId) {\n    __typename\n    ... on Group {\n      ...ManagedIdentityListFragment_managedIdentities\n    }\n    id\n  }\n}\n\nfragment ManagedIdentityListFragment_managedIdentities on Group {\n  managedIdentities(after: $after, before: $before, first: $first, last: $last, search: $search, includeInherited: true, sort: GROUP_LEVEL_DESC) {\n    totalCount\n    edges {\n      node {\n        id\n        groupPath\n        ...ManagedIdentityListItemFragment_managedIdentity\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n  id\n}\n\nfragment ManagedIdentityListItemFragment_managedIdentity on ManagedIdentity {\n  metadata {\n    updatedAt\n  }\n  id\n  isAlias\n  name\n  description\n  type\n  resourcePath\n  groupPath\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e2040388202afb7e059b0eef4dab75e4";
+(node as any).hash = "cd741d437a029d760c0b5601bd23f04a";
 
 export default node;

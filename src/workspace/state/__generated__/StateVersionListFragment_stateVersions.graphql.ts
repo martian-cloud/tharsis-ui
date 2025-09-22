@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<18ea9139e78e57bb55150148bbfe6af4>>
+ * @generated SignedSource<<dd1d238b5f8c28e5b59f17de3c90a03f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,16 +11,15 @@
 import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type StateVersionListFragment_stateVersions$data = {
-  readonly workspace: {
-    readonly stateVersions: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly id: string;
-          readonly " $fragmentSpreads": FragmentRefs<"StateVersionListItemFragment_stateVersion">;
-        } | null | undefined;
-      } | null | undefined> | null | undefined;
-    };
-  } | null | undefined;
+  readonly id: string;
+  readonly stateVersions: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"StateVersionListItemFragment_stateVersion">;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
+  };
   readonly " $fragmentType": "StateVersionListFragment_stateVersions";
 };
 export type StateVersionListFragment_stateVersions$key = {
@@ -32,9 +31,15 @@ import StateVersionListPaginationQuery_graphql from './StateVersionListPaginatio
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "workspace",
   "stateVersions"
-];
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [
     {
@@ -48,10 +53,6 @@ return {
     {
       "kind": "RootArgument",
       "name": "first"
-    },
-    {
-      "kind": "RootArgument",
-      "name": "fullPath"
     },
     {
       "kind": "RootArgument",
@@ -80,83 +81,59 @@ return {
         },
         "path": (v0/*: any*/)
       },
-      "fragmentPathInResult": [],
-      "operation": StateVersionListPaginationQuery_graphql
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": StateVersionListPaginationQuery_graphql,
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "StateVersionListFragment_stateVersions",
   "selections": [
     {
-      "alias": null,
+      "alias": "stateVersions",
       "args": [
         {
-          "kind": "Variable",
-          "name": "fullPath",
-          "variableName": "fullPath"
+          "kind": "Literal",
+          "name": "sort",
+          "value": "UPDATED_AT_ASC"
         }
       ],
-      "concreteType": "Workspace",
+      "concreteType": "StateVersionConnection",
       "kind": "LinkedField",
-      "name": "workspace",
+      "name": "__StateVersionList_stateVersions_connection",
       "plural": false,
       "selections": [
         {
-          "alias": "stateVersions",
-          "args": [
-            {
-              "kind": "Literal",
-              "name": "sort",
-              "value": "UPDATED_AT_ASC"
-            }
-          ],
-          "concreteType": "StateVersionConnection",
+          "alias": null,
+          "args": null,
+          "concreteType": "StateVersionEdge",
           "kind": "LinkedField",
-          "name": "__StateVersionList_stateVersions_connection",
-          "plural": false,
+          "name": "edges",
+          "plural": true,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "concreteType": "StateVersionEdge",
+              "concreteType": "StateVersion",
               "kind": "LinkedField",
-              "name": "edges",
-              "plural": true,
+              "name": "node",
+              "plural": false,
               "selections": [
+                (v1/*: any*/),
                 {
-                  "alias": null,
                   "args": null,
-                  "concreteType": "StateVersion",
-                  "kind": "LinkedField",
-                  "name": "node",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "id",
-                      "storageKey": null
-                    },
-                    {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "StateVersionListItemFragment_stateVersion"
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "__typename",
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
+                  "kind": "FragmentSpread",
+                  "name": "StateVersionListItemFragment_stateVersion"
                 },
                 {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
-                  "name": "cursor",
+                  "name": "__typename",
                   "storageKey": null
                 }
               ],
@@ -165,54 +142,62 @@ return {
             {
               "alias": null,
               "args": null,
-              "concreteType": "PageInfo",
-              "kind": "LinkedField",
-              "name": "pageInfo",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "endCursor",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "hasNextPage",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "hasPreviousPage",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "startCursor",
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "cursor",
               "storageKey": null
             }
           ],
-          "storageKey": "__StateVersionList_stateVersions_connection(sort:\"UPDATED_AT_ASC\")"
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "endCursor",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "hasPreviousPage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "startCursor",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
         }
       ],
-      "storageKey": null
-    }
+      "storageKey": "__StateVersionList_stateVersions_connection(sort:\"UPDATED_AT_ASC\")"
+    },
+    (v1/*: any*/)
   ],
-  "type": "Query",
+  "type": "Workspace",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "d011d0f50c9c75780120ee74a1b9fc94";
+(node as any).hash = "750e6869eb734b2916ae1f74749e719e";
 
 export default node;
