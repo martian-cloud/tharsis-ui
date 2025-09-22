@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useFragment, useLazyLoadQuery } from 'react-relay';
 import { useParams } from 'react-router-dom';
 import Gravatar from '../../common/Gravatar';
+import TRNButton from '../../common/TRNButton';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
 import StateVersionFile from './StateVersionFile';
 import { StateVersionDetailsFragment_details$key } from './__generated__/StateVersionDetailsFragment_details.graphql';
@@ -34,6 +35,7 @@ function StateVersionDetails(props: Props) {
                     createdBy
                     metadata {
                         createdAt
+                        trn
                     }
                     run {
                         createdBy
@@ -55,22 +57,25 @@ function StateVersionDetails(props: Props) {
                     { title: `${stateVersionId.substring(0, 8)}...`, path: stateVersionId }
                 ]}
             />
-            <Box display="flex" alignItems="center">
-                <Typography component="div" sx={{ paddingRight: '6px' }}>State version created{' '}
-                    <Tooltip sx={{ display: 'inline-block' }} title={queryData.node?.metadata?.createdAt as string}>
-                        <Box display="flex" alignItems="center">{moment(queryData.node?.metadata?.createdAt as moment.MomentInput).fromNow()}</Box>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Box display="flex" alignItems="center">
+                    <Typography component="div" sx={{ paddingRight: '6px' }}>State version created{' '}
+                        <Tooltip sx={{ display: 'inline-block' }} title={queryData.node?.metadata?.createdAt as string}>
+                            <Box display="flex" alignItems="center">{moment(queryData.node?.metadata?.createdAt as moment.MomentInput).fromNow()}</Box>
+                        </Tooltip>
+                        {' '}by
+                    </Typography>
+                    <Tooltip title={createdBy}>
+                        <Box>
+                            <Gravatar width={20} height={20} email={createdBy} />
+                        </Box>
                     </Tooltip>
-                    {' '}by
-                </Typography>
-                <Tooltip title={createdBy}>
-                    <Box>
-                        <Gravatar width={20} height={20} email={createdBy} />
-                    </Box>
-                </Tooltip>
+                </Box>
+                <TRNButton trn={queryData.node?.metadata?.trn || ''} size="small" />
             </Box>
             <StateVersionFile fragmentRef={queryData.node} />
         </Box>
-    ) : <Box>Not Found</Box>
+    ) : <Box>Not Found</Box>;
 }
 
 export default StateVersionDetails

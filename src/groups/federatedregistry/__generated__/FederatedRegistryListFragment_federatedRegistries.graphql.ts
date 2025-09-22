@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a1939b51fe87c92997e341e9a3e567ff>>
+ * @generated SignedSource<<906aa46a809bece288587179e3522e85>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,17 +11,16 @@
 import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FederatedRegistryListFragment_federatedRegistries$data = {
-  readonly group: {
-    readonly federatedRegistries: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly id: string;
-          readonly " $fragmentSpreads": FragmentRefs<"FederatedRegistryListItemFragment_federatedRegistry">;
-        } | null | undefined;
-      } | null | undefined> | null | undefined;
-      readonly totalCount: number;
-    };
-  } | null | undefined;
+  readonly federatedRegistries: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"FederatedRegistryListItemFragment_federatedRegistry">;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
+    readonly totalCount: number;
+  };
+  readonly id: string;
   readonly " $fragmentType": "FederatedRegistryListFragment_federatedRegistries";
 };
 export type FederatedRegistryListFragment_federatedRegistries$key = {
@@ -33,9 +32,15 @@ import FederatedRegistryListPaginationQuery_graphql from './FederatedRegistryLis
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "group",
   "federatedRegistries"
-];
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [
     {
@@ -49,10 +54,6 @@ return {
     {
       "kind": "RootArgument",
       "name": "first"
-    },
-    {
-      "kind": "RootArgument",
-      "name": "groupPath"
     },
     {
       "kind": "RootArgument",
@@ -81,146 +82,130 @@ return {
         },
         "path": (v0/*: any*/)
       },
-      "fragmentPathInResult": [],
-      "operation": FederatedRegistryListPaginationQuery_graphql
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": FederatedRegistryListPaginationQuery_graphql,
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "FederatedRegistryListFragment_federatedRegistries",
   "selections": [
     {
-      "alias": null,
+      "alias": "federatedRegistries",
       "args": [
         {
-          "kind": "Variable",
-          "name": "fullPath",
-          "variableName": "groupPath"
+          "kind": "Literal",
+          "name": "sort",
+          "value": "UPDATED_AT_DESC"
         }
       ],
-      "concreteType": "Group",
+      "concreteType": "FederatedRegistryConnection",
       "kind": "LinkedField",
-      "name": "group",
+      "name": "__FederatedRegistryList_federatedRegistries_connection",
       "plural": false,
       "selections": [
         {
-          "alias": "federatedRegistries",
-          "args": [
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "FederatedRegistryEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
             {
-              "kind": "Literal",
-              "name": "sort",
-              "value": "UPDATED_AT_DESC"
+              "alias": null,
+              "args": null,
+              "concreteType": "FederatedRegistry",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                (v1/*: any*/),
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "FederatedRegistryListItemFragment_federatedRegistry"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
             }
           ],
-          "concreteType": "FederatedRegistryConnection",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
           "kind": "LinkedField",
-          "name": "__FederatedRegistryList_federatedRegistries_connection",
+          "name": "pageInfo",
           "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "totalCount",
+              "name": "endCursor",
               "storageKey": null
             },
             {
               "alias": null,
               "args": null,
-              "concreteType": "FederatedRegistryEdge",
-              "kind": "LinkedField",
-              "name": "edges",
-              "plural": true,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "FederatedRegistry",
-                  "kind": "LinkedField",
-                  "name": "node",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "id",
-                      "storageKey": null
-                    },
-                    {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "FederatedRegistryListItemFragment_federatedRegistry"
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "__typename",
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "cursor",
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             },
             {
               "alias": null,
               "args": null,
-              "concreteType": "PageInfo",
-              "kind": "LinkedField",
-              "name": "pageInfo",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "endCursor",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "hasNextPage",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "hasPreviousPage",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "startCursor",
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "hasPreviousPage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "startCursor",
               "storageKey": null
             }
           ],
-          "storageKey": "__FederatedRegistryList_federatedRegistries_connection(sort:\"UPDATED_AT_DESC\")"
+          "storageKey": null
         }
       ],
-      "storageKey": null
-    }
+      "storageKey": "__FederatedRegistryList_federatedRegistries_connection(sort:\"UPDATED_AT_DESC\")"
+    },
+    (v1/*: any*/)
   ],
-  "type": "Query",
+  "type": "Group",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "f6780defff55c5ab66f269d530c93573";
+(node as any).hash = "18a51d04d409ff6eaf280e7fa6ca023f";
 
 export default node;

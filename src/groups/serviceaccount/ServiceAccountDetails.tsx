@@ -1,7 +1,7 @@
 import { ArrowDropUp } from '@mui/icons-material';
 import { default as ArrowDropDown, default as ArrowDropDownIcon } from '@mui/icons-material/ArrowDropDown';
 import { LoadingButton } from '@mui/lab';
-import { Avatar, ButtonGroup, Chip, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Link, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Avatar, ButtonGroup, Chip, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Link, Menu, MenuItem, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import teal from '@mui/material/colors/teal';
@@ -13,6 +13,7 @@ import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useFragment, useLazyLoadQuery, useMutation } from "react-relay/hooks";
 import { useNavigate, useParams } from 'react-router-dom';
+import TRNButton from '../../common/TRNButton';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
 import { GetConnections } from './ServiceAccountList';
 import { ServiceAccountDetailsDeleteMutation } from './__generated__/ServiceAccountDetailsDeleteMutation.graphql';
@@ -81,6 +82,7 @@ function ServiceAccountDetails(props: Props) {
             serviceAccount(id: $id) {
                 metadata {
                     createdAt
+                    trn
                 }
                 id
                 name
@@ -179,39 +181,42 @@ function ServiceAccountDetails(props: Props) {
                             </Box>
                         </Box>
                         <Box>
-                            <ButtonGroup variant="outlined" color="primary">
-                                <Button onClick={() => navigate('edit')}>Edit</Button>
-                                <Button
-                                    color="primary"
-                                    size="small"
-                                    aria-label="more options menu"
-                                    aria-haspopup="menu"
-                                    onClick={onOpenMenu}
+                            <Stack direction="row" spacing={1}>
+                                <TRNButton trn={data.serviceAccount.metadata.trn} />
+                                <ButtonGroup variant="outlined" color="primary">
+                                    <Button onClick={() => navigate('edit')}>Edit</Button>
+                                    <Button
+                                        color="primary"
+                                        size="small"
+                                        aria-label="more options menu"
+                                        aria-haspopup="menu"
+                                        onClick={onOpenMenu}
+                                    >
+                                        <ArrowDropDownIcon fontSize="small" />
+                                    </Button>
+                                </ButtonGroup>
+                                <Menu
+                                    id="service-account-more-options-menu"
+                                    anchorEl={menuAnchorEl}
+                                    open={Boolean(menuAnchorEl)}
+                                    onClose={onMenuClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'right',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
                                 >
-                                    <ArrowDropDownIcon fontSize="small" />
-                                </Button>
-                            </ButtonGroup>
-                            <Menu
-                                id="service-account-more-options-menu"
-                                anchorEl={menuAnchorEl}
-                                open={Boolean(menuAnchorEl)}
-                                onClose={onMenuClose}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                            >
-                                <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
-                                    Delete Service Account
-                                </MenuItem>
-                            </Menu>
+                                    <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
+                                        Delete Service Account
+                                    </MenuItem>
+                                </Menu>
+                            </Stack>
                         </Box>
                     </Box>
-                    <Divider light sx={{ marginTop: 2, marginBottom: 2, marginLeft: -CARD_PADDING, marginRight: -CARD_PADDING }} />
+                    <Divider sx={{ opacity: 0.6, marginTop: 2, marginBottom: 2, marginLeft: -CARD_PADDING, marginRight: -CARD_PADDING }} />
                     <Box>
                         <Typography>Trusted Identity Providers</Typography>
                         <Typography variant="caption">

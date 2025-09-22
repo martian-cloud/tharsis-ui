@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9ed2830699a3d305504911346f9e6c63>>
+ * @generated SignedSource<<0f8df4e260aaad595df1aed5534c7384>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -157,6 +157,13 @@ return {
                     "kind": "ScalarField",
                     "name": "createdAt",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "trn",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -213,12 +220,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e928f6096188d172c366d88935f6f335",
+    "cacheID": "8cce24ed5933dd0d89a2b046f0717239",
     "id": null,
     "metadata": {},
     "name": "AdminAreaUserListItemUpdateUserAdminStatusMutation",
     "operationKind": "mutation",
-    "text": "mutation AdminAreaUserListItemUpdateUserAdminStatusMutation(\n  $input: UpdateUserAdminStatusInput!\n) {\n  updateUserAdminStatus(input: $input) {\n    user {\n      ...AdminAreaUserListItemFragment_user\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment AdminAreaUserListItemFragment_user on User {\n  metadata {\n    createdAt\n  }\n  id\n  username\n  email\n  admin\n  active\n  scimExternalId\n}\n"
+    "text": "mutation AdminAreaUserListItemUpdateUserAdminStatusMutation(\n  $input: UpdateUserAdminStatusInput!\n) {\n  updateUserAdminStatus(input: $input) {\n    user {\n      ...AdminAreaUserListItemFragment_user\n      id\n    }\n    problems {\n      message\n      field\n      type\n    }\n  }\n}\n\nfragment AdminAreaUserListItemFragment_user on User {\n  metadata {\n    createdAt\n    trn\n  }\n  id\n  username\n  email\n  admin\n  active\n  scimExternalId\n}\n"
   }
 };
 })();

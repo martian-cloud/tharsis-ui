@@ -22,6 +22,7 @@ function StateVersionListItem(props: Props) {
             createdBy
             metadata {
                 createdAt
+                trn
             }
             run {
                 id
@@ -52,7 +53,7 @@ function StateVersionListItem(props: Props) {
                 </Tooltip>
             </TableCell>
         </TableRow>
-    )
+    );
 }
 
 export default StateVersionListItem

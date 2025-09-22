@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f1608ed1d9cb6f7ee8e5c378369a005c>>
+ * @generated SignedSource<<733e0d531c00493423ea923bfdcb238f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,21 +10,21 @@
 
 import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FederatedRegistryListFragment_group$data = {
+export type StateVersionListFragment_workspace$data = {
   readonly fullPath: string;
   readonly id: string;
-  readonly " $fragmentType": "FederatedRegistryListFragment_group";
+  readonly " $fragmentType": "StateVersionListFragment_workspace";
 };
-export type FederatedRegistryListFragment_group$key = {
-  readonly " $data"?: FederatedRegistryListFragment_group$data;
-  readonly " $fragmentSpreads": FragmentRefs<"FederatedRegistryListFragment_group">;
+export type StateVersionListFragment_workspace$key = {
+  readonly " $data"?: StateVersionListFragment_workspace$data;
+  readonly " $fragmentSpreads": FragmentRefs<"StateVersionListFragment_workspace">;
 };
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "FederatedRegistryListFragment_group",
+  "name": "StateVersionListFragment_workspace",
   "selections": [
     {
       "alias": null,
@@ -41,10 +41,10 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "Group",
+  "type": "Workspace",
   "abstractKey": null
 };
 
-(node as any).hash = "18ab470860554d173f8fe643dabc517a";
+(node as any).hash = "b3c69515a35665a2eace8dc61eeca785";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f4ec68f5b650d4c8f6f51d7e48becb8d>>
+ * @generated SignedSource<<a3768efc1a4f7c6a3be84a0c44aced5e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type VCSProviderListFragment_group$data = {
   readonly fullPath: string;
+  readonly id: string;
   readonly " $fragmentType": "VCSProviderListFragment_group";
 };
 export type VCSProviderListFragment_group$key = {
@@ -29,6 +30,13 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "fullPath",
       "storageKey": null
     }
@@ -37,6 +45,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "e0119fdedfcf1e610bd6b8b7060f7eaa";
+(node as any).hash = "29c6e82e89b026a1c950c9d4d76eb2a7";
 
 export default node;

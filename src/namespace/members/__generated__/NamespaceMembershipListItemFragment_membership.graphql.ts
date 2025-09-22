@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1fb9c3290c26d22fc7d1b2fe2db01cdd>>
+ * @generated SignedSource<<a880f6a80c6c1c30d196a374a9327e45>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -33,6 +33,7 @@ export type NamespaceMembershipListItemFragment_membership$data = {
   } | null | undefined;
   readonly metadata: {
     readonly createdAt: any;
+    readonly trn: string;
     readonly updatedAt: any;
   };
   readonly resourcePath: string;
@@ -94,6 +95,13 @@ return {
           "args": null,
           "kind": "ScalarField",
           "name": "updatedAt",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
           "storageKey": null
         }
       ],
@@ -178,6 +186,6 @@ return {
 };
 })();
 
-(node as any).hash = "529a49cd5f96f6bef77cacd0ec0b9d64";
+(node as any).hash = "cb80f9347c88c41660dfba0d0013b4e6";
 
 export default node;

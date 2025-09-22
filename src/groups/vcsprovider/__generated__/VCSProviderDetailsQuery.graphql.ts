@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aa1ba8776c104d66f5761624611ba797>>
+ * @generated SignedSource<<7ebc5a45234cf49af44c6449ec5731f7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,7 @@ export type VCSProviderDetailsQuery$data = {
     readonly id?: string;
     readonly metadata?: {
       readonly createdAt: any;
+      readonly trn: string;
     };
     readonly name?: string;
     readonly resourcePath?: string;
@@ -118,6 +119,13 @@ v10 = {
       "kind": "ScalarField",
       "name": "createdAt",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "trn",
+      "storageKey": null
     }
   ],
   "storageKey": null
@@ -203,16 +211,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "75d037d7187baeed51d68a4e70d78645",
+    "cacheID": "6641d8c88edf47fff1ce53e490100ae0",
     "id": null,
     "metadata": {},
     "name": "VCSProviderDetailsQuery",
     "operationKind": "query",
-    "text": "query VCSProviderDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on VCSProvider {\n      id\n      name\n      createdBy\n      description\n      type\n      url\n      resourcePath\n      autoCreateWebhooks\n      metadata {\n        createdAt\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query VCSProviderDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on VCSProvider {\n      id\n      name\n      createdBy\n      description\n      type\n      url\n      resourcePath\n      autoCreateWebhooks\n      metadata {\n        createdAt\n        trn\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f6dad9f6be39c7b6d0461371513ef9b5";
+(node as any).hash = "7333b2d5e7da9030e72168f8b1db4167";
 
 export default node;

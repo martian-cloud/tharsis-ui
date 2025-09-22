@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e7f3afc6e43cef70942b89a86bf0910a>>
+ * @generated SignedSource<<1d53cc0fccf463d4582f12d05dd48643>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,9 @@ export type TerraformModuleVersionDetailsIndexFragment_details$data = {
     readonly " $fragmentSpreads": FragmentRefs<"TerraformModuleVersionDocsFragment_configurationDetails">;
   } | null | undefined;
   readonly id: string;
+  readonly metadata: {
+    readonly trn: string;
+  };
   readonly module: {
     readonly id: string;
     readonly name: string;
@@ -61,6 +64,24 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "status",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ResourceMetadata",
+      "kind": "LinkedField",
+      "name": "metadata",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -153,6 +174,6 @@ return {
 };
 })();
 
-(node as any).hash = "912b2903908615e5c5c27e002adb01e1";
+(node as any).hash = "c4e8b6416cb733b294499a71614d1422";
 
 export default node;

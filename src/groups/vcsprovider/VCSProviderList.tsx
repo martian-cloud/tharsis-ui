@@ -18,8 +18,12 @@ const DESCRIPTION = 'Version control system (VCS) providers allow connections be
 const INITIAL_ITEM_COUNT = 100;
 
 const query = graphql`
-    query VCSProviderListQuery($first: Int, $last: Int, $after: String, $before: String, $groupPath: String!, $search: String) {
-        ...VCSProviderListFragment_vcsProviders
+    query VCSProviderListQuery($first: Int, $last: Int, $after: String, $before: String, $groupId: String!, $search: String) {
+        node(id: $groupId) {
+            ...on Group {
+                ...VCSProviderListFragment_vcsProviders
+            }
+        }
     }
 `;
 
@@ -45,17 +49,17 @@ function VCSProviderList(props: Props) {
         graphql`
         fragment VCSProviderListFragment_group on Group
         {
+            id
             fullPath
         }
-    `, props.fragmentRef)
+    `, props.fragmentRef);
 
-    const queryData = useLazyLoadQuery<VCSProviderListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath }, { fetchPolicy: 'store-and-network' })
+    const queryData = useLazyLoadQuery<VCSProviderListQuery>(query, { first: INITIAL_ITEM_COUNT, groupId: group.id }, { fetchPolicy: 'store-and-network' })
 
     const { data, loadNext, hasNext, refetch } = usePaginationFragment<VCSProviderListPaginationQuery,VCSProviderListFragment_vcsProviders$key>(
         graphql`
-      fragment VCSProviderListFragment_vcsProviders on Query
+      fragment VCSProviderListFragment_vcsProviders on Group
       @refetchable(queryName: "VCSProviderListPaginationQuery") {
-        group(fullPath: $groupPath) {
             vcsProviders(
                 after: $after
                 before: $before
@@ -74,9 +78,8 @@ function VCSProviderList(props: Props) {
                     }
                 }
             }
-        }
       }
-    `, queryData);
+    `, queryData.node);
 
     const environment = useRelayEnvironment();
 
@@ -86,7 +89,7 @@ function VCSProviderList(props: Props) {
                 (input?: string) => {
                     setIsRefreshing(true);
 
-                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath, search: input })
+                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, groupId: group.id, search: input })
                         .subscribe({
                             complete: () => {
                                 setIsRefreshing(false);
@@ -112,7 +115,7 @@ function VCSProviderList(props: Props) {
                 2000,
                 { leading: false, trailing: true }
             ),
-        [environment, refetch, group.fullPath],
+        [environment, refetch, group.id],
     );
 
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,7 +137,7 @@ function VCSProviderList(props: Props) {
                     { title: "vcs providers", path: "vcs_providers" }
                 ]}
             />
-            {(search !== '' || data.group?.vcsProviders.edges?.length !== 0) && <Box>
+            {(search !== '' || data?.vcsProviders.edges?.length !== 0) && <Box>
                 <Box>
                     <Box sx={{
                         display: 'flex',
@@ -169,11 +172,11 @@ function VCSProviderList(props: Props) {
                 <Paper sx={{ borderBottomLeftRadius: 0, borderBottomRightRadius: 0, border: `1px solid ${theme.palette.divider}` }}>
                     <Box padding={2} display="flex" alignItems="center" justifyContent="space-between">
                         <Typography variant="subtitle1">
-                            {data.group?.vcsProviders.totalCount} VCS provider{data.group?.vcsProviders.totalCount === 1 ? '' : 's'}
+                            {data?.vcsProviders.totalCount} VCS provider{data?.vcsProviders.totalCount === 1 ? '' : 's'}
                         </Typography>
                     </Box>
                 </Paper>
-                {(data.group?.vcsProviders.edges?.length === 0) && search !== '' && <Typography
+                {(data?.vcsProviders.edges?.length === 0) && search !== '' && <Typography
                     sx={{
                         padding: 4,
                         borderBottom: `1px solid ${theme.palette.divider}`,
@@ -188,13 +191,13 @@ function VCSProviderList(props: Props) {
                     No VCS providers matching search <strong>{search}</strong>
                 </Typography>}
                 <InfiniteScroll
-                    dataLength={data.group?.vcsProviders.edges?.length ?? 0}
+                    dataLength={data?.vcsProviders.edges?.length ?? 0}
                     next={() => loadNext(20)}
                     hasMore={hasNext}
                     loader={<ListSkeleton rowCount={3} />}
                 >
                     <List sx={isRefreshing ? { opacity: 0.5 } : null} disablePadding>
-                        {data.group?.vcsProviders.edges?.map((edge: any) => <VCSProviderListItem
+                        {data?.vcsProviders.edges?.map((edge: any) => <VCSProviderListItem
                             key={edge.node.id}
                             fragmentRef={edge.node}
                             inherited={group.fullPath !== edge.node.groupPath}
@@ -202,7 +205,7 @@ function VCSProviderList(props: Props) {
                     </List>
                 </InfiniteScroll>
             </Box>}
-            {search === '' && data.group?.vcsProviders.edges?.length === 0 && <Box sx={{ mt: 4 }} display="flex" justifyContent="center">
+            {search === '' && data?.vcsProviders.edges?.length === 0 && <Box sx={{ mt: 4 }} display="flex" justifyContent="center">
                 <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ maxWidth: 600 }}>
                     <Typography variant="h6">Get started with VCS providers</Typography>
                     <Typography color="textSecondary" align="center" sx={{ mb: 2 }}>{DESCRIPTION}</Typography>
@@ -213,4 +216,4 @@ function VCSProviderList(props: Props) {
     );
 }
 
-export default VCSProviderList
+export default VCSProviderList;

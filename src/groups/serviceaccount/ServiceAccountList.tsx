@@ -18,8 +18,12 @@ const DESCRIPTION = 'Service accounts provide access to the Tharsis API using a 
 const INITIAL_ITEM_COUNT = 100;
 
 const query = graphql`
-    query ServiceAccountListQuery($first: Int, $last: Int, $after: String, $before: String, $groupPath: String!, $search: String) {
-        ...ServiceAccountListFragment_serviceAccounts
+    query ServiceAccountListQuery($first: Int, $last: Int, $after: String, $before: String, $groupId: String!, $search: String) {
+        node(id: $groupId) {
+            ...on Group {
+                ...ServiceAccountListFragment_serviceAccounts
+            }
+        }
     }
 `;
 
@@ -36,7 +40,7 @@ export function GetConnections(groupId: string): [string] {
     return [connectionId];
 }
 
-function ServiceAccountList(props: Props) {
+function ServiceAccountList({ fragmentRef }: Props) {
     const theme = useTheme();
     const [search, setSearch] = useState<string | undefined>('');
     const [isRefreshing, setIsRefreshing] = useState(false);
@@ -45,17 +49,17 @@ function ServiceAccountList(props: Props) {
         graphql`
         fragment ServiceAccountListFragment_group on Group
         {
-          fullPath
+            id
+            fullPath
         }
-    `, props.fragmentRef);
+    `, fragmentRef);
 
-    const queryData = useLazyLoadQuery<ServiceAccountListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath }, { fetchPolicy: 'store-and-network' })
+    const queryData = useLazyLoadQuery<ServiceAccountListQuery>(query, { first: INITIAL_ITEM_COUNT, groupId: group.id }, { fetchPolicy: 'store-and-network' })
 
     const { data, loadNext, hasNext, refetch } = usePaginationFragment<ServiceAccountListPaginationQuery, ServiceAccountListFragment_serviceAccounts$key>(
         graphql`
-      fragment ServiceAccountListFragment_serviceAccounts on Query
-      @refetchable(queryName: "ServiceAccountListPaginationQuery") {
-        group(fullPath: $groupPath) {
+        fragment ServiceAccountListFragment_serviceAccounts on Group
+        @refetchable(queryName: "ServiceAccountListPaginationQuery") {
             serviceAccounts(
                 after: $after
                 before: $before
@@ -75,8 +79,8 @@ function ServiceAccountList(props: Props) {
                 }
             }
         }
-      }
-    `, queryData);
+        `, queryData.node
+    );
 
     const environment = useRelayEnvironment();
 
@@ -86,7 +90,7 @@ function ServiceAccountList(props: Props) {
                 (input?: string) => {
                     setIsRefreshing(true);
 
-                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath, search: input })
+                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, groupId: group.id, search: input })
                         .subscribe({
                             complete: () => {
                                 setIsRefreshing(false);
@@ -112,7 +116,7 @@ function ServiceAccountList(props: Props) {
                 2000,
                 { leading: false, trailing: true }
             ),
-        [environment, refetch, group.fullPath],
+        [environment, refetch, group.id],
     );
 
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,7 +138,7 @@ function ServiceAccountList(props: Props) {
                     { title: "service accounts", path: 'service_accounts' }
                 ]}
             />
-            {(search !== '' || data.group?.serviceAccounts.edges?.length !== 0) && <Box>
+            {(search !== '' || data?.serviceAccounts.edges?.length !== 0) && <Box>
                 <Box>
                     <Box sx={{
                         display: 'flex',
@@ -169,11 +173,11 @@ function ServiceAccountList(props: Props) {
                 <Paper sx={{ borderBottomLeftRadius: 0, borderBottomRightRadius: 0, border: `1px solid ${theme.palette.divider}` }}>
                     <Box padding={2} display="flex" alignItems="center" justifyContent="space-between">
                         <Typography variant="subtitle1">
-                            {data.group?.serviceAccounts.totalCount} service account{data.group?.serviceAccounts.totalCount === 1 ? '' : 's'}
+                            {data?.serviceAccounts.totalCount} service account{data?.serviceAccounts.totalCount === 1 ? '' : 's'}
                         </Typography>
                     </Box>
                 </Paper>
-                {(data.group?.serviceAccounts.edges?.length === 0) && search !== '' && <Typography
+                {(data?.serviceAccounts.edges?.length === 0) && search !== '' && <Typography
                     sx={{
                         padding: 4,
                         borderBottom: `1px solid ${theme.palette.divider}`,
@@ -188,13 +192,13 @@ function ServiceAccountList(props: Props) {
                     No service accounts matching search <strong>{search}</strong>
                 </Typography>}
                 <InfiniteScroll
-                    dataLength={data.group?.serviceAccounts.edges?.length ?? 0}
+                    dataLength={data?.serviceAccounts.edges?.length ?? 0}
                     next={() => loadNext(20)}
                     hasMore={hasNext}
                     loader={<ListSkeleton rowCount={3} />}
                 >
                     <List sx={isRefreshing ? { opacity: 0.5 } : null} disablePadding>
-                        {data.group?.serviceAccounts.edges?.map((edge: any) => <ServiceAccountListItem
+                        {data?.serviceAccounts.edges?.map((edge: any) => <ServiceAccountListItem
                             key={edge.node.id}
                             fragmentRef={edge.node}
                             inherited={edge.node.groupPath !== group.fullPath}
@@ -202,7 +206,7 @@ function ServiceAccountList(props: Props) {
                     </List>
                 </InfiniteScroll>
             </Box>}
-            {search === '' && data.group?.serviceAccounts.edges?.length === 0 && <Box sx={{ marginTop: 4 }} display="flex" justifyContent="center">
+            {search === '' && data?.serviceAccounts.edges?.length === 0 && <Box sx={{ marginTop: 4 }} display="flex" justifyContent="center">
                 <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ maxWidth: 600 }}>
                     <Typography variant="h6">Get started with service accounts</Typography>
                     <Typography color="textSecondary" align="center" sx={{ marginBottom: 2 }}>
@@ -215,4 +219,4 @@ function ServiceAccountList(props: Props) {
     );
 }
 
-export default ServiceAccountList
+export default ServiceAccountList;

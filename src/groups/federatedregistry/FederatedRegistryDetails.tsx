@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, ButtonGroup, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Link, Menu, MenuItem, Paper, styled, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Link, Menu, MenuItem, Paper, Stack, styled, Typography } from '@mui/material';
 import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material';
 import { FederatedRegistryIcon } from '../../common/Icons';
 import { LoadingButton } from '@mui/lab';
@@ -8,6 +8,7 @@ import { useSnackbar } from 'notistack';
 import { useFragment, useLazyLoadQuery, useMutation } from 'react-relay/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import NamespaceBreadcrumbs from '../../namespace/NamespaceBreadcrumbs';
+import TRNButton from '../../common/TRNButton';
 import Timestamp from '../../common/Timestamp';
 import { GetConnections } from './FederatedRegistryList';
 import { FederatedRegistryDetailsDeleteMutation } from './__generated__/FederatedRegistryDetailsDeleteMutation.graphql';
@@ -98,6 +99,7 @@ function FederatedRegistryDetails({ fragmentRef }: Props) {
                     }
                     metadata {
                         createdAt
+                        trn
                     }
                 }
 
@@ -184,36 +186,39 @@ function FederatedRegistryDetails({ fragmentRef }: Props) {
                             </Box>
                         </Box>
                         <Box>
-                            <ButtonGroup variant="outlined" color="primary">
-                                <Button onClick={() => navigate('edit')}>Edit</Button>
-                                <Button
-                                    color="primary"
-                                    size="small"
-                                    aria-label="more options menu"
-                                    aria-haspopup="menu"
-                                    onClick={onOpenMenu}
+                            <Stack direction="row" spacing={1}>
+                                <TRNButton trn={federatedRegistry.metadata?.trn || ''} />
+                                <ButtonGroup variant="outlined" color="primary">
+                                    <Button onClick={() => navigate('edit')}>Edit</Button>
+                                    <Button
+                                        color="primary"
+                                        size="small"
+                                        aria-label="more options menu"
+                                        aria-haspopup="menu"
+                                        onClick={onOpenMenu}
+                                    >
+                                        <ArrowDropDown fontSize="small" />
+                                    </Button>
+                                </ButtonGroup>
+                                <Menu
+                                    id="federated-registry-more-options-menu"
+                                    anchorEl={menuAnchorEl}
+                                    open={Boolean(menuAnchorEl)}
+                                    onClose={onMenuClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'right',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
                                 >
-                                    <ArrowDropDown fontSize="small" />
-                                </Button>
-                            </ButtonGroup>
-                            <Menu
-                                id="federated-registry-more-options-menu"
-                                anchorEl={menuAnchorEl}
-                                open={Boolean(menuAnchorEl)}
-                                onClose={onMenuClose}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                            >
-                                <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
-                                    Delete Federated Registry
-                                </MenuItem>
-                            </Menu>
+                                    <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
+                                        Delete Federated Registry
+                                    </MenuItem>
+                                </Menu>
+                            </Stack>
                         </Box>
                     </Box>
                     <Divider sx={{ opacity: 0.6, my: 2, mx: -CARD_PADDING }} />

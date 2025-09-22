@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f5e2f344f4c6a943ef2f24897f804365>>
+ * @generated SignedSource<<1381a2694eeefed97fb99dac7971d128>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -49,7 +49,7 @@ return {
     },
     {
       "kind": "RootArgument",
-      "name": "groupPath"
+      "name": "groupId"
     },
     {
       "kind": "RootArgument",
@@ -93,8 +93,8 @@ return {
       "args": [
         {
           "kind": "Variable",
-          "name": "groupPath",
-          "variableName": "groupPath"
+          "name": "groupId",
+          "variableName": "groupId"
         },
         {
           "kind": "Variable",
@@ -215,6 +215,6 @@ return {
 };
 })();
 
-(node as any).hash = "74a2768dc27a771958783588ba43ece2";
+(node as any).hash = "5b9184b7f0dc8e56181a14671fd850f9";
 
 export default node;

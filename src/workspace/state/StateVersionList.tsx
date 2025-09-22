@@ -1,32 +1,46 @@
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useLazyLoadQuery, usePaginationFragment } from 'react-relay';
+import { useFragment, useLazyLoadQuery, usePaginationFragment } from 'react-relay';
 import ListSkeleton from '../../skeletons/ListSkeleton';
 import StateVersionListItem from './StateVersionListItem';
+import { StateVersionListFragment_workspace$key } from './__generated__/StateVersionListFragment_workspace.graphql';
 import { StateVersionListFragment_stateVersions$key } from './__generated__/StateVersionListFragment_stateVersions.graphql';
 import { StateVersionListPaginationQuery } from './__generated__/StateVersionListPaginationQuery.graphql';
 import { StateVersionListQuery } from './__generated__/StateVersionListQuery.graphql';
 
+const query = graphql`
+    query StateVersionListQuery($first: Int, $last: Int, $after: String, $before: String, $workspaceId: String!) {
+        node(id: $workspaceId) {
+            ...on Workspace {
+                ...StateVersionListFragment_stateVersions
+            }
+        }
+    }
+`;
+
 interface Props {
-    workspacePath: string
+    fragmentRef: StateVersionListFragment_workspace$key
 }
 
-function StateVersionList(props: Props) {
-    const { workspacePath } = props;
+function StateVersionList({ fragmentRef }: Props) {
 
-    const queryData = useLazyLoadQuery<StateVersionListQuery>(graphql`
-        query StateVersionListQuery($first: Int, $last: Int, $after: String, $before: String, $fullPath: String! ) {
-            ...StateVersionListFragment_stateVersions
+    const workspace = useFragment<StateVersionListFragment_workspace$key>(
+        graphql`
+        fragment StateVersionListFragment_workspace on Workspace {
+            id
+            fullPath
         }
-        `, { first: 100, fullPath: workspacePath }, { fetchPolicy: 'network-only' })
+        `, fragmentRef
+    );
+
+    const queryData = useLazyLoadQuery<StateVersionListQuery>(query, { first: 100, workspaceId: workspace.id }, { fetchPolicy: 'store-and-network' });
 
     const { data, loadNext, hasNext } = usePaginationFragment<StateVersionListPaginationQuery, StateVersionListFragment_stateVersions$key>(
         graphql`
-        fragment StateVersionListFragment_stateVersions on Query
+        fragment StateVersionListFragment_stateVersions on Workspace
         @refetchable(queryName: "StateVersionListPaginationQuery") {
-            workspace(fullPath: $fullPath) {
-                stateVersions(
+            stateVersions(
                 after: $after
                 before: $before
                 first: $first
@@ -41,13 +55,12 @@ function StateVersionList(props: Props) {
                 }
             }
         }
-    }
-    `, queryData)
+        `, queryData.node);
 
     return (
         <Box>
-            {data.workspace?.stateVersions.edges && data.workspace?.stateVersions.edges.length > 0 && <InfiniteScroll
-                dataLength={data.workspace?.stateVersions.edges?.length ?? 0}
+            {data?.stateVersions.edges && data?.stateVersions.edges.length > 0 && <InfiniteScroll
+                dataLength={data?.stateVersions.edges?.length ?? 0}
                 next={() => loadNext(20)}
                 hasMore={hasNext}
                 loader={<ListSkeleton rowCount={3} />}
@@ -63,14 +76,14 @@ function StateVersionList(props: Props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.workspace.stateVersions.edges.map((edge: any) => (
-                                <StateVersionListItem key={edge.node.id} stateVersionKey={edge.node} workspacePath={workspacePath} />
+                            {data.stateVersions.edges.map((edge: any) => (
+                                <StateVersionListItem key={edge.node.id} stateVersionKey={edge.node} workspacePath={workspace.fullPath} />
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
             </InfiniteScroll>}
-            {data.workspace?.stateVersions.edges?.length === 0 && <Paper variant="outlined" sx={{ marginTop: 4, display: 'flex', justifyContent: 'center' }}>
+            {data?.stateVersions.edges?.length === 0 && <Paper variant="outlined" sx={{ marginTop: 4, display: 'flex', justifyContent: 'center' }}>
                 <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
                     <Typography variant="h6" color="textSecondary" align="center">No state versions have been created in this workspace</Typography>
                 </Box>
@@ -79,4 +92,4 @@ function StateVersionList(props: Props) {
     );
 }
 
-export default StateVersionList
+export default StateVersionList;

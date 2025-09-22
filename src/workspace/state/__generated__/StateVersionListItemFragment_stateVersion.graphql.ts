@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5ac5283e271d0698924f1a34351b4642>>
+ * @generated SignedSource<<fd37bc12332d82d0ddafd47721083bc0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type StateVersionListItemFragment_stateVersion$data = {
   readonly id: string;
   readonly metadata: {
     readonly createdAt: any;
+    readonly trn: string;
   };
   readonly run: {
     readonly createdBy: string;
@@ -64,6 +65,13 @@ return {
           "kind": "ScalarField",
           "name": "createdAt",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -87,6 +95,6 @@ return {
 };
 })();
 
-(node as any).hash = "6e8e52b3f11812c89c8f876a2e2c95c6";
+(node as any).hash = "85b5a6b9518a556bdb8c47bd265069f7";
 
 export default node;

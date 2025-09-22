@@ -28,8 +28,12 @@ const NewButton =
     </Button>;
 
 const query = graphql`
-    query FederatedRegistryListQuery($first: Int, $last: Int, $after: String, $before: String, $groupPath: String!) {
-        ...FederatedRegistryListFragment_federatedRegistries
+    query FederatedRegistryListQuery($first: Int, $last: Int, $after: String, $before: String, $groupId: String!) {
+        node(id: $groupId) {
+            ...on Group {
+                ...FederatedRegistryListFragment_federatedRegistries
+            }
+        }
     }
 `;
 
@@ -53,17 +57,17 @@ function FederatedRegistryList({ fragmentRef }: Props) {
         graphql`
         fragment FederatedRegistryListFragment_group on Group
         {
+            id
             fullPath
         }
     `, fragmentRef);
 
-    const queryData = useLazyLoadQuery<FederatedRegistryListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath }, { fetchPolicy: 'store-and-network' });
+    const queryData = useLazyLoadQuery<FederatedRegistryListQuery>(query, { first: INITIAL_ITEM_COUNT, groupId: group.id }, { fetchPolicy: 'store-and-network' });
 
     const { data, loadNext, hasNext } = usePaginationFragment<FederatedRegistryListPaginationQuery, FederatedRegistryListFragment_federatedRegistries$key>(
         graphql`
-      fragment FederatedRegistryListFragment_federatedRegistries on Query
+      fragment FederatedRegistryListFragment_federatedRegistries on Group
       @refetchable(queryName: "FederatedRegistryListPaginationQuery") {
-        group(fullPath: $groupPath) {
             federatedRegistries(
                 after: $after
                 before: $before
@@ -79,12 +83,11 @@ function FederatedRegistryList({ fragmentRef }: Props) {
                     }
                 }
             }
-        }
       }
-    `, queryData);
+    `, queryData.node);
 
-    const federatedRegistries = data.group?.federatedRegistries?.edges;
-    const totalCount = data.group?.federatedRegistries?.totalCount ?? 0;
+    const federatedRegistries = data?.federatedRegistries?.edges;
+    const totalCount = data?.federatedRegistries?.totalCount ?? 0;
     const hasRegistries = federatedRegistries && federatedRegistries.length > 0;
 
     return (

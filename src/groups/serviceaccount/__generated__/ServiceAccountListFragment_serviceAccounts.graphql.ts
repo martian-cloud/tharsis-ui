@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<57059df2c3bb4a8f8229d6fc2f89688c>>
+ * @generated SignedSource<<3c0b15386411de8db8bc315a00d56b36>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,18 +11,17 @@
 import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ServiceAccountListFragment_serviceAccounts$data = {
-  readonly group: {
-    readonly serviceAccounts: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly groupPath: string;
-          readonly id: string;
-          readonly " $fragmentSpreads": FragmentRefs<"ServiceAccountListItemFragment_serviceAccount">;
-        } | null | undefined;
-      } | null | undefined> | null | undefined;
-      readonly totalCount: number;
-    };
-  } | null | undefined;
+  readonly id: string;
+  readonly serviceAccounts: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly groupPath: string;
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ServiceAccountListItemFragment_serviceAccount">;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
+    readonly totalCount: number;
+  };
   readonly " $fragmentType": "ServiceAccountListFragment_serviceAccounts";
 };
 export type ServiceAccountListFragment_serviceAccounts$key = {
@@ -34,9 +33,15 @@ import ServiceAccountListPaginationQuery_graphql from './ServiceAccountListPagin
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "group",
   "serviceAccounts"
-];
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [
     {
@@ -50,10 +55,6 @@ return {
     {
       "kind": "RootArgument",
       "name": "first"
-    },
-    {
-      "kind": "RootArgument",
-      "name": "groupPath"
     },
     {
       "kind": "RootArgument",
@@ -86,149 +87,132 @@ return {
         },
         "path": (v0/*: any*/)
       },
-      "fragmentPathInResult": [],
-      "operation": ServiceAccountListPaginationQuery_graphql
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": ServiceAccountListPaginationQuery_graphql,
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "ServiceAccountListFragment_serviceAccounts",
   "selections": [
     {
-      "alias": null,
+      "alias": "serviceAccounts",
       "args": [
         {
+          "kind": "Literal",
+          "name": "includeInherited",
+          "value": true
+        },
+        {
           "kind": "Variable",
-          "name": "fullPath",
-          "variableName": "groupPath"
+          "name": "search",
+          "variableName": "search"
+        },
+        {
+          "kind": "Literal",
+          "name": "sort",
+          "value": "GROUP_LEVEL_DESC"
         }
       ],
-      "concreteType": "Group",
+      "concreteType": "ServiceAccountConnection",
       "kind": "LinkedField",
-      "name": "group",
+      "name": "__ServiceAccountList_serviceAccounts_connection",
       "plural": false,
       "selections": [
         {
-          "alias": "serviceAccounts",
-          "args": [
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ServiceAccountEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
             {
-              "kind": "Literal",
-              "name": "includeInherited",
-              "value": true
+              "alias": null,
+              "args": null,
+              "concreteType": "ServiceAccount",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                (v1/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "groupPath",
+                  "storageKey": null
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "ServiceAccountListItemFragment_serviceAccount"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
             },
             {
-              "kind": "Variable",
-              "name": "search",
-              "variableName": "search"
-            },
-            {
-              "kind": "Literal",
-              "name": "sort",
-              "value": "GROUP_LEVEL_DESC"
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
             }
           ],
-          "concreteType": "ServiceAccountConnection",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
           "kind": "LinkedField",
-          "name": "__ServiceAccountList_serviceAccounts_connection",
+          "name": "pageInfo",
           "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "totalCount",
+              "name": "endCursor",
               "storageKey": null
             },
             {
               "alias": null,
               "args": null,
-              "concreteType": "ServiceAccountEdge",
-              "kind": "LinkedField",
-              "name": "edges",
-              "plural": true,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "ServiceAccount",
-                  "kind": "LinkedField",
-                  "name": "node",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "id",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "groupPath",
-                      "storageKey": null
-                    },
-                    {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "ServiceAccountListItemFragment_serviceAccount"
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "__typename",
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "cursor",
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             },
             {
               "alias": null,
               "args": null,
-              "concreteType": "PageInfo",
-              "kind": "LinkedField",
-              "name": "pageInfo",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "endCursor",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "hasNextPage",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "hasPreviousPage",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "startCursor",
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "hasPreviousPage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "startCursor",
               "storageKey": null
             }
           ],
@@ -236,13 +220,14 @@ return {
         }
       ],
       "storageKey": null
-    }
+    },
+    (v1/*: any*/)
   ],
-  "type": "Query",
+  "type": "Group",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "16e0b15730f2b84496afb48f04a809af";
+(node as any).hash = "4adbbdfc3f8426f3dea9aa2831d7ac35";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c0596937378f16f248e941927866021b>>
+ * @generated SignedSource<<72e7a48ce71acee5d68a9cc55b34dec8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -138,6 +138,13 @@ return {
                         "kind": "ScalarField",
                         "name": "createdAt",
                         "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "trn",
+                        "storageKey": null
                       }
                     ],
                     "storageKey": null
@@ -239,12 +246,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "898be8ed74ad1b6db08a0e57adaf78ed",
+    "cacheID": "cded41c35e700f7bacb2dc4ae963a70b",
     "id": null,
     "metadata": {},
     "name": "AdminAreaUsersListQuery",
     "operationKind": "query",
-    "text": "query AdminAreaUsersListQuery(\n  $first: Int!\n  $after: String\n  $search: String\n) {\n  ...AdminAreaUsersListFragment_users\n}\n\nfragment AdminAreaUserListItemFragment_user on User {\n  metadata {\n    createdAt\n  }\n  id\n  username\n  email\n  admin\n  active\n  scimExternalId\n}\n\nfragment AdminAreaUsersListFragment_users on Query {\n  users(first: $first, after: $after, search: $search) {\n    totalCount\n    edges {\n      node {\n        id\n        ...AdminAreaUserListItemFragment_user\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query AdminAreaUsersListQuery(\n  $first: Int!\n  $after: String\n  $search: String\n) {\n  ...AdminAreaUsersListFragment_users\n}\n\nfragment AdminAreaUserListItemFragment_user on User {\n  metadata {\n    createdAt\n    trn\n  }\n  id\n  username\n  email\n  admin\n  active\n  scimExternalId\n}\n\nfragment AdminAreaUsersListFragment_users on Query {\n  users(first: $first, after: $after, search: $search) {\n    totalCount\n    edges {\n      node {\n        id\n        ...AdminAreaUserListItemFragment_user\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

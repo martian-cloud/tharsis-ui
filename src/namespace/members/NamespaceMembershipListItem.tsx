@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import { useFragment, useMutation } from "react-relay/hooks";
 import Gravatar from '../../common/Gravatar';
 import Timestamp from '../../common/Timestamp';
+import TRNButton from '../../common/TRNButton';
 import Link from '../../routes/Link';
 import RoleAutocomplete from './RoleAutocomplete';
 import { NamespaceMembershipListItemFragment_membership$key } from './__generated__/NamespaceMembershipListItemFragment_membership.graphql';
@@ -31,6 +32,7 @@ function NamespaceMembershipListItem(props: Props) {
             metadata {
                 createdAt
                 updatedAt
+                trn
             }
             id
             role {
@@ -167,6 +169,7 @@ function NamespaceMembershipListItem(props: Props) {
                     </Button>
                 </Stack>}
                 {!editMode && namespacePath === membershipNamespacePath && <Stack direction="row" spacing={1}>
+                    <TRNButton trn={data.metadata.trn} />
                     <Button
                         onClick={() => setEditMode(true)}
                         sx={{ minWidth: 40, padding: '2px' }}

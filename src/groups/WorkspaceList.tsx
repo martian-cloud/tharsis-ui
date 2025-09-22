@@ -3,22 +3,23 @@ import { Box, List, Typography } from '@mui/material';
 import throttle from 'lodash.throttle';
 import graphql from 'babel-plugin-relay/macro';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { ConnectionHandler, fetchQuery, useLazyLoadQuery, usePaginationFragment, useRelayEnvironment } from "react-relay/hooks";
+import { ConnectionHandler, fetchQuery, useFragment, useLazyLoadQuery, usePaginationFragment, useRelayEnvironment } from "react-relay/hooks";
 import ListSkeleton from '../skeletons/ListSkeleton';
 import WorkspaceListItem from './WorkspaceListItem';
 import SearchInput from '../common/SearchInput';
 import { WorkspaceListFragment_workspaces$key } from './__generated__/WorkspaceListFragment_workspaces.graphql';
 import { WorkspaceListPaginationQuery } from './__generated__/WorkspaceListPaginationQuery.graphql';
 import { WorkspaceListQuery } from './__generated__/WorkspaceListQuery.graphql';
+import { WorkspaceListFragment_group$key } from './__generated__/WorkspaceListFragment_group.graphql';
 
 const INITIAL_ITEM_COUNT = 100;
 
 interface Props {
-    groupPath: string
+    fragmentRef: WorkspaceListFragment_group$key
 }
 
 const query = graphql`
-    query WorkspaceListQuery($first: Int, $last: Int, $after: String, $before: String, $groupPath: String, $search: String) {
+    query WorkspaceListQuery($first: Int, $last: Int, $after: String, $before: String, $groupId: String!, $search: String) {
         ...WorkspaceListFragment_workspaces
     }
 `;
@@ -32,12 +33,19 @@ export function GetConnections(groupPath: string): [string] {
     return [connectionId];
 }
 
-function WorkspaceList(props: Props) {
-    const { groupPath } = props;
+function WorkspaceList({ fragmentRef }: Props) {
     const [search, setSearch] = useState<string | undefined>('');
     const [isRefreshing, setIsRefreshing] = useState(false);
 
-    const queryData = useLazyLoadQuery<WorkspaceListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: groupPath  }, { fetchPolicy: 'store-and-network' });
+        const group = useFragment<WorkspaceListFragment_group$key >(
+            graphql`
+            fragment WorkspaceListFragment_group on Group
+            {
+                id
+            }
+        `, fragmentRef);
+
+    const queryData = useLazyLoadQuery<WorkspaceListQuery>(query, { first: INITIAL_ITEM_COUNT, groupId: group.id }, { fetchPolicy: 'store-and-network' });
 
     const { data, loadNext, hasNext, refetch } = usePaginationFragment<WorkspaceListPaginationQuery, WorkspaceListFragment_workspaces$key>(
         graphql`
@@ -48,7 +56,7 @@ function WorkspaceList(props: Props) {
                 before: $before
                 first: $first
                 last: $last
-                groupPath: $groupPath
+                groupId: $groupId
                 search: $search
                 sort: FULL_PATH_ASC
             ) @connection(key: "WorkspaceList_workspaces") {
@@ -73,7 +81,7 @@ function WorkspaceList(props: Props) {
 
                     const normalizedInput = input?.trim();
 
-                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, groupPath: groupPath, search: normalizedInput })
+                    fetchQuery(environment, query, { first: INITIAL_ITEM_COUNT, groupId: group.id, search: normalizedInput })
                         .subscribe({
                             complete: () => {
                                 setIsRefreshing(false);
@@ -94,7 +102,7 @@ function WorkspaceList(props: Props) {
                 2000,
                 { leading: false, trailing: true }
             ),
-        [environment, refetch, groupPath],
+        [environment, refetch, group.id],
     );
 
     useEffect(() => {

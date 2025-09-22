@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2e094ded6614602475a3ea8ada5866fe>>
+ * @generated SignedSource<<3b8c7ad82f90291f8619b09030b3e55b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -93,42 +93,49 @@ v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "createdAt",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "source",
+  "name": "name",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "type",
+  "name": "source",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "description",
+  "name": "type",
   "storageKey": null
 },
 v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "sensitive",
   "storageKey": null
 },
-v13 = [
-  (v8/*: any*/),
-  (v10/*: any*/)
-],
 v14 = [
+  (v9/*: any*/),
+  (v11/*: any*/)
+],
+v15 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -140,24 +147,6 @@ v14 = [
     "variableName": "first"
   }
 ],
-v15 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ResourceMetadata",
-  "kind": "LinkedField",
-  "name": "metadata",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "createdAt",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
 v16 = {
   "alias": null,
   "args": null,
@@ -239,14 +228,33 @@ return {
           {
             "alias": null,
             "args": null,
+            "concreteType": "ResourceMetadata",
+            "kind": "LinkedField",
+            "name": "metadata",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "trn",
+                "storageKey": null
+              },
+              (v8/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "TerraformModule",
             "kind": "LinkedField",
             "name": "module",
             "plural": false,
             "selections": [
               (v7/*: any*/),
-              (v8/*: any*/),
               (v9/*: any*/),
+              (v10/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -314,7 +322,7 @@ return {
                 "name": "variables",
                 "plural": true,
                 "selections": [
-                  (v8/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -322,8 +330,8 @@ return {
                     "name": "required",
                     "storageKey": null
                   },
-                  (v10/*: any*/),
                   (v11/*: any*/),
+                  (v12/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -331,7 +339,7 @@ return {
                     "name": "default",
                     "storageKey": null
                   },
-                  (v12/*: any*/)
+                  (v13/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -343,9 +351,9 @@ return {
                 "name": "outputs",
                 "plural": true,
                 "selections": [
-                  (v8/*: any*/),
-                  (v11/*: any*/),
-                  (v12/*: any*/)
+                  (v9/*: any*/),
+                  (v12/*: any*/),
+                  (v13/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -356,7 +364,7 @@ return {
                 "kind": "LinkedField",
                 "name": "managedResources",
                 "plural": true,
-                "selections": (v13/*: any*/),
+                "selections": (v14/*: any*/),
                 "storageKey": null
               },
               {
@@ -366,7 +374,7 @@ return {
                 "kind": "LinkedField",
                 "name": "dataResources",
                 "plural": true,
-                "selections": (v13/*: any*/),
+                "selections": (v14/*: any*/),
                 "storageKey": null
               },
               {
@@ -377,7 +385,7 @@ return {
                 "name": "requiredProviders",
                 "plural": true,
                 "selections": [
-                  (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -393,7 +401,7 @@ return {
           },
           {
             "alias": null,
-            "args": (v14/*: any*/),
+            "args": (v15/*: any*/),
             "concreteType": "TerraformModuleAttestationConnection",
             "kind": "LinkedField",
             "name": "attestations",
@@ -423,7 +431,7 @@ return {
                         "name": "data",
                         "storageKey": null
                       },
-                      (v11/*: any*/),
+                      (v12/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -431,7 +439,18 @@ return {
                         "name": "predicateType",
                         "storageKey": null
                       },
-                      (v15/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ResourceMetadata",
+                        "kind": "LinkedField",
+                        "name": "metadata",
+                        "plural": false,
+                        "selections": [
+                          (v8/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
                       (v16/*: any*/),
                       {
                         "alias": null,
@@ -483,7 +502,7 @@ return {
           },
           {
             "alias": null,
-            "args": (v14/*: any*/),
+            "args": (v15/*: any*/),
             "filters": null,
             "handle": "connection",
             "key": "TerraformModuleVersionAttestList_attestations",
@@ -504,20 +523,19 @@ return {
             "kind": "ScalarField",
             "name": "shaSum",
             "storageKey": null
-          },
-          (v15/*: any*/)
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "a243c45fc081a59dd4908bb98dab1066",
+    "cacheID": "27a8659f520f823c6aac17d44ef1956e",
     "id": null,
     "metadata": {},
     "name": "TerraformModuleVersionDetailsQuery",
     "operationKind": "query",
-    "text": "query TerraformModuleVersionDetailsQuery(\n  $registryNamespace: String!\n  $moduleName: String!\n  $system: String!\n  $version: String\n  $first: Int\n  $after: String\n) {\n  terraformModuleVersion(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system, version: $version) {\n    id\n    ...TerraformModuleVersionDetailsIndexFragment_details\n  }\n}\n\nfragment TerraformModuleVersionAttestListFragment_attestations on TerraformModuleVersion {\n  id\n  attestations(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        data\n        ...TerraformModuleVersionAttestListItemFragment_module\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment TerraformModuleVersionAttestListItemFragment_module on TerraformModuleAttestation {\n  id\n  description\n  predicateType\n  data\n  metadata {\n    createdAt\n  }\n  createdBy\n}\n\nfragment TerraformModuleVersionDetailsIndexFragment_details on TerraformModuleVersion {\n  id\n  version\n  status\n  module {\n    id\n    name\n    source\n    system\n    registryNamespace\n    private\n    ...TerraformModuleVersionListFragment_module\n  }\n  configurationDetails(path: \"root\") {\n    ...TerraformModuleVersionDocsFragment_configurationDetails\n  }\n  ...TerraformModuleVersionAttestListFragment_attestations\n  ...TerraformModuleVersionDetailsSidebarFragment_details\n}\n\nfragment TerraformModuleVersionDetailsSidebarFragment_details on TerraformModuleVersion {\n  id\n  version\n  createdBy\n  latest\n  shaSum\n  metadata {\n    createdAt\n  }\n  module {\n    id\n    name\n    system\n    registryNamespace\n    private\n    repositoryUrl\n    groupPath\n  }\n}\n\nfragment TerraformModuleVersionDocsDataSourcesFragment_dataResources on TerraformModuleConfigurationDetails {\n  dataResources {\n    name\n    type\n  }\n}\n\nfragment TerraformModuleVersionDocsFragment_configurationDetails on TerraformModuleConfigurationDetails {\n  readme\n  ...TerraformModuleVersionDocsSidebarFragment_configurationDetails\n  ...TerraformModuleVersionDocsInputsFragment_variables\n  ...TerraformModuleVersionDocsOutputsFragment_outputs\n  ...TerraformModuleVersionDocsResourcesFragment_managedResources\n  ...TerraformModuleVersionDocsDataSourcesFragment_dataResources\n  ...TerraformModuleVersionDocsRequiredProvidersFragment_requiredProviders\n}\n\nfragment TerraformModuleVersionDocsInputCardFragment_variable on TerraformModuleConfigurationDetailsVariable {\n  name\n  type\n  description\n  default\n  required\n  sensitive\n}\n\nfragment TerraformModuleVersionDocsInputsFragment_variables on TerraformModuleConfigurationDetails {\n  variables {\n    required\n    name\n    ...TerraformModuleVersionDocsInputCardFragment_variable\n  }\n}\n\nfragment TerraformModuleVersionDocsOutputsFragment_outputs on TerraformModuleConfigurationDetails {\n  outputs {\n    name\n    description\n    sensitive\n  }\n}\n\nfragment TerraformModuleVersionDocsRequiredProvidersFragment_requiredProviders on TerraformModuleConfigurationDetails {\n  requiredProviders {\n    source\n    versionConstraints\n  }\n}\n\nfragment TerraformModuleVersionDocsResourcesFragment_managedResources on TerraformModuleConfigurationDetails {\n  managedResources {\n    name\n    type\n  }\n}\n\nfragment TerraformModuleVersionDocsSidebarFragment_configurationDetails on TerraformModuleConfigurationDetails {\n  readme\n  variables {\n    name\n  }\n  outputs {\n    name\n  }\n  managedResources {\n    name\n  }\n  dataResources {\n    name\n  }\n  requiredProviders {\n    source\n  }\n}\n\nfragment TerraformModuleVersionListFragment_module on TerraformModule {\n  id\n}\n"
+    "text": "query TerraformModuleVersionDetailsQuery(\n  $registryNamespace: String!\n  $moduleName: String!\n  $system: String!\n  $version: String\n  $first: Int\n  $after: String\n) {\n  terraformModuleVersion(registryNamespace: $registryNamespace, moduleName: $moduleName, system: $system, version: $version) {\n    id\n    ...TerraformModuleVersionDetailsIndexFragment_details\n  }\n}\n\nfragment TerraformModuleVersionAttestListFragment_attestations on TerraformModuleVersion {\n  id\n  attestations(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        data\n        ...TerraformModuleVersionAttestListItemFragment_module\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment TerraformModuleVersionAttestListItemFragment_module on TerraformModuleAttestation {\n  id\n  description\n  predicateType\n  data\n  metadata {\n    createdAt\n  }\n  createdBy\n}\n\nfragment TerraformModuleVersionDetailsIndexFragment_details on TerraformModuleVersion {\n  id\n  version\n  status\n  metadata {\n    trn\n  }\n  module {\n    id\n    name\n    source\n    system\n    registryNamespace\n    private\n    ...TerraformModuleVersionListFragment_module\n  }\n  configurationDetails(path: \"root\") {\n    ...TerraformModuleVersionDocsFragment_configurationDetails\n  }\n  ...TerraformModuleVersionAttestListFragment_attestations\n  ...TerraformModuleVersionDetailsSidebarFragment_details\n}\n\nfragment TerraformModuleVersionDetailsSidebarFragment_details on TerraformModuleVersion {\n  id\n  version\n  createdBy\n  latest\n  shaSum\n  metadata {\n    createdAt\n  }\n  module {\n    id\n    name\n    system\n    registryNamespace\n    private\n    repositoryUrl\n    groupPath\n  }\n}\n\nfragment TerraformModuleVersionDocsDataSourcesFragment_dataResources on TerraformModuleConfigurationDetails {\n  dataResources {\n    name\n    type\n  }\n}\n\nfragment TerraformModuleVersionDocsFragment_configurationDetails on TerraformModuleConfigurationDetails {\n  readme\n  ...TerraformModuleVersionDocsSidebarFragment_configurationDetails\n  ...TerraformModuleVersionDocsInputsFragment_variables\n  ...TerraformModuleVersionDocsOutputsFragment_outputs\n  ...TerraformModuleVersionDocsResourcesFragment_managedResources\n  ...TerraformModuleVersionDocsDataSourcesFragment_dataResources\n  ...TerraformModuleVersionDocsRequiredProvidersFragment_requiredProviders\n}\n\nfragment TerraformModuleVersionDocsInputCardFragment_variable on TerraformModuleConfigurationDetailsVariable {\n  name\n  type\n  description\n  default\n  required\n  sensitive\n}\n\nfragment TerraformModuleVersionDocsInputsFragment_variables on TerraformModuleConfigurationDetails {\n  variables {\n    required\n    name\n    ...TerraformModuleVersionDocsInputCardFragment_variable\n  }\n}\n\nfragment TerraformModuleVersionDocsOutputsFragment_outputs on TerraformModuleConfigurationDetails {\n  outputs {\n    name\n    description\n    sensitive\n  }\n}\n\nfragment TerraformModuleVersionDocsRequiredProvidersFragment_requiredProviders on TerraformModuleConfigurationDetails {\n  requiredProviders {\n    source\n    versionConstraints\n  }\n}\n\nfragment TerraformModuleVersionDocsResourcesFragment_managedResources on TerraformModuleConfigurationDetails {\n  managedResources {\n    name\n    type\n  }\n}\n\nfragment TerraformModuleVersionDocsSidebarFragment_configurationDetails on TerraformModuleConfigurationDetails {\n  readme\n  variables {\n    name\n  }\n  outputs {\n    name\n  }\n  managedResources {\n    name\n  }\n  dataResources {\n    name\n  }\n  requiredProviders {\n    source\n  }\n}\n\nfragment TerraformModuleVersionListFragment_module on TerraformModule {\n  id\n}\n"
   }
 };
 })();

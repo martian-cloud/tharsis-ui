@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f1ce9da855d5aafe347420a946512a45>>
+ * @generated SignedSource<<62a4382af33851aab77af0dceef5da03>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -37,6 +37,7 @@ export type RunDetailsPlanStageFragment_plan$data = {
     readonly hasChanges: boolean;
     readonly metadata: {
       readonly createdAt: any;
+      readonly trn: string;
     };
     readonly status: PlanStatus;
     readonly " $fragmentSpreads": FragmentRefs<"RunDetailsPlanSummaryFragment_plan">;
@@ -141,6 +142,13 @@ return {
               "args": null,
               "kind": "ScalarField",
               "name": "createdAt",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "trn",
               "storageKey": null
             }
           ],
@@ -278,6 +286,6 @@ return {
 };
 })();
 
-(node as any).hash = "50145ce21ff659ec55b98d790af5f35f";
+(node as any).hash = "c079de4ee265f34b65f58e059d8555dc";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7bc9a16ed49399b999988578870acfe4>>
+ * @generated SignedSource<<aad530c9e358425a3ae702a47e9fab52>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,7 @@ export type GPGKeyListItemFragment_key$data = {
   readonly id: string;
   readonly metadata: {
     readonly createdAt: any;
+    readonly trn: string;
   };
   readonly " $fragmentType": "GPGKeyListItemFragment_key";
 };
@@ -45,6 +46,13 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "createdAt",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
           "storageKey": null
         }
       ],
@@ -90,6 +98,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "2f109781172826e191d8c7f87ff6f98e";
+(node as any).hash = "dad95116312da6813b4a03b6bbb6885b";
 
 export default node;

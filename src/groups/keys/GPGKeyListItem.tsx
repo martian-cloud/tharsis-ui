@@ -5,6 +5,7 @@ import { KeyVariant as KeyIcon } from 'mdi-material-ui';
 import { useFragment } from "react-relay/hooks";
 import Gravatar from '../../common/Gravatar';
 import Timestamp from '../../common/Timestamp';
+import TRNButton from '../../common/TRNButton';
 import { GPGKeyListItemFragment_key$key } from './__generated__/GPGKeyListItemFragment_key.graphql';
 
 interface Props {
@@ -20,6 +21,7 @@ function GPGKeyListItem({ fragmentRef, inherited, onDelete }: Props) {
         fragment GPGKeyListItemFragment_key on GPGKey {
             metadata {
                 createdAt
+                trn
             }
             id
             gpgKeyId
@@ -40,9 +42,12 @@ function GPGKeyListItem({ fragmentRef, inherited, onDelete }: Props) {
                     borderBottomRightRadius: 4
                 }
             }}
-            secondaryAction={<IconButton onClick={onDelete}>
-                <DeleteIcon />
-            </IconButton>}
+            secondaryAction={<Box display="flex" alignItems="center" gap={1}>
+                <TRNButton trn={data.metadata.trn} size="small"/>
+                <IconButton onClick={onDelete}>
+                    <DeleteIcon />
+                </IconButton>
+            </Box>}
         >
             <ListItemIcon sx={{ minWidth: 40 }}>
                 <KeyIcon color="disabled" />
@@ -51,6 +56,9 @@ function GPGKeyListItem({ fragmentRef, inherited, onDelete }: Props) {
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'row',
+                [theme.breakpoints.down('lg')]: {
+                    paddingRight: 15
+                }
             }}>
                 <Box>
                     <Typography>

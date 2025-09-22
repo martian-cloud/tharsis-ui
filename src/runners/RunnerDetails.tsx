@@ -12,6 +12,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ConnectionHandler, ConnectionInterface, GraphQLSubscriptionConfig, RecordSourceProxy } from "relay-runtime";
 import { RunnerIcon } from "../common/Icons";
 import TabContent from "../common/TabContent";
+import TRNButton from "../common/TRNButton";
 import AssignedServiceAccountList from "./AssignedServiceAccountList";
 import RunnerChip from "./RunnerChip";
 import RunnerJobList from "./RunnerJobList";
@@ -91,6 +92,7 @@ function RunnerDetails({ fragmentRef, getConnections }: Props) {
             runUntaggedJobs
             metadata {
                 createdAt
+                trn
             }
             assignedServiceAccounts (first: 0) {
                 totalCount
@@ -251,36 +253,39 @@ function RunnerDetails({ fragmentRef, getConnections }: Props) {
                     </Box>
                 </Box>
                 <Box>
-                    <ButtonGroup variant="outlined" color="primary">
-                        <Button onClick={() => navigate('edit')}>Edit</Button>
-                        <Button
-                            color="primary"
-                            size="small"
-                            aria-label="more options menu"
-                            aria-haspopup="menu"
-                            onClick={onOpenMenu}
+                    <Stack direction="row" spacing={1}>
+                        <TRNButton trn={runner.metadata.trn} />
+                        <ButtonGroup variant="outlined" color="primary">
+                            <Button onClick={() => navigate('edit')}>Edit</Button>
+                            <Button
+                                color="primary"
+                                size="small"
+                                aria-label="more options menu"
+                                aria-haspopup="menu"
+                                onClick={onOpenMenu}
+                            >
+                                <ArrowDropDownIcon fontSize="small" />
+                            </Button>
+                        </ButtonGroup>
+                        <Menu
+                            id="runner-more-options-menu"
+                            anchorEl={menuAnchorEl}
+                            open={Boolean(menuAnchorEl)}
+                            onClose={onMenuClose}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
                         >
-                            <ArrowDropDownIcon fontSize="small" />
-                        </Button>
-                    </ButtonGroup>
-                    <Menu
-                        id="runner-more-options-menu"
-                        anchorEl={menuAnchorEl}
-                        open={Boolean(menuAnchorEl)}
-                        onClose={onMenuClose}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'right',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                    >
-                        <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
-                            Delete Runner
-                        </MenuItem>
-                    </Menu>
+                            <MenuItem onClick={() => onMenuAction(() => setShowDeleteConfirmationDialog(true))}>
+                                Delete Runner
+                            </MenuItem>
+                        </Menu>
+                    </Stack>
                 </Box>
             </Box>
             <Box sx={{ display: "flex", border: 1, borderColor: 'divider', borderTopLeftRadius: 4, borderTopRightRadius: 4 }}>

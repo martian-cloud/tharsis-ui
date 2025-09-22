@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0fb824c51941616e3f2d3a2b26013508>>
+ * @generated SignedSource<<e94fd7dcd756e9b63707e8d39440e27a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,11 +16,15 @@ export type GroupDetailsIndexFragment_group$data = {
   };
   readonly description: string;
   readonly fullPath: string;
+  readonly id: string;
+  readonly metadata: {
+    readonly trn: string;
+  };
   readonly name: string;
   readonly workspaces: {
     readonly totalCount: number;
   };
-  readonly " $fragmentSpreads": FragmentRefs<"GroupNotificationPreferenceFragment_group" | "MigrateGroupDialogFragment_group">;
+  readonly " $fragmentSpreads": FragmentRefs<"GroupNotificationPreferenceFragment_group" | "MigrateGroupDialogFragment_group" | "WorkspaceListFragment_group">;
   readonly " $fragmentType": "GroupDetailsIndexFragment_group";
 };
 export type GroupDetailsIndexFragment_group$key = {
@@ -55,6 +59,13 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "name",
       "storageKey": null
     },
@@ -70,6 +81,24 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "fullPath",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ResourceMetadata",
+      "kind": "LinkedField",
+      "name": "metadata",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "trn",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -95,6 +124,11 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
+      "name": "WorkspaceListFragment_group"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
       "name": "MigrateGroupDialogFragment_group"
     },
     {
@@ -108,6 +142,6 @@ return {
 };
 })();
 
-(node as any).hash = "7daa39a789767b4a84f11ab0ac65d1ac";
+(node as any).hash = "4c226d46b407fe09877eb79b447c7521";
 
 export default node;

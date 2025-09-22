@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4ab39a3912f0be4a154e6e1d42481474>>
+ * @generated SignedSource<<30449c54267671b8bb41b6d837b759e2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,6 +23,7 @@ export type FederatedRegistryDetailsQuery$data = {
     readonly id?: string;
     readonly metadata?: {
       readonly createdAt: any;
+      readonly trn: string;
     };
   } | null | undefined;
 };
@@ -94,6 +95,13 @@ v7 = {
       "args": null,
       "kind": "ScalarField",
       "name": "createdAt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "trn",
       "storageKey": null
     }
   ],
@@ -197,16 +205,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bfa8a65ad6aef02d0d992b848e69037b",
+    "cacheID": "3059a3b5766823f0cdf5729d6bc9de6b",
     "id": null,
     "metadata": {},
     "name": "FederatedRegistryDetailsQuery",
     "operationKind": "query",
-    "text": "query FederatedRegistryDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on FederatedRegistry {\n      id\n      hostname\n      audience\n      createdBy\n      group {\n        fullPath\n        id\n      }\n      metadata {\n        createdAt\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query FederatedRegistryDetailsQuery(\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ... on FederatedRegistry {\n      id\n      hostname\n      audience\n      createdBy\n      group {\n        fullPath\n        id\n      }\n      metadata {\n        createdAt\n        trn\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "af1c78c247a485fbd133fedd0cda1a8e";
+(node as any).hash = "28b042283608dfd9001108767b038f28";
 
 export default node;

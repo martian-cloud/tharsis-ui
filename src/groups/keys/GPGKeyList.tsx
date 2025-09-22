@@ -19,8 +19,12 @@ const DESCRIPTION = 'GPG Keys are required when publishing Terraform providers t
 const INITIAL_ITEM_COUNT = 100;
 
 const query = graphql`
-    query GPGKeyListQuery($first: Int, $last: Int, $after: String, $before: String, $groupPath: String!) {
-        ...GPGKeyListFragment_keys
+    query GPGKeyListQuery($first: Int, $last: Int, $after: String, $before: String, $groupId: String!) {
+        node(id: $groupId) {
+            ...on Group {
+                ...GPGKeyListFragment_keys
+            }
+        }
     }
 `;
 
@@ -84,13 +88,12 @@ function GPGKeyList(props: Props) {
         }
     `, props.fragmentRef);
 
-    const queryData = useLazyLoadQuery<GPGKeyListQuery>(query, { first: INITIAL_ITEM_COUNT, groupPath: group.fullPath }, { fetchPolicy: 'store-and-network' });
+    const queryData = useLazyLoadQuery<GPGKeyListQuery>(query, { first: INITIAL_ITEM_COUNT, groupId: group.id }, { fetchPolicy: 'store-and-network' });
 
     const { data, loadNext, hasNext } = usePaginationFragment<GPGKeyListPaginationQuery, GPGKeyListFragment_keys$key>(
         graphql`
-      fragment GPGKeyListFragment_keys on Query
+      fragment GPGKeyListFragment_keys on Group
       @refetchable(queryName: "GPGKeyListPaginationQuery") {
-        group(fullPath: $groupPath) {
             gpgKeys(
                 after: $after
                 before: $before
@@ -109,9 +112,8 @@ function GPGKeyList(props: Props) {
                     }
                 }
             }
-        }
       }
-    `, queryData);
+    `, queryData.node);
 
     const [commit, commitInFlight] = useMutation<GPGKeyListDeleteMutation>(graphql`
         mutation GPGKeyListDeleteMutation($input: DeleteGPGKeyInput!, $connections: [ID!]!) {
@@ -165,7 +167,7 @@ function GPGKeyList(props: Props) {
                     { title: "keys", path: 'keys' }
                 ]}
             />
-            {data.group?.gpgKeys.edges?.length !== 0 && <Box>
+            {data?.gpgKeys.edges?.length !== 0 && <Box>
                 <Box marginBottom={2}>
                     <Box sx={{
                         display: 'flex',
@@ -193,18 +195,18 @@ function GPGKeyList(props: Props) {
                 <Paper sx={{ borderBottomLeftRadius: 0, borderBottomRightRadius: 0, border: `1px solid ${theme.palette.divider}` }}>
                     <Box padding={2} display="flex" alignItems="center" justifyContent="space-between">
                         <Typography variant="subtitle1">
-                            {data.group?.gpgKeys.totalCount} key{data.group?.gpgKeys.totalCount === 1 ? '' : 's'}
+                            {data?.gpgKeys.totalCount} key{data?.gpgKeys.totalCount === 1 ? '' : 's'}
                         </Typography>
                     </Box>
                 </Paper>
                 <InfiniteScroll
-                    dataLength={data.group?.gpgKeys.edges?.length ?? 0}
+                    dataLength={data?.gpgKeys.edges?.length ?? 0}
                     next={() => loadNext(20)}
                     hasMore={hasNext}
                     loader={<ListSkeleton rowCount={3} />}
                 >
                     <List disablePadding>
-                        {data.group?.gpgKeys.edges?.map((edge: any) => <GPGKeyListItem
+                        {data?.gpgKeys.edges?.map((edge: any) => <GPGKeyListItem
                             key={edge.node.id}
                             fragmentRef={edge.node}
                             onDelete={() => setGPGKeyToDelete(edge.node)}
@@ -213,7 +215,7 @@ function GPGKeyList(props: Props) {
                     </List>
                 </InfiniteScroll>
             </Box>}
-            {data.group?.gpgKeys.edges?.length === 0 && <Box sx={{ marginTop: 4 }} display="flex" justifyContent="center">
+            {data?.gpgKeys.edges?.length === 0 && <Box sx={{ marginTop: 4 }} display="flex" justifyContent="center">
                 <Box padding={4} display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ maxWidth: 600 }}>
                     <Typography variant="h6">This group does not have any GPG Keys</Typography>
                     <Typography color="textSecondary" align="center" sx={{ marginBottom: 2 }}>
@@ -223,7 +225,7 @@ function GPGKeyList(props: Props) {
                 </Box>
             </Box>}
             {gpgKeyToDelete && <DeleteConfirmationDialog gpgKeyId={gpgKeyToDelete.gpgKeyId} deleteInProgress={commitInFlight} onClose={onDeleteConfirmationDialogClosed} />}
-        </Box >
+        </Box>
     );
 }
 

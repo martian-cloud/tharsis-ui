@@ -12,6 +12,7 @@ import Lottie from 'react-lottie-player';
 import { useFragment, useMutation } from 'react-relay/hooks';
 import Gravatar from '../../common/Gravatar';
 import Timestamp from '../../common/Timestamp';
+import TRNButton from '../../common/TRNButton';
 import { MutationError } from '../../common/error';
 import RocketLottieFileJson from '../../lotties/rocket-in-space-lottie.json';
 import Link from '../../routes/Link';
@@ -54,6 +55,7 @@ function RunDetailsApplyStage(props: Props) {
             apply {
                 metadata {
                     createdAt
+                    trn
                 }
                 status
                 errorMessage
@@ -141,8 +143,10 @@ function RunDetailsApplyStage(props: Props) {
                         paddingTop: 1,
                         marginBottom: 2,
                         display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
+                        flexDirection: { xs: 'column', md: 'row' },
+                        alignItems: { xs: 'flex-start', md: 'center' },
+                        justifyContent: { xs: 'flex-start', md: 'space-between' },
+                        gap: { xs: 1 },
                     }}>
                     <Box display="flex" alignItems="center">
                         <Typography sx={{ paddingRight: '4px' }}>Apply triggered</Typography>
@@ -159,6 +163,7 @@ function RunDetailsApplyStage(props: Props) {
                             {data.apply.triggeredBy}
                         </Typography>
                     </Box>
+                    <TRNButton trn={data.apply.metadata.trn} />
                 </Box>}
                 <Paper variant="outlined" sx={{ marginBottom: 2, p: 2 }} >
                     <Box sx={{

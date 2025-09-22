@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<95e5400c8e38e784afe0824f9d0ec6a5>>
+ * @generated SignedSource<<5d619fcb669bf4014349f30412c276cb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -128,6 +128,24 @@ return {
             "args": null,
             "kind": "ScalarField",
             "name": "description",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ResourceMetadata",
+            "kind": "LinkedField",
+            "name": "metadata",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "trn",
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           },
           (v4/*: any*/),
@@ -270,12 +288,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5b5678aa885443726984238d8d8ee428",
+    "cacheID": "5c137e09c8fe0b3a5af70c96c6d2cfd3",
     "id": null,
     "metadata": {},
     "name": "TeamDetailsQuery",
     "operationKind": "query",
-    "text": "query TeamDetailsQuery(\n  $name: String!\n  $first: Int!\n  $after: String\n) {\n  team(name: $name) {\n    ...TeamDetailsFragment_team\n    id\n  }\n}\n\nfragment TeamDetailsFragment_team on Team {\n  name\n  description\n  ...TeamMemberListFragment_members\n}\n\nfragment TeamMemberListFragment_members on Team {\n  id\n  members(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        ...TeamMemberListItemFragment_member\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment TeamMemberListItemFragment_member on TeamMember {\n  user {\n    username\n    email\n    id\n  }\n  metadata {\n    updatedAt\n  }\n  isMaintainer\n}\n"
+    "text": "query TeamDetailsQuery(\n  $name: String!\n  $first: Int!\n  $after: String\n) {\n  team(name: $name) {\n    ...TeamDetailsFragment_team\n    id\n  }\n}\n\nfragment TeamDetailsFragment_team on Team {\n  name\n  description\n  metadata {\n    trn\n  }\n  ...TeamMemberListFragment_members\n}\n\nfragment TeamMemberListFragment_members on Team {\n  id\n  members(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        ...TeamMemberListItemFragment_member\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment TeamMemberListItemFragment_member on TeamMember {\n  user {\n    username\n    email\n    id\n  }\n  metadata {\n    updatedAt\n  }\n  isMaintainer\n}\n"
   }
 };
 })();
