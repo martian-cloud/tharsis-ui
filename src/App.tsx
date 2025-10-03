@@ -11,6 +11,7 @@ import Root from './Root';
 import AuthServiceContext from './auth/AuthServiceContext';
 import AuthenticationService from './auth/AuthenticationService';
 
+
 interface Props {
     authService: AuthenticationService
     environment: any

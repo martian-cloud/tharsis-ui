@@ -7,7 +7,7 @@ function UserPreferencesEntryPoint() {
     const [queryRef, loadQuery] = useQueryLoader<UserPreferencesQueryType>(UserPreferencesQuery)
 
     useEffect(() => {
-        loadQuery({}, { fetchPolicy: 'store-and-network' })
+        loadQuery({ first: 10 }, { fetchPolicy: 'store-and-network' })
     }, [loadQuery])
 
     return queryRef != null ? <UserPreferences queryRef={queryRef} /> : null

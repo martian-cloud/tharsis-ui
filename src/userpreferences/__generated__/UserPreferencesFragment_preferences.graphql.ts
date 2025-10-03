@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<da82e3fa5308affa64ccddcbdbaff044>>
+ * @generated SignedSource<<f57a7f53e905e39e0332536366de638b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,9 @@
 import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UserPreferencesFragment_preferences$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"UserSessionsFragment_user">;
+  } | null | undefined;
   readonly userPreferences: {
     readonly globalPreferences: {
       readonly " $fragmentSpreads": FragmentRefs<"GlobalNotificationPreferenceFragment_notificationPreference">;
@@ -55,12 +58,35 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "me",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "UserSessionsFragment_user"
+            }
+          ],
+          "type": "User",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
 
-(node as any).hash = "56858f470cedec16f9fd5db9798432e1";
+(node as any).hash = "65c661f1a786cf296ccb0dd1b24f9883";
 
 export default node;
