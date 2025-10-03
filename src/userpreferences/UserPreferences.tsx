@@ -1,18 +1,14 @@
-import { Box, Typography, Divider, styled } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment, PreloadedQuery, usePreloadedQuery } from 'react-relay/hooks';
 import GlobalNotificationPreference from './GlobalNotificationPreference';
+import UserSessions from './UserSessions';
+import PreferenceSection from './PreferenceSection';
 import { UserPreferencesQuery } from './__generated__/UserPreferencesQuery.graphql';
 import { UserPreferencesFragment_preferences$key } from './__generated__/UserPreferencesFragment_preferences.graphql';
 
-const StyledDivider = styled(
-    Divider
-)(() => ({
-    margin: "24px 0"
-}));
-
 const query = graphql`
-    query UserPreferencesQuery {
+    query UserPreferencesQuery($first: Int, $after: String) {
         ...UserPreferencesFragment_preferences
     }
 `;
@@ -32,6 +28,11 @@ function UserPreferences({ queryRef }: Props) {
                         ...GlobalNotificationPreferenceFragment_notificationPreference
                     }
                 }
+                me {
+                    ... on User {
+                        ...UserSessionsFragment_user
+                    }
+                }
             }
         `,
         queryData
@@ -39,9 +40,19 @@ function UserPreferences({ queryRef }: Props) {
 
     return (
         <Box maxWidth={1200} margin="auto" padding={2}>
-            <Typography marginBottom={4} variant="h5" gutterBottom>Preferences</Typography>
-                <StyledDivider />
+            <Typography marginBottom={4} variant="h5" gutterBottom>
+                Preferences
+            </Typography>
+            
+            <PreferenceSection title="Notifications">
                 <GlobalNotificationPreference fragmentRef={data.userPreferences.globalPreferences} />
+            </PreferenceSection>
+
+            {data.me && (
+                <PreferenceSection title="Security" isLast>
+                    <UserSessions fragmentRef={data.me} />
+                </PreferenceSection>
+            )}
         </Box>
     );
 }

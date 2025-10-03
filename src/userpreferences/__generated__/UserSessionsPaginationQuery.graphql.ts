@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<305ed1ac5be25023991a3a9315b66e80>>
+ * @generated SignedSource<<a13808278477f6e0341285c4ee858bde>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,29 +10,46 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserPreferencesQuery$variables = {
+export type UserSessionsPaginationQuery$variables = {
   after?: string | null | undefined;
   first?: number | null | undefined;
+  id: string;
 };
-export type UserPreferencesQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"UserPreferencesFragment_preferences">;
+export type UserSessionsPaginationQuery$data = {
+  readonly node: {
+    readonly " $fragmentSpreads": FragmentRefs<"UserSessionsFragment_user">;
+  } | null | undefined;
 };
-export type UserPreferencesQuery = {
-  response: UserPreferencesQuery$data;
-  variables: UserPreferencesQuery$variables;
+export type UserSessionsPaginationQuery = {
+  response: UserSessionsPaginationQuery$data;
+  variables: UserSessionsPaginationQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "after"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "first"
-},
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "after"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "first"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "id"
+  }
+],
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "id"
+  }
+],
 v2 = {
   "alias": null,
   "args": null,
@@ -40,7 +57,14 @@ v2 = {
   "name": "__typename",
   "storageKey": null
 },
-v3 = [
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -56,28 +80,29 @@ v3 = [
     "name": "sort",
     "value": "CREATED_AT_DESC"
   }
-],
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "UserPreferencesQuery",
+    "name": "UserSessionsPaginationQuery",
     "selections": [
       {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "UserPreferencesFragment_preferences"
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "node",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "UserSessionsFragment_user"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -85,107 +110,26 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "UserPreferencesQuery",
+    "name": "UserSessionsPaginationQuery",
     "selections": [
       {
         "alias": null,
-        "args": null,
-        "concreteType": "UserPreferences",
-        "kind": "LinkedField",
-        "name": "userPreferences",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "GlobalUserPreferences",
-            "kind": "LinkedField",
-            "name": "globalPreferences",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "UserNotificationPreference",
-                "kind": "LinkedField",
-                "name": "notificationPreference",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "scope",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "inherited",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "namespacePath",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "global",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "UserNotificationPreferenceCustomEvents",
-                    "kind": "LinkedField",
-                    "name": "customEvents",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "failedRun",
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
+        "args": (v1/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
-        "name": "me",
+        "name": "node",
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
               {
                 "alias": null,
-                "args": (v3/*: any*/),
+                "args": (v4/*: any*/),
                 "concreteType": "UserSessionConnection",
                 "kind": "LinkedField",
                 "name": "userSessions",
@@ -207,7 +151,7 @@ return {
                         "name": "node",
                         "plural": false,
                         "selections": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -291,7 +235,7 @@ return {
               },
               {
                 "alias": null,
-                "args": (v3/*: any*/),
+                "args": (v4/*: any*/),
                 "filters": [
                   "sort"
                 ],
@@ -299,19 +243,10 @@ return {
                 "key": "UserSessions_userSessions",
                 "kind": "LinkedHandle",
                 "name": "userSessions"
-              },
-              (v4/*: any*/)
+              }
             ],
             "type": "User",
             "abstractKey": null
-          },
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              (v4/*: any*/)
-            ],
-            "type": "Node",
-            "abstractKey": "__isNode"
           }
         ],
         "storageKey": null
@@ -319,16 +254,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "88b3fb9eda8572587e11c66732c15740",
+    "cacheID": "e18bc360fa045124ade18a75c7cea5ba",
     "id": null,
     "metadata": {},
-    "name": "UserPreferencesQuery",
+    "name": "UserSessionsPaginationQuery",
     "operationKind": "query",
-    "text": "query UserPreferencesQuery(\n  $first: Int\n  $after: String\n) {\n  ...UserPreferencesFragment_preferences\n}\n\nfragment GlobalNotificationPreferenceFragment_notificationPreference on GlobalUserPreferences {\n  notificationPreference {\n    ...NotificationButtonFragment_notificationPreference\n  }\n}\n\nfragment NotificationButtonFragment_notificationPreference on UserNotificationPreference {\n  scope\n  inherited\n  namespacePath\n  global\n  customEvents {\n    failedRun\n  }\n}\n\nfragment UserPreferencesFragment_preferences on Query {\n  userPreferences {\n    globalPreferences {\n      ...GlobalNotificationPreferenceFragment_notificationPreference\n    }\n  }\n  me {\n    __typename\n    ... on User {\n      ...UserSessionsFragment_user\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment UserSessionFragment_session on UserSession {\n  id\n  userAgent\n  expiration\n  expired\n  metadata {\n    createdAt\n  }\n}\n\nfragment UserSessionsFragment_user on User {\n  userSessions(first: $first, after: $after, sort: CREATED_AT_DESC) {\n    edges {\n      node {\n        id\n        ...UserSessionFragment_session\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query UserSessionsPaginationQuery(\n  $after: String\n  $first: Int\n  $id: String!\n) {\n  node(id: $id) {\n    __typename\n    ...UserSessionsFragment_user\n    id\n  }\n}\n\nfragment UserSessionFragment_session on UserSession {\n  id\n  userAgent\n  expiration\n  expired\n  metadata {\n    createdAt\n  }\n}\n\nfragment UserSessionsFragment_user on User {\n  userSessions(first: $first, after: $after, sort: CREATED_AT_DESC) {\n    edges {\n      node {\n        id\n        ...UserSessionFragment_session\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "13e3d622010a4f25d97aceb1a1dcb604";
+(node as any).hash = "9ed49a905409e92e53a7351422c81666";
 
 export default node;
