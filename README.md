@@ -1,3 +1,9 @@
+# Archived
+
+⚠️ **This code has been moved**: The UI code for Tharsis has been moved into the main Tharsis repo found [here](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api).
+
+---
+
 # Tharsis UI
 
 Tharsis UI is a modern, fast, and user-friendly frontend written in TypeScript using ReactJS. Powered by GraphQL and WebSockets, it provides real-time information about changes to your Terraform infrastructure.
